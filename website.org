@@ -23,6 +23,150 @@
 :END:
 
 :NOTES:
+- broken hooks...
+  (remove-hook 'prog-mode-hook 'hl-todo-mode)
+  (remove-hook 'prog-mode-hook 'highlight-numbers-mode)
+
+- Idea: Create a navbar for every level 1 heading.
+  + How-to: Hook into TOC generation and create the navbar.
+  + E.g. for below headings, generate:
+    |------+----------+----------+-----|
+    | [[Home][HOME]] | [[Projects][PROJECTS]] | [[Articles][ARTICLES]] | [[RSS][RSS]] |
+    |------+----------+----------+-----|
+
+- What tags should do:
+  + ~:rss:~ marks all entries in that subtree as rss entries
+  + ~:redirect:~ should link to the URL in the subtree
+
+- Function to create navbar
+  #+BEGIN_SRC emacs-lisp
+  (defun my-org-export-toc (&optional scope)
+  "Build an HTML navbar"
+      (interactive)
+      (format "<div id=\"table-of-contents\" role=\"doc-toc\">\n<nav class=\"nav\">\n%s</nav>\n</div>"
+        (mapconcat #'concat
+           (org-map-entries ; Call FUNC at each headline selected by MATCH in SCOPE.
+             (lambda ()
+                 (let* ((title    (car (last (org-get-outline-path t))))
+                        (dir      (file-name-directory buffer-file-name))
+                        (filename (concat (downcase title) ".html")))
+                   (format "<a class=\"nav-link\" href=\"/%s\">%s</a>\n" filename title)))
+             "LEVEL=1" scope) "")))
+  (my-org-export-toc 'file)
+  #+END_SRC
+
+- function to create level 1 entries
+  #+BEGIN_SRC emacs-lisp
+  (defun my-org-export-subtree (&optional scope)
+  "Build an HTML navbar"
+      (interactive)
+      (format "<div><ul>\n%s</ul></div>"
+        (mapconcat #'concat
+           (org-map-entries ; Call FUNC at each headline selected by MATCH in SCOPE.
+             (lambda ()
+                 (let* ((title    (car (last (org-get-outline-path t))))
+                        (parent   (downcase (car (org-get-outline-path))))
+                        (dir      (file-name-directory buffer-file-name))
+                        (filename (replace-regexp-in-string (regexp-quote " ") "-"
+                                                            (concat (downcase title) ".html"))))
+                   (format "<li><a href=\"/%s/%s\">%s</a></li>\n" parent filename title)))
+             "LEVEL=2" scope) "")))
+  (my-org-export-subtree 'tree)
+  #+END_SRC
+
+- Create an html for every level 1 and level 2 heading
+  #+BEGIN_SRC emacs-lisp
+  (defun org-html-inner-template (contents info)
+    "Return body of document string after HTML conversion.
+  CONTENTS is the transcoded contents string.  INFO is a plist
+  holding export options."
+    (concat
+
+     ;; TODO instead of changing this function, use BODY-ONLY in html-export and
+     ;; put this toc in the <head></head>
+     (my-org-export-toc 'file)
+
+     ;; Document contents.
+     contents
+
+     (my-org-export-subtree 'tree)
+
+     ;; Footnotes section.
+     (org-html-footnote-section info)))
+
+  (defun my-org-export-to-html (&optional scope)
+      (interactive)
+      (org-map-entries ; Call FUNC at each headline selected by MATCH in SCOPE.
+         (lambda ()
+             (let* ((title    (car (last (org-get-outline-path t))))
+                    (parent   (car (org-get-outline-path)))
+                    (dir      (file-name-directory buffer-file-name))
+                    (filename (replace-regexp-in-string (regexp-quote " ") "-"
+                                (concat dir
+                                  (if parent (concat (downcase parent) "/") "")
+                                             (downcase title) ".html"))))
+               (print (replace-regexp-in-string (regexp-quote " ") "-" filename))
+               (org-narrow-to-subtree)
+
+               (org-html-export-as-html)
+
+               (write-file filename) ; TODO this causes problems with a bunch of hooks for some reason..
+
+               (kill-current-buffer) ; TODO this makes it so exporting only properly works when only 1 buffer is open..
+               (widen)
+               ))
+         "LEVEL=2" scope)
+      (org-map-entries ; Call FUNC at each headline selected by MATCH in SCOPE.
+         (lambda ()
+             (let* ((title    (car (last (org-get-outline-path t))))
+                    (parent   (car (org-get-outline-path)))
+                    (dir      (file-name-directory buffer-file-name))
+                    (filename (replace-regexp-in-string (regexp-quote " ") "-"
+                                (concat dir
+                                  (if parent (concat (downcase parent) "/") "")
+                                             (downcase title) ".html"))))
+               (print (replace-regexp-in-string (regexp-quote " ") "-" filename))
+               (org-narrow-to-subtree)
+               (org-html-export-as-html)
+
+               (write-file filename) ; TODO this causes problems with a bunch of hooks for some reason..
+
+               (kill-current-buffer) ; TODO this makes it so exporting only properly works when only 1 buffer is open..
+               (widen)
+               ))
+         "LEVEL=1" scope))
+  (my-org-export-to-html)
+  #+END_SRC
+
+  #+RESULTS:
+
+
+- Replace org-links with URLs. Pseudo-Code:
+  (set-link-dst
+    (concat
+      (domain-name)
+      "/"
+      (lowercase (title-of-org-id "orge5d4c8b"))))
+
+- The colorscheme:
+  Color.new('white',      '#ffffff')
+  Color.new('green',      '#99BB66')
+  Color.new('yellow',     '#ECBE7B')
+  Color.new('blue',       '#46D0FF') --'#0170BF'
+  Color.new('darkblue',   '#003c64')
+  Color.new('brown',      '#B4916D')
+  Color.new('grey',       '#404940')
+  Color.new('background', '#18191b')
+
+Resources
+- https://systemcrafters.net/publishing-websites-with-org-mode/building-the-site/
+- https://orgmode.org/manual/Publishing.html
+- https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
+- https://orgmode.org/manual/CSS-support.html
+- https://orgmode.org/manual/HTML-specific-export-settings.html
+:END:
+
+:NOTES:
 #+BEGIN_SRC emacs-lisp
 (defun org-html-toc (depth info &optional scope)
   "Build a table of contents.
@@ -102,123 +246,18 @@ and value is its relative level, as an integer."
 #+END_SRC
 :END:
 
-:NOTES:
-- broken hooks...
-  (remove-hook 'prog-mode-hook 'hl-todo-mode)
-  (remove-hook 'prog-mode-hook 'highlight-numbers-mode)
-
-- Idea: Create a navbar for every level 1 heading.
-  + How-to: Hook into TOC generation and create the navbar.
-  + E.g. for below headings, generate:
-    |------+----------+----------+-----|
-    | [[Home][HOME]] | [[Projects][PROJECTS]] | [[Articles][ARTICLES]] | [[RSS][RSS]] |
-    |------+----------+----------+-----|
-
-- What tags should do:
-  + ~:rss:~ marks all entries in that subtree as rss entries
-  + ~:redirect:~ should link to the URL in the subtree
-
-- Function to create navbar
-  #+BEGIN_SRC emacs-lisp
-  (defun my-org-export-toc (&optional scope)
-  "Build an HTML navbar"
-      (interactive)
-      (format "<div id=\"table-of-contents\" role=\"doc-toc\">\n<nav class=\"nav\">\n%s</nav>\n</div>"
-        (mapconcat #'concat
-           (org-map-entries ; Call FUNC at each headline selected by MATCH in SCOPE.
-             (lambda ()
-                 (let* ((title    (car (last (org-get-outline-path t))))
-                        (dir      (file-name-directory buffer-file-name))
-                        (filename (concat (downcase title) ".html")))
-                   (format "<a class=\"nav-link\" href=\"/%s\">%s</a>\n" filename title)))
-             "LEVEL=1" scope) "")))
-  (my-org-export-toc 'file)
-  #+END_SRC
-
-  #+RESULTS:
-  : <div id="table-of-contents" role="doc-toc">
-  : <nav class="nav">
-  : <a class="nav-link" href="/home.html">Home</a>
-  : <a class="nav-link" href="/projects.html">Projects</a>
-  : <a class="nav-link" href="/articles.html">Articles</a>
-  : <a class="nav-link" href="/rss.html">RSS</a>
-  : </nav>
-  : </div>
-
-- Create an html for every level 1 and level 2 heading
-  #+BEGIN_SRC emacs-lisp
-  (defun org-html-inner-template (contents info)
-    "Return body of document string after HTML conversion.
-  CONTENTS is the transcoded contents string.  INFO is a plist
-  holding export options."
-    (concat
-     ;; Table of contents.
-     (my-org-export-toc 'file)
-     ;; Document contents.
-     contents
-     ;; Footnotes section.
-     (org-html-footnote-section info)))
-  (defun my-org-export-each-level-headline-to-html (&optional level scope)
-      (interactive)
-      (org-map-entries ; Call FUNC at each headline selected by MATCH in SCOPE.
-         (lambda ()
-             (let* ((title    (car (last (org-get-outline-path t))))
-                    (parent   (car (org-get-outline-path)))
-                    (dir      (file-name-directory buffer-file-name))
-                    (filename (concat dir
-                               (if parent (concat (downcase parent) "/") "")
-                               (downcase title) ".html")))
-               (print (replace-regexp-in-string (regexp-quote " ") "-" filename))
-               (org-narrow-to-subtree)
-               (org-html-export-as-html)
-
-               ; TODO don't do this here on the whole path...
-               ; TODO this causes problems with a bunch of hooks for some reason..
-               (write-file (replace-regexp-in-string (regexp-quote " ") "-" filename))
-
-               (kill-current-buffer) ; TODO this makes it so exporting only properly works when only 1 buffer is open..
-               (widen)
-               ))
-         level scope))
-  (my-org-export-each-level-headline-to-html "LEVEL=2")
-  (my-org-export-each-level-headline-to-html "LEVEL=1")
-  #+END_SRC
-
-  #+RESULTS:
-
-
-
-
-- Replace org-links with URLs. Pseudo-Code:
-  (set-link-dst
-    (concat
-      (domain-name)
-      "/"
-      (lowercase (title-of-org-id "orge5d4c8b"))))
-
-- The colorscheme:
-  Color.new('white',      '#ffffff')
-  Color.new('green',      '#99BB66')
-  Color.new('yellow',     '#ECBE7B')
-  Color.new('blue',       '#46D0FF') --'#0170BF'
-  Color.new('darkblue',   '#003c64')
-  Color.new('brown',      '#B4916D')
-  Color.new('grey',       '#404940')
-  Color.new('background', '#18191b')
-
-Resources
-- https://systemcrafters.net/publishing-websites-with-org-mode/building-the-site/
-- https://orgmode.org/manual/Publishing.html
-- https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
-- https://orgmode.org/manual/CSS-support.html
-- https://orgmode.org/manual/HTML-specific-export-settings.html
-:END:
-
 * Home
 ...
 
 * Projects                                                              :rss:
 Here are my projects:
+
+jsidlajsldkj
+
+asdkljasd
+
+aksjldaljd
+
 ** Raytracer
 ...
 
