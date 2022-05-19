@@ -1,0 +1,182 @@
+:PROPERTIES:
+#+TITLE:   My Website
+#+EMAIL:   bla@domain.com
+#+AUTHOR:  Bla bla
+#+DATE:    31-03-10
+#+LANGUAGE: en
+#+OPTIONS:  timestamp:nil         Don't include a timestamp
+#+OPTIONS:  d:(not "NOTES")       Don't export :NOTES: drawer
+#+OPTIONS:  H:1                   Only export lvl1 headings, rest are like lists
+#+OPTIONS:  tags:nil              Don't export :tags:
+#+OPTIONS:  toc:t num:0,notoc     Enable table of contents, don't number heading
+
+#+HTML_HEAD: <style>
+#+HTML_HEAD: body { background-color: #28292b; }
+#+HTML_HEAD: #content { max-width: 60em; margin: auto; background-color: #28292b; color: #ffffff; border-color: #f30000; }
+#+HTML_HEAD: nav.nav { text-align: center; list-style-type: none; color: #ffffff; background-color: #18191b; }
+#+HTML_HEAD: a:link { color: #46D0FF; /* background-color: yellow; */ }
+#+HTML_HEAD: a:visited { color: #0170BF; }
+#+HTML_HEAD: a.nav-link { margin: 15px; color: #99BB66; background-color: #18191b; }
+#+HTML_HEAD: .title  { color: #B4916D; }
+#+HTML_HEAD: </style>
+:END:
+
+:NOTES:
+#+BEGIN_SRC emacs-lisp
+(defun org-html-toc (depth info &optional scope)
+  "Build a table of contents.
+DEPTH is an integer specifying the depth of the table.  INFO is
+a plist used as a communication channel.  Optional argument SCOPE
+is an element defining the scope of the table.  Return the table
+of contents as a string, or nil if it is empty."
+  (let ((toc-entries
+     (mapcar (lambda (headline)
+           (cons (org-html--format-toc-headline headline info)
+             (org-export-get-relative-level headline info)))
+         (org-export-collect-headlines info depth scope))))
+    (when toc-entries
+      (let ((toc (concat "<div id=\"text-table-of-contents\" role=\"doc-toc\">\n<nav class=\"nav\">\n"
+             (org-html--toc-text toc-entries)
+             "</nav>\n</div>\n")))
+    (if scope toc
+      (let ((outer-tag (if (org-html--html5-fancy-p info) "nav" "div")))
+        (concat (format "<%s id=\"table-of-contents\" role=\"doc-toc\">" outer-tag)
+
+            ; TABLE OF CONTENTS header
+            (let ((top-level (plist-get info :html-toplevel-hlevel)))
+              (format "\n" ;"<h%d>%s</h%d>\n"
+                  top-level
+                  (org-html--translate "" info)
+                  top-level))
+
+            toc
+            (format "</%s>\n" outer-tag))))))))
+
+(defun org-html--format-toc-headline (headline info)
+  "Return an appropriate table of contents entry for HEADLINE.
+INFO is a plist used as a communication channel."
+  (let* ((headline-number (org-export-get-headline-number headline info))
+     (todo (and (plist-get info :with-todo-keywords)
+            (let ((todo (org-element-property :todo-keyword headline)))
+              (and todo (org-export-data todo info)))))
+     (todo-type (and todo (org-element-property :todo-type headline)))
+     (priority (and (plist-get info :with-priority)
+            (org-element-property :priority headline)))
+     (text (org-export-data-with-backend
+        (org-export-get-alt-title headline info)
+        (org-export-toc-entry-backend 'html)
+        info))
+     (tags (and (eq (plist-get info :with-tags) t)
+            (org-export-get-tags headline info))))
+    (format "<a class=\"nav-link\" href=\"#%s\">%s</a>\n"
+        ;; Label.
+        (org-html--reference headline info)
+        ;; Body.
+        (concat
+         (and (not (org-export-low-level-p headline info))
+          (org-export-numbered-headline-p headline info)
+          (concat (mapconcat #'number-to-string headline-number ".")
+              ". "))
+         (apply (plist-get info :html-format-headline-function)
+            todo todo-type priority text tags :section-number nil)))))
+
+(defun org-html--toc-text (toc-entries)
+  "Return innards of a table of contents, as a string.
+TOC-ENTRIES is an alist where key is an entry title, as a string,
+and value is its relative level, as an integer."
+  (let* ((prev-level (1- (cdar toc-entries)))
+     (start-level prev-level))
+    (concat
+     (mapconcat
+      (lambda (entry)
+    (let ((headline (car entry))
+          (level (cdr entry)))
+       (let* ((cnt (- level prev-level))
+          (times (if (> cnt 0) (1- cnt) (- cnt))))
+         (setq prev-level level)
+
+       headline)))
+      toc-entries "")
+     )))
+#+END_SRC
+:END:
+
+:NOTES:
+- Idea: Create a navbar for every level 1 heading.
+  + How-to: Hook into TOC generation and create the navbar.
+  + E.g. for below headings, generate:
+    |------+----------+----------+-----|
+    | [[Home][HOME]] | [[Projects][PROJECTS]] | [[Articles][ARTICLES]] | [[RSS][RSS]] |
+    |------+----------+----------+-----|
+
+- What tags should do:
+  + ~:rss:~ marks all entries in that subtree as rss entries
+  + ~:redirect:~ should link to the URL in the subtree
+
+- Create an html for every level 1 and level 2 heading
+  #+BEGIN_SRC emacs-lisp
+  (defun my-org-export-each-level-1-headline-to-html (&optional scope)
+      (interactive)
+      (org-map-entries ; Call FUNC at each headline selected by MATCH in SCOPE.
+         (lambda ()
+             (let* ((title (car (last (org-get-outline-path t))))
+                    (dir (file-name-directory buffer-file-name))
+                    (filename (concat dir title ".html")))
+               (org-narrow-to-subtree)
+               (org-html-export-as-html)
+               (write-file filename)
+               (kill-current-buffer)
+               (widen)))
+         "LEVEL=1" scope))
+  #+END_SRC
+
+- Replace org-links with URLs. Pseudo-Code
+  (set-link-dst
+    (concat
+      (domain-name)
+      "/"
+      (lowercase (title-of-org-id "orge5d4c8b"))))
+
+- The colorscheme:
+  Color.new('white',      '#ffffff')
+  Color.new('green',      '#99BB66')
+  Color.new('yellow',     '#ECBE7B')
+  Color.new('blue',       '#46D0FF') --'#0170BF'
+  Color.new('darkblue',   '#003c64')
+  Color.new('brown',      '#B4916D')
+  Color.new('grey',       '#404940')
+  Color.new('background', '#18191b')
+
+Resources
+- https://systemcrafters.net/publishing-websites-with-org-mode/building-the-site/
+- https://orgmode.org/manual/Publishing.html
+- https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
+- https://orgmode.org/manual/CSS-support.html
+- https://orgmode.org/manual/HTML-specific-export-settings.html
+:END:
+
+* Home
+...
+
+* Projects                                                              :rss:
+Here are my projects:
+** Raytracer
+...
+
+** Org-slide
+...
+
+** Game2D                                                          :noexport:
+...
+
+* Articles                                                              :rss:
+** Article 1
+This is about something
+
+** Article 2
+Bla bla
+
+* RSS                                                              :redirect:
+[[http://andersch.xyz/rss]]
+
+
