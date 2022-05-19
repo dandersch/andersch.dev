@@ -1,14 +1,15 @@
 :PROPERTIES:
 #+TITLE:   My Website
 #+EMAIL:   bla@domain.com
-#+AUTHOR:  Bla bla
-#+DATE:    31-03-10
+# TODO better postamble
+#+AUTHOR:
+#+DATE:
 #+LANGUAGE: en
 #+OPTIONS:  timestamp:nil         Don't include a timestamp
 #+OPTIONS:  d:(not "NOTES")       Don't export :NOTES: drawer
 #+OPTIONS:  H:1                   Only export lvl1 headings, rest are like lists
 #+OPTIONS:  tags:nil              Don't export :tags:
-#+OPTIONS:  toc:t num:0,notoc     Enable table of contents, don't number heading
+#+OPTIONS:  toc:nil num:0,notoc     Enable table of contents, don't number heading
 
 #+HTML_HEAD: <style>
 #+HTML_HEAD: body { background-color: #28292b; }
@@ -102,6 +103,10 @@ and value is its relative level, as an integer."
 :END:
 
 :NOTES:
+- broken hooks...
+  (remove-hook 'prog-mode-hook 'hl-todo-mode)
+  (remove-hook 'prog-mode-hook 'highlight-numbers-mode)
+
 - Idea: Create a navbar for every level 1 heading.
   + How-to: Hook into TOC generation and create the navbar.
   + E.g. for below headings, generate:
@@ -113,8 +118,46 @@ and value is its relative level, as an integer."
   + ~:rss:~ marks all entries in that subtree as rss entries
   + ~:redirect:~ should link to the URL in the subtree
 
+- Function to create navbar
+  #+BEGIN_SRC emacs-lisp
+  (defun my-org-export-toc (&optional scope)
+  "Build an HTML navbar"
+      (interactive)
+      (format "<div id=\"table-of-contents\" role=\"doc-toc\">\n<nav class=\"nav\">\n%s</nav>\n</div>"
+        (mapconcat #'concat
+           (org-map-entries ; Call FUNC at each headline selected by MATCH in SCOPE.
+             (lambda ()
+                 (let* ((title    (car (last (org-get-outline-path t))))
+                        (dir      (file-name-directory buffer-file-name))
+                        (filename (concat (downcase title) ".html")))
+                   (format "<a class=\"nav-link\" href=\"/%s\">%s</a>\n" filename title)))
+             "LEVEL=1" scope) "")))
+  (my-org-export-toc 'file)
+  #+END_SRC
+
+  #+RESULTS:
+  : <div id="table-of-contents" role="doc-toc">
+  : <nav class="nav">
+  : <a class="nav-link" href="/home.html">Home</a>
+  : <a class="nav-link" href="/projects.html">Projects</a>
+  : <a class="nav-link" href="/articles.html">Articles</a>
+  : <a class="nav-link" href="/rss.html">RSS</a>
+  : </nav>
+  : </div>
+
 - Create an html for every level 1 and level 2 heading
   #+BEGIN_SRC emacs-lisp
+  (defun org-html-inner-template (contents info)
+    "Return body of document string after HTML conversion.
+  CONTENTS is the transcoded contents string.  INFO is a plist
+  holding export options."
+    (concat
+     ;; Table of contents.
+     (my-org-export-toc 'file)
+     ;; Document contents.
+     contents
+     ;; Footnotes section.
+     (org-html-footnote-section info)))
   (defun my-org-export-each-level-headline-to-html (&optional level scope)
       (interactive)
       (org-map-entries ; Call FUNC at each headline selected by MATCH in SCOPE.
@@ -125,12 +168,15 @@ and value is its relative level, as an integer."
                     (filename (concat dir
                                (if parent (concat (downcase parent) "/") "")
                                (downcase title) ".html")))
-               ;(print (org-get-heading))
-               ;(print (replace-regexp-in-string (regexp-quote " ") "-" filename))
+               (print (replace-regexp-in-string (regexp-quote " ") "-" filename))
                (org-narrow-to-subtree)
                (org-html-export-as-html)
-               (write-file filename)
-               (kill-current-buffer)
+
+               ; TODO don't do this here on the whole path...
+               ; TODO this causes problems with a bunch of hooks for some reason..
+               (write-file (replace-regexp-in-string (regexp-quote " ") "-" filename))
+
+               (kill-current-buffer) ; TODO this makes it so exporting only properly works when only 1 buffer is open..
                (widen)
                ))
          level scope))
@@ -139,8 +185,6 @@ and value is its relative level, as an integer."
   #+END_SRC
 
   #+RESULTS:
-  | /home/da/dev/andersch.xyz/home.html | /home/da/dev/andersch.xyz/projects.html | /home/da/dev/andersch.xyz/articles.html | /home/da/dev/andersch.xyz/rss.html |
-
 
 
 
