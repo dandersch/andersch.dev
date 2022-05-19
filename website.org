@@ -115,22 +115,37 @@ and value is its relative level, as an integer."
 
 - Create an html for every level 1 and level 2 heading
   #+BEGIN_SRC emacs-lisp
-  (defun my-org-export-each-level-1-headline-to-html (&optional scope)
+  (defun my-org-export-each-level-headline-to-html (&optional level scope)
       (interactive)
       (org-map-entries ; Call FUNC at each headline selected by MATCH in SCOPE.
          (lambda ()
-             (let* ((title (car (last (org-get-outline-path t))))
-                    (dir (file-name-directory buffer-file-name))
-                    (filename (concat dir title ".html")))
+             (let* ((title    (car (last (org-get-outline-path t))))
+                    (parent   (car (org-get-outline-path)))
+                    (dir      (file-name-directory buffer-file-name))
+                    (filename (concat dir
+                               (if parent (concat (downcase parent) "/") "")
+                               (downcase title) ".html")))
+               ;(print (org-get-heading))
+               ;(print (replace-regexp-in-string (regexp-quote " ") "-" filename))
                (org-narrow-to-subtree)
                (org-html-export-as-html)
                (write-file filename)
                (kill-current-buffer)
-               (widen)))
-         "LEVEL=1" scope))
+               (widen)
+               ))
+         level scope))
+  (my-org-export-each-level-headline-to-html "LEVEL=2")
+  (my-org-export-each-level-headline-to-html "LEVEL=1")
   #+END_SRC
 
-- Replace org-links with URLs. Pseudo-Code
+  #+RESULTS:
+  | /home/da/dev/andersch.xyz/home.html | /home/da/dev/andersch.xyz/projects.html | /home/da/dev/andersch.xyz/articles.html | /home/da/dev/andersch.xyz/rss.html |
+
+
+
+
+
+- Replace org-links with URLs. Pseudo-Code:
   (set-link-dst
     (concat
       (domain-name)
