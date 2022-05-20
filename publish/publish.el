@@ -136,16 +136,18 @@
 )
 
 (defun my-format-rss-feed-entry (entry style project)
+
   (when (and (string-match-p "articles/" entry) (not (string= entry "articles/")))
-    ; TODO
-    (print (format "<item>\n<title>%s</title>\n<link>%s</link>\n<pubDate>%s</pubDate>\n</item>"
+    (write-region ; TODO don't append
+      (format "<item>\n<title>%s</title>\n<link>%s</link>\n<pubDate>%s</pubDate>\n</item>\n"
             (org-publish-find-title entry project)
-            (string-replace ".org" ".html" entry)
+            (concat "/" (string-replace ".org" ".html" entry))
             (format-time-string "%a, %d %m %Y %H:%M:%S" (seconds-to-time (org-publish-find-date entry project)))
             ; TODO 01 to Jan & end with (current-time-zone)
-           )
+      )
+      nil "feed_test.rss" 'append)
     )
-  )
+
   (cond ((not (directory-name-p entry))
          (format "[[file:%s][%s]]"
              entry
@@ -208,7 +210,24 @@
 ;; TODO see sitemap: https://orgmode.org/manual/Site-map.html
 ;; TODO see index:   https://orgmode.org/manual/Generating-an-index.html
 
+; TODO remove hardcoded rss header
+(with-temp-file "feed_test.rss"
+  (insert
+   (concat "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+           "<rss version=\"2.0\">\n"
+           "<channel>\n"
+           "<title>My Website</title>\n"
+           "<!-- <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate> -->\n"
+           "<!--- <atom:link href=\"/article/index.xml\" rel=\"self\" type=\"application/rss+xml\"/> -->\n"
+           "<!-- TODO use relative links -->\n"
+           "<link>localhost:8000/home.html</link>\n"
+           "<description>Stuff on programming</description>\n"
+           "<language>en-us</language>\n")))
+
 ;; Generate the site output
 (org-publish-all t)
+
+; TODO remove hardcoded rss ending
+(write-region "</channel>\n</rss>" nil "feed_test.rss" 'append)
 
 (message "Build complete")

@@ -1,8 +1,8 @@
 #+TITLE: Sitemap for project andersch.xyz
 
+- [[file:home.org][Home of my website]]
 - [[file:projects.org][Projects]]
 - [[file:articles.org][Articles]]
-- [[file:home.org][Home of my website]]
 - articles
   - [[file:articles/article-1.org][Article 1]]
   - [[file:articles/why-should-you-learn-php.org][Trying something]]
