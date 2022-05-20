@@ -1,0 +1,7 @@
+#+TITLE: Raytracer
+#+DATE:  <2021-08-11 Wed 18:00>
+
+* Raytracer
+Written in C with OpenGL compute shaders.
+
+TODO: IMAGE

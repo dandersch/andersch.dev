@@ -1,0 +1,5 @@
+#+TITLE: Projects
+* Projects
+These are the projects I wrote:
+- [[file:projects/raytracer.org][Raytracer]]
+- [[file:projects/game2d.org][Game2D]]

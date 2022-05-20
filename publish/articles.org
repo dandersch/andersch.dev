@@ -1,0 +1,5 @@
+#+TITLE: Articles
+* Articles
+These are the articles I have written:
+- [[file:articles/article-1.org][Article 1]]
+- [[file:articles/why-should-you-learn-php.org][Trying something]]

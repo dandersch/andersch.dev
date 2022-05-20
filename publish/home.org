@@ -1,0 +1,5 @@
+#+TITLE: Home of my website
+* Home
+This is my website.
+- Latest article: [[file:articles/article-1.org][Article 1]]
+- Latest project: [[file:projects/raytracer.org][Raytracer]]
