@@ -1,18 +1,18 @@
 ; STUFF FOR #+BEGIN_SRC BLOCKS
 ;; Set the package installation directory so that packages aren't stored in the
 ; ;; ~/.emacs.d/elpa path.
-; (require 'package)
-; (setq package-user-dir (expand-file-name "./.packages"))
-; (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-;                          ("elpa" . "https://elpa.gnu.org/packages/")))
-; 
-; ;; Initialize the package system
-; (package-initialize)
-; (unless package-archive-contents
-;   (package-refresh-contents))
-; 
-; ;; Install dependencies
-; (package-install 'htmlize)
+(require 'package)
+(setq package-user-dir (expand-file-name "./.packages"))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+;; Initialize the package system
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Install dependencies
+(package-install 'htmlize)
 
 (require 'ox-publish)
 
@@ -25,53 +25,9 @@
 ;      org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />")
        org-html-html5-fancy t                  ;; ...
        org-html-preamble t
-       org-html-divs '((preamble "header" "top")
-                       (content "main" "content")
-                       (postamble "footer" "postamble"))
-       org-html-preamble-format '(("en"
-                                   ;(concat ; TODO for some reason concat doesn't work here
-                                   ; TODO just read in header.html
-                                   "<h1 class=\"title\">Website title</h1>
-                                    <div id=\"content\" class=\"content\">
-                                    <nav class=\"nav\">
-                                    <a class=\"nav-link\" href=\"/home.html\">Home</a>
-                                    <a class=\"nav-link\" href=\"/projects.html\">Projects</a>
-                                    <a class=\"nav-link\" href=\"/articles.html\">Articles</a>
-                                    <a class=\"nav-link\" href=\"/feed.rss\">RSS</a>
-                                    </nav>
-                                    </div>\n"))
-       org-html-head "<style>
-          body { background-color: #28292b; }
-          #content { max-width: 60em; margin: auto; background-color: #28292b; color: #ffffff; }
-
-          nav.nav {
-            text-align: center;
-            list-style-type: none;
-            color: #ffffff;
-            background-color: #18191b;
-          }
-          a:link {
-            color: #46D0FF;
-            /* background-color: yellow; */
-          }
-          a:visited {
-            color: #0170BF;
-          }
-          a.nav-link {
-            margin: 15px;
-            color: #99BB66;
-            background-color: #18191b;
-          }
-
-          .title  { text-align: center; margin-bottom: .2em; color: #B4916D; }
-          .subtitle { text-align: center; font-size: medium; font-weight: bold; margin-top:0; }
-          .tag    { background-color: #eee; font-family: monospace; padding: 2px; font-size: 80%; font-weight: normal; }
-          .underline { text-decoration: underline; }
-          #postamble { text-align: right; }
-          #postamble p, #preamble p { font-size: 80%; margin: .2em; }
-
-        </style>"
-      )
+       org-html-divs '((preamble "header" "top") (content "main" "content") (postamble "footer" "postamble"))
+       org-html-head (concat "<style>" (with-temp-buffer (insert-file-contents "style.css") (buffer-string)) "</style>")
+       org-html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string)))))
 
 (defun my-format-rss-feed (title list)
   (let* ((list-entries   (cdr list))

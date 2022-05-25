@@ -7,3 +7,11 @@
 Written in C with OpenGL compute shaders.
 
 [[./raytracer.png]]
+
+
+#+BEGIN_SRC C
+int main()
+{
+    return 0;
+}
+#+END_SRC
