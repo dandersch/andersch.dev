@@ -1,5 +1,12 @@
 #+TITLE: Home of my website
+
 * Home
+#+CAPTION: how to hex
+#+ATTR_HTML: :title hex :align center
+[[file:./chart.jpg]]
+
+\[ x^{2} \]
+
 This is my website.
-- Latest article: [[file:articles/article-1.org][Article 1]]
-- Latest project: [[file:projects/raytracer.org][Raytracer]]
+- Latest article: @@start:article@@[[file:articles/article-1.org][Article 1]]@@end:article@@
+- Latest project: @@start:project@@[[file:projects/raytracer.org][Raytracer]]@@end:project@@
