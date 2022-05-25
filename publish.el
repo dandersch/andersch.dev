@@ -61,16 +61,16 @@
             list-entries)
 
     ; NOTE WORKAROUND for invalid-search-bound bug
-    (switch-to-buffer (find-file-noselect "home.org" nil nil nil))
+    (switch-to-buffer (find-file-noselect "index.org" nil nil nil))
     (setq buf-str (buffer-string))
-    (with-temp-file "home.org"
+    (with-temp-file "index.org"
       (setq buf-str (replace-regexp-in-string "@@start:article@@.*\\(\n.*\\)*@@end:article@@"
           (format "@@start:article@@%s@@end:article@@" latest-article) buf-str nil t))
       (insert
         (replace-regexp-in-string "@@start:project@@.*\\(\n.*\\)*@@end:project@@"
           (format "@@start:project@@%s@@end:project@@" latest-project) buf-str nil t)))
     (switch-to-buffer orig-buffer))
-    (kill-buffer "home.org")
+    (kill-buffer "index.org")
 
   (concat "#+TITLE: " title "\n\n" (org-list-to-org list))) ; NOTE this writes to sitemap.org
 
@@ -147,11 +147,12 @@
            (format "<title>%s</title>\n" website-title)
            "<!-- <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate> -->\n" ; TODO insert todays date
            (format "<atom:link href=\"%s%s\" rel=\"self\" type=\"application/rss+xml\"/>\n" homepage rss-filepath)
-           (format "<link>%s/home.html</link>\n" homepage)
+           (format "<link>%s/index.html</link>\n" homepage)
            "<description>Stuff on programming</description>\n"
            "<language>en-us</language>\n"))))
 
-(org-publish-all t) ;; generate rss feed, expand @@..@@ markers, export html files, copy image files
+(org-publish "andersch.xyz") ;; generate rss feed, expand @@..@@ markers, export html files, copy image files
 (write-region "</channel>\n</rss>" nil "feed.rss" 'append) ;; hardcoded rss ending
+(org-publish "attachments")  ;; copy image files
 
 (message "Build complete")
