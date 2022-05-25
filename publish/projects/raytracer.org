@@ -1,7 +1,13 @@
-#+TITLE: Raytracer
-#+DATE:  <2021-08-11 Wed 18:00>
+#+TITLE:       Raytracer
+#+DATE:        [2022-05-25 Wed 09:50]
+#+DESCRIPTION: A raytracer written in C using OpenGL compute shaders
+#+IMAGE:       raytracer.png
 
 * Raytracer
 Written in C with OpenGL compute shaders.
 
-TODO: IMAGE
+
+
+#+BEGIN_SRC emacs-lisp
+(print (org-collect-keywords '("TITLE" "DATE")))
+#+END_SRC

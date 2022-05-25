@@ -89,7 +89,9 @@
                   (insert
                     (replace-regexp-in-string "@@start:articles@@.*\\(\n.*\\)*@@end:articles@@"
                       (format "@@start:articles@@\n%s\n@@end:articles@@" (org-list-to-org (car (cdr elem))))
-                      buf-str nil t))))
+                      buf-str nil t)))
+                (kill-buffer "articles.org")
+                )
               (when (string= (car elem) "projects")
                 (setq latest-project (car (car (cdr (car (cdr elem))))))
                 (switch-to-buffer (find-file-noselect "projects.org" nil nil nil))
@@ -116,16 +118,21 @@
   (concat "#+TITLE: " title "\n\n" (org-list-to-org list))) ; NOTE this writes to sitemap.org
 
 (defun my-format-rss-feed-entry (entry style project)
+  ;; RSS entry
   (when (and (string-match-p "articles/" entry) (not (string= entry "articles/")))
-    (write-region
-      (format "<item>\n<title>%s</title>\n<link>%s</link>\n<guid>%s</guid>\n<pubDate>%s</pubDate>\n</item>\n"
-            (org-publish-find-title entry project)
-            (concat "http://andersch.xyz/" (string-replace ".org" ".html" entry))
-            ;; TODO add <description></description>
-            (concat "http://andersch.xyz/" (string-replace ".org" ".html" entry))
-            (format-time-string "%a, %d %b %Y %H:%M:%S %z" (seconds-to-time (org-publish-find-date entry project))))
-      nil "feed.rss" 'append))
+    (save-excursion
+      (switch-to-buffer (find-file-noselect entry))
+      (cd "..") ; go up from "articles/"
+      (write-region
+        (format "<item>\n<title>%s</title>\n<link>%s</link>\n<guid>%s</guid>\n<description>%s</description>\n<pubDate>%s</pubDate>\n</item>\n"
+              (org-publish-find-title entry project)
+              (concat "http://andersch.xyz/" (string-replace ".org" ".html" entry))
+              (concat "http://andersch.xyz/" (string-replace ".org" ".html" entry))
+              (alist-get "DESCRIPTION" (org-collect-keywords '("DESCRIPTION") '("DESCRIPTION")) nil nil 'string=)
+              (format-time-string "%a, %d %b %Y %H:%M:%S %z" (seconds-to-time (org-publish-find-date entry project))))
+        nil "feed.rss" 'append)))
 
+  ;; sitemap entry
   (cond ((not (directory-name-p entry))
          (format "[[file:%s][%s]]"
              entry
@@ -180,7 +187,7 @@
            "<description>Stuff on programming</description>\n"
            "<language>en-us</language>\n"))))
 
-(org-publish-all t) ;; generate html files
+(org-publish "andersch.xyz") ;; generate rss feed, expand @@..@@ markers, export html files
 (write-region "</channel>\n</rss>" nil "feed.rss" 'append) ;; hardcoded rss ending
 
 (message "Build complete")

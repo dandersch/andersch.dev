@@ -1,7 +1,7 @@
-#+TITLE: Game2D
-#+DATE:  <2020-01-29 Wed 13:00>
+#+TITLE:       Game2D
+#+DATE:        [2022-05-25 Wed 09:45]
+#+DESCRIPTION: A platformer written in C+ with SFML
+#+IMAGE:
 
 * Game2D
 It's a platformer written in C++ with SFML.
-
-TODO playable js wasm app

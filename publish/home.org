@@ -8,5 +8,5 @@
 \[ x^{2} \]
 
 This is my website.
-- Latest article: @@start:article@@[[file:articles/article-1.org][Article 1]]@@end:article@@
-- Latest project: @@start:project@@[[file:projects/raytracer.org][Raytracer]]@@end:project@@
+- Latest article: @@start:article@@@@end:article@@
+- Latest project: @@start:project@@@@end:project@@
