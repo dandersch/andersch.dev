@@ -6,8 +6,4 @@
 * Raytracer
 Written in C with OpenGL compute shaders.
 
-
-
-#+BEGIN_SRC emacs-lisp
-(print (org-collect-keywords '("TITLE" "DATE")))
-#+END_SRC
+[[./raytracer.png]]

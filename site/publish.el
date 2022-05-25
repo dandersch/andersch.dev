@@ -90,8 +90,7 @@
                     (replace-regexp-in-string "@@start:articles@@.*\\(\n.*\\)*@@end:articles@@"
                       (format "@@start:articles@@\n%s\n@@end:articles@@" (org-list-to-org (car (cdr elem))))
                       buf-str nil t)))
-                (kill-buffer "articles.org")
-                )
+                (kill-buffer "articles.org"))
               (when (string= (car elem) "projects")
                 (setq latest-project (car (car (cdr (car (cdr elem))))))
                 (switch-to-buffer (find-file-noselect "projects.org" nil nil nil))
@@ -101,7 +100,8 @@
                   (insert
                     (replace-regexp-in-string "@@start:projects@@.*\\(\n.*\\)*@@end:projects@@"
                       (format "@@start:projects@@\n%s\n@@end:projects@@" (org-list-to-org (car (cdr elem))))
-                      buf-str nil t)))))
+                      buf-str nil t)))
+                (kill-buffer "projects.org")))
             list-entries)
 
     ; NOTE WORKAROUND for invalid-search-bound bug
@@ -114,6 +114,7 @@
         (replace-regexp-in-string "@@start:project@@.*\\(\n.*\\)*@@end:project@@"
           (format "@@start:project@@%s@@end:project@@" latest-project) buf-str nil t)))
     (switch-to-buffer orig-buffer))
+    (kill-buffer "home.org")
 
   (concat "#+TITLE: " title "\n\n" (org-list-to-org list))) ; NOTE this writes to sitemap.org
 
@@ -144,15 +145,15 @@
 
 (setq org-publish-project-alist
       (list
-       (list "andersch.xyz" ;; check https://orgmode.org/manual/Publishing-options.html for more options
+       (list "andersch.xyz"
              :recursive            t
              :base-directory       "./"
-             :publishing-directory "./"
+             :publishing-directory "../publish/"
              :publishing-function  'org-html-publish-to-html ;; may be a list of functions
            ; :preparation-function                           ;; called before publishing
            ; :completion-function                            ;; called after
            ; :base-extension                                 ;; extension of source files
-             :exclude "sitemap.org"                          ;; regex of files to exclude
+             :exclude "sitemap.org"                          ;; regex of files to exclude NOTE excluding dirs seems to not work
            ; :include                                        ;; list of files to include
 
              :auto-sitemap         t                         ;; https://orgmode.org/manual/Site-map.html
@@ -170,7 +171,14 @@
              :with-creator         nil                       ;; don't include emacs and org versions in footer
              :with-toc             nil                       ;; no table of contents
              :section-numbers      nil                       ;; no section numbers for headings
-             :time-stamp-file      nil)))                    ;; don't include "Created: <timestamp>" in footer
+             :time-stamp-file      nil)                      ;; don't include "Created: <timestamp>" in footer
+       (list "attachments"
+             :recursive            t
+             :base-directory "./"
+             :base-extension "png\\|jpg\\|rss"
+             :publishing-directory "../publish/"
+             :publishing-function 'org-publish-attachment
+     )))
 
 (with-temp-file "feed.rss" ; hardcoded rss header, check with  https://validator.w3.org/feed/
   (insert
@@ -187,7 +195,7 @@
            "<description>Stuff on programming</description>\n"
            "<language>en-us</language>\n"))))
 
-(org-publish "andersch.xyz") ;; generate rss feed, expand @@..@@ markers, export html files
+(org-publish-all t) ;; generate rss feed, expand @@..@@ markers, export html files, copy image files
 (write-region "</channel>\n</rss>" nil "feed.rss" 'append) ;; hardcoded rss ending
 
 (message "Build complete")

@@ -1,0 +1,11 @@
+#+TITLE: Sitemap for project andersch.xyz
+
+- [[file:home.org][Home of my website]]
+- [[file:projects.org][Projects]]
+- [[file:articles.org][Articles]]
+- articles
+  - [[file:articles/why-should-you-learn-php.org][Trying something]]
+  - [[file:articles/opengl-tutorial.org][Opengl Tutorial]]
+- projects
+  - [[file:projects/raytracer.org][Raytracer]]
+  - [[file:projects/game2d.org][Game2D]]
