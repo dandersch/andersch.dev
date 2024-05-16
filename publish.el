@@ -28,7 +28,7 @@
        org-html-divs '((preamble "header" "top") (content "main" "content") (postamble "footer" "postamble"))
        org-html-head (concat
                       "<title>andersch.dev</title>"
-                      "<link rel=\"icon\" type=\"image/x-icon\" href=\"favicon.ico\">"                               ; favicon
+                      "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">"                               ; favicon
                       "<style>" (with-temp-buffer (insert-file-contents "style.css") (buffer-string)) "</style>")    ; css stylesheet
        org-html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string)))))
 
