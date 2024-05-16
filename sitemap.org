@@ -1,0 +1,11 @@
+#+TITLE: Sitemap for project andersch.dev
+
+- [[file:index.org][andersch.dev]]
+- [[file:projects.org][Projects]]
+- [[file:articles.org][Articles]]
+- articles
+  - [[file:articles/bubblesort.org][How Bubblesort works]]
+  - [[file:articles/opengl-tutorial.org][OpenGL Tutorial]]
+- projects
+  - [[file:projects/raytracer.org][OpenGL Raytracer]]
+  - [[file:projects/game2d.org][Game2D]]

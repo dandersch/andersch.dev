@@ -83,8 +83,8 @@
       (write-region
         (format "<item>\n<title>%s</title>\n<link>%s</link>\n<guid>%s</guid>\n<description>%s</description>\n<pubDate>%s</pubDate>\n</item>\n"
               (org-publish-find-title entry project)
-              (concat "http://andersch.xyz/" (string-replace ".org" ".html" entry))
-              (concat "http://andersch.xyz/" (string-replace ".org" ".html" entry))
+              (concat "http://andersch.dev/" (string-replace ".org" ".html" entry))
+              (concat "http://andersch.dev/" (string-replace ".org" ".html" entry))
               (alist-get "DESCRIPTION" (org-collect-keywords '("DESCRIPTION") '("DESCRIPTION")) nil nil 'string=)
               (format-time-string "%a, %d %b %Y %H:%M:%S %z" (seconds-to-time (org-publish-find-date entry project))))
         nil "feed.rss" 'append)))
@@ -101,7 +101,7 @@
 
 (setq org-publish-project-alist
       (list
-       (list "andersch.xyz"
+       (list "andersch.dev"
              :recursive            t
              :base-directory       "./"
              :publishing-directory "../publish/"
@@ -139,7 +139,7 @@
 (with-temp-file "feed.rss" ; hardcoded rss header, check with  https://validator.w3.org/feed/
   (insert
    (let* ((website-title "My website")
-          (homepage      "http://andersch.xyz") ; TODO https instead of http
+          (homepage      "http://andersch.dev") ; TODO https instead of http
           (rss-filepath  "/feed.rss"))
    (concat "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
            "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n"
@@ -151,7 +151,18 @@
            "<description>Stuff on programming</description>\n"
            "<language>en-us</language>\n"))))
 
-(org-publish "andersch.xyz") ;; generate rss feed, expand @@..@@ markers, export html files, copy image files
+
+; NOTE caching causes problems with updating titles etc., so we reset the cache before publishing
+(setq org-publish-use-timestamps-flag nil)
+(setq org-publish-timestamp-directory "./.org-timestamps/")
+(org-publish-remove-all-timestamps)
+; NOTE these resets seem unnessecary
+;(org-element-cache-reset)
+;(org-refile-cache-clear)
+;(org-reset-file-cache)
+;(org-publish-reset-cache)
+
+(org-publish "andersch.dev" t) ;; generate rss feed, expand @@..@@ markers, export html files, copy image files
 (write-region "</channel>\n</rss>" nil "feed.rss" 'append) ;; hardcoded rss ending
 (org-publish "attachments")  ;; copy image files
 

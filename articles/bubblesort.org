@@ -1,0 +1,20 @@
+#+TITLE:   How Bubblesort works
+#+DESCRIPTION: learning
+
+* How Hex works
+#+CAPTION: how to hex
+#+ATTR_HTML: :title hex :align center
+[[file:./chart.jpg]]
+
+
+* Some $$\LaTeX$$ snippets
+
+\[ x^{2} \]
+
+\[ f(x) = \frac{x}{0} \]
+
+
+* Bubblesort Example
+Just sort it.
+1. ~1 3 2 4~
+2. ~1 2 3 4~

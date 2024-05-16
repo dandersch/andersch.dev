@@ -1,12 +1,6 @@
-#+TITLE: Home of my website
+#+TITLE: andersch.dev
 
 * Home
-#+CAPTION: how to hex
-#+ATTR_HTML: :title hex :align center
-[[file:./chart.jpg]]
-
-\[ x^{2} \]
-
 This is my website.
-- Latest article: @@start:article@@[[file:articles/why-should-you-learn-php.org][Trying something]]@@end:article@@
-- Latest project: @@start:project@@[[file:projects/raytracer.org][Raytracer]]@@end:project@@
+- Latest article: @@start:article@@[[file:articles/bubblesort.org][How Bubblesort works]]@@end:article@@
+- Latest project: @@start:project@@[[file:projects/raytracer.org][OpenGL Raytracer]]@@end:project@@

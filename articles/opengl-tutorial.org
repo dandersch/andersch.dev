@@ -1,5 +1,5 @@
-#+title: Opengl Tutorial
+#+TITLE: OpenGL Tutorial
 #+DESCRIPTION: opengl tutorial
 
-* Opengl Tutorial
-Here's how
+* OpenGL Tutorial
+Here's how OpenGL works

@@ -1,8 +1,8 @@
 #+TITLE: Projects
 * Projects
 
-hey These are the projects I wrote:
+Some projects I have worked on:
 @@start:projects@@
-- [[file:projects/raytracer.org][Raytracer]]
+- [[file:projects/raytracer.org][OpenGL Raytracer]]
 - [[file:projects/game2d.org][Game2D]]
 @@end:projects@@

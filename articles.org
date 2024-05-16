@@ -2,6 +2,6 @@
 * Articles
 These are the articles I have written:
 @@start:articles@@
-- [[file:articles/why-should-you-learn-php.org][Trying something]]
-- [[file:articles/opengl-tutorial.org][Opengl Tutorial]]
+- [[file:articles/bubblesort.org][How Bubblesort works]]
+- [[file:articles/opengl-tutorial.org][OpenGL Tutorial]]
 @@end:articles@@
