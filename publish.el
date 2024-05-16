@@ -141,8 +141,8 @@
 
 (with-temp-file "feed.rss" ; hardcoded rss header, check with  https://validator.w3.org/feed/
   (insert
-   (let* ((website-title "My website")
-          (homepage      "http://andersch.dev") ; TODO https instead of http
+   (let* ((website-title "andersch.dev")
+          (homepage      "https://andersch.dev")
           (rss-filepath  "/feed.rss"))
    (concat "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
            "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n"
