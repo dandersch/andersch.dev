@@ -3,6 +3,6 @@
 
 Some projects I have worked on:
 @@start:projects@@
-- [[file:projects/raytracer.org][OpenGL Raytracer]]
-- [[file:projects/game2d.org][Game2D]]
+- [[file:raytracer.org][OpenGL Raytracer]]
+- [[file:game2d.org][Game2D]]
 @@end:projects@@

@@ -39,28 +39,45 @@
          (buf-str "")
          (latest-project ""))
     (mapcar (lambda (elem)
-              (when (string= (car elem) "articles")
-                (setq latest-article (car (car (cdr (car (cdr elem))))))
-                (switch-to-buffer (find-file-noselect "articles.org" nil nil nil))
-                ; NOTE WORKAROUND for invalid-search-bound bug
-                (setq buf-str (buffer-string))
-                (with-temp-file "articles.org"
+              (print elem)
+              (when (string= (car elem) "article")
+                ;(setq latest-article (car (car (cdr (car (cdr elem))))))
+                ; skip over first entry index.org
+                (setq latest-article (car (car (cdr (cdr (car (cdr elem)))))))
+                (switch-to-buffer (find-file-noselect "article/index.org" nil nil nil))
+                (setq buf-str (buffer-string)) ; NOTE WORKAROUND for invalid-search-bound bug
+                (with-temp-file "article/index.org"
                   (insert
-                    (replace-regexp-in-string "@@start:articles@@.*\\(\n.*\\)*@@end:articles@@"
-                      (format "@@start:articles@@\n%s\n@@end:articles@@" (org-list-to-org (car (cdr elem))))
-                      buf-str nil t)))
-                (kill-buffer "articles.org"))
-              (when (string= (car elem) "projects")
-                (setq latest-project (car (car (cdr (car (cdr elem))))))
-                (switch-to-buffer (find-file-noselect "projects.org" nil nil nil))
-                ; NOTE WORKAROUND for invalid-search-bound bug
-                (setq buf-str (buffer-string))
-                (with-temp-file "projects.org"
+                    (replace-regexp-in-string "- \\[\\[file:index.org\\]\\[Articles\\]\\]\n" "" ; remove entry for index.org
+                    (replace-regexp-in-string "article/" ""                                     ; fix path to be relative to article/
+                      (replace-regexp-in-string "@@start:articles@@.*\\(\n.*\\)*@@end:articles@@"
+                        (format "@@start:articles@@\n%s\n@@end:articles@@" (org-list-to-org (car (cdr elem))))
+                        buf-str nil t)
+                      )
+                    )
+                    )
+                  )
+                )
+              (when (string= (car elem) "project")
+                (cd "project")
+                ;(setq latest-project (car (car (cdr (car (cdr elem))))))
+                ; skip over first entry index.org
+                (setq latest-project (car (car (cdr (cdr (car (cdr elem)))))))
+                (switch-to-buffer (find-file-noselect "index.org" nil nil nil))
+                (setq buf-str (buffer-string)) ; NOTE WORKAROUND for invalid-search-bound bug
+                (with-temp-file "index.org"
                   (insert
-                    (replace-regexp-in-string "@@start:projects@@.*\\(\n.*\\)*@@end:projects@@"
-                      (format "@@start:projects@@\n%s\n@@end:projects@@" (org-list-to-org (car (cdr elem))))
-                      buf-str nil t)))
-                (kill-buffer "projects.org")))
+                    (replace-regexp-in-string "- \\[\\[file:index.org\\]\\[Projects\\]\\]\n" "" ; remove entry for index.org
+                    (replace-regexp-in-string "project/" ""                                     ; fix path to be relative to project/
+                      (replace-regexp-in-string "@@start:projects@@.*\\(\n.*\\)*@@end:projects@@"
+                        (format "@@start:projects@@\n%s\n@@end:projects@@" (org-list-to-org (car (cdr elem))))
+                        buf-str nil t)
+                      )
+                    )
+                    )
+                  )
+                (cd "..")
+                ))
             list-entries)
 
     ; NOTE WORKAROUND for invalid-search-bound bug
@@ -73,21 +90,20 @@
         (replace-regexp-in-string "@@start:project@@.*\\(\n.*\\)*@@end:project@@"
           (format "@@start:project@@%s@@end:project@@" latest-project) buf-str nil t)))
     (switch-to-buffer orig-buffer))
-    (kill-buffer "index.org")
 
   (concat "#+TITLE: " title "\n\n" (org-list-to-org list))) ; NOTE this writes to sitemap.org
 
 (defun my-format-rss-feed-entry (entry style project)
   ;; RSS entry
-  (when (and (string-match-p "articles/" entry) (not (string= entry "articles/")))
+  (when (and (string-match-p "article/" entry) (not (string= entry "article/")))
     (save-excursion
       (switch-to-buffer (find-file-noselect entry))
-      (cd "..") ; go up from "articles/"
+      (cd "..") ; go up from "article/"
       (write-region
         (format "<item>\n<title>%s</title>\n<link>%s</link>\n<guid>%s</guid>\n<description>%s</description>\n<pubDate>%s</pubDate>\n</item>\n"
               (org-publish-find-title entry project)
-              (concat "http://andersch.dev/" (string-replace ".org" ".html" entry))
-              (concat "http://andersch.dev/" (string-replace ".org" ".html" entry))
+              (concat "https://andersch.dev/" (string-replace ".org" ".html" entry))
+              (concat "https://andersch.dev/" (string-replace ".org" ".html" entry))
               (alist-get "DESCRIPTION" (org-collect-keywords '("DESCRIPTION") '("DESCRIPTION")) nil nil 'string=)
               (format-time-string "%a, %d %b %Y %H:%M:%S %z" (seconds-to-time (org-publish-find-date entry project))))
         nil "feed.rss" 'append)))

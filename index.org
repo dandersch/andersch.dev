@@ -2,5 +2,6 @@
 
 * Home
 This is my website.
-- Latest article: @@start:article@@[[file:articles/bubblesort.org][How Bubblesort works]]@@end:article@@
-- Latest project: @@start:project@@[[file:projects/raytracer.org][OpenGL Raytracer]]@@end:project@@
+
+- Latest article: @@start:article@@[[file:article/bubblesort.org][How Bubblesort works]]@@end:article@@
+- Latest project: @@start:project@@[[file:project/raytracer.org][OpenGL Raytracer]]@@end:project@@
