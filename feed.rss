@@ -8,16 +8,23 @@
 <description>Stuff on programming</description>
 <language>en-us</language>
 <item>
+<title>Articles</title>
+<link>https://andersch.dev/article/index.html</link>
+<guid>https://andersch.dev/article/index.html</guid>
+<description>nil</description>
+<pubDate>Thu, 16 May 2024 21:02:03 +0200</pubDate>
+</item>
+<item>
 <title>How Bubblesort works</title>
-<link>http://andersch.dev/articles/bubblesort.html</link>
-<guid>http://andersch.dev/articles/bubblesort.html</guid>
+<link>https://andersch.dev/article/bubblesort.html</link>
+<guid>https://andersch.dev/article/bubblesort.html</guid>
 <description>learning</description>
 <pubDate>Thu, 16 May 2024 17:47:39 +0200</pubDate>
 </item>
 <item>
 <title>OpenGL Tutorial</title>
-<link>http://andersch.dev/articles/opengl-tutorial.html</link>
-<guid>http://andersch.dev/articles/opengl-tutorial.html</guid>
+<link>https://andersch.dev/article/opengl-tutorial.html</link>
+<guid>https://andersch.dev/article/opengl-tutorial.html</guid>
 <description>opengl tutorial</description>
 <pubDate>Thu, 16 May 2024 17:43:29 +0200</pubDate>
 </item>
