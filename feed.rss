@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-<title>andersch.xyz</title>
+<title>My website</title>
 <!-- <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate> -->
-<atom:link href="http://andersch.xyz/feed.rss" rel="self" type="application/rss+xml"/>
-<link>http://andersch.xyz/home.html</link>
+<atom:link href="http://andersch.dev/feed.rss" rel="self" type="application/rss+xml"/>
+<link>http://andersch.dev/index.html</link>
 <description>Stuff on programming</description>
 <language>en-us</language>
+<item>
+<title>How Bubblesort works</title>
+<link>http://andersch.dev/articles/bubblesort.html</link>
+<guid>http://andersch.dev/articles/bubblesort.html</guid>
+<description>learning</description>
+<pubDate>Thu, 16 May 2024 17:47:39 +0200</pubDate>
+</item>
+<item>
+<title>OpenGL Tutorial</title>
+<link>http://andersch.dev/articles/opengl-tutorial.html</link>
+<guid>http://andersch.dev/articles/opengl-tutorial.html</guid>
+<description>opengl tutorial</description>
+<pubDate>Thu, 16 May 2024 17:43:29 +0200</pubDate>
+</item>
+</channel>
+</rss>
