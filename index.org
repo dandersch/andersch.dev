@@ -2,6 +2,53 @@
 
 * Home
 This is my website.
-
 - Latest article: @@start:article@@[[file:article/bubblesort.org][How Bubblesort works]]@@end:article@@
 - Latest project: @@start:project@@[[file:project/raytracer.org][OpenGL Raytracer]]@@end:project@@
+
+#+NAME: latest-article
+#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-article-keyword-list)
+(setq latest (car list))
+(format "Latest article: [[./%s][%s]]\n#+attr_html: :width 700px\n[[./article/%s]]\n" (car latest) (cadr (assoc "TITLE" (cadr latest))) (cadr (assoc "IMAGE" (cadr latest))))
+
+; HTML for clickable image:
+; <p><a href="./article/bubblesort.html"><img src="./article/bubblesort.jpg"></a></p>
+#+END_SRC
+
+#+NAME: latest-project
+#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-project-keyword-list)
+(setq latest (car list))
+(format "Latest project: [[./%s][%s]]\n[[./project/%s]]\n" (car latest) (cadr (assoc "TITLE" (cadr latest))) (cadr (assoc "IMAGE" (cadr latest))))
+#+END_SRC
+
+* Latest article
+#+RESULTS: latest-article
+:results:
+[[./article/bubblesort.org][How Bubblesort works]]
+#+attr_html: :width 700px
+#+ATTR_HTML: :style border:2px solid black;
+[[./article/bubblesort.jpg]]
+:end:
+
+* Latest project
+#+RESULTS: latest-project
+:results:
+[[./project/raytracer.org][OpenGL Raytracer]]
+#+attr_html: :width 700px
+[[./project/raytracer.png]]
+:end:
+
+#+NAME: list-of-articles
+#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-article-keyword-list)
+(setq org-list-string '())
+(dolist (entry list)
+  (push (format "- [[./%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) org-list-string)
+)
+(print (mapconcat #'identity org-list-string "\n")) ; flatten string list to a string
+#+END_SRC
+
+Here is a list of articles
+#+RESULTS: list-of-articles
+:results:
+- [[./article/opengl-tutorial.org][OpenGL Tutorial]]
+- [[./article/bubblesort.org][How Bubblesort works]]
+:end:

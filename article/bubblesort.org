@@ -1,6 +1,7 @@
-#+TITLE:   How Bubblesort works
+#+TITLE:       How Bubblesort works
 #+DESCRIPTION: learning
-
+#+DATE:        <2024-05-08 Wed 13:15>
+#+IMAGE:       bubblesort.jpg
 * How Hex works
 #+CAPTION: how to hex
 #+ATTR_HTML: :title hex :align center

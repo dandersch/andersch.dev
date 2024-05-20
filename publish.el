@@ -1,24 +1,38 @@
-; STUFF FOR #+BEGIN_SRC BLOCKS
-;; Set the package installation directory so that packages aren't stored in the
-; ;; ~/.emacs.d/elpa path.
+;
+; ENABLE #+BEGIN_SRC CODE BLOCKS
+;
+;; set package install dir to local directory
 (require 'package)
 (setq package-user-dir (expand-file-name "./.packages"))
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
-
-;; Initialize the package system
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
 
-;; Install dependencies
+(setq org-src-fontify-natively t)
+(setq org-html-htmlize-output-type 'css)
+
+;; dependencies
 (package-install 'htmlize)
 
 (require 'ox-publish)
 
+; ; ORG-HTML-THEMIFY
+; (add-to-list 'load-path "./.packages/s")
+; (require 's)
+; (add-to-list 'load-path "./.packages/dash")
+; (require 'dash)
+; (add-to-list 'load-path "./.packages/hexrgb")
+; (require 'hexrgb)
+; (add-to-list 'load-path "./.packages/org-html-themify")
+; (require 'org-html-themify)
+; (add-hook 'org-mode-hook 'org-html-themify-mode)
+; (require 'hl-line)
+
 ; see https://pank.eu/blog/blog-setup.html
 
-;; Customize the HTML output
+;; customize HTML output
 (setq org-html-validation-link nil             ;; Don't show validation link
 ;      org-html-head-include-scripts nil       ;; js scripts to include
 ;      org-html-head-include-default-style nil ;; don't use default css stylesheet
@@ -28,8 +42,10 @@
        org-html-divs '((preamble "header" "top") (content "main" "content") (postamble "footer" "postamble"))
        org-html-head (concat
                       "<title>andersch.dev</title>"
-                      "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">"                               ; favicon
-                      "<style>" (with-temp-buffer (insert-file-contents "style.css") (buffer-string)) "</style>")    ; css stylesheet
+                      "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">"                          ; favicon
+                      "<style>" (with-temp-buffer (insert-file-contents "style.css") (buffer-string)) "</style>" ; css stylesheet
+                      "<style>" (with-temp-buffer (insert-file-contents "code.css") (buffer-string)) "</style>"  ; css for src code blocks
+                      )
        org-html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string)))))
 
 (defun my-format-rss-feed (title list)
@@ -39,7 +55,6 @@
          (buf-str "")
          (latest-project ""))
     (mapcar (lambda (elem)
-              (print elem)
               (when (string= (car elem) "article")
                 ;(setq latest-article (car (car (cdr (car (cdr elem))))))
                 ; skip over first entry index.org
@@ -180,6 +195,10 @@
 ;(org-refile-cache-clear)
 ;(org-reset-file-cache)
 ;(org-publish-reset-cache)
+
+; NOTE workaround to not get a "Symbol’s function definition is void" error when publishing
+(defun get-article-keyword-list ())
+(defun get-project-keyword-list ())
 
 (org-publish "andersch.dev" t) ;; generate rss feed, expand @@..@@ markers, export html files, copy image files
 (write-region "</channel>\n</rss>" nil "feed.rss" 'append) ;; hardcoded rss ending
