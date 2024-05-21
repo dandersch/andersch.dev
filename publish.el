@@ -18,18 +18,6 @@
 
 (require 'ox-publish)
 
-; ; ORG-HTML-THEMIFY
-; (add-to-list 'load-path "./.packages/s")
-; (require 's)
-; (add-to-list 'load-path "./.packages/dash")
-; (require 'dash)
-; (add-to-list 'load-path "./.packages/hexrgb")
-; (require 'hexrgb)
-; (add-to-list 'load-path "./.packages/org-html-themify")
-; (require 'org-html-themify)
-; (add-hook 'org-mode-hook 'org-html-themify-mode)
-; (require 'hl-line)
-
 ; see https://pank.eu/blog/blog-setup.html
 
 ;; customize HTML output
@@ -43,6 +31,7 @@
        org-html-head (concat
                       "<title>andersch.dev</title>"
                       "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">"                          ; favicon
+                      ;; TODO maybe don't insert the css into the html
                       "<style>" (with-temp-buffer (insert-file-contents "style.css") (buffer-string)) "</style>" ; css stylesheet
                       ;"<style>" (with-temp-buffer (insert-file-contents "code.css") (buffer-string)) "</style>"  ; css for src code blocks
                       )
@@ -56,6 +45,9 @@
          (latest-project ""))
     (mapcar (lambda (elem)
               (when (string= (car elem) "article")
+                ;
+                ; fill out @@start:articles@@ marker
+                ;
                 ;(setq latest-article (car (car (cdr (car (cdr elem))))))
                 ; skip over first entry index.org
                 (setq latest-article (car (car (cdr (cdr (car (cdr elem)))))))
@@ -74,6 +66,9 @@
                   )
                 )
               (when (string= (car elem) "project")
+                ;
+                ; fill out @@start:projects@@ marker
+                ;
                 (cd "project")
                 ;(setq latest-project (car (car (cdr (car (cdr elem))))))
                 ; skip over first entry index.org
@@ -95,6 +90,9 @@
                 ))
             list-entries)
 
+    ;
+    ; fill out @@start:{article,project}@@ marker
+    ;
     ; NOTE WORKAROUND for invalid-search-bound bug
     (switch-to-buffer (find-file-noselect "index.org" nil nil nil))
     (setq buf-str (buffer-string))
@@ -151,8 +149,8 @@
            ; :sitemap-title
              :sitemap-style        'tree                     ;; list or tree
              :sitemap-sort-files   'anti-chronologically
-             :sitemap-function     'my-format-rss-feed
-             :sitemap-format-entry 'my-format-rss-feed-entry
+           ;  :sitemap-function     'my-format-rss-feed
+           ;  :sitemap-format-entry 'my-format-rss-feed-entry
 
            ; :makeindex t                                    ;; https://orgmode.org/manual/Generating-an-index.html
 
@@ -170,22 +168,6 @@
              :publishing-function 'org-publish-attachment
      )))
 
-(with-temp-file "feed.rss" ; hardcoded rss header, check with  https://validator.w3.org/feed/
-  (insert
-   (let* ((website-title "andersch.dev")
-          (homepage      "https://andersch.dev")
-          (rss-filepath  "/feed.rss"))
-   (concat "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-           "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n"
-           "<channel>\n"
-           (format "<title>%s</title>\n" website-title)
-           "<!-- <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate> -->\n" ; TODO insert todays date
-           (format "<atom:link href=\"%s%s\" rel=\"self\" type=\"application/rss+xml\"/>\n" homepage rss-filepath)
-           (format "<link>%s/index.html</link>\n" homepage)
-           "<description>Stuff on programming</description>\n"
-           "<language>en-us</language>\n"))))
-
-
 ; NOTE caching causes problems with updating titles etc., so we reset the cache before publishing
 (setq org-publish-use-timestamps-flag nil)
 (setq org-publish-timestamp-directory "./.org-timestamps/")
@@ -200,8 +182,7 @@
 (defun get-article-keyword-list ())
 (defun get-project-keyword-list ())
 
-(org-publish "andersch.dev" t) ;; generate rss feed, expand @@..@@ markers, export html files, copy image files
-(write-region "</channel>\n</rss>" nil "feed.rss" 'append) ;; hardcoded rss ending
-(org-publish "attachments")  ;; copy image files
+(org-publish "andersch.dev" t) ;; expand @@..@@ markers, export html files, copy image files
+(org-publish "attachments")    ;; copy image files
 
 (message "Build complete")

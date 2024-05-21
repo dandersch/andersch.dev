@@ -1,10 +1,11 @@
+emacs -Q --script test.el
 emacs -Q --script publish.el
 
 #firefox -new-tab http://andersch.dev/
 # python -m http.server --dir ../publish 1337
 
 #inotifywait --recursive --excludei ".git|.packages|.org-timestamps|feed.rss" --monitor --event modify ./ | 
-inotifywait --recursive --includei "style.css|code.css|header.html|opengl*" --monitor --event modify ./ | 
+inotifywait --recursive --includei "style.css" --monitor --event modify ./ | 
    while read file_path file_event file_name; do 
        echo ${file_path}${file_name} event: ${file_event}
        emacs -Q --script publish.el

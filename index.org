@@ -14,6 +14,7 @@ This is my website.
 ; <p><a href="./article/bubblesort.html"><img src="./article/bubblesort.jpg"></a></p>
 #+END_SRC
 
+
 #+NAME: latest-project
 #+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-project-keyword-list)
 (setq latest (car list))
@@ -23,17 +24,27 @@ This is my website.
 * Latest article
 #+RESULTS: latest-article
 :results:
-[[./article/bubblesort.org][How Bubblesort works]]
+Latest article: [[./article/bubblesort.org][How Bubblesort works]]
 #+attr_html: :width 700px
-#+ATTR_HTML: :style border:2px solid black;
 [[./article/bubblesort.jpg]]
 :end:
+
+#+BEGIN_EXPORT html
+<div class="image-container">
+    <a href="./article/bubblesort.html">
+        <div class="overlay">
+            <div class="title">How Bubblesort works</div>
+            <div class="description">It is really simple</div>
+        </div>
+        <img src="./article/bubblesort.jpg" alt="bubblesort">
+    </a>
+</div>
+#+END_EXPORT
 
 * Latest project
 #+RESULTS: latest-project
 :results:
-[[./project/raytracer.org][OpenGL Raytracer]]
-#+attr_html: :width 700px
+Latest project: [[./project/raytracer.org][OpenGL Raytracer]]
 [[./project/raytracer.png]]
 :end:
 
@@ -52,3 +63,15 @@ Here is a list of articles
 - [[./article/opengl-tutorial.org][OpenGL Tutorial]]
 - [[./article/bubblesort.org][How Bubblesort works]]
 :end:
+
+#+BEGIN_EXPORT html
+<div class="image-container">
+    <a href="./project/raytracer.html">
+        <div class="overlay">
+            <div class="title">OpenGL Raytracer</div>
+            <div class="description">Raytracer written in C++ using OpenGL</div>
+        </div>
+        <img src="./project/raytracer.png" alt="raytracer">
+    </a>
+</div>
+#+END_EXPORT

@@ -8,13 +8,6 @@
 <description>Stuff on programming</description>
 <language>en-us</language>
 <item>
-<title>Articles</title>
-<link>https://andersch.dev/article/index.html</link>
-<guid>https://andersch.dev/article/index.html</guid>
-<description>nil</description>
-<pubDate>Tue, 21 May 2024 18:34:10 +0200</pubDate>
-</item>
-<item>
 <title>How Bubblesort works</title>
 <link>https://andersch.dev/article/bubblesort.html</link>
 <guid>https://andersch.dev/article/bubblesort.html</guid>
