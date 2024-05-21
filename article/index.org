@@ -5,3 +5,20 @@ These are the articles I have written:
 - [[file:bubblesort.org][How Bubblesort works]]
 - [[file:opengl-tutorial.org][OpenGL Tutorial]]
 @@end:articles@@
+
+#+NAME: list-of-articles
+#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-article-keyword-list)
+(setq org-list-string '())
+(dolist (entry list)
+  ; NOTE "../" as a workaround
+  (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) org-list-string)
+)
+(print (mapconcat #'identity org-list-string "\n")) ; flatten string list to a string
+#+END_SRC
+
+Here is a list of articles
+#+RESULTS: list-of-articles
+:results:
+- [[../article/opengl-tutorial.org][OpenGL Tutorial]]
+- [[../article/bubblesort.org][How Bubblesort works]]
+:end:
