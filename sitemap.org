@@ -3,8 +3,8 @@
 - [[file:index.org][andersch.dev]]
 - project
   - [[file:project/index.org][Projects]]
-  - [[file:project/raytracer.org][OpenGL Raytracer]]
   - [[file:project/game2d.org][Game2D]]
+  - [[file:project/raytracer.org][OpenGL Raytracer]]
 - article
   - [[file:article/index.org][Articles]]
   - [[file:article/bubblesort.org][How Bubblesort works]]

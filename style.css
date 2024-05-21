@@ -49,8 +49,8 @@ h1 a {
 /* CLICKABLE IMAGES WITH TEXT OVERLAY */
 .image-container {
     position: relative;
-    width: 400px;
-    height: 225px;
+    width: 480px;
+    height: 270px;
 
     /* center the div */
     margin-left: auto;

@@ -1,7 +1,7 @@
 #+TITLE:       Game2D
-#+DATE:        <2022-05-25 Wed 09:45>
-#+DESCRIPTION: A platformer written in C+ with SFML
-#+IMAGE:       game2d.png
+#+DATE:        <2021-01-25 Mon 09:45>
+#+DESCRIPTION: A platformer written in C++ with SFML
+#+IMAGE:       game2d.gif
 
 * Game2D
 It's a platformer written in C++ with SFML.

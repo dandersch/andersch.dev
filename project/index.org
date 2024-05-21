@@ -36,7 +36,7 @@
 Some projects I have worked on.
 #+RESULTS: list-of-projects
 :results:
-- [[../project/game2d.org][Game2D]]
 - [[../project/raytracer.org][OpenGL Raytracer]]
+- [[../project/game2d.org][Game2D]]
 :end:
 

@@ -38,7 +38,7 @@ This is my website.
 :results:
 Latest article: [[./article/bubblesort.org][How Bubblesort works]]
 #+attr_html: :width 700px
-[[./article/bubblesort.jpg]]
+[[./article/bubblesort.gif]]
 :end:
 
 * Latest project
@@ -68,7 +68,7 @@ Latest article: [[./article/bubblesort.org][How Bubblesort works]]
 
 #+RESULTS: latest-project
 :results:
-Latest project: [[./project/raytracer.org][OpenGL Raytracer]]
-[[./project/raytracer.png]]
+Latest project: [[./project/game2d.org][Game2D]]
+[[./project/game2d.gif]]
 :end:
 

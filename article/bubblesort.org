@@ -1,7 +1,7 @@
 #+TITLE:       How Bubblesort works
 #+DESCRIPTION: The queen of all sorting algorithms
 #+DATE:        <2024-05-08 Wed 13:15>
-#+IMAGE:       bubblesort.jpg
+#+IMAGE:       bubblesort.gif
 * How Hex works
 #+CAPTION: how to hex
 #+ATTR_HTML: :title hex :align center
