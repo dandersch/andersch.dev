@@ -45,3 +45,41 @@ h1 a {
 .underline { text-decoration: underline; }
 #postamble { text-align: right; }
 #postamble p, #preamble p { font-size: 80%; margin: .2em; }
+
+/* CODE SYNTAX HIGHLIGHTING */
+<style type="text/css">
+      body {
+        color: #FFFFFF;
+        background-color: #18191b;
+      }
+      .org-src-container pre
+      {
+        color: #FFFFFF !important;
+        background-color: #18191b !important;
+      }
+      .org-builtin           { color: #FFFFFF; background-color: #18191b;  }
+      .org-button            { color: #0066CC; text-decoration: underline; }
+      .org-comment           { color: #99bb66;                             }
+      .org-comment-delimiter { color: #99bb66;                             }
+      .org-constant          { color: #b4916d;                             }
+      .org-string            { color: #b4916d;                             }
+      .org-doc               { color: #99bb66; font-style: italic;         }
+      .org-error             { color: #ff6655;                             }
+      .org-function-call     { color: #FFFFFF;                             }
+      .org-function-name     { color: #FFFFFF;                             }
+      .org-italic            { font-style: italic;                         }
+      .org-keyword           { color: #ECBE7B;                             }
+      .org-preprocessor      { color: #ECBE7B;                             }
+      .org-type              { color: #4db5bd;                             }
+      .org-link              { color: #0066CC; text-decoration: underline; }
+      .org-link-visited      { color: #6799CC; text-decoration: underline; }
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+</style>

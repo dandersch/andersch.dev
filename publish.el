@@ -44,7 +44,7 @@
                       "<title>andersch.dev</title>"
                       "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">"                          ; favicon
                       "<style>" (with-temp-buffer (insert-file-contents "style.css") (buffer-string)) "</style>" ; css stylesheet
-                      "<style>" (with-temp-buffer (insert-file-contents "code.css") (buffer-string)) "</style>"  ; css for src code blocks
+                      ;"<style>" (with-temp-buffer (insert-file-contents "code.css") (buffer-string)) "</style>"  ; css for src code blocks
                       )
        org-html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string)))))
 
