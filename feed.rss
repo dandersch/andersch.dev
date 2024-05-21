@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>andersch.dev</title>
+<!-- <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate> -->
+<atom:link href="https://andersch.dev/feed.rss" rel="self" type="application/rss+xml"/>
+<link>https://andersch.dev/index.html</link>
+<description>Stuff on programming</description>
+<language>en-us</language>
+<item>
+<title>Articles</title>
+<link>https://andersch.dev/article/index.html</link>
+<guid>https://andersch.dev/article/index.html</guid>
+<description>nil</description>
+<pubDate>Sun, 19 May 2024 21:35:36 +0200</pubDate>
+</item>
+<item>
+<title>How Bubblesort works</title>
+<link>https://andersch.dev/article/bubblesort.html</link>
+<guid>https://andersch.dev/article/bubblesort.html</guid>
+<description>learning</description>
+<pubDate>Wed, 08 May 2024 13:15:00 +0200</pubDate>
+</item>
+<item>
+<title>OpenGL Tutorial</title>
+<link>https://andersch.dev/article/opengl-tutorial.html</link>
+<guid>https://andersch.dev/article/opengl-tutorial.html</guid>
+<description>opengl tutorial</description>
+<pubDate>Sun, 01 Jan 2023 00:00:00 +0100</pubDate>
+</item>
+</channel>
+</rss>

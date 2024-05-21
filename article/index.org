@@ -1,0 +1,7 @@
+#+TITLE: Articles
+* Articles
+These are the articles I have written:
+@@start:articles@@
+- [[file:bubblesort.org][How Bubblesort works]]
+- [[file:opengl-tutorial.org][OpenGL Tutorial]]
+@@end:articles@@

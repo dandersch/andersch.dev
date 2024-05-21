@@ -1,1 +1,4 @@
+publish/
+.packages/
+.org-timestamps/
 *.html~

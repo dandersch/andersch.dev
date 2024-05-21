@@ -1,0 +1,82 @@
+#+TITLE: OpenGL Tutorial
+#+DESCRIPTION: opengl tutorial
+#+DATE: <2023-01-01>
+
+* OpenGL Tutorial
+Here's how OpenGL works
+
+#+BEGIN_SRC js
+var b = 1; // globally-scoped
+function exampleVar() {
+    var a = 0; // function-scoped (or globally-scoped)
+    if (true) {
+        var a = 1; // reassigns outer x because of hoisting
+        var b = 3; // reassigns outer y (gets "hoisted" to the top of scope)
+        c = 3;     // implicitly globally scoped
+        let d = 7; // block-scoped
+        console.log(a, b, c, d); // Output: 1, 3, 3, 7
+    }
+
+    console.log(a, b, c); // Output: 13, 3 (no access to z)
+}
+
+exampleVar()
+#+END_SRC
+
+#+BEGIN_SRC C
+#include <gl.h>
+/* multiline
+   comment */
+
+
+#define THING 4
+#ifdef THING
+  static int a = 4;
+#else
+  static int a = 8;
+#endif
+int main()
+{
+    glProgram("String literal");
+    if (a)
+    {
+        printf("Hello", THING);
+    }
+}
+#+END_SRC
+
+#+BEGIN_SRC cpp
+#include <gl.h>
+
+#define THING 4
+int main()
+{
+    // comment here
+    std::vector<int> ints;
+    glProgram("String literal");
+    if (a)
+    {
+        printf("Hello", THING);
+    }
+}
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :var css-file="code.css" :results raw
+(defun thing ()
+  "Documentation string"
+  (unless noninteractive
+    (org-html-htmlize-generate-css)
+    ;; comment here
+    (with-current-buffer "*html*"
+      (write-file css-file))
+    (format "#+html_head_extra: <link rel=\"stylesheet\" type=\"text/css\" href=\"%s\"/>"
+        css-file)) ; comment here
+)
+#+END_SRC
+
+Hello world example code:
+#+BEGIN_SRC python
+# Python comment
+def hello_world(name):
+    print(name)
+#+END_SRC

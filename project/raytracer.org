@@ -1,0 +1,16 @@
+#+TITLE:       OpenGL Raytracer
+#+DATE:        <2022-05-25 Wed 09:50>
+#+DESCRIPTION: A raytracer written in C using OpenGL compute shaders
+#+IMAGE:       raytracer.png
+
+* OpenGL Raytracer
+Written in C with OpenGL compute shaders.
+
+[[./raytracer.png]]
+
+#+BEGIN_SRC C
+int main()
+{
+    return 0;
+}
+#+END_SRC
