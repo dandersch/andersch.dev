@@ -46,6 +46,78 @@ h1 a {
 #postamble { text-align: right; }
 #postamble p, #preamble p { font-size: 80%; margin: .2em; }
 
+/* CLICKABLE IMAGES WITH TEXT OVERLAY */
+.image-container {
+    position: relative;
+    width: 400px;
+    height: 225px;
+
+    /* center the div */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* opacity: 0; */
+    transition: opacity 0.5s ease;
+    transition: background-color 0.5s ease;
+}
+
+.overlay .title {
+    position: relative;
+    bottom: -40%;
+    transition: bottom 0.5s ease;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; */
+    margin-bottom: 0;
+    color: #FFFFFF;
+}
+
+.overlay .description {
+    position: relative;
+    bottom: -30%;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.image-container a:hover .overlay {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.image-container a:hover .title {
+    bottom: -30%;
+}
+
+.image-container a:hover .description {
+    opacity: 1;
+}
+
 /* CODE SYNTAX HIGHLIGHTING */
 <style type="text/css">
       body {
