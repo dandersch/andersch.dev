@@ -138,7 +138,7 @@
        (list "andersch.dev"
              :recursive            t
              :base-directory       "./"
-             :publishing-directory "../publish/"
+             :publishing-directory "./"
              :publishing-function  'org-html-publish-to-html ;; may be a list of functions
            ; :preparation-function                           ;; called before publishing
            ; :completion-function                            ;; called after
