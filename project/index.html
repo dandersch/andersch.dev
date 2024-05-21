@@ -191,75 +191,53 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
-<title>andersch.dev</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><style>body { background-color: #28292b; }
-#content
-{
-    max-width: 60em;
-    margin: auto;
-    background-color: #28292b;
-    color: #ffffff;
-    /* all: initial; */
-}
-
-nav.nav {
-  text-align: center;
-  /* list-style-type: none; */
-  /* color: #ffffff; */
-  background-color: #18191b;
-}
-a:link {
-  color: #46D0FF;
-  /* background-color: yellow; */
-}
-a:visited {
-  color: #0170BF;
-}
-a.nav-link {
-  margin: 15px;
-  color: #99BB66;
-  background-color: #18191b;
-}
-
-.org-src-container pre { color: #000000; font-size: 16px; }
-
-.title  { text-align: center; margin-bottom: .2em; color: #B4916D; }
-.subtitle { text-align: center; font-size: medium; font-weight: bold; margin-top:0; }
-.tag    { background-color: #eee; font-family: monospace; padding: 2px; font-size: 80%; font-weight: normal; }
-.underline { text-decoration: underline; }
-#postamble { text-align: right; }
-#postamble p, #preamble p { font-size: 80%; margin: .2em; }
-</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <header id="top" class="status">
 <header>
-<h1 class="title">andersch.dev</h1>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+<!-- <h1 class="subtitle" id="title">contact {at] andersch (dot} dev</h1> -->
 <div>
 	<nav class="nav">
 		<a class="nav-link" href="/">home</a>
 		<a class="nav-link" href="/project">project</a>
 		<a class="nav-link" href="/article">article</a>
-		<a class="nav-link" href="/feed.rss">rss</a>
 		<!--<a class="nav-link" href="about">about</a>-->
+		<!--<a class="nav-link" href="other">other</a>-->
+		<a class="nav-link" href="/feed.rss">rss</a>
 	</nav>
 </div>
 </header>
 </header>
 <main id="content" class="content">
-<div id="outline-container-org3298e41" class="outline-2">
-<h2 id="org3298e41">Projects</h2>
-<div class="outline-text-2" id="text-org3298e41">
+<div id="outline-container-org6caf694" class="outline-2">
+<h2 id="org6caf694">Projects</h2>
+<div class="outline-text-2" id="text-org6caf694">
 <p>
-Some projects I have worked on:
-
+Some projects I have worked on.
 </p>
-<ul class="org-ul">
-<li><a href="raytracer.html">OpenGL Raytracer</a></li>
-<li><a href="game2d.html">Game2D</a></li>
-</ul>
-<p>
+<div class="image-container">
+<a href="../project/game2d.html">
+<div class="overlay">
+<div class="title">Game2D</div>
+<div class="description">A platformer written in C+ with SFML</div>
+</div>
+<img src="./game2d.png" alt="" style="border:2px solid black;">
+</a>
+</div>
 
-</p>
+<div class="image-container">
+<a href="../project/raytracer.html">
+<div class="overlay">
+<div class="title">OpenGL Raytracer</div>
+<div class="description">A raytracer written in C using OpenGL compute shaders</div>
+</div>
+<img src="./raytracer.png" alt="" style="border:2px solid black;">
+</a>
+</div>
 </div>
 </div>
 </main>

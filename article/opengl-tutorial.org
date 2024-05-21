@@ -1,6 +1,7 @@
-#+TITLE: OpenGL Tutorial
+#+TITLE:       OpenGL Tutorial
 #+DESCRIPTION: opengl tutorial
-#+DATE: <2023-01-01>
+#+DATE:        <2023-01-01>
+#+IMAGE:       opengl.png
 
 * OpenGL Tutorial
 Here's how OpenGL works

@@ -1,19 +1,36 @@
 #+TITLE: Articles
 * Articles
-These are the articles I have written:
-@@start:articles@@
-- [[file:bubblesort.org][How Bubblesort works]]
-- [[file:opengl-tutorial.org][OpenGL Tutorial]]
-@@end:articles@@
-
 #+NAME: list-of-articles
 #+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-article-keyword-list)
-(setq org-list-string '())
-(dolist (entry list)
-  ; NOTE "../" as a workaround
-  (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) org-list-string)
-)
-(print (mapconcat #'identity org-list-string "\n")) ; flatten string list to a string
+(setq list-string '())
+(if (eq org-export-current-backend 'html)
+  (dolist (entry list)
+    (push
+     (format
+       (concat
+        "#+BEGIN_EXPORT html\n"
+        "<div class=\"image-container\">\n"
+           ; NOTE "../" as a workaround
+           "<a href=\"../%s\">\n"
+               "<div class=\"overlay\">\n"
+                   "<div class=\"title\">%s</div>\n"
+                   "<div class=\"description\">%s</div>\n"
+               "</div>\n"
+               "<img src=\"./%s\" alt=\"\" style=\"border:2px solid black;\">\n"
+           "</a>\n"
+        "</div>\n"
+        "#+END_EXPORT\n")
+       (string-replace ".org" ".html" (car entry))
+       (cadr (assoc "TITLE" (cadr entry)))
+       (cadr (assoc "DESCRIPTION" (cadr entry)))
+       (cadr (assoc "IMAGE" (cadr entry))))
+    list-string)
+  )
+  (dolist (entry list)
+    ; NOTE "../" as a workaround
+    (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) list-string)
+  ))
+(mapconcat #'identity list-string "\n") ; flatten string list to a string
 #+END_SRC
 
 Here is a list of articles

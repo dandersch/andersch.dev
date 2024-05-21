@@ -1,8 +1,42 @@
 #+TITLE: Projects
 * Projects
+#+NAME: list-of-projects
+#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-project-keyword-list)
+(setq list-string '())
+(if (eq org-export-current-backend 'html)
+  (dolist (entry list)
+    (push
+     (format
+       (concat
+        "#+BEGIN_EXPORT html\n"
+        "<div class=\"image-container\">\n"
+           ; NOTE "../" as a workaround
+           "<a href=\"../%s\">\n"
+               "<div class=\"overlay\">\n"
+                   "<div class=\"title\">%s</div>\n"
+                   "<div class=\"description\">%s</div>\n"
+               "</div>\n"
+               "<img src=\"./%s\" alt=\"\" style=\"border:2px solid black;\">\n"
+           "</a>\n"
+        "</div>\n"
+        "#+END_EXPORT\n")
+       (string-replace ".org" ".html" (car entry))
+       (cadr (assoc "TITLE" (cadr entry)))
+       (cadr (assoc "DESCRIPTION" (cadr entry)))
+       (cadr (assoc "IMAGE" (cadr entry))))
+    list-string)
+  )
+  (dolist (entry list)
+    ; NOTE "../" as a workaround
+    (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) list-string)
+  ))
+(mapconcat #'identity list-string "\n") ; flatten string list to a string
+#+END_SRC
 
-Some projects I have worked on:
-@@start:projects@@
-- [[file:raytracer.org][OpenGL Raytracer]]
-- [[file:game2d.org][Game2D]]
-@@end:projects@@
+Some projects I have worked on.
+#+RESULTS: list-of-projects
+:results:
+- [[../project/game2d.org][Game2D]]
+- [[../project/raytracer.org][OpenGL Raytracer]]
+:end:
+

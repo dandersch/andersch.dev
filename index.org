@@ -9,10 +9,29 @@ This is my website.
 #+NAME: latest-article
 #+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-article-keyword-list)
 (setq latest (car list))
-(format "Latest article: [[./%s][%s]]\n#+attr_html: :width 700px\n[[./article/%s]]\n" (car latest) (cadr (assoc "TITLE" (cadr latest))) (cadr (assoc "IMAGE" (cadr latest))))
 
-; HTML for clickable image:
-; <p><a href="./article/bubblesort.html"><img src="./article/bubblesort.jpg"></a></p>
+(if (eq org-export-current-backend 'html)
+  (format
+    (concat
+     "#+BEGIN_EXPORT html\n"
+     "<div class=\"image-container\">\n"
+        "<a href=\"./%s\">\n"
+            "<div class=\"overlay\">\n"
+                "<div class=\"title\">%s</div>\n"
+                "<div class=\"description\">%s</div>\n"
+            "</div>\n"
+            "<img src=\"./article/%s\" alt=\"\" style=\"border:2px solid black;\">\n"
+        "</a>\n"
+     "</div>\n"
+     "#+END_EXPORT\n")
+     (string-replace ".org" ".html" (car latest))
+     (cadr (assoc "TITLE" (cadr latest)))
+     (cadr (assoc "DESCRIPTION" (cadr latest)))
+     (cadr (assoc "IMAGE" (cadr latest))))
+  (format "Latest article: [[./%s][%s]]\n#+attr_html: :width 700px\n[[./article/%s]]\n"
+          (car latest)
+          (cadr (assoc "TITLE" (cadr latest)))
+          (cadr (assoc "IMAGE" (cadr latest)))))
 #+END_SRC
 
 #+RESULTS: latest-article
@@ -22,23 +41,29 @@ Latest article: [[./article/bubblesort.org][How Bubblesort works]]
 [[./article/bubblesort.jpg]]
 :end:
 
-#+BEGIN_EXPORT html
-<div class="image-container">
-    <a href="./article/bubblesort.html">
-        <div class="overlay">
-            <div class="title">How Bubblesort works</div>
-            <div class="description">It is really simple</div>
-        </div>
-        <img src="./article/bubblesort.jpg" alt="bubblesort" style="border:2px solid black;">
-    </a>
-</div>
-#+END_EXPORT
-
 * Latest project
 #+NAME: latest-project
 #+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-project-keyword-list)
 (setq latest (car list))
-(format "Latest project: [[./%s][%s]]\n[[./project/%s]]\n" (car latest) (cadr (assoc "TITLE" (cadr latest))) (cadr (assoc "IMAGE" (cadr latest))))
+(if (eq org-export-current-backend 'html)
+  (format
+    (concat
+     "#+BEGIN_EXPORT html\n"
+     "<div class=\"image-container\">\n"
+        "<a href=\"./%s\">\n"
+            "<div class=\"overlay\">\n"
+                "<div class=\"title\">%s</div>\n"
+                "<div class=\"description\">%s</div>\n"
+            "</div>\n"
+            "<img src=\"./project/%s\" alt=\"\" style=\"border:2px solid black;\">\n"
+        "</a>\n"
+     "</div>\n"
+     "#+END_EXPORT\n")
+     (string-replace ".org" ".html" (car latest))
+     (cadr (assoc "TITLE" (cadr latest)))
+     (cadr (assoc "DESCRIPTION" (cadr latest)))
+     (cadr (assoc "IMAGE" (cadr latest))))
+  (format "Latest project: [[./%s][%s]]\n[[./project/%s]]\n" (car latest) (cadr (assoc "TITLE" (cadr latest))) (cadr (assoc "IMAGE" (cadr latest)))))
 #+END_SRC
 
 #+RESULTS: latest-project
@@ -47,14 +72,3 @@ Latest project: [[./project/raytracer.org][OpenGL Raytracer]]
 [[./project/raytracer.png]]
 :end:
 
-#+BEGIN_EXPORT html
-<div class="image-container">
-    <a href="./project/raytracer.html">
-        <div class="overlay">
-            <div class="title">OpenGL Raytracer</div>
-            <div class="description">Raytracer written in C++ using OpenGL</div>
-        </div>
-        <img src="./project/raytracer.png" alt="raytracer" style="border:2px solid black;">
-    </a>
-</div>
-#+END_EXPORT

@@ -192,70 +192,123 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
-<title>andersch.dev</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><style>body { background-color: #28292b; }
-#content
-{
-    max-width: 60em;
-    margin: auto;
-    background-color: #28292b;
-    color: #ffffff;
-    /* all: initial; */
-}
-
-nav.nav {
-  text-align: center;
-  /* list-style-type: none; */
-  /* color: #ffffff; */
-  background-color: #18191b;
-}
-a:link {
-  color: #46D0FF;
-  /* background-color: yellow; */
-}
-a:visited {
-  color: #0170BF;
-}
-a.nav-link {
-  margin: 15px;
-  color: #99BB66;
-  background-color: #18191b;
-}
-
-.org-src-container pre { color: #000000; font-size: 16px; }
-
-.title  { text-align: center; margin-bottom: .2em; color: #B4916D; }
-.subtitle { text-align: center; font-size: medium; font-weight: bold; margin-top:0; }
-.tag    { background-color: #eee; font-family: monospace; padding: 2px; font-size: 80%; font-weight: normal; }
-.underline { text-decoration: underline; }
-#postamble { text-align: right; }
-#postamble p, #preamble p { font-size: 80%; margin: .2em; }
-</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <header id="top" class="status">
 <header>
-<h1 class="title">andersch.dev</h1>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+<!-- <h1 class="subtitle" id="title">contact {at] andersch (dot} dev</h1> -->
 <div>
 	<nav class="nav">
 		<a class="nav-link" href="/">home</a>
 		<a class="nav-link" href="/project">project</a>
 		<a class="nav-link" href="/article">article</a>
-		<a class="nav-link" href="/feed.rss">rss</a>
 		<!--<a class="nav-link" href="about">about</a>-->
+		<!--<a class="nav-link" href="other">other</a>-->
+		<a class="nav-link" href="/feed.rss">rss</a>
 	</nav>
 </div>
 </header>
 </header>
 <main id="content" class="content">
 
-<div id="outline-container-orgd3e04fc" class="outline-2">
-<h2 id="orgd3e04fc">OpenGL Tutorial</h2>
-<div class="outline-text-2" id="text-orgd3e04fc">
+<div id="outline-container-org409e862" class="outline-2">
+<h2 id="org409e862">OpenGL Tutorial</h2>
+<div class="outline-text-2" id="text-org409e862">
 <p>
 Here's how OpenGL works
 </p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">b</span> = 1; <span class="org-comment-delimiter">// </span><span class="org-comment">globally-scoped</span>
+<span class="org-keyword">function</span> <span class="org-function-name">exampleVar</span>() {
+    <span class="org-keyword">var</span> <span class="org-variable-name">a</span> = 0; <span class="org-comment-delimiter">// </span><span class="org-comment">function-scoped (or globally-scoped)</span>
+    <span class="org-keyword">if</span> (<span class="org-constant">true</span>) {
+        <span class="org-keyword">var</span> <span class="org-variable-name">a</span> = 1; <span class="org-comment-delimiter">// </span><span class="org-comment">reassigns outer x because of hoisting</span>
+        <span class="org-keyword">var</span> <span class="org-variable-name">b</span> = 3; <span class="org-comment-delimiter">// </span><span class="org-comment">reassigns outer y (gets "hoisted" to the top of scope)</span>
+        c = 3;     <span class="org-comment-delimiter">// </span><span class="org-comment">implicitly globally scoped</span>
+        <span class="org-keyword">let</span> <span class="org-variable-name">d</span> = 7; <span class="org-comment-delimiter">// </span><span class="org-comment">block-scoped</span>
+        console.log(a, b, c, d); <span class="org-comment-delimiter">// </span><span class="org-comment">Output: 1, 3, 3, 7</span>
+    }
+
+    console.log(a, b, c); <span class="org-comment-delimiter">// </span><span class="org-comment">Output: 13, 3 (no access to z)</span>
+}
+
+exampleVar()
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;gl.h&gt;</span>
+<span class="org-comment-delimiter">/* </span><span class="org-comment">multiline</span>
+<span class="org-comment">   comment</span><span class="org-comment-delimiter"> */</span>
+
+
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">THING</span> 4
+<span class="org-preprocessor">#ifdef</span> THING
+  <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-variable-name">a</span> = 4;
+<span class="org-preprocessor">#else</span>
+  <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-variable-name">a</span> = 8;
+<span class="org-preprocessor">#endif</span>
+<span class="org-type">int</span> <span class="org-function-name">main</span>()
+{
+    glProgram(<span class="org-string">"String literal"</span>);
+    <span class="org-keyword">if</span> (a)
+    {
+        printf(<span class="org-string">"Hello"</span>, THING);
+    }
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-cpp"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;gl.h&gt;</span>
+
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">THING</span> 4
+<span class="org-type">int</span> <span class="org-function-name">main</span>()
+{
+    <span class="org-comment-delimiter">// </span><span class="org-comment">comment here</span>
+    <span class="org-constant">std</span>::<span class="org-type">vector</span>&lt;<span class="org-type">int</span>&gt; <span class="org-variable-name">ints</span>;
+    glProgram(<span class="org-string">"String literal"</span>);
+    <span class="org-keyword">if</span> (a)
+    {
+        printf(<span class="org-string">"Hello"</span>, THING);
+    }
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">thing</span> ()
+  <span class="org-doc">"Documentation string"</span>
+  (<span class="org-keyword">unless</span> noninteractive
+    (org-html-htmlize-generate-css)
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">comment here</span>
+    (<span class="org-keyword">with-current-buffer</span> <span class="org-string">"*html*"</span>
+      (write-file css-file))
+    (format <span class="org-string">"#+html_head_extra: &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"%s\"/&gt;"</span>
+        css-file)) <span class="org-comment-delimiter">; </span><span class="org-comment">comment here</span>
+)
+</pre>
+</div>
+
+<p>
+Hello world example code:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-comment-delimiter"># </span><span class="org-comment">Python comment</span>
+<span class="org-keyword">def</span> <span class="org-function-name">hello_world</span>(name):
+    <span class="org-builtin">print</span>(name)
+</pre>
+</div>
 </div>
 </div>
 </main>
+<footer id="postamble" class="status">
+<p class="date">Date: 2023-01-01 Sun 00:00</p>
+</footer>
 </body>
 </html>

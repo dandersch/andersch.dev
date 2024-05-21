@@ -100,7 +100,7 @@
   (defun get-project-keyword-list () project-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
   (dolist (org-file (directory-files-recursively "./" "\\.org$"))
     (find-file org-file)
-    (setq src-block-names '("list-of-articles" "latest-article" "latest-project"))
+    (setq src-block-names '("list-of-articles" "list-of-projects" "latest-article" "latest-project"))
     (goto-char (point-min))
     (setq org-confirm-babel-evaluate nil) ; NOTE needed when org-babel-execute-src-block is called in a script
     (dolist (src-block-name src-block-names)
