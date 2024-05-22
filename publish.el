@@ -159,7 +159,7 @@
              :with-author          nil
              :with-creator         nil                       ;; don't include emacs and org versions in footer
              :with-toc             nil                       ;; no table of contents
-             :with-date            t
+             :with-date            nil
              :section-numbers      nil                       ;; no section numbers for headings
              :time-stamp-file      nil)                      ;; don't include "Created: <timestamp>" in footer
        (list "attachments"

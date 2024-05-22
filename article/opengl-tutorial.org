@@ -4,9 +4,6 @@
 #+IMAGE:       opengl.png
 #+TAGS[]:      opengl graphics
 
-#+OPTIONS: title:nil html-postamble:nil
-@@html-style:nil html-scripts:nil html-doctype:html5@@
-
 * OpenGL Tutorial
 Here's how OpenGL works.
 
