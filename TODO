@@ -1,0 +1,25 @@
+TODO -*- mode: org -*-
+
+- [ ] latest {article,project} side-by-side view
+  + [ ] no side-by-side view on mobile (or when zoomed in)
+  + [ ] display up to 3 articles/projects per side
+
+- [ ] display date underneath article title
+- [ ] (display description underneath article title)
+
+- [ ] add div next to website title
+  + [ ] add github, mail & rss feed to div
+  + [ ] turn them into links
+  + [ ] use icons for every link
+  + [ ] hide text, show only show icon and animate transition when hovering
+  + [ ] remove rss entry from navbar
+
+- [ ] add ~other~ entry to navbar
+  + [ ] remove ~home~ entry
+
+- [ ] implement a tag system
+  + [ ] collect tags for every article in publishing function
+  + [ ] display tags above/underneath article
+  + [ ] clickable tags that link to ~/tag/gamedev~, etc.
+  + [ ] generate a ~/tag/tag.org~ for every collected tag
+  + [ ] add entries for corresponding articles to every tag .org file
