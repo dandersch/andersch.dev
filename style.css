@@ -1,11 +1,26 @@
-body { background-color: #28292b; }
+body
+{
+    background-color: #1a1a1a;
+    max-width: 800px;
+    border: 2px solid;
+    border-color: grey;
+    margin-left: auto;
+    margin-right: auto;
+}
 #content
 {
-    max-width: 60em;
+    max-width: 800px;
     margin: auto;
     background-color: #28292b;
     color: #ffffff;
     /* all: initial; */
+    padding: 1px 20px 1px 20px;
+}
+
+header
+{
+  background-color: #2f2f2f !important;
+  padding-top: 2px;
 }
 
 nav.nav {
@@ -37,12 +52,18 @@ h1 a {
   text-decoration: none    !important;
 }
 
+h2 {
+  text-decoration: none;
+  text-align:      center;
+}
+
 .org-src-container pre { color: #000000; font-size: 16px; }
 
 .title     { text-align: center; margin-bottom: .2em; color: #ECBE7B; }
 .subtitle  { text-align: center; font-size: small; /* font-weight: bold */; margin-top:0; color: #B4916D; }
 .tag       { background-color: #eee; font-family: monospace; padding: 2px; font-size: 80%; font-weight: normal; }
 .underline { text-decoration: underline; }
+.center    { margin-left: auto; margin-right: auto; }
 #postamble { text-align: right; }
 #postamble p, #preamble p { font-size: 80%; margin: .2em; }
 

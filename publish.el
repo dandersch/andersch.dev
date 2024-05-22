@@ -119,6 +119,7 @@
 ;; customize HTML output (see https://pank.eu/blog/blog-setup.html)
 (setq
        org-html-validation-link nil                      ;; Don't show validation link
+       ;org-html-doctype "html5"                          ;; default is "xhtml-strict"
        org-html-html5-fancy t                            ;; ...
        org-html-preamble t
        org-html-divs '((preamble "header" "top")         ;; ...
@@ -130,6 +131,7 @@
                       "<link rel=\"stylesheet\" href=\"/style.css\">\n")
        org-html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string)))))
 
+; see https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options.html
 (setq org-publish-project-alist
       (list
        (list "andersch.dev"
@@ -157,6 +159,7 @@
              :with-author          nil
              :with-creator         nil                       ;; don't include emacs and org versions in footer
              :with-toc             nil                       ;; no table of contents
+             :with-date            t
              :section-numbers      nil                       ;; no section numbers for headings
              :time-stamp-file      nil)                      ;; don't include "Created: <timestamp>" in footer
        (list "attachments"

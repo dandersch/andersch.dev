@@ -1,10 +1,26 @@
 #+TITLE:       OpenGL Tutorial
-#+DESCRIPTION: opengl tutorial
+#+DESCRIPTION: How to write a graphics application with OpenGL
 #+DATE:        <2023-01-01>
 #+IMAGE:       opengl.png
+#+TAGS[]:      opengl graphics
+
+#+OPTIONS: title:nil html-postamble:nil
+@@html-style:nil html-scripts:nil html-doctype:html5@@
 
 * OpenGL Tutorial
-Here's how OpenGL works
+Here's how OpenGL works.
+
+#+CAPTION: An org-table for OpenGL
+#+ATTR_HTML: :border 2 :rules all :frame border :class center
+|---------------+---------+--------+---------|
+| rendering api | OpenGL  | Vulkan | DirectX |
+|---------------+---------+--------+---------|
+| linux support | yes     | yes    | no      |
+| good          |         | X      | X       |
+| thing 3       | depends | n.a.   | windows |
+|---------------+---------+--------+---------|
+
+More text here
 
 #+BEGIN_SRC js
 var b = 1; // globally-scoped

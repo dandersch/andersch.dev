@@ -20,7 +20,7 @@ inotifywait --recursive --exclude "flycheck_publish.el|.git|.packages|feed.rss|i
               CURRENT_WID=$(xdotool getwindowfocus)
               WID=$(xdotool search --name "Mozilla Firefox")
               xdotool windowactivate $WID
-              xdotool key F5
+              xdotool key ctrl+F5
               xdotool windowactivate $CURRENT_WID
 
               sleep 5

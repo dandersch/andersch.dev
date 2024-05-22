@@ -7,13 +7,10 @@
 #+ATTR_HTML: :title hex :align center
 [[file:./chart.jpg]]
 
-
 * Some $$\LaTeX$$ snippets
-
 \[ x^{2} \]
 
 \[ f(x) = \frac{x}{0} \]
-
 
 * Bubblesort Example
 Just sort it.
