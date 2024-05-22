@@ -2,11 +2,41 @@
 #+DATE:        <2020-03-05 Thu>
 #+DESCRIPTION: A raytracer written in C using OpenGL compute shaders
 #+IMAGE:       raytracer.gif
+#+TAGS[]:      graphics cpp
 
-* OpenGL Raytracer
-Written in C with OpenGL compute shaders.
+#+NAME: generate-tags
+#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer
+(setq tags-string '())
+(if (eq org-export-current-backend 'html)
+  (progn
+    (setq tags-string (append tags-string (list "#+BEGIN_EXPORT html\n")))
+    (setq tags-string (append tags-string (list "<div class=\"tags\">")))
+    (setq tags-string (append tags-string (list "[ ")))
+    (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
+    (dolist (tag tags)
+      (setq tags-string (append tags-string (list (format "<a href=\"/tags/%s\">%s</a> " tag tag))))
+      )
+    (setq tags-string (append tags-string (list "]")))
+    (setq tags-string (append tags-string (list "</div>\n")))
+    (setq tags-string (append tags-string (list "#+END_EXPORT")))
+    (mapconcat #'identity tags-string "") ; flatten string list to a string
+  )
+  (print "")
+)
+#+END_SRC
+@@html:<div class="tags-date-box">@@
+#+RESULTS: generate-tags
+:results:
+:end:
+@@html:<div class="date">@@{{{DATE}}}@@html:</div>@@
+@@html:</div>@@
+* {{{TITLE}}}
+@@html:<h2 class="subtitle">@@{{{keyword(DESCRIPTION)}}}@@html:</h1>@@
+@@html:<div class="figure"><img src="@@{{{keyword(IMAGE)}}}@@html:" alt=""></div>@@
 
-[[./raytracer.gif]]
+A raytracer is alksdj laksjdkl jaskldsjdlkjaklsdklajs kldjslkdf;asdjfk
+asjdlfkjaslk;df sksjdlk ajsdklajslkd jlkasjdkl ajskldl sjdlkajl ksdlkajslk
+djalksdjlkajdklasjd lkajsldkasjdklajsd klajsdlkjal.
 
 #+BEGIN_SRC C
 int main()

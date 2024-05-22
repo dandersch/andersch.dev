@@ -46,6 +46,8 @@ a.nav-link {
   /* text-decoration: none; */
 }
 
+p { text-align: justify; text-justify: inter-word; }
+
 /* title rule */
 h1 a {
   color:           #ECBE7B !important;

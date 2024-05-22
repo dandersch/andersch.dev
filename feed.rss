@@ -22,7 +22,7 @@
 <link>https://andersch.dev/article/opengl-tutorial.html</link>
 <guid>https://andersch.dev/article/opengl-tutorial.html</guid>
 <description>
-&lt;p&gt;How to write a graphics application with OpenGL&lt;/p&gt;
+&lt;p&gt;Real-time rasterization made possible using this rendering API&lt;/p&gt;
 &lt;img src="https://andersch.dev/article/opengl.png"/&gt;
 </description>
 <pubDate>Sun, 01 Jan 2023 00:00:00 +0100</pubDate>
