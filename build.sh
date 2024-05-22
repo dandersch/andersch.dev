@@ -2,19 +2,27 @@
 
 emacs -Q --script publish.el
 
-#firefox -new-tab http://andersch.dev/
-# python -m http.server --dir ../publish 1337
+# serve webpage if not already serving
+if [[ -z $(ss -tulpn | grep 1337) ]]
+then
+       python -m http.server --dir ./ 1337 &
+       firefox -new-tab http://localhost:1337
+fi
 
-#inotifywait --recursive --excludei ".git|.packages|.org-timestamps|feed.rss" --monitor --event modify ./ | 
-inotifywait --recursive --includei "publish.el" --monitor --event modify ./ |
-   while read file_path file_event file_name; do 
-       echo ${file_path}${file_name} event: ${file_event}
-       emacs -Q --script publish.el
+inotifywait --recursive --exclude "flycheck_publish.el|.git|.packages|feed.rss|index.org|sitemap" --monitor --event modify --event create ./ |
+   while read file_path file_event file_name; do
+       if [[ ${file_name} =~ .org$|publish.el ]]
+       then
+              echo ${file_path}${file_name} event: ${file_event}
+              emacs -Q --script publish.el
 
-       # refresh firefox tab
-       CURRENT_WID=$(xdotool getwindowfocus)
-       WID=$(xdotool search --name "Mozilla Firefox")
-       xdotool windowactivate $WID
-       xdotool key F5
-       xdotool windowactivate $CURRENT_WID
+              # refresh firefox tab
+              CURRENT_WID=$(xdotool getwindowfocus)
+              WID=$(xdotool search --name "Mozilla Firefox")
+              xdotool windowactivate $WID
+              xdotool key F5
+              xdotool windowactivate $CURRENT_WID
+
+              sleep 5
+       fi
    done
