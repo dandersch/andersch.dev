@@ -81,12 +81,16 @@
                  "<title>%s</title>\n"
                  "<link>%s</link>\n"
                  "<guid>%s</guid>\n"
-                 "<description>%s</description>\n"
+                 "<description>\n"
+                 "&lt;p&gt;%s&lt;/p&gt;\n"
+                 "&lt;img src=\"https://andersch.dev/article/%s\"/&gt;\n"
+                 "</description>\n"
                  "<pubDate>%s</pubDate>\n</item>\n")
             (cadr (assoc "TITLE" (cadr article)))
             (concat "https://andersch.dev/" (string-replace ".org" ".html" (car article)))
             (concat "https://andersch.dev/" (string-replace ".org" ".html" (car article)))
             (cadr (assoc "DESCRIPTION" (cadr article)))
+            (cadr (assoc "IMAGE" (cadr article)))
             (format-time-string "%a, %d %b %Y %H:%M:%S %z" (seconds-to-time (org-time-string-to-time (cadr (assoc "DATE" (cadr article))))))
             )
       nil "feed.rss" 'append))
