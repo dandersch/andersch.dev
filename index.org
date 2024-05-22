@@ -20,7 +20,7 @@ This is my website.
                 "<div class=\"title\">%s</div>\n"
                 "<div class=\"description\">%s</div>\n"
             "</div>\n"
-            "<img src=\"./article/%s\" alt=\"\" style=\"border:2px solid black;\">\n"
+            "<img src=\"./article/%s\" alt=\"\">\n"
         "</a>\n"
      "</div>\n"
      "#+END_EXPORT\n")
@@ -55,7 +55,7 @@ Latest article: [[./article/bubblesort.org][How Bubblesort works]]
                 "<div class=\"title\">%s</div>\n"
                 "<div class=\"description\">%s</div>\n"
             "</div>\n"
-            "<img src=\"./project/%s\" alt=\"\" style=\"border:2px solid black;\">\n"
+            "<img src=\"./project/%s\" alt=\"\">\n"
         "</a>\n"
      "</div>\n"
      "#+END_EXPORT\n")

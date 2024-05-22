@@ -16,7 +16,7 @@
                    "<div class=\"title\">%s</div>\n"
                    "<div class=\"description\">%s</div>\n"
                "</div>\n"
-               "<img src=\"./%s\" alt=\"\" style=\"border:2px solid black;\">\n"
+               "<img src=\"./%s\" alt=\"\">\n"
            "</a>\n"
         "</div>\n"
         "#+END_EXPORT\n")
