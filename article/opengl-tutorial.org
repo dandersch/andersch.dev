@@ -1,11 +1,27 @@
-#+TITLE:       OpenGL Tutorial
+#+TITLE:       How to write a graphics application with OpenGL
 #+DESCRIPTION: How to write a graphics application with OpenGL
 #+DATE:        <2023-01-01>
 #+IMAGE:       opengl.png
-#+TAGS[]:      opengl graphics
+#+TAGS[]:      opengl graphics cpp
 
-* OpenGL Tutorial
-Here's how OpenGL works.
+@@html:<div class="tags-date-box">@@
+@@html:<div class="tags">@@[ {{{keyword(TAGS[])}}} ]@@html:</div>@@
+@@html:<div class="date">@@{{{DATE}}}@@html:</div>@@
+@@html:</div>@@
+* {{{TITLE}}}
+@@html:<h2 class="subtitle">@@{{{keyword(DESCRIPTION)}}}@@html:</h1>@@
+
+@@html:<div class="figure"><img src="@@{{{keyword(IMAGE)}}}@@html:" alt=""></div>@@
+
+
+OpenGL ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+sanctus est Lorem ipsum dolor sit amet.
 
 #+CAPTION: An org-table for OpenGL
 #+ATTR_HTML: :border 2 :rules all :frame border :class center

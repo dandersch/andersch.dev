@@ -33,9 +33,8 @@
 (mapconcat #'identity list-string "\n") ; flatten string list to a string
 #+END_SRC
 
-Here is a list of articles
 #+RESULTS: list-of-articles
 :results:
-- [[../article/opengl-tutorial.org][OpenGL Tutorial]]
+- [[../article/opengl-tutorial.org][How to write a graphics application with OpenGL]]
 - [[../article/bubblesort.org][How Bubblesort works]]
 :end:

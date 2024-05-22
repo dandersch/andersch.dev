@@ -52,15 +52,16 @@ h1 a {
   text-decoration: none    !important;
 }
 
-h2 {
-  text-decoration: none;
-  text-align:      center;
-}
+/* center all headings */
+h2 { text-align: center; }
+h3 { text-align: center; }
+h4 { text-align: center; }
+h5 { text-align: center; }
 
 .org-src-container pre { color: #000000; font-size: 16px; }
 
 .title     { text-align: center; margin-bottom: .2em; color: #ECBE7B; }
-.subtitle  { text-align: center; font-size: small; /* font-weight: bold */; margin-top:0; color: #B4916D; }
+.subtitle  { text-align: center; font-size: medium; /* font-weight: bold */; margin-top:0; color: white; }
 .tag       { background-color: #eee; font-family: monospace; padding: 2px; font-size: 80%; font-weight: normal; }
 .underline { text-decoration: underline; }
 .center    { margin-left: auto; margin-right: auto; }
@@ -92,10 +93,38 @@ h2 {
     display: block;
 }
 
-img {
+.figure img {
     /* height: auto; */
     max-width: 100%;
-    margin: 0;
+    border: 1px solid;
+    border-color: #e6e6e6;
+}
+
+.figure {
+    margin: 0px;
+    align-content: center;
+    text-align: center;
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tags-date-box {
+  font-size: 14px;
+  padding: 0px 0px 5px 0px;
+  text-align: center;
+}
+
+.date {
+  align-content: left;
+  float: left;
+  display: inline-block;
+}
+
+.tags {
+  display: inline-block;
+  align-content: right;
+  float: right;
 }
 
 .overlay {
@@ -166,6 +195,7 @@ img {
       {
         color: #FFFFFF !important;
         background-color: #18191b !important;
+        margin: 16px 0px 16px 0px;
       }
       .org-builtin           { color: #FFFFFF; background-color: #18191b;  }
       .org-button            { color: #0066CC; text-decoration: underline; }

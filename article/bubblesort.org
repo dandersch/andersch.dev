@@ -2,17 +2,43 @@
 #+DESCRIPTION: The queen of all sorting algorithms
 #+DATE:        <2024-05-08 Wed 13:15>
 #+IMAGE:       bubblesort.gif
-* How Hex works
+@@html:<div class="tags-date-box">@@
+@@html:<div class="tags">@@[ {{{keyword(TAGS[])}}} ]@@html:</div>@@
+@@html:<div class="date">@@{{{DATE}}}@@html:</div>@@
+@@html:</div>@@
+* {{{TITLE}}}
+@@html:<h2 class="subtitle">@@{{{keyword(DESCRIPTION)}}}@@html:</h1>@@
+
+@@html:<div class="figure"><img src="@@{{{keyword(IMAGE)}}}@@html:" alt=""></div>@@
+
+ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
+duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+Lorem ipsum dolor sit amet.
+
+** How Hex works
 #+CAPTION: how to hex
 #+ATTR_HTML: :title hex :align center
 [[file:./chart.jpg]]
 
-* Some $$\LaTeX$$ snippets
+** Some Latex snippets
 \[ x^{2} \]
 
 \[ f(x) = \frac{x}{0} \]
 
-* Bubblesort Example
-Just sort it.
+** Bubblesort Example
+Just sort it. invidunt ut labore et dolore magna aliquyam erat, sed diam
+voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
+kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
+ipsum dolor sit amet,
+
 1. ~1 3 2 4~
 2. ~1 2 3 4~
+
+invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,

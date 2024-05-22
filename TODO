@@ -4,8 +4,9 @@ TODO -*- mode: org -*-
   + [ ] no side-by-side view on mobile (or when zoomed in)
   + [ ] display up to 3 articles/projects per side
 
-- [ ] display date underneath article title
-- [ ] (display description underneath article title)
+- [X] display date above article title
+- [X] display description underneath article title
+- [ ] date/tags system for all articles
 
 - [ ] add div next to website title
   + [ ] add github, mail & rss feed to div
@@ -17,9 +18,9 @@ TODO -*- mode: org -*-
 - [ ] add ~other~ entry to navbar
   + [ ] remove ~home~ entry
 
-- [ ] implement a tag system
+- [1/5] implement a tag system
   + [ ] collect tags for every article in publishing function
-  + [ ] display tags above/underneath article
+  + [X] display tags above/underneath article
   + [ ] clickable tags that link to ~/tag/gamedev~, etc.
   + [ ] generate a ~/tag/tag.org~ for every collected tag
   + [ ] add entries for corresponding articles to every tag .org file

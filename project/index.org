@@ -33,7 +33,6 @@
 (mapconcat #'identity list-string "\n") ; flatten string list to a string
 #+END_SRC
 
-Some projects I have worked on.
 #+RESULTS: list-of-projects
 :results:
 - [[../project/raytracer.org][OpenGL Raytracer]]

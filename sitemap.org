@@ -8,4 +8,4 @@
 - article
   - [[file:article/index.org][Articles]]
   - [[file:article/bubblesort.org][How Bubblesort works]]
-  - [[file:article/opengl-tutorial.org][OpenGL Tutorial]]
+  - [[file:article/opengl-tutorial.org][How to write a graphics application with OpenGL]]
