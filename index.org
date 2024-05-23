@@ -1,10 +1,5 @@
 #+TITLE: andersch.dev
 
-* Home                                                             :noexport:
-This is my website.
-- Latest article: @@start:article@@[[file:article/bubblesort.org][How Bubblesort works]]@@end:article@@
-- Latest project: @@start:project@@[[file:project/raytracer.org][OpenGL Raytracer]]@@end:project@@
-
 * Latest article
 #+NAME: latest-article
 #+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-article-keyword-list)

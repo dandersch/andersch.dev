@@ -1,0 +1,6 @@
+#+TITLE: Pages tagged cpp
+* Articles tagged ~cpp~
+- [[../article/opengl-tutorial.org][How to write a graphics application with OpenGL]]
+* Projects tagged ~cpp~
+- [[../project/game2d.org][Game2D]]
+- [[../project/raytracer.org][OpenGL Raytracer]]

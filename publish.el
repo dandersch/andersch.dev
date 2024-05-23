@@ -20,7 +20,7 @@
 (setq org-src-fontify-natively t)
 (setq org-html-htmlize-output-type 'css)
 
-(setq keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE")) ; keywords to parse from .org files
+(setq keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]")) ; keywords to parse from .org files
 
 ; helper functions
 (defun get-org-files (directory)
@@ -104,7 +104,7 @@
   (defun get-project-keyword-list () project-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
   (dolist (org-file (directory-files-recursively "./" "\\.org$"))
     (find-file org-file)
-    (setq src-block-names '("list-of-articles" "list-of-projects" "latest-article" "latest-project"))
+    (setq src-block-names '("list-of-articles" "list-of-projects" "latest-article" "latest-project" "generate-tags"))
     (goto-char (point-min))
     (setq org-confirm-babel-evaluate nil) ; NOTE needed when org-babel-execute-src-block is called in a script
     (dolist (src-block-name src-block-names)
@@ -114,6 +114,39 @@
           (org-babel-execute-src-block))))
     (save-buffer)
     (kill-buffer))
+
+  ;
+  ; TAGGING SYSTEM
+  ;
+  ; collect all tags
+  (setq all-tags '())
+  (dolist (article article-keyword-list)
+     (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +") all-tags)))
+  (dolist (project project-keyword-list)
+     (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +") all-tags)))
+  (delete-dups all-tags)
+  ; generate .org files for all tags
+  (dolist (tag all-tags)
+    (with-temp-file (format "tag/%s.org" tag)
+      (insert (format "#+TITLE: Pages tagged %s\n" tag)))
+    (write-region (format "* Articles tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
+  ; add entry of an article to its tag.org's
+  (dolist (article article-keyword-list)
+    (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +"))
+      (write-region (format "- [[../%s][%s]]\n"
+                            (car article)
+                            (cadr (assoc "TITLE" (cadr article))))
+                    nil (format "tag/%s.org" tag) 'append)))
+  ; append "* Projects" headline
+  (dolist (tag all-tags)
+    (write-region (format "* Projects tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
+  ; add entry of a project to its tag.org's
+  (dolist (project project-keyword-list)
+    (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +"))
+      (write-region (format "- [[../%s][%s]]\n"
+                            (car project)
+                            (cadr (assoc "TITLE" (cadr project))))
+                    nil (format "tag/%s.org" tag) 'append)))
 )
 
 ;; customize HTML output (see https://pank.eu/blog/blog-setup.html)
@@ -159,16 +192,9 @@
              :with-author          nil
              :with-creator         nil                       ;; don't include emacs and org versions in footer
              :with-toc             nil                       ;; no table of contents
-             :with-date            nil
              :section-numbers      nil                       ;; no section numbers for headings
              :time-stamp-file      nil)                      ;; don't include "Created: <timestamp>" in footer
-       (list "attachments"
-             :recursive            t
-             :base-directory "./"
-             :base-extension "png\\|jpg\\|rss"
-             :publishing-directory "../publish/"
-             :publishing-function 'org-publish-attachment
-     )))
+             :with-date            nil))
 
 ; NOTE caching causes problems with updating titles etc., so we reset the cache before publishing
 (setq org-publish-use-timestamps-flag nil)

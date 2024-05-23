@@ -14,7 +14,7 @@
     (setq tags-string (append tags-string (list "[ ")))
     (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
     (dolist (tag tags)
-      (setq tags-string (append tags-string (list (format "<a href=\"/tags/%s\">%s</a> " tag tag))))
+      (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag))))
       )
     (setq tags-string (append tags-string (list "]")))
     (setq tags-string (append tags-string (list "</div>\n")))

@@ -18,9 +18,9 @@ TODO -*- mode: org -*-
 - [ ] add ~other~ entry to navbar
   + [ ] remove ~home~ entry
 
-- [1/5] implement a tag system
+- [5/5] implement a tag system
   + [X] display tags above/underneath article
   + [X] clickable tags that link to ~/tag/gamedev~, etc.
-  + [ ] collect tags for every article in publishing function
-  + [ ] generate a ~/tag/tag.org~ for every collected tag
-  + [ ] add entries for corresponding articles to every tag .org file
+  + [X] collect tags for every article in publishing function
+  + [X] generate a ~/tag/tag.org~ for every collected tag
+  + [X] add entries for corresponding articles to every tag .org file
