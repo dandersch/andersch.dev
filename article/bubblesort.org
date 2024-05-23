@@ -3,36 +3,11 @@
 #+DATE:        <2024-05-08 Wed 13:15>
 #+IMAGE:       bubblesort.gif
 #+TAGS[]:      algorithm
+#+OPTIONS:     toc:nil num:nil
 
-#+NAME: generate-tags
-#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer
-(setq tags-string '())
-(if (eq org-export-current-backend 'html)
-  (progn
-    (setq tags-string (append tags-string (list "#+BEGIN_EXPORT html\n")))
-    (setq tags-string (append tags-string (list "<div class=\"tags\">")))
-    (setq tags-string (append tags-string (list "[ ")))
-    (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
-    (dolist (tag tags)
-      (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag))))
-      )
-    (setq tags-string (append tags-string (list "]")))
-    (setq tags-string (append tags-string (list "</div>\n")))
-    (setq tags-string (append tags-string (list "#+END_EXPORT")))
-    (mapconcat #'identity tags-string "") ; flatten string list to a string
-  )
-  (print "")
-)
-#+END_SRC
-@@html:<div class="tags-date-box">@@
-#+RESULTS: generate-tags
-:results:
-:end:
-@@html:<div class="date">@@{{{DATE}}}@@html:</div>@@
-@@html:</div>@@
+#+CALL: ../code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
-@@html:<h2 class="subtitle">@@{{{keyword(DESCRIPTION)}}}@@html:</h1>@@
-@@html:<div class="figure"><img src="@@{{{keyword(IMAGE)}}}@@html:" alt=""></div>@@
+#+CALL: ../code.org:generate-article-subtitle[:eval yes]()
 
 ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
@@ -42,6 +17,8 @@ consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
 dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
 duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
 Lorem ipsum dolor sit amet.
+
+# endsnippet
 
 ** How Hex works
 #+CAPTION: how to hex

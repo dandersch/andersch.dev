@@ -1,28 +1,38 @@
 #+TITLE: andersch.dev
 
-* Latest article
+* Latest [[./article/index.org][articles]]
+:PROPERTIES:
+:CUSTOM_ID: latest-articles
+:END:
 #+NAME: latest-article
 #+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-article-keyword-list)
-(setq latest (car list))
-
-(if (eq org-export-current-backend 'html)
+(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
   (format
-    (concat
-     "#+BEGIN_EXPORT html\n"
+   (concat
      "<div class=\"image-container\">\n"
         "<a href=\"./%s\">\n"
             "<div class=\"overlay\">\n"
                 "<div class=\"title\">%s</div>\n"
                 "<div class=\"description\">%s</div>\n"
             "</div>\n"
-            "<img src=\"./article/%s\" alt=\"\">\n"
+            "<img src=\"./%s/%s\" alt=\"\">\n"
         "</a>\n"
-     "</div>\n"
-     "#+END_EXPORT\n")
-     (string-replace ".org" ".html" (car latest))
-     (cadr (assoc "TITLE" (cadr latest)))
-     (cadr (assoc "DESCRIPTION" (cadr latest)))
-     (cadr (assoc "IMAGE" (cadr latest))))
+     "</div>\n")
+     (string-replace ".org" ".html" (car entry))
+     (cadr (assoc "TITLE" (cadr entry)))
+     (cadr (assoc "DESCRIPTION" (cadr entry)))
+     type
+     (cadr (assoc "IMAGE" (cadr entry)))))
+
+(setq latest (car list))
+
+(if (eq org-export-current-backend 'html)
+  (concat
+    "#+BEGIN_EXPORT html\n"
+    (format-entry-as-image-link latest "article")
+    (format-entry-as-image-link (cadr list) "article") ;; TODO testing, hardcoded
+    "#+END_EXPORT\n")
+  ; else
   (format "Latest article: [[./%s][%s]]\n#+attr_html: :width 700px\n[[./article/%s]]\n"
           (car latest)
           (cadr (assoc "TITLE" (cadr latest)))
@@ -36,28 +46,37 @@ Latest article: [[./article/bubblesort.org][How Bubblesort works]]
 [[./article/bubblesort.gif]]
 :end:
 
-* Latest project
+* Latest [[./project/index.org][projects]]
+:PROPERTIES:
+:CUSTOM_ID: latest-projects
+:END:
 #+NAME: latest-project
 #+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-project-keyword-list)
-(setq latest (car list))
-(if (eq org-export-current-backend 'html)
+(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
   (format
-    (concat
-     "#+BEGIN_EXPORT html\n"
+   (concat
      "<div class=\"image-container\">\n"
         "<a href=\"./%s\">\n"
             "<div class=\"overlay\">\n"
                 "<div class=\"title\">%s</div>\n"
                 "<div class=\"description\">%s</div>\n"
             "</div>\n"
-            "<img src=\"./project/%s\" alt=\"\">\n"
+            "<img src=\"./%s/%s\" alt=\"\">\n"
         "</a>\n"
-     "</div>\n"
-     "#+END_EXPORT\n")
-     (string-replace ".org" ".html" (car latest))
-     (cadr (assoc "TITLE" (cadr latest)))
-     (cadr (assoc "DESCRIPTION" (cadr latest)))
-     (cadr (assoc "IMAGE" (cadr latest))))
+     "</div>\n")
+     (string-replace ".org" ".html" (car entry))
+     (cadr (assoc "TITLE" (cadr entry)))
+     (cadr (assoc "DESCRIPTION" (cadr entry)))
+     type
+     (cadr (assoc "IMAGE" (cadr entry)))))
+
+(setq latest (car list))
+(if (eq org-export-current-backend 'html)
+  (concat "#+BEGIN_EXPORT html\n"
+          (format-entry-as-image-link latest "project")
+          (format-entry-as-image-link (cadr list) "project") ;; TODO testing, hardcoded
+          "#+END_EXPORT\n")
+  ; else
   (format "Latest project: [[./%s][%s]]\n[[./project/%s]]\n" (car latest) (cadr (assoc "TITLE" (cadr latest))) (cadr (assoc "IMAGE" (cadr latest)))))
 #+END_SRC
 
@@ -66,4 +85,3 @@ Latest article: [[./article/bubblesort.org][How Bubblesort works]]
 Latest project: [[./project/game2d.org][Game2D]]
 [[./project/game2d.gif]]
 :end:
-

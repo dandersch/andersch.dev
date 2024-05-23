@@ -1,24 +1,21 @@
-body
-{
+body {
     background-color: #1a1a1a;
-    max-width: 800px;
+    max-width: 861px;
     border: 2px solid;
     border-color: grey;
     margin-left: auto;
     margin-right: auto;
 }
-#content
-{
-    max-width: 800px;
+#content {
+    max-width: 100%;
     margin: auto;
     background-color: #28292b;
     color: #ffffff;
     /* all: initial; */
-    padding: 1px 20px 1px 20px;
+    padding: 1px 20px 20px 20px;
 }
 
-header
-{
+header {
   background-color: #2f2f2f !important;
   padding-top: 2px;
 }
@@ -70,13 +67,34 @@ h5 { text-align: center; }
 #postamble { text-align: right; }
 #postamble p, #preamble p { font-size: 80%; margin: .2em; }
 
+.side-by-side {
+  text-align: center;
+}
+
+#outline-container-latest-articles {
+  /* align-content: left; */
+  /* float: left; */
+  display: inline-block;
+  max-width: 100%;
+  padding-right: 4px;
+}
+#outline-container-latest-projects {
+  /* align-content: right; */
+  /* float: right; */
+  display: inline-block;
+  max-width: 100%;
+  padding-left: 4px;
+}
+#latest-articles { margin: 10px 0px 1px 0px; }
+#latest-projects { margin: 10px 0px 1px 0px; }
+
 /* CLICKABLE IMAGES WITH TEXT OVERLAY */
 .image-container {
     position: relative;
-    width: 480px;
-    height: 270px;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    width: 400px;
+    height: 225px;
+    margin-top: 1px;
+    margin-bottom: 1px;
 
     max-width: 100%;
 
@@ -128,6 +146,8 @@ h5 { text-align: center; }
   align-content: right;
   float: right;
 }
+
+.read-more { text-align: center; align-content: center; margin-left: auto; margin-right: auto; margin-top: 5px; }
 
 .overlay {
     position: absolute;

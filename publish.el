@@ -1,26 +1,21 @@
-;
-; ENABLE #+BEGIN_SRC CODE BLOCKS
-;
 ;; set package install dir to local directory
 (require 'package)
 (setq package-user-dir (expand-file-name "./.packages"))
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
+(unless package-archive-contents (package-refresh-contents))
 
 ;; dependencies
-(package-install 'htmlize)
-
+(package-install 'htmlize) ; enable export of #+begin_src code blocks
 (require 'ox-publish)
 (require 'org)
 (require 'cl-lib)
 
-(setq org-src-fontify-natively t)
-(setq org-html-htmlize-output-type 'css)
-
-(setq keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]")) ; keywords to parse from .org files
+(setq
+      keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]") ; keywords to parse from .org files
+      org-html-htmlize-output-type 'css
+      org-src-fontify-natively t)
 
 ; helper functions
 (defun get-org-files (directory)
@@ -43,14 +38,17 @@
               (string> date-str-a date-str-b)
               (string< date-str-a date-str-b))))))
 
+; TODO put together
+(setq article-keyword-list '())
+(setq project-keyword-list '())
 (defun prepare-publishing (project-properties)
-  ; create keyword-lists for project/ and article/
-  (setq article-keyword-list '())
+  ;
+  ; FILL & SORT KEYWORD-LISTS FOR PROJECT/ AND ARTICLE/
+  ;
   (dolist (article (get-org-files "article"))
     (push (get-org-file-keywords article) article-keyword-list))
   (setq article-keyword-list (sort-keyword-list-by-date article-keyword-list t))
 
-  (setq project-keyword-list '())
   (dolist (project (get-org-files "project"))
     (push (get-org-file-keywords project) project-keyword-list))
   (setq project-keyword-list (sort-keyword-list-by-date project-keyword-list t))
@@ -100,20 +98,18 @@
   ;
   ; EXECUTE NAMED SRC BLOCKS
   ;
-  (defun get-article-keyword-list () article-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
-  (defun get-project-keyword-list () project-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
   (dolist (org-file (directory-files-recursively "./" "\\.org$"))
-    (find-file org-file)
-    (setq src-block-names '("list-of-articles" "list-of-projects" "latest-article" "latest-project" "generate-tags"))
-    (goto-char (point-min))
-    (setq org-confirm-babel-evaluate nil) ; NOTE needed when org-babel-execute-src-block is called in a script
-    (dolist (src-block-name src-block-names)
-      (if (org-babel-find-named-block src-block-name)
-        (progn
-          (org-babel-goto-named-src-block src-block-name)
-          (org-babel-execute-src-block))))
-    (save-buffer)
-    (kill-buffer))
+      (find-file org-file)
+      (setq src-block-names '("list-of-projects" "latest-article" "latest-project" "generate-tags"))
+      (goto-char (point-min))
+      (setq org-confirm-babel-evaluate nil) ; NOTE needed when org-babel-execute-src-block is called in a script
+      (dolist (src-block-name src-block-names)
+        (if (org-babel-find-named-block src-block-name)
+          (progn
+            (org-babel-goto-named-src-block src-block-name)
+            (org-babel-execute-src-block))))
+      (save-buffer)
+      (kill-buffer))
 
   ;
   ; TAGGING SYSTEM
@@ -150,20 +146,6 @@
 )
 
 ;; customize HTML output (see https://pank.eu/blog/blog-setup.html)
-(setq
-       org-html-validation-link nil                      ;; Don't show validation link
-       ;org-html-doctype "html5"                          ;; default is "xhtml-strict"
-       org-html-html5-fancy t                            ;; ...
-       org-html-preamble t
-       org-html-divs '((preamble "header" "top")         ;; ...
-                       (content "main" "content")
-                       (postamble "footer" "postamble"))
-       org-html-head (concat
-                      "<title>andersch.dev</title>\n"
-                      "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
-                      "<link rel=\"stylesheet\" href=\"/style.css\">\n")
-       org-html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string)))))
-
 ; see https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options.html
 (setq org-publish-project-alist
       (list
@@ -175,42 +157,44 @@
              :preparation-function 'prepare-publishing       ;; called before publishing
            ; :completion-function                            ;; called after
            ; :base-extension                                 ;; extension of source files
-             :exclude "sitemap.org"                          ;; regex of files to exclude NOTE excluding dirs seems to not work
+             :exclude "code.org"                 ;; regex of files to exclude NOTE excluding dirs seems to not work
            ; :include                                        ;; list of files to include
+           ; :html-doctype "html5"                           ;; default is "xhtml-strict"
+             :html-divs            '((preamble "header" "top")
+                                     (content "main" "content")
+                                     (postamble "footer" "postamble"))
+             :html-html5-fancy     t
+             :html-head            (concat "<title>andersch.dev</title>\n"
+                                           "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
+                                           "<link rel=\"stylesheet\" href=\"/style.css\">\n")
+             :html-preamble        t
+             :html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string))))
+             :html-postamble       nil                       ;; don't insert a footer with a date etc.
 
              :auto-sitemap         t                         ;; https://orgmode.org/manual/Site-map.html
              :sitemap-filename     "sitemap.org"             ;; ...
            ; :sitemap-title
              :sitemap-style        'tree                     ;; list or tree
              :sitemap-sort-files   'anti-chronologically
-           ;  :sitemap-function     'my-format-rss-feed
-           ;  :sitemap-format-entry 'my-format-rss-feed-entry
-
            ; :makeindex t                                    ;; https://orgmode.org/manual/Generating-an-index.html
-
              :with-title           nil                       ;; we include our own header
              :with-author          nil
              :with-creator         nil                       ;; don't include emacs and org versions in footer
              :with-toc             nil                       ;; no table of contents
              :section-numbers      nil                       ;; no section numbers for headings
-             :time-stamp-file      nil)                      ;; don't include "Created: <timestamp>" in footer
-             :with-date            nil))
+             :html-validation-link nil                       ;; don't show validation link
+             :time-stamp-file      nil                       ;; don't include "Created: <timestamp>" in footer
+             :with-date            nil)))
 
 ; NOTE caching causes problems with updating titles etc., so we reset the cache before publishing
 (setq org-publish-use-timestamps-flag nil)
 (setq org-publish-timestamp-directory "./.org-timestamps/")
 (org-publish-remove-all-timestamps)
-; NOTE these resets seem unnessecary
-;(org-element-cache-reset)
-;(org-refile-cache-clear)
-;(org-reset-file-cache)
-;(org-publish-reset-cache)
 
 ; NOTE workaround to not get a "Symbol’s function definition is void" error when publishing
-(defun get-article-keyword-list ())
-(defun get-project-keyword-list ())
+(defun get-article-keyword-list () article-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
+(defun get-project-keyword-list () project-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
 
 (org-publish "andersch.dev" t) ;; expand @@..@@ markers, export html files, copy image files
-(org-publish "attachments")    ;; copy image files
 
 (message "Build complete")

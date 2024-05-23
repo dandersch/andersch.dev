@@ -1,5 +1,8 @@
 #+TITLE: Projects
-* Projects
+
+#+CALL: ../code.org:generate-article-snippets[:eval yes](list=(get-project-keyword-list))
+
+* Projects                                                         :noexport:
 #+NAME: list-of-projects
 #+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-project-keyword-list)
 (setq list-string '())

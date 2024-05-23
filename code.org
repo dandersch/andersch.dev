@@ -1,0 +1,127 @@
+#+NAME: list-of-articles
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='()
+(setq list-string '())
+(if (eq org-export-current-backend 'html)
+  (dolist (entry list)
+    (push
+     (format
+       (concat
+        "#+BEGIN_EXPORT html\n"
+        "<div class=\"image-container\">\n"
+           ; NOTE "../" as a workaround
+           "<a href=\"../%s\">\n"
+               "<div class=\"overlay\">\n"
+                   "<div class=\"title\">%s</div>\n"
+                   "<div class=\"description\">%s</div>\n"
+               "</div>\n"
+               "<img src=\"./%s\" alt=\"\">\n"
+           "</a>\n"
+        "</div>\n"
+        "#+END_EXPORT\n")
+       (string-replace ".org" ".html" (car entry))
+       (cadr (assoc "TITLE" (cadr entry)))
+       (cadr (assoc "DESCRIPTION" (cadr entry)))
+       (cadr (assoc "IMAGE" (cadr entry))))
+    list-string)
+  )
+  (dolist (entry list)
+    ; NOTE "../" as a workaround
+    (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) list-string)
+  ))
+(mapconcat #'identity list-string "\n") ; flatten string list to a string
+#+END_SRC
+
+#+NAME: generate-tags
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results html
+(setq tags-string '())
+;(if (eq org-export-current-backend 'html)
+;  (progn
+    ;(setq tags-string (append tags-string (list "#+BEGIN_EXPORT html\n")))
+    (setq tags-string (append tags-string (list "<div class=\"tags\">")))
+    (setq tags-string (append tags-string (list "[ ")))
+    (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
+    (dolist (tag tags)
+      (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag))))
+      )
+    (setq tags-string (append tags-string (list "]")))
+    (setq tags-string (append tags-string (list "</div>\n")))
+    ;(setq tags-string (append tags-string (list "#+END_EXPORT")))
+    (mapconcat #'identity tags-string "") ; flatten string list to a string
+;  )
+;  (print "")
+;)
+#+END_SRC
+
+#+NAME: generate-article-header
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results html
+(defun generate-tags ()
+  (setq tags-string '())
+      (setq tags-string (append tags-string (list "<div class=\"tags\">")))
+      (setq tags-string (append tags-string (list "<code>")))
+      (setq tags-string (append tags-string (list "[ ")))
+      (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
+      (dolist (tag tags)
+        (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag))))
+        )
+      (setq tags-string (append tags-string (list "]")))
+      (setq tags-string (append tags-string (list "</code>")))
+      (setq tags-string (append tags-string (list "</div>\n")))
+      (mapconcat #'identity tags-string "")) ; flatten string list to a string
+
+(setq keywords (org-collect-keywords '("TITLE" "DESCRIPTION" "DATE" "IMAGE" "TAGS[]")))
+
+(format
+   (concat
+     "<div class=\"tags-date-box\">\n"
+       (generate-tags)
+       "<div class=\"date\"><span class=\"timestamp\">%s</span></div>\n"
+     "</div>\n")
+   (cadr (assoc "DATE" keywords)))
+#+END_SRC
+
+#+NAME: generate-article-subtitle
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results html
+(setq keywords (org-collect-keywords '("TITLE" "DESCRIPTION" "DATE" "IMAGE" "TAGS[]")))
+(format
+   (concat
+     "<h2 class=\"subtitle\">%s</h1>"
+     "<div class=\"figure\"><img src=\"%s\" alt=\"\"></div>")
+   (cadr (assoc "DESCRIPTION" keywords))
+   (cadr (assoc "IMAGE" keywords)))
+#+END_SRC
+
+#+NAME: generate-article-snippets
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results html :var list='()
+(setq article-snippets '())
+(dolist (article list)
+  (with-temp-buffer
+    (insert-file-contents (concat "../" (car article)))
+
+    ;; remove everything after the snippet marker
+    (setq snippet-marker "# endsnippet") ; TODO handle if marker is missing
+    (if (search-forward snippet-marker nil t)
+      (setq begin (point))
+      (error (format "Snippet marker is not set for %s" (car article)))
+    )
+    (end-of-buffer)
+    (setq end (point))
+    (goto-char (point-min))
+    (delete-region begin end)
+
+    ;; export snippet as html
+    (setq org-export-show-temporary-export-buffer nil)
+    (org-html-export-as-html nil nil nil t nil)
+    (switch-to-buffer "*Org HTML Export*")
+    (setq article-snippets (append article-snippets (list (buffer-string))))
+
+    ;; read more link
+    (setq read-more-html (format "<div class=\"read-more\"><a href=\"/%s\">READ MORE</a></div>" (string-replace ".org" ".html" (car article))))
+    (setq article-snippets (append article-snippets (list read-more-html)))
+
+    ;; dividing line between snippets
+    (setq article-snippets (append article-snippets (list "<hr>\n")))
+  )
+)
+
+(mapconcat #'identity article-snippets "") ; flatten string list to a string
+#+END_SRC

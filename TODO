@@ -1,7 +1,7 @@
 TODO -*- mode: org -*-
 
-- [ ] latest {article,project} side-by-side view
-  + [ ] no side-by-side view on mobile (or when zoomed in)
+- [1/2] latest {article,project} side-by-side view
+  + [X] no side-by-side view on mobile (or when zoomed in)
   + [ ] display up to 3 articles/projects per side
 
 - [X] display date above article title
