@@ -12,7 +12,7 @@ body {
     background-color: #28292b;
     color: #ffffff;
     /* all: initial; */
-    padding: 1px 20px 20px 20px;
+    padding: 10px 20px 20px 20px;
 }
 
 header {
@@ -93,8 +93,8 @@ h5 { text-align: center; }
   max-width: 100%;
   padding-left: 4px;
 }
-#latest-articles { margin: 10px 0px 1px 0px; }
-#latest-projects { margin: 10px 0px 1px 0px; }
+#latest-articles { margin: 0px 0px 1px 0px; }
+#latest-projects { margin: 0px 0px 1px 0px; }
 
 /* CLICKABLE IMAGES WITH TEXT OVERLAY */
 .image-container {
