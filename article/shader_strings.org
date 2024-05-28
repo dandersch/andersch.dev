@@ -1,0 +1,158 @@
+#+TITLE:       A Better Way to Include Shaders in a C/C++ Program
+#+DESCRIPTION: Including an OpenGL Shader's Source Code as a string inside your source code
+#+DATE:        <2024-05-28>
+#+IMAGE:       shader_strings.gif
+#+TAGS[]:      opengl graphics cpp
+#+OPTIONS:     toc:nil num:nil
+
+#+CALL: ../code.org:generate-article-header[:eval yes]()
+* {{{TITLE}}}
+#+CALL: ../code.org:generate-article-subtitle[:eval yes]()
+
+Most OpenGL tutorials will tell you to first include any shader code by writing
+it out as a string literal:
+
+#+BEGIN_SRC C
+const char* vertex_shader_source = "#version 330 core\n"
+                                   "layout(location = 0) in vec3 aPos;\n"
+                                   "void main() {\n"
+                                   "    gl_Position = vec4(aPos, 1.0);\n"
+                                   "}\n";
+
+const char* fragment_shader_source = "#version 330 core\n"
+                                     "out vec4 FragColor;\n"
+                                     "void main() {\n"
+                                     "    FragColor = vec4(1.0, 0.5, 0.2, 1.0);\n"
+                                     "}\n";
+#+END_SRC
+
+However:
+- Newline characters makes this clumsy (forgetting the newline will break things
+  in case of the ~#version~ directive)
+- Annoying to write
+- No GLSL specific syntax highlighting possible
+
+I was exploring how to better include the source code without having to write
+some bespoke shader management code that would have to load in a file, allocate
+memory for the string, append a null terminator, etc. I.e., something that
+just works quickly for prototyping.
+
+# endsnippet
+
+My requirements were:
+- It shouldn't rely on an additional preprocessing step (e.g. invoking something
+  in a ~CMakeLists.txt~)
+- I should still have the option of having the shader source code in a separate
+  file
+- It would be nice to still be able to hot-reload any shader
+
+All solutions build on a ~stringify~ macro that includes the ~#version~ directive by
+default. This needs to be done because the ~#~ character will always be
+interpreted as a C preprocessor directive when it is the first non-whitespace
+character in a source file.
+
+#+BEGIN_SRC C
+#define SHADER_STRINGIFY(x) "#version 330\n" #x
+#+END_SRC
+
+Using this macro, you have the option of specifying shader code inline without
+having to write out quotes or newlines:
+
+#+BEGIN_SRC C
+// first option: shader src code as an inlined string
+const char* inline_shader = SHADER_STRINGIFY(
+    uniform mat4 u_mvp;
+
+    in vec2 in_pos;
+    in vec2 in_uv;
+
+    out vec2 v_uv;
+
+    void main( )
+    {
+        v_uv = in_uv;
+        gl_Position = u_mvp * vec4(in_pos, 0, 1);
+    }
+);
+
+printf("INLINE:\n%s\n\n", inline_shader);
+#+END_SRC
+
+As a second option, we can write out the shader code in its own file and wrap it
+inside the ~stringify~ macro:
+
+#+BEGIN_SRC glsl
+SHADER_STRINGIFY(
+uniform mat4 u_mvp;
+
+in vec2 in_pos;
+in vec2 in_uv;
+
+out vec2 v_uv;
+
+void main( )
+{
+    v_uv = in_uv;
+    gl_Position = u_mvp * vec4(in_pos, 0, 1);
+}
+)
+#+END_SRC
+
+We can then ~#include~ this file in our C/C++ source code like so:
+#+BEGIN_SRC C
+// second option: shader src code as an included file
+const char* file_shader =
+  #include "shader.vert"
+;
+
+printf("FILE:\n%s\n\n", file_shader);
+#+END_SRC
+
+If you prefer not to have a dangling semicolon, you can instead write it at the
+end of the ~shader.vert~. However, using the version without the
+semicolon at the end lets you write code using initializers:
+
+#+BEGIN_SRC C
+typedef struct shader_t
+{
+    const char* name; // shader name
+    const char* code; // shader source code as a string
+} shader_t;
+
+shader_t shader =
+{
+    "Shader Name",
+    #include "reload.vert"
+};
+#+END_SRC
+
+** Hot-Reloading Shaders
+If you implement [[https://slembcke.github.io/HotLoadC][code hot-reloading]], you can get hot-reloadable shaders for
+basically free with this method[fn::To be fair, it will also work with shaders as string-literals].
+
+All you need to do is to recompile and link the shader program again after you
+have loaded in the new DLL.
+
+#+BEGIN_SRC C
+void* dll_handle = dlopen("code.dll", RTLD_NOW);
+
+if (dll_handle == NULL) { printf("Opening DLL failed. Trying again...\n"); }
+while (dll_handle  == NULL)
+{
+    dll_handle = dlopen(DLL_FILENAME, RTLD_NOW);
+}
+
+// fill function pointers
+create_shaders = (void (*)(state_t*)) dlsym(dll_handle, "create_shaders");
+
+// reload all shaders
+create_shaders(&state);
+#+END_SRC
+
+If you don't want to compile all shaders again and instead only the ones that
+have changed, you could either compare all old source code strings against the
+new ones [fn::Make sure to exclude ~SHADER_STRINGIFY(...)~ from the
+~string_equals()~ check if comparing at the file level] or check for new file
+modification timestamps and only reload the corresponding shaders. But at that
+point, you would probably be better of implementing a conventional shader
+management system that loads in shaders as real text files.

@@ -2,17 +2,18 @@
 
 - [[file:index.org][andersch.dev]]
 - tag
-  - [[file:tag/cpp.org][Pages tagged cpp]]
-  - [[file:tag/graphics.org][Pages tagged graphics]]
   - [[file:tag/algorithm.org][Pages tagged algorithm]]
+  - [[file:tag/cpp.org][Pages tagged cpp]]
   - [[file:tag/gamedev.org][Pages tagged gamedev]]
   - [[file:tag/lisp.org][Pages tagged lisp]]
   - [[file:tag/opengl.org][Pages tagged opengl]]
+  - [[file:tag/graphics.org][Pages tagged graphics]]
 - project
   - [[file:project/index.org][Projects]]
   - [[file:project/game2d.org][Game2D]]
   - [[file:project/raytracer.org][OpenGL Raytracer]]
 - article
+  - [[file:article/shader_strings.org][A Better Way to Include Shaders in a C/C++ Program]]
   - [[file:article/index.org][Articles]]
   - [[file:article/test.org][Testing article 1]]
   - [[file:article/opengl-tutorial.org][How to write a graphics application with OpenGL]]

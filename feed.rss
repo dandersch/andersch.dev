@@ -8,6 +8,16 @@
 <description>Stuff on programming</description>
 <language>en-us</language>
 <item>
+<title>A Better Way to Include Shaders in a C/C++ Program</title>
+<link>https://andersch.dev/article/shader_strings.html</link>
+<guid>https://andersch.dev/article/shader_strings.html</guid>
+<description>
+&lt;p&gt;Including an OpenGL Shader's Source Code as a string inside your source code&lt;/p&gt;
+&lt;img src="https://andersch.dev/article/shader_strings.gif"/&gt;
+</description>
+<pubDate>Tue, 28 May 2024 00:00:00 +0200</pubDate>
+</item>
+<item>
 <title>Testing article 1</title>
 <link>https://andersch.dev/article/test.html</link>
 <guid>https://andersch.dev/article/test.html</guid>

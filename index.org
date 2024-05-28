@@ -41,9 +41,9 @@
 
 #+RESULTS: latest-article
 :results:
-Latest article: [[./article/test.org][Testing article 1]]
+Latest article: [[./article/shader_strings.org][A Better Way to Include Shaders in a C/C++ Program]]
 #+attr_html: :width 700px
-[[./article/test.gif]]
+[[./article/shader_strings.gif]]
 :end:
 
 * Latest [[./project/index.org][projects]]

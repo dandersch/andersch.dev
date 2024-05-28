@@ -2,3 +2,4 @@ publish/
 .packages/
 .org-timestamps/
 *.html~
+.dir-locals.el

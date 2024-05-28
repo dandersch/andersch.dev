@@ -1,5 +1,6 @@
 #+TITLE: Pages tagged cpp
 * Articles tagged ~cpp~
+- [[../article/shader_strings.org][A Better Way to Include Shaders in a C/C++ Program]]
 - [[../article/opengl-tutorial.org][How to write a graphics application with OpenGL]]
 * Projects tagged ~cpp~
 - [[../project/game2d.org][Game2D]]

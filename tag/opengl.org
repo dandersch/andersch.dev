@@ -1,4 +1,5 @@
 #+TITLE: Pages tagged opengl
 * Articles tagged ~opengl~
+- [[../article/shader_strings.org][A Better Way to Include Shaders in a C/C++ Program]]
 - [[../article/opengl-tutorial.org][How to write a graphics application with OpenGL]]
 * Projects tagged ~opengl~

@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>How to write a graphics application with OpenGL</title>
-<meta name="description" content="Real-time rasterization made possible using this rendering API" />
+<title>A Better Way to Include Shaders in a C/C++ Program</title>
+<meta name="description" content="Including an OpenGL Shader's Source Code as a string inside your source code" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -221,145 +221,210 @@
 <main id="content" class="content">
 <div class="tags-date-box">
 <div class="tags"><code>[ <a href="/tag/opengl.html">opengl</a> <a href="/tag/graphics.html">graphics</a> <a href="/tag/cpp.html">cpp</a> ]</code></div>
-<div class="date"><span class="timestamp"><2023-01-01></span></div>
+<div class="date"><span class="timestamp"><2024-05-28></span></div>
 </div>
 
-<div id="outline-container-orgfe8006d" class="outline-2">
-<h2 id="orgfe8006d">How to write a graphics application with OpenGL</h2>
-<div class="outline-text-2" id="text-orgfe8006d">
-<h2 class="subtitle">Real-time rasterization made possible using this rendering API</h1><div class="figure"><img src="opengl.png" alt=""></div>
+<div id="outline-container-orgee737aa" class="outline-2">
+<h2 id="orgee737aa">A Better Way to Include Shaders in a C/C++ Program</h2>
+<div class="outline-text-2" id="text-orgee737aa">
+<h2 class="subtitle">Including an OpenGL Shader's Source Code as a string inside your source code</h1><div class="figure"><img src="shader_strings.gif" alt=""></div>
 
 <p>
-OpenGL ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-sanctus est Lorem ipsum dolor sit amet.
-</p>
-
-
-<table border="2" cellspacing="0" cellpadding="6" rules="all" frame="border" class="center">
-<caption class="t-above"><span class="table-number">Table 1:</span> An org-table for OpenGL</caption>
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">rendering api</th>
-<th scope="col" class="org-left">OpenGL</th>
-<th scope="col" class="org-left">Vulkan</th>
-<th scope="col" class="org-left">DirectX</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left">linux support</td>
-<td class="org-left">yes</td>
-<td class="org-left">yes</td>
-<td class="org-left">no</td>
-</tr>
-
-<tr>
-<td class="org-left">good</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">X</td>
-<td class="org-left">X</td>
-</tr>
-
-<tr>
-<td class="org-left">thing 3</td>
-<td class="org-left">depends</td>
-<td class="org-left">n.a.</td>
-<td class="org-left">windows</td>
-</tr>
-</tbody>
-</table>
-
-<p>
-More text here
+Most OpenGL tutorials will tell you to first include any shader code by writing
+it out as a string literal:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">b</span> = 1; <span class="org-comment-delimiter">// </span><span class="org-comment">globally-scoped</span>
-<span class="org-keyword">function</span> <span class="org-function-name">exampleVar</span>() {
-    <span class="org-keyword">var</span> <span class="org-variable-name">a</span> = 0; <span class="org-comment-delimiter">// </span><span class="org-comment">function-scoped (or globally-scoped)</span>
-    <span class="org-keyword">if</span> (<span class="org-constant">true</span>) {
-        <span class="org-keyword">var</span> <span class="org-variable-name">a</span> = 1; <span class="org-comment-delimiter">// </span><span class="org-comment">reassigns outer x because of hoisting</span>
-        <span class="org-keyword">var</span> <span class="org-variable-name">b</span> = 3; <span class="org-comment-delimiter">// </span><span class="org-comment">reassigns outer y (gets "hoisted" to the top of scope)</span>
-        c = 3;     <span class="org-comment-delimiter">// </span><span class="org-comment">implicitly globally scoped</span>
-        <span class="org-keyword">let</span> <span class="org-variable-name">d</span> = 7; <span class="org-comment-delimiter">// </span><span class="org-comment">block-scoped</span>
-        console.log(a, b, c, d); <span class="org-comment-delimiter">// </span><span class="org-comment">Output: 1, 3, 3, 7</span>
-    }
+<pre class="src src-C"><span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">vertex_shader_source</span> = <span class="org-string">"#version 330 core\n"</span>
+                                   <span class="org-string">"layout(location = 0) in vec3 aPos;\n"</span>
+                                   <span class="org-string">"void main() {\n"</span>
+                                   <span class="org-string">"    gl_Position = vec4(aPos, 1.0);\n"</span>
+                                   <span class="org-string">"}\n"</span>;
 
-    console.log(a, b, c); <span class="org-comment-delimiter">// </span><span class="org-comment">Output: 13, 3 (no access to z)</span>
-}
-
-exampleVar()
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">fragment_shader_source</span> = <span class="org-string">"#version 330 core\n"</span>
+                                     <span class="org-string">"out vec4 FragColor;\n"</span>
+                                     <span class="org-string">"void main() {\n"</span>
+                                     <span class="org-string">"    FragColor = vec4(1.0, 0.5, 0.2, 1.0);\n"</span>
+                                     <span class="org-string">"}\n"</span>;
 </pre>
 </div>
 
+<p>
+However:
+</p>
+<ul class="org-ul">
+<li>Newline characters makes this clumsy (forgetting the newline will break things
+in case of the <code>#version</code> directive)</li>
+<li>Annoying to write</li>
+<li>No GLSL specific syntax highlighting possible</li>
+</ul>
+
+<p>
+I was exploring how to better include the source code without having to write
+some bespoke shader management code that would have to load in a file, allocate
+memory for the string, append a null terminator, etc. I.e., something that
+just works quickly for prototyping.
+</p>
+
+<p>
+My requirements were:
+</p>
+<ul class="org-ul">
+<li>It shouldn't rely on an additional preprocessing step (e.g. invoking something
+in a <code>CMakeLists.txt</code>)</li>
+<li>I should still have the option of having the shader source code in a separate
+file</li>
+<li>It would be nice to still be able to hot-reload any shader</li>
+</ul>
+
+<p>
+All solutions build on a <code>stringify</code> macro that includes the <code>#version</code> directive by
+default. This needs to be done because the <code>#</code> character will always be
+interpreted as a C preprocessor directive when it is the first non-whitespace
+character in a source file.
+</p>
+
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;gl.h&gt;</span>
-<span class="org-comment-delimiter">/* </span><span class="org-comment">multiline</span>
-<span class="org-comment">   comment</span><span class="org-comment-delimiter"> */</span>
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">SHADER_STRINGIFY</span>(<span class="org-variable-name">x</span>) <span class="org-string">"#version 330\n"</span> #x
+</pre>
+</div>
 
+<p>
+Using this macro, you have the option of specifying shader code inline without
+having to write out quotes or newlines:
+</p>
 
-<span class="org-preprocessor">#define</span> <span class="org-variable-name">THING</span> 4
-<span class="org-preprocessor">#ifdef</span> THING
-  <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-variable-name">a</span> = 4;
-<span class="org-preprocessor">#else</span>
-  <span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-variable-name">a</span> = 8;
-<span class="org-preprocessor">#endif</span>
-<span class="org-type">int</span> <span class="org-function-name">main</span>()
-{
-    glProgram(<span class="org-string">"String literal"</span>);
-    <span class="org-keyword">if</span> (a)
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">first option: shader src code as an inlined string</span>
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">inline_shader</span> = SHADER_STRINGIFY(
+    uniform <span class="org-type">mat4</span> <span class="org-variable-name">u_mvp</span>;
+
+    in <span class="org-type">vec2</span> <span class="org-variable-name">in_pos</span>;
+    in <span class="org-type">vec2</span> <span class="org-variable-name">in_uv</span>;
+
+    out <span class="org-type">vec2</span> <span class="org-variable-name">v_uv</span>;
+
+    <span class="org-type">void</span> <span class="org-function-name">main</span>( )
     {
-        printf(<span class="org-string">"Hello"</span>, THING);
+        v_uv = in_uv;
+        gl_Position = u_mvp * vec4(in_pos, 0, 1);
     }
-}
+);
+
+printf(<span class="org-string">"INLINE:\n%s\n\n"</span>, inline_shader);
 </pre>
 </div>
-
-<div class="org-src-container">
-<pre class="src src-cpp"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;gl.h&gt;</span>
-
-<span class="org-preprocessor">#define</span> <span class="org-variable-name">THING</span> 4
-<span class="org-type">int</span> <span class="org-function-name">main</span>()
-{
-    <span class="org-comment-delimiter">// </span><span class="org-comment">comment here</span>
-    <span class="org-constant">std</span>::<span class="org-type">vector</span>&lt;<span class="org-type">int</span>&gt; <span class="org-variable-name">ints</span>;
-    glProgram(<span class="org-string">"String literal"</span>);
-    <span class="org-keyword">if</span> (a)
-    {
-        printf(<span class="org-string">"Hello"</span>, THING);
-    }
-}
-</pre>
-</div>
-
 
 <p>
-Hello world example code:
+As a second option, we can write out the shader code in its own file and wrap it
+inside the <code>stringify</code> macro:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-glsl">SHADER_STRINGIFY(
+uniform mat4 u_mvp;
+
+in vec2 in_pos;
+in vec2 in_uv;
+
+out vec2 v_uv;
+
+void main( )
+{
+    v_uv = in_uv;
+    gl_Position = u_mvp * vec4(in_pos, 0, 1);
+}
+)
+</pre>
+</div>
+
+<p>
+We can then <code>#include</code> this file in our C/C++ source code like so:
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span class="org-comment-delimiter"># </span><span class="org-comment">Python comment</span>
-<span class="org-keyword">def</span> <span class="org-function-name">hello_world</span>(name):
-    <span class="org-builtin">print</span>(name)
+<pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">second option: shader src code as an included file</span>
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">file_shader</span> =
+<span class="org-preprocessor">  #include</span> <span class="org-string">"shader.vert"</span>
+;
+
+printf(<span class="org-string">"FILE:\n%s\n\n"</span>, file_shader);
+</pre>
+</div>
+
+<p>
+If you prefer not to have a dangling semicolon, you can instead write it at the
+end of the <code>shader.vert</code>. However, using the version without the
+semicolon at the end lets you write code using initializers:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">shader_t</span>
+{
+    <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">name</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">shader name</span>
+    <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">code</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">shader source code as a string</span>
+} <span class="org-type">shader_t</span>;
+
+<span class="org-type">shader_t</span> <span class="org-variable-name">shader</span> =
+{
+    <span class="org-string">"Shader Name"</span>,
+<span class="org-preprocessor">    #include</span> <span class="org-string">"reload.vert"</span>
+};
 </pre>
 </div>
 </div>
+
+<div id="outline-container-org84951aa" class="outline-3">
+<h3 id="org84951aa">Hot-Reloading Shaders</h3>
+<div class="outline-text-3" id="text-org84951aa">
+<p>
+If you implement <a href="https://slembcke.github.io/HotLoadC">code hot-reloading</a>, you can get hot-reloadable shaders for
+basically free with this method<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
+</p>
+
+<p>
+All you need to do is to recompile and link the shader program again after you
+have loaded in the new DLL.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">void</span>* <span class="org-variable-name">dll_handle</span> = dlopen(<span class="org-string">"code.dll"</span>, RTLD_NOW);
+
+<span class="org-keyword">if</span> (dll_handle == <span class="org-constant">NULL</span>) { printf(<span class="org-string">"Opening DLL failed. Trying again...\n"</span>); }
+<span class="org-keyword">while</span> (dll_handle  == <span class="org-constant">NULL</span>)
+{
+    dll_handle = dlopen(DLL_FILENAME, RTLD_NOW);
+}
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">fill function pointers</span>
+create_shaders = (<span class="org-type">void</span> (*)(<span class="org-type">state_t</span>*)) <span class="org-function-name">dlsym</span>(dll_handle, <span class="org-string">"create_shaders"</span>);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">reload all shaders</span>
+create_shaders(&amp;state);
+</pre>
 </div>
-</main>
+
+<p>
+If you don't want to compile all shaders again and instead only the ones that
+have changed, you could either compare all old source code strings against the
+new ones <sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> or check for new file
+modification timestamps and only reload the corresponding shaders. But at that
+point, you would probably be better of implementing a conventional shader
+management system that loads in shaders as real text files.
+</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">To be fair, it will also work with shaders as string-literals</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">Make sure to exclude <code>SHADER_STRINGIFY(...)</code> from the
+<code>string_equals()</code> check if comparing at the file level</p></div></div>
+
+
+</div>
+</div></main>
 </body>
 </html>
