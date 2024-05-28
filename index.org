@@ -41,9 +41,9 @@
 
 #+RESULTS: latest-article
 :results:
-Latest article: [[./article/bubblesort.org][How Bubblesort works]]
+Latest article: [[./article/test.org][Testing article 1]]
 #+attr_html: :width 700px
-[[./article/bubblesort.gif]]
+[[./article/test.gif]]
 :end:
 
 * Latest [[./project/index.org][projects]]

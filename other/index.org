@@ -1,0 +1,3 @@
+#+TITLE: Other
+
+#+CALL: ../code.org:generate-article-snippets[:eval yes](list=(get-other-keyword-list))

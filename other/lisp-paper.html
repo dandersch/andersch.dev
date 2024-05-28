@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>How Bubblesort works</title>
-<meta name="description" content="The queen of all sorting algorithms" />
+<title>Paper on Lisp</title>
+<meta name="description" content="A paper on Lisp I have written" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -195,125 +195,39 @@
 <title>andersch.dev</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="stylesheet" href="/style.css">
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
-
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
 </head>
 <body>
 <header id="top" class="status">
 <header>
 <h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
-<!-- <h1 class="subtitle" id="title">contact {at] andersch (dot} dev</h1> -->
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.rss" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
 <div>
 	<nav class="nav">
-		<a class="nav-link" href="/">home</a>
-		<a class="nav-link" href="/project">project</a>
+		<!-- <a class="nav-link" href="/">home</a> -->
 		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
 		<!--<a class="nav-link" href="about">about</a>-->
-		<!--<a class="nav-link" href="other">other</a>-->
-		<a class="nav-link" href="/feed.rss">rss</a>
+		<!-- <a class="nav-link" href="/feed.rss">rss</a> -->
 	</nav>
 </div>
 </header>
 </header>
 <main id="content" class="content">
 <div class="tags-date-box">
-<div class="tags"><code>[ <a href="/tag/algorithm.html">algorithm</a> ]</code></div>
-<div class="date"><span class="timestamp"><2024-05-08 Wed 13:15></span></div>
+<div class="tags"><code>[ <a href="/tag/lisp.html">lisp</a> ]</code></div>
+<div class="date"><span class="timestamp"><2022-05-08></span></div>
 </div>
 
-<div id="outline-container-orgfc41eba" class="outline-2">
-<h2 id="orgfc41eba">How Bubblesort works</h2>
-<div class="outline-text-2" id="text-orgfc41eba">
-<h2 class="subtitle">The queen of all sorting algorithms</h1><div class="figure"><img src="bubblesort.gif" alt=""></div>
-
-<p>
-ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
-et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-Lorem ipsum dolor sit amet.
-</p>
-</div>
-
-<div id="outline-container-org2b3d582" class="outline-3">
-<h3 id="org2b3d582">How Hex works</h3>
-<div class="outline-text-3" id="text-org2b3d582">
-
-<div id="org882c2f8" class="figure">
-<p><img src="./chart.jpg" alt="chart.jpg" title="hex" align="center" />
-</p>
-<p><span class="figure-number">Figure 1: </span>how to hex</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org726bbc5" class="outline-3">
-<h3 id="org726bbc5">Some Latex snippets</h3>
-<div class="outline-text-3" id="text-org726bbc5">
-<p>
-\[ x^{2} \]
-</p>
-
-<p>
-\[ f(x) = \frac{x}{0} \]
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgd4f3aaf" class="outline-3">
-<h3 id="orgd4f3aaf">Bubblesort Example</h3>
-<div class="outline-text-3" id="text-orgd4f3aaf">
-<p>
-Just sort it. invidunt ut labore et dolore magna aliquyam erat, sed diam
-voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
-ipsum dolor sit amet,
-</p>
-
-<ol class="org-ol">
-<li><code>1 3 2 4</code></li>
-<li><code>1 2 3 4</code></li>
-</ol>
-
-<p>
-invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
-et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-</p>
-</div>
+<div id="outline-container-orgf638c96" class="outline-2">
+<h2 id="orgf638c96">Paper on Lisp</h2>
+<div class="outline-text-2" id="text-orgf638c96">
+<h2 class="subtitle">A paper on Lisp I have written</h1><div class="figure"><img src="" alt=""></div>
 </div>
 </div>
 </main>

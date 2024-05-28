@@ -8,12 +8,12 @@
 <description>Stuff on programming</description>
 <language>en-us</language>
 <item>
-<title>How Bubblesort works</title>
-<link>https://andersch.dev/article/bubblesort.html</link>
-<guid>https://andersch.dev/article/bubblesort.html</guid>
+<title>Testing article 1</title>
+<link>https://andersch.dev/article/test.html</link>
+<guid>https://andersch.dev/article/test.html</guid>
 <description>
-&lt;p&gt;The queen of all sorting algorithms&lt;/p&gt;
-&lt;img src="https://andersch.dev/article/bubblesort.gif"/&gt;
+&lt;p&gt;Article 1 description with cursive&lt;/p&gt;
+&lt;img src="https://andersch.dev/article/test.gif"/&gt;
 </description>
 <pubDate>Wed, 08 May 2024 13:15:00 +0200</pubDate>
 </item>

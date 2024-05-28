@@ -1,4 +1,4 @@
 #+TITLE: Pages tagged algorithm
 * Articles tagged ~algorithm~
-- [[../article/bubblesort.org][How Bubblesort works]]
+- [[../article/test.org][Testing article 1]]
 * Projects tagged ~algorithm~

@@ -200,15 +200,20 @@
 <header id="top" class="status">
 <header>
 <h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
-<!-- <h1 class="subtitle" id="title">contact {at] andersch (dot} dev</h1> -->
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.rss" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
 <div>
 	<nav class="nav">
-		<a class="nav-link" href="/">home</a>
-		<a class="nav-link" href="/project">project</a>
+		<!-- <a class="nav-link" href="/">home</a> -->
 		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
 		<!--<a class="nav-link" href="about">about</a>-->
-		<!--<a class="nav-link" href="other">other</a>-->
-		<a class="nav-link" href="/feed.rss">rss</a>
+		<!-- <a class="nav-link" href="/feed.rss">rss</a> -->
 	</nav>
 </div>
 </header>
@@ -219,9 +224,9 @@
 <div class="date"><span class="timestamp"><2023-01-01></span></div>
 </div>
 
-<div id="outline-container-org488a4ef" class="outline-2">
-<h2 id="org488a4ef">How to write a graphics application with OpenGL</h2>
-<div class="outline-text-2" id="text-org488a4ef">
+<div id="outline-container-orgf0c7a86" class="outline-2">
+<h2 id="orgf0c7a86">How to write a graphics application with OpenGL</h2>
+<div class="outline-text-2" id="text-orgf0c7a86">
 <h2 class="subtitle">Real-time rasterization made possible using this rendering API</h1><div class="figure"><img src="opengl.png" alt=""></div>
 
 <p>
@@ -343,19 +348,6 @@ exampleVar()
 </pre>
 </div>
 
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">thing</span> ()
-  <span class="org-doc">"Documentation string"</span>
-  (<span class="org-keyword">unless</span> noninteractive
-    (org-html-htmlize-generate-css)
-    <span class="org-comment-delimiter">;; </span><span class="org-comment">comment here</span>
-    (<span class="org-keyword">with-current-buffer</span> <span class="org-string">"*html*"</span>
-      (write-file css-file))
-    (format <span class="org-string">"#+html_head_extra: &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"%s\"/&gt;"</span>
-        css-file)) <span class="org-comment-delimiter">; </span><span class="org-comment">comment here</span>
-)
-</pre>
-</div>
 
 <p>
 Hello world example code:

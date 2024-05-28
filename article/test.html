@@ -5,7 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pages tagged opengl</title>
+<title>Testing article 1</title>
+<meta name="description" content="Article 1 description with cursive" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -194,6 +195,38 @@
 <title>andersch.dev</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="stylesheet" href="/style.css">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <header id="top" class="status">
@@ -218,16 +251,91 @@
 </header>
 </header>
 <main id="content" class="content">
-<div id="outline-container-orgfb22125" class="outline-2">
-<h2 id="orgfb22125">Articles tagged <code>opengl</code></h2>
-<div class="outline-text-2" id="text-orgfb22125">
-<ul class="org-ul">
-<li><a href="../article/opengl-tutorial.html">How to write a graphics application with OpenGL</a></li>
-</ul>
+<div class="tags-date-box">
+<div class="tags"><code>[ <a href="/tag/algorithm.html">algorithm</a> <a href="/tag/lisp.html">lisp</a> ]</code></div>
+<div class="date"><span class="timestamp"><2024-05-08 Wed 13:15></span></div>
+</div>
+
+<div id="outline-container-org291ced3" class="outline-2">
+<h2 id="org291ced3">Testing article 1</h2>
+<div class="outline-text-2" id="text-org291ced3">
+<h2 class="subtitle">Article 1 description with cursive</h1><div class="figure"><img src="test.gif" alt=""></div>
+
+<p>
+ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
+duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+Lorem ipsum dolor sit amet.
+</p>
+</div>
+
+<div id="outline-container-org3fef1cd" class="outline-3">
+<h3 id="org3fef1cd">How Hex works</h3>
+<div class="outline-text-3" id="text-org3fef1cd">
+
+<div id="org2cf39fd" class="figure">
+<p><img src="./test-chart.jpg" alt="test-chart.jpg" title="hex" align="center" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Test image</p>
 </div>
 </div>
-<div id="outline-container-orgfca7079" class="outline-2">
-<h2 id="orgfca7079">Projects tagged <code>opengl</code></h2>
+</div>
+
+<div id="outline-container-org2b06038" class="outline-3">
+<h3 id="org2b06038">Some Latex snippets and code</h3>
+<div class="outline-text-3" id="text-org2b06038">
+<p>
+\[ x^{2} \]
+</p>
+
+<p>
+\[ f(x) = \frac{x}{0} \]
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">thing</span> ()
+  <span class="org-doc">"Documentation string"</span>
+  (<span class="org-keyword">unless</span> noninteractive
+    (org-html-htmlize-generate-css)
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">comment here</span>
+    (<span class="org-keyword">with-current-buffer</span> <span class="org-string">"*html*"</span>
+      (write-file css-file))
+    (format <span class="org-string">"#+html_head_extra: &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"%s\"/&gt;"</span>
+        css-file)) <span class="org-comment-delimiter">; </span><span class="org-comment">comment here</span>
+)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6b341d3" class="outline-3">
+<h3 id="org6b341d3">List</h3>
+<div class="outline-text-3" id="text-org6b341d3">
+<p>
+invidunt ut labore et dolore magna aliquyam erat, sed diam
+voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
+kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem
+ipsum dolor sit amet,
+</p>
+
+<ol class="org-ol">
+<li>Numbered list</li>
+<li>Item 2</li>
+<li><code>1 3 2 4</code></li>
+<li><code>1 2 3 4</code></li>
+</ol>
+
+<p>
+invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+</p>
+</div>
+</div>
 </div>
 </main>
 </body>

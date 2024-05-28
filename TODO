@@ -8,15 +8,15 @@ TODO -*- mode: org -*-
 - [X] display description underneath article title
 - [X] date/tags system for all articles
 
-- [ ] add div next to website title
-  + [ ] add github, mail & rss feed to div
-  + [ ] turn them into links
-  + [ ] use icons for every link
-  + [ ] hide text, show only show icon and animate transition when hovering
-  + [ ] remove rss entry from navbar
+- [X] add div next to website title
+  + [X] add github, mail & rss feed to div
+  + [X] turn them into links
+  + [X] use icons for every link
+  + [X] hide text, show only show icon and animate transition when hovering
+  + [X] remove rss entry from navbar
 
-- [ ] add ~other~ entry to navbar
-  + [ ] remove ~home~ entry
+- [X] add ~other~ entry to navbar
+  + [X] remove ~home~ entry
 
 - [5/5] implement a tag system
   + [X] display tags above/underneath article

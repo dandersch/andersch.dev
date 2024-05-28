@@ -67,6 +67,14 @@ h5 { text-align: center; }
 #postamble { text-align: right; }
 #postamble p, #preamble p { font-size: 80%; margin: .2em; }
 
+.icons      { position: relative; left : 55px; text-align: center; }
+.icons span { position: relative; display: inline-block; top: -7px; font-size: 12px; opacity: 0; ; transition: opacity 0.5s ease;  background-color: black;}
+.icons img  { max-width: 100%; width: 20px; /* background-color: white; */ }
+#icon-github span { right:  2px; }
+#icon-mail   span { right: -2px; }
+#icon-github:hover span { opacity: 1; right: 2px; }
+#icon-mail:hover span   { display: inline; opacity: 1; right: -2px; }
+
 .side-by-side {
   text-align: center;
 }
@@ -146,6 +154,7 @@ h5 { text-align: center; }
   align-content: right;
   float: right;
 }
+
 
 .read-more { text-align: center; align-content: center; margin-left: auto; margin-right: auto; margin-top: 5px; }
 

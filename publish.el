@@ -41,9 +41,10 @@
 ; TODO put together
 (setq article-keyword-list '())
 (setq project-keyword-list '())
+(setq other-keyword-list   '())
 (defun prepare-publishing (project-properties)
   ;
-  ; FILL & SORT KEYWORD-LISTS FOR PROJECT/ AND ARTICLE/
+  ; FILL & SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/
   ;
   (dolist (article (get-org-files "article"))
     (push (get-org-file-keywords article) article-keyword-list))
@@ -52,6 +53,10 @@
   (dolist (project (get-org-files "project"))
     (push (get-org-file-keywords project) project-keyword-list))
   (setq project-keyword-list (sort-keyword-list-by-date project-keyword-list t))
+
+  (dolist (other (get-org-files "other"))
+    (push (get-org-file-keywords other) other-keyword-list))
+  (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t))
 
   ;
   ; GENERATE RSS FEED FOR ARTICLES
@@ -194,7 +199,8 @@
 ; NOTE workaround to not get a "Symbol’s function definition is void" error when publishing
 (defun get-article-keyword-list () article-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
 (defun get-project-keyword-list () project-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
+(defun get-other-keyword-list   () other-keyword-list)   ; NOTE workaround to pass keyword-list to a source-block in an org file
 
-(org-publish "andersch.dev" t) ;; expand @@..@@ markers, export html files, copy image files
+(org-publish "andersch.dev" t) ;; export html files
 
 (message "Build complete")

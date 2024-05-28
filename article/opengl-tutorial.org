@@ -89,18 +89,6 @@ int main()
 }
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp :var css-file="code.css" :results raw
-(defun thing ()
-  "Documentation string"
-  (unless noninteractive
-    (org-html-htmlize-generate-css)
-    ;; comment here
-    (with-current-buffer "*html*"
-      (write-file css-file))
-    (format "#+html_head_extra: <link rel=\"stylesheet\" type=\"text/css\" href=\"%s\"/>"
-        css-file)) ; comment here
-)
-#+END_SRC
 
 Hello world example code:
 #+BEGIN_SRC python
