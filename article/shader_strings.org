@@ -1,5 +1,5 @@
-#+TITLE:       A Better Way to Include Shaders in a C/C++ Program
-#+DESCRIPTION: Including an OpenGL Shader's Source Code as a string inside your source code
+#+TITLE:       Embedding Shader Source Code in a C/C++ Program
+#+DESCRIPTION: Include a shader as a string inside your code (and make it hot-reloadable)
 #+DATE:        <2024-05-28>
 #+IMAGE:       shader_strings.gif
 #+TAGS[]:      opengl graphics cpp
