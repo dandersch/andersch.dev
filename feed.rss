@@ -8,11 +8,21 @@
 <description>Stuff on programming</description>
 <language>en-us</language>
 <item>
-<title>A Better Way to Include Shaders in a C/C++ Program</title>
+<title>Every Way to Embed a Binary File into your C/C++ Program</title>
+<link>https://andersch.dev/article/embed_binary_files.html</link>
+<guid>https://andersch.dev/article/embed_binary_files.html</guid>
+<description>
+&lt;p&gt;They don't want you to decide what data will be part of your executable&lt;/p&gt;
+&lt;img src="https://andersch.dev/article/embed_binary_files.png"/&gt;
+</description>
+<pubDate>Fri, 31 May 2024 00:00:00 +0200</pubDate>
+</item>
+<item>
+<title>Embedding Shader Source Code in a C/C++ Program</title>
 <link>https://andersch.dev/article/shader_strings.html</link>
 <guid>https://andersch.dev/article/shader_strings.html</guid>
 <description>
-&lt;p&gt;Including an OpenGL Shader's Source Code as a string inside your source code&lt;/p&gt;
+&lt;p&gt;Include a shader as a string inside your code (and make it hot-reloadable)&lt;/p&gt;
 &lt;img src="https://andersch.dev/article/shader_strings.gif"/&gt;
 </description>
 <pubDate>Tue, 28 May 2024 00:00:00 +0200</pubDate>

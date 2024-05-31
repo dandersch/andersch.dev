@@ -41,9 +41,9 @@
 
 #+RESULTS: latest-article
 :results:
-Latest article: [[./article/shader_strings.org][A Better Way to Include Shaders in a C/C++ Program]]
+Latest article: [[./article/embed_binary_files.org][Every Way to Embed a Binary File into your C/C++ Program]]
 #+attr_html: :width 700px
-[[./article/shader_strings.gif]]
+[[./article/embed_binary_files.png]]
 :end:
 
 * Latest [[./project/index.org][projects]]

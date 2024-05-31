@@ -1,0 +1,216 @@
+#+TITLE:       Every Way to Embed a Binary File into your C/C++ Program
+#+DESCRIPTION: They don't want you to decide what data will be part of your executable
+#+DATE:        <2024-05-31>
+#+IMAGE:       embed_binary_files.png
+#+TAGS[]:      cpp
+#+OPTIONS:     toc:nil num:nil
+
+#+CALL: ../code.org:generate-article-header[:eval yes]()
+* {{{TITLE}}}
+#+CALL: ../code.org:generate-article-subtitle[:eval yes]()
+
+How to embed a binary into your program
+
+# endsnippet
+
+* 1st Option: Convert Binary Files to hex-formatted text files
+- adds xxd (or convert, bin2h, ...) as a build dependency...
+- OR requires writing custom program that can be included with the source code
+- requires modification to the build script if you want to keep binary files up-to-date
+- binary files can be included with their original name (if you want)
+- larger filesizes
+- you get the buffer as a real array (sizeof(buffer) works)
+- can be slooow
+
+
+
+In the case of ~xxd~, running ~xxd -i file.ext~ will output C code of the following form:
+#+BEGIN_SRC C
+unsigned char file_ext[] = {
+  0x58, 0x61, 0x59, 0x62, 0x58, 0x37, 0x70, 0x78, 0x32, 0x4e, 0x35, 0x70,
+  0x41, 0x59, 0x56, 0x39, 0x0a, /* ... */
+};
+unsigned int test_url_len = 1234;
+#+END_SRC
+
+The resulting file can be included and the buffers be used as if they come
+straight from ~fread~.
+
+If you want to have e.g. a folder of binary files always be at the ready for
+embedding, you could include the following in your build script:
+
+#+BEGIN_SRC sh
+# generate a C char array for all files in the "res" folder
+for i in $(ls "res")
+do
+    xxd -i "res/${i}" | sed -e 1d -e '$d' | sed -e '$d' > "inc/${i}"
+done
+#+END_SRC
+
+As you can see, I run the generated code through some ~sed~ delete operations to
+remove the first and last two lines of the file. I also keep the generated file
+under the same name as the binary. This allows me to use it in a way that
+reflects [[./shader_strings.org][my inclusion of glsl shaders in source code]]:
+
+#+BEGIN_SRC C
+unsigned char buffer[] = {
+    #include "texture.png"
+};
+#+END_SRC
+
+* 2nd Option: Use the linker
+SECOND OPTION:
+- link against a .o version of the binary file with predefined symbols
+- convert all binary files into .o files that can be linked against
+- Build dependency: using ~ld~ or ~objcopy~ (Windows: bin2coff, bin2obj)
+- you can specify different types (not just char) if you want
+- (memory will be always const unless you memcpy)
+- smaller filesizes compared to first option (textfile vs binary object fiel)
+- requires (more complex) modifications to the build script than the first option
+- no additional build dependencies (linker was needed anyway)
+- probably faster compile times than the first option (xxd vs linker + no need to parse all those hex values)
+
+The basic usage with ~ld~:
+#+BEGIN_SRC sh
+ld -r -b binary data.bin -o data.o
+
+clang -o main main.c data.o
+#+END_SRC
+
+Can be generalized in your build script like this:
+
+#+BEGIN_SRC bash
+OBJECT_FILES=()
+for i in $(ls "res")
+do
+    cd "res"
+    OBJECT_FILES+="${i%.*}.o "
+    ld -r -b binary "${i}" -o "../${i%.*}.o"
+    # OR
+    # objcopy --input binary --output elf64-x86-64 "${i}" "../${i%.*}.o"
+    cd ".."
+done
+
+clang -o main main.c ${OBJECT_FILES[*]}
+#+END_SRC
+
+Will generate symbols in the ~.o~ file that can be accessed in your program like this:
+#+BEGIN_SRC  C
+extern const unsigned char _binary_file_ext_start[];
+extern const unsigned char _binary_file_ext_end[];
+extern const unsigned char _binary_file_ext_size; // NOTE: access with (size_t)&_binary_file_ext_size
+#+END_SRC
+
+Both ~ld~ and ~objcopy~ do not include a way to change these symbol names when
+generating the object files, so to make usage in your code a bit more
+comfortable, you can define some macros to help you:
+
+#+BEGIN_SRC C
+#define BINARY_INCLUDE(file, ext)                               \
+  extern const unsigned char _binary_##file##_##ext##_start[];  \
+  extern const unsigned char _binary_##file##_##ext##_end[]
+
+#define BINARY_BUFFER(file, ext)        _binary_##file##_##ext##_start
+#define BINARY_BUFFER_SIZE(file, ext)   _binary_##file##_##ext##_end - _binary_##file##_##ext##_start
+#+END_SRC
+
+Which makes usage look like this:
+
+#+BEGIN_SRC C
+// NOTE: no quotes and filename and extension separated by a comma
+BINARY_INCLUDE(data, bin);
+
+int main()
+{
+    unsigned char* my_buffer    = BINARY_BUFFER(data, bin);
+    unsigned int my_buffer_size = BINARY_BUFFER_SIZE(data, bin);
+}
+#+END_SRC
+
+You might already see some of the downsides to this approach compared to the
+previous one:
+- You don't get a proper array, just a pointer and size (i.e. you shouldn't call ~sizeof(buffer)~)
+- Since they are ~extern~, you don't have access to the data or size at compile-time (only after linking)
+- You include the binary by writing ~MY_INCLUDE(file, ext)~ instead of ~#include
+  "file.ext"~. Having to remember to not pass in strings and separate filename
+  from its extension is more cumbersome.
+
+* 3rd Option: Inline Assembly using ~.incbin~
+#+BEGIN_SRC C
+#define BINARY_ASM_INCLUDE(filename, buffername)     \
+    __asm__(".section .rodata\n"                     \
+         ".global " #buffername "\n"                 \
+         ".type   " #buffername ", @object\n"        \
+         ".align  4\n"                               \
+     #buffername":\n"                                \
+         ".incbin " #filename "\n"                   \
+     #buffername"_end:\n"                            \
+         ".global "#buffername"_size\n"              \
+         ".type   "#buffername"_size, @object\n"     \
+         ".align  4\n"                               \
+     #buffername"_size:\n"                           \
+         ".int   "#buffername"_end - "#buffername"\n"\
+    );                                               \
+    extern const unsigned char buffername [];        \
+    extern const unsigned char* buffername##_end;    \
+    extern int buffername##_size
+#+END_SRC
+
+Usage code becomes:
+#+BEGIN_SRC C
+BINARY_ASM_INCLUDE("image.png", image_buf);
+
+int main()
+{
+    int width, height, nrChannels;
+    unsigned char* image_data = stbi_load_from_memory(image_buf, image_buf_size, &width, &height, &nrChannels, 0);
+}
+#+END_SRC
+
+Not very cross-platform: ~.incbin~ is a GNU-specific asm directive.
+
+While it is still no real array and everything is ~extern~, you can now choose the
+names of the buffer and its size directly.
+
+* 4th Option: Use a library
+The library [[https://github.com/graphitemaster/incbin][incbin]] actually uses the previous approach by default and tries to
+be as crossplatform as it can. In case of MSVC, it falls back to using the first
+option by providing a tool that needs to be compiled and included in your build
+step[fn::Apparently this is due to fact that the MSVC compiler doesn't support
+an ~.incbin~ equivalent in its inline assembly].
+
+The usage code looks basically like this:
+
+#+BEGIN_SRC C
+#define INCBIN_PREFIX  // remove prefix from variables
+#define INCBIN_STYLE INCBIN_STYLE_SNAKE // data instead of Data
+#include "incbin.h"
+
+INCBIN(song, "music.mp3"); // defines song_data, song_end and song_size
+#+END_SRC
+
+* 5th Option: Use a language feature
+C23 actually introduced a new ~#embed~ directive. Usage-wise, it is supposed to be
+similar to the first approach:
+
+#+BEGIN_SRC C
+static const unsigned char embedded_texture[] = {
+    #embed "texture.png"
+};
+#+END_SRC
+
+However, since this will presumably have compiler support as opposed to just be
+a preprocessing step, it could be much faster by skipping code generation and
+parsing by instead directly applying the effects of the 2nd/3rd option to the
+program. In that regard, it would be the best of all worlds: A real array of
+bytes that is known at compile-time with a name of your choice and without too
+much of a hit in compile times. However, current compilers do not seem to
+implement this C23 feature as of this writing.
+
+* RESOURCES / REFERENCES
+- https://www.devever.net/~hl/incbin
+- https://github.com/graphitemaster/incbin
+- https://mort.coffee/home/fast-cpp-embeds/
+- https://github.com/mortie/strliteral
+- https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man
+- https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html

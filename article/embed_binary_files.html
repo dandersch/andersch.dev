@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Every Way to Embed a Binary File into your C/C++ Program</title>
+<meta name="description" content="They don't want you to decide what data will be part of your executable" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.rss" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<!-- <a class="nav-link" href="/">home</a> -->
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<!--<a class="nav-link" href="about">about</a>-->
+		<!-- <a class="nav-link" href="/feed.rss">rss</a> -->
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<div class="tags-date-box">
+<div class="tags"><code>[ <a href="/tag/cpp.html">cpp</a> ]</code></div>
+<div class="date"><span class="timestamp"><2024-05-31></span></div>
+</div>
+
+<div id="outline-container-org8cb7270" class="outline-2">
+<h2 id="org8cb7270">Every Way to Embed a Binary File into your C/C++ Program</h2>
+<div class="outline-text-2" id="text-org8cb7270">
+<h2 class="subtitle">They don't want you to decide what data will be part of your executable</h1><div class="figure"><img src="embed_binary_files.png" alt=""></div>
+
+<p>
+How to embed a binary into your program
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0df2312" class="outline-2">
+<h2 id="org0df2312">1st Option: Convert Binary Files to hex-formatted text files</h2>
+<div class="outline-text-2" id="text-org0df2312">
+<ul class="org-ul">
+<li>adds xxd (or convert, bin2h, &#x2026;) as a build dependency&#x2026;</li>
+<li>OR requires writing custom program that can be included with the source code</li>
+<li>requires modification to the build script if you want to keep binary files up-to-date</li>
+<li>binary files can be included with their original name (if you want)</li>
+<li>larger filesizes</li>
+<li>you get the buffer as a real array (sizeof(buffer) works)</li>
+<li>can be slooow</li>
+</ul>
+
+
+
+<p>
+In the case of <code>xxd</code>, running <code>xxd -i file.ext</code> will output C code of the following form:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">file_ext</span>[] = {
+  0x58, 0x61, 0x59, 0x62, 0x58, 0x37, 0x70, 0x78, 0x32, 0x4e, 0x35, 0x70,
+  0x41, 0x59, 0x56, 0x39, 0x0a, <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span>
+};
+<span class="org-type">unsigned</span> <span class="org-type">int</span> <span class="org-variable-name">test_url_len</span> = 1234;
+</pre>
+</div>
+
+<p>
+The resulting file can be included and the buffers be used as if they come
+straight from <code>fread</code>.
+</p>
+
+<p>
+If you want to have e.g. a folder of binary files always be at the ready for
+embedding, you could include the following in your build script:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">generate a C char array for all files in the "res" folder</span>
+<span class="org-keyword">for</span> i<span class="org-keyword"> in</span> $(ls <span class="org-string">"res"</span>)
+<span class="org-keyword">do</span>
+    xxd -i <span class="org-string">"res/${i}"</span> | sed -e 1d -e <span class="org-string">'$d'</span> | sed -e <span class="org-string">'$d'</span> &gt; <span class="org-string">"inc/${i}"</span>
+<span class="org-keyword">done</span>
+</pre>
+</div>
+
+<p>
+As you can see, I run the generated code through some <code>sed</code> delete operations to
+remove the first and last two lines of the file. I also keep the generated file
+under the same name as the binary. This allows me to use it in a way that
+reflects <a href="./shader_strings.html">my inclusion of glsl shaders in source code</a>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">buffer</span>[] = {
+<span class="org-preprocessor">    #include</span> <span class="org-string">"texture.png"</span>
+};
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2a44d81" class="outline-2">
+<h2 id="org2a44d81">2nd Option: Use the linker</h2>
+<div class="outline-text-2" id="text-org2a44d81">
+<p>
+SECOND OPTION:
+</p>
+<ul class="org-ul">
+<li>link against a .o version of the binary file with predefined symbols</li>
+<li>convert all binary files into .o files that can be linked against</li>
+<li>Build dependency: using <code>ld</code> or <code>objcopy</code> (Windows: bin2coff, bin2obj)</li>
+<li>you can specify different types (not just char) if you want</li>
+<li>(memory will be always const unless you memcpy)</li>
+<li>smaller filesizes compared to first option (textfile vs binary object fiel)</li>
+<li>requires (more complex) modifications to the build script than the first option</li>
+<li>no additional build dependencies (linker was needed anyway)</li>
+<li>probably faster compile times than the first option (xxd vs linker + no need to parse all those hex values)</li>
+</ul>
+
+<p>
+The basic usage with <code>ld</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">ld -r -b binary data.bin -o data.o
+
+clang -o main main.c data.o
+</pre>
+</div>
+
+<p>
+Can be generalized in your build script like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-variable-name">OBJECT_FILES</span>=()
+<span class="org-keyword">for</span> i<span class="org-keyword"> in</span> $(ls <span class="org-string">"res"</span>)
+<span class="org-keyword">do</span>
+    <span class="org-builtin">cd</span> <span class="org-string">"res"</span>
+    <span class="org-variable-name">OBJECT_FILES</span>+=<span class="org-string">"${i%.*}.o "</span>
+    ld -r -b binary <span class="org-string">"${i}"</span> -o <span class="org-string">"../${i%.*}.o"</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">OR</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">objcopy --input binary --output elf64-x86-64 "${i}" "../${i%.*}.o"</span>
+    <span class="org-builtin">cd</span> <span class="org-string">".."</span>
+<span class="org-keyword">done</span>
+
+clang -o main main.c ${<span class="org-variable-name">OBJECT_FILES</span>[*]}
+</pre>
+</div>
+
+<p>
+Will generate symbols in the <code>.o</code> file that can be accessed in your program like this:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">extern</span> <span class="org-keyword">const</span> <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">_binary_file_ext_start</span>[];
+<span class="org-keyword">extern</span> <span class="org-keyword">const</span> <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">_binary_file_ext_end</span>[];
+<span class="org-keyword">extern</span> <span class="org-keyword">const</span> <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">_binary_file_ext_size</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">NOTE: access with (size_t)&amp;_binary_file_ext_size</span>
+</pre>
+</div>
+
+<p>
+Both <code>ld</code> and <code>objcopy</code> do not include a way to change these symbol names when
+generating the object files, so to make usage in your code a bit more
+comfortable, you can define some macros to help you:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">BINARY_INCLUDE</span>(<span class="org-variable-name">file</span>, <span class="org-variable-name">ext</span>)                               \
+  <span class="org-keyword">extern</span> <span class="org-keyword">const</span> <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">_binary_</span>##file##_##ext##_start[];  \
+  <span class="org-keyword">extern</span> <span class="org-keyword">const</span> <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">_binary_</span>##file##_##ext##_end[]
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">BINARY_BUFFER</span>(<span class="org-variable-name">file</span>, <span class="org-variable-name">ext</span>)        _binary_##file##_##ext##_start
+<span class="org-preprocessor">#define</span> <span class="org-function-name">BINARY_BUFFER_SIZE</span>(<span class="org-variable-name">file</span>, <span class="org-variable-name">ext</span>)   _binary_##file##_##ext##_end - _binary_##file##_##ext##_start
+</pre>
+</div>
+
+<p>
+Which makes usage look like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">NOTE: no quotes and filename and extension separated by a comma</span>
+<span class="org-function-name">BINARY_INCLUDE</span>(data, bin);
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>()
+{
+    <span class="org-type">unsigned</span> <span class="org-type">char</span>* <span class="org-variable-name">my_buffer</span>    = BINARY_BUFFER(data, bin);
+    <span class="org-type">unsigned</span> <span class="org-type">int</span> <span class="org-variable-name">my_buffer_size</span> = BINARY_BUFFER_SIZE(data, bin);
+}
+</pre>
+</div>
+
+<p>
+You might already see some of the downsides to this approach compared to the
+previous one:
+</p>
+<ul class="org-ul">
+<li>You don't get a proper array, just a pointer and size (i.e. you shouldn't call <code>sizeof(buffer)</code>)</li>
+<li>Since they are <code>extern</code>, you don't have access to the data or size at compile-time (only after linking)</li>
+<li>You include the binary by writing <code>MY_INCLUDE(file, ext)</code> instead of <code>#include
+  "file.ext"</code>. Having to remember to not pass in strings and separate filename
+from its extension is more cumbersome.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org39302af" class="outline-2">
+<h2 id="org39302af">3rd Option: Inline Assembly using <code>.incbin</code></h2>
+<div class="outline-text-2" id="text-org39302af">
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">BINARY_ASM_INCLUDE</span>(<span class="org-variable-name">filename</span>, <span class="org-variable-name">buffername</span>)     \
+    <span class="org-keyword">__asm__</span>(<span class="org-string">".section .rodata\n"</span>                     \
+         <span class="org-string">".global "</span> #buffername <span class="org-string">"\n"</span>                 \
+         <span class="org-string">".type   "</span> #buffername <span class="org-string">", @object\n"</span>        \
+         <span class="org-string">".align  4\n"</span>                               \
+     #buffername<span class="org-string">":\n"</span>                                \
+         <span class="org-string">".incbin "</span> #filename <span class="org-string">"\n"</span>                   \
+     #buffername<span class="org-string">"_end:\n"</span>                            \
+         <span class="org-string">".global "</span>#buffername<span class="org-string">"_size\n"</span>              \
+         <span class="org-string">".type   "</span>#buffername<span class="org-string">"_size, @object\n"</span>     \
+         <span class="org-string">".align  4\n"</span>                               \
+     #buffername<span class="org-string">"_size:\n"</span>                           \
+         <span class="org-string">".int   "</span>#buffername<span class="org-string">"_end - "</span>#buffername<span class="org-string">"\n"</span>\
+    );                                               \
+    <span class="org-keyword">extern</span> <span class="org-keyword">const</span> <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">buffername</span> [];        \
+    <span class="org-keyword">extern</span> <span class="org-keyword">const</span> <span class="org-type">unsigned</span> <span class="org-type">char</span>* <span class="org-variable-name">buffername</span>##_end;    \
+    <span class="org-keyword">extern</span> <span class="org-type">int</span> <span class="org-variable-name">buffername</span>##_size
+</pre>
+</div>
+
+<p>
+Usage code becomes:
+</p>
+<div class="org-src-container">
+<pre class="src src-C">BINARY_ASM_INCLUDE(<span class="org-string">"image.png"</span>, image_buf);
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>()
+{
+    <span class="org-type">int</span> <span class="org-variable-name">width</span>, <span class="org-variable-name">height</span>, <span class="org-variable-name">nrChannels</span>;
+    <span class="org-type">unsigned</span> <span class="org-type">char</span>* <span class="org-variable-name">image_data</span> = stbi_load_from_memory(image_buf, image_buf_size, &amp;width, &amp;height, &amp;nrChannels, 0);
+}
+</pre>
+</div>
+
+<p>
+Not very cross-platform: <code>.incbin</code> is a GNU-specific asm directive.
+</p>
+
+<p>
+While it is still no real array and everything is <code>extern</code>, you can now choose the
+names of the buffer and its size directly.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd1f352f" class="outline-2">
+<h2 id="orgd1f352f">4th Option: Use a library</h2>
+<div class="outline-text-2" id="text-orgd1f352f">
+<p>
+The library <a href="https://github.com/graphitemaster/incbin">incbin</a> actually uses the previous approach by default and tries to
+be as crossplatform as it can. In case of MSVC, it falls back to using the first
+option by providing a tool that needs to be compiled and included in your build
+step<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
+</p>
+
+<p>
+The usage code looks basically like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-variable-name">INCBIN_PREFIX</span>  <span class="org-comment-delimiter">// </span><span class="org-comment">remove prefix from variables</span>
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">INCBIN_STYLE</span> INCBIN_STYLE_SNAKE <span class="org-comment-delimiter">// </span><span class="org-comment">data instead of Data</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">"incbin.h"</span>
+
+<span class="org-function-name">INCBIN</span>(song, <span class="org-string">"music.mp3"</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">defines song_data, song_end and song_size</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8165649" class="outline-2">
+<h2 id="org8165649">5th Option: Use a language feature</h2>
+<div class="outline-text-2" id="text-org8165649">
+<p>
+C23 actually introduced a new <code>#embed</code> directive. Usage-wise, it is supposed to be
+similar to the first approach:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">static</span> <span class="org-keyword">const</span> <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">embedded_texture</span>[] = {
+<span class="org-preprocessor">    #embed</span> <span class="org-string">"texture.png"</span>
+};
+</pre>
+</div>
+
+<p>
+However, since this will presumably have compiler support as opposed to just be
+a preprocessing step, it could be much faster by skipping code generation and
+parsing by instead directly applying the effects of the 2nd/3rd option to the
+program. In that regard, it would be the best of all worlds: A real array of
+bytes that is known at compile-time with a name of your choice and without too
+much of a hit in compile times. However, current compilers do not seem to
+implement this C23 feature as of this writing.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb058312" class="outline-2">
+<h2 id="orgb058312">RESOURCES / REFERENCES</h2>
+<div class="outline-text-2" id="text-orgb058312">
+<ul class="org-ul">
+<li><a href="https://www.devever.net/~hl/incbin">https://www.devever.net/~hl/incbin</a></li>
+<li><a href="https://github.com/graphitemaster/incbin">https://github.com/graphitemaster/incbin</a></li>
+<li><a href="https://mort.coffee/home/fast-cpp-embeds/">https://mort.coffee/home/fast-cpp-embeds/</a></li>
+<li><a href="https://github.com/mortie/strliteral">https://github.com/mortie/strliteral</a></li>
+<li><a href="https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man">https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man</a></li>
+<li><a href="https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html">https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html</a></li>
+</ul>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">Apparently this is due to fact that the MSVC compiler doesn't support
+an <code>.incbin</code> equivalent in its inline assembly</p></div></div>
+
+
+</div>
+</div></main>
+</body>
+</html>
