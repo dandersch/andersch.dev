@@ -13,7 +13,9 @@ How to embed a binary into your program
 
 # endsnippet
 
-* 1st Option: Convert Binary Files to hex-formatted text files
+# #+TOC: headlines local 1
+
+** 1st Option: Convert Binary Files to hex-formatted text files
 - adds xxd (or convert, bin2h, ...) as a build dependency...
 - OR requires writing custom program that can be included with the source code
 - requires modification to the build script if you want to keep binary files up-to-date
@@ -58,7 +60,7 @@ unsigned char buffer[] = {
 };
 #+END_SRC
 
-* 2nd Option: Use the linker
+** 2nd Option: Use the linker
 SECOND OPTION:
 - link against a .o version of the binary file with predefined symbols
 - convert all binary files into .o files that can be linked against
@@ -135,7 +137,7 @@ previous one:
   "file.ext"~. Having to remember to not pass in strings and separate filename
   from its extension is more cumbersome.
 
-* 3rd Option: Inline Assembly using ~.incbin~
+** 3rd Option: Inline Assembly using ~.incbin~
 #+BEGIN_SRC C
 #define BINARY_ASM_INCLUDE(filename, buffername)     \
     __asm__(".section .rodata\n"                     \
@@ -172,7 +174,7 @@ Not very cross-platform: ~.incbin~ is a GNU-specific asm directive.
 While it is still no real array and everything is ~extern~, you can now choose the
 names of the buffer and its size directly.
 
-* 4th Option: Use a library
+** 4th Option: Use a library
 The library [[https://github.com/graphitemaster/incbin][incbin]] actually uses the previous approach by default and tries to
 be as crossplatform as it can. In case of MSVC, it falls back to using the first
 option by providing a tool that needs to be compiled and included in your build
@@ -189,7 +191,7 @@ The usage code looks basically like this:
 INCBIN(song, "music.mp3"); // defines song_data, song_end and song_size
 #+END_SRC
 
-* 5th Option: Use a language feature
+** 5th Option: Use a language feature
 C23 actually introduced a new ~#embed~ directive. Usage-wise, it is supposed to be
 similar to the first approach:
 
@@ -207,7 +209,7 @@ bytes that is known at compile-time with a name of your choice and without too
 much of a hit in compile times. However, current compilers do not seem to
 implement this C23 feature as of this writing.
 
-* RESOURCES / REFERENCES
+** RESOURCES / REFERENCES
 - https://www.devever.net/~hl/incbin
 - https://github.com/graphitemaster/incbin
 - https://mort.coffee/home/fast-cpp-embeds/

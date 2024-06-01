@@ -195,6 +195,7 @@
 <title>andersch.dev</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 </head>
 <body>
 <header id="top" class="status">
@@ -224,20 +225,19 @@
 <div class="date"><span class="timestamp"><2024-05-31></span></div>
 </div>
 
-<div id="outline-container-org8cb7270" class="outline-2">
-<h2 id="org8cb7270">Every Way to Embed a Binary File into your C/C++ Program</h2>
-<div class="outline-text-2" id="text-org8cb7270">
+<div id="outline-container-org8f668ab" class="outline-2">
+<h2 id="org8f668ab">Every Way to Embed a Binary File into your C/C++ Program</h2>
+<div class="outline-text-2" id="text-org8f668ab">
 <h2 class="subtitle">They don't want you to decide what data will be part of your executable</h1><div class="figure"><img src="embed_binary_files.png" alt=""></div>
 
 <p>
 How to embed a binary into your program
 </p>
 </div>
-</div>
 
-<div id="outline-container-org0df2312" class="outline-2">
-<h2 id="org0df2312">1st Option: Convert Binary Files to hex-formatted text files</h2>
-<div class="outline-text-2" id="text-org0df2312">
+<div id="outline-container-org3d64def" class="outline-3">
+<h3 id="org3d64def">1st Option: Convert Binary Files to hex-formatted text files</h3>
+<div class="outline-text-3" id="text-org3d64def">
 <ul class="org-ul">
 <li>adds xxd (or convert, bin2h, &#x2026;) as a build dependency&#x2026;</li>
 <li>OR requires writing custom program that can be included with the source code</li>
@@ -297,9 +297,9 @@ reflects <a href="./shader_strings.html">my inclusion of glsl shaders in source 
 </div>
 </div>
 
-<div id="outline-container-org2a44d81" class="outline-2">
-<h2 id="org2a44d81">2nd Option: Use the linker</h2>
-<div class="outline-text-2" id="text-org2a44d81">
+<div id="outline-container-org36a2bf3" class="outline-3">
+<h3 id="org36a2bf3">2nd Option: Use the linker</h3>
+<div class="outline-text-3" id="text-org36a2bf3">
 <p>
 SECOND OPTION:
 </p>
@@ -401,9 +401,9 @@ from its extension is more cumbersome.</li>
 </div>
 </div>
 
-<div id="outline-container-org39302af" class="outline-2">
-<h2 id="org39302af">3rd Option: Inline Assembly using <code>.incbin</code></h2>
-<div class="outline-text-2" id="text-org39302af">
+<div id="outline-container-org9e698d1" class="outline-3">
+<h3 id="org9e698d1">3rd Option: Inline Assembly using <code>.incbin</code></h3>
+<div class="outline-text-3" id="text-org9e698d1">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">BINARY_ASM_INCLUDE</span>(<span class="org-variable-name">filename</span>, <span class="org-variable-name">buffername</span>)     \
     <span class="org-keyword">__asm__</span>(<span class="org-string">".section .rodata\n"</span>                     \
@@ -450,9 +450,9 @@ names of the buffer and its size directly.
 </div>
 </div>
 
-<div id="outline-container-orgd1f352f" class="outline-2">
-<h2 id="orgd1f352f">4th Option: Use a library</h2>
-<div class="outline-text-2" id="text-orgd1f352f">
+<div id="outline-container-orgc65d54f" class="outline-3">
+<h3 id="orgc65d54f">4th Option: Use a library</h3>
+<div class="outline-text-3" id="text-orgc65d54f">
 <p>
 The library <a href="https://github.com/graphitemaster/incbin">incbin</a> actually uses the previous approach by default and tries to
 be as crossplatform as it can. In case of MSVC, it falls back to using the first
@@ -475,9 +475,9 @@ The usage code looks basically like this:
 </div>
 </div>
 
-<div id="outline-container-org8165649" class="outline-2">
-<h2 id="org8165649">5th Option: Use a language feature</h2>
-<div class="outline-text-2" id="text-org8165649">
+<div id="outline-container-org393d046" class="outline-3">
+<h3 id="org393d046">5th Option: Use a language feature</h3>
+<div class="outline-text-3" id="text-org393d046">
 <p>
 C23 actually introduced a new <code>#embed</code> directive. Usage-wise, it is supposed to be
 similar to the first approach:
@@ -502,9 +502,9 @@ implement this C23 feature as of this writing.
 </div>
 </div>
 
-<div id="outline-container-orgb058312" class="outline-2">
-<h2 id="orgb058312">RESOURCES / REFERENCES</h2>
-<div class="outline-text-2" id="text-orgb058312">
+<div id="outline-container-orgde4db8b" class="outline-3">
+<h3 id="orgde4db8b">RESOURCES / REFERENCES</h3>
+<div class="outline-text-3" id="text-orgde4db8b">
 <ul class="org-ul">
 <li><a href="https://www.devever.net/~hl/incbin">https://www.devever.net/~hl/incbin</a></li>
 <li><a href="https://github.com/graphitemaster/incbin">https://github.com/graphitemaster/incbin</a></li>
@@ -513,6 +513,7 @@ implement this C23 feature as of this writing.
 <li><a href="https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man">https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man</a></li>
 <li><a href="https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html">https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html</a></li>
 </ul>
+</div>
 </div>
 </div>
 <div id="footnotes">

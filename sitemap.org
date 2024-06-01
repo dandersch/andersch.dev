@@ -6,8 +6,8 @@
   - [[file:tag/cpp.org][Pages tagged cpp]]
   - [[file:tag/gamedev.org][Pages tagged gamedev]]
   - [[file:tag/lisp.org][Pages tagged lisp]]
-  - [[file:tag/graphics.org][Pages tagged graphics]]
   - [[file:tag/opengl.org][Pages tagged opengl]]
+  - [[file:tag/graphics.org][Pages tagged graphics]]
 - project
   - [[file:project/index.org][Projects]]
   - [[file:project/game2d.org][Game2D]]
