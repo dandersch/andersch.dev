@@ -171,7 +171,10 @@
              :html-html5-fancy     t
              :html-head            (concat "<title>andersch.dev</title>\n"
                                            "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
-                                           "<link rel=\"stylesheet\" href=\"/style.css\">\n")
+                                           "<link rel=\"stylesheet\" href=\"/style.css\">\n"
+                                           ; NOTE import ubuntu font for now
+                                           "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin\">"
+                                           )
              :html-preamble        t
              :html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string))))
              :html-postamble       nil                       ;; don't insert a footer with a date etc.
