@@ -2,7 +2,8 @@
 (require 'package)
 (setq package-user-dir (expand-file-name "./.packages"))
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("elpa" . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 (package-initialize)
 (unless package-archive-contents (package-refresh-contents))
 
@@ -11,6 +12,9 @@
 (require 'ox-publish)
 (require 'org)
 (require 'cl-lib)
+(package-install 'org-contrib) ; for ox-extra
+(require 'ox-extra) ; for :IGNORE: headlines
+(ox-extras-activate '(latex-header-blocks ignore-headlines))
 
 (setq
       keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]") ; keywords to parse from .org files

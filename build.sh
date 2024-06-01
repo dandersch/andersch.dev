@@ -20,7 +20,7 @@ then
        firefox -new-tab http://localhost:1337
 fi
 
-inotifywait --recursive --exclude "flycheck_publish.el|.git|.packages|feed.rss|index.org|sitemap" --monitor --event modify --event create ./ |
+inotifywait --recursive --exclude "flycheck_publish.el|.git|.packages|feed.rss|index.org|sitemap|tag" --monitor --event modify ./ |
    while read file_path file_event file_name; do
        if [[ ${file_name} =~ .org$|publish.el ]]
        then

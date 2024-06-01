@@ -1,7 +1,7 @@
 #+TITLE: Pages tagged cpp
 * Articles tagged ~cpp~
 - [[../article/embed_binary_files.org][Every Way to Embed a Binary File into your C/C++ Program]]
-- [[../article/shader_strings.org][Embedding Shader Source Code in a C/C++ Program]]
+- [[../article/shader_strings.org][Hot-Reloadable, Embedded Shader Code in C/C++]]
 - [[../article/opengl-tutorial.org][How to write a graphics application with OpenGL]]
 * Projects tagged ~cpp~
 - [[../project/game2d.org][Game2D]]

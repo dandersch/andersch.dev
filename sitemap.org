@@ -14,7 +14,7 @@
   - [[file:project/raytracer.org][OpenGL Raytracer]]
 - article
   - [[file:article/embed_binary_files.org][Every Way to Embed a Binary File into your C/C++ Program]]
-  - [[file:article/shader_strings.org][Embedding Shader Source Code in a C/C++ Program]]
+  - [[file:article/shader_strings.org][Hot-Reloadable, Embedded Shader Code in C/C++]]
   - [[file:article/index.org][Articles]]
   - [[file:article/test.org][Testing article 1]]
   - [[file:article/opengl-tutorial.org][How to write a graphics application with OpenGL]]

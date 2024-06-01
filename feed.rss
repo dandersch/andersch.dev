@@ -18,14 +18,14 @@
 <pubDate>Fri, 31 May 2024 00:00:00 +0200</pubDate>
 </item>
 <item>
-<title>Embedding Shader Source Code in a C/C++ Program</title>
+<title>Hot-Reloadable, Embedded Shader Code in C/C++</title>
 <link>https://andersch.dev/article/shader_strings.html</link>
 <guid>https://andersch.dev/article/shader_strings.html</guid>
 <description>
-&lt;p&gt;Include a shader as a string inside your code (and make it hot-reloadable)&lt;/p&gt;
+&lt;p&gt;How to include a GLSL shader as a string inside your code (and still make it hot-reloadable)&lt;/p&gt;
 &lt;img src="https://andersch.dev/article/shader_strings.gif"/&gt;
 </description>
-<pubDate>Tue, 28 May 2024 00:00:00 +0200</pubDate>
+<pubDate>Wed, 29 May 2024 00:00:00 +0200</pubDate>
 </item>
 <item>
 <title>Testing article 1</title>

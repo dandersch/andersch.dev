@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Embedding Shader Source Code in a C/C++ Program</title>
-<meta name="description" content="Include a shader as a string inside your code (and make it hot-reloadable)" />
+<title>Hot-Reloadable, Embedded Shader Code in C/C++</title>
+<meta name="description" content="How to include a GLSL shader as a string inside your code (and still make it hot-reloadable)" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -222,67 +222,83 @@
 <main id="content" class="content">
 <div class="tags-date-box">
 <div class="tags"><code>[ <a href="/tag/opengl.html">opengl</a> <a href="/tag/graphics.html">graphics</a> <a href="/tag/cpp.html">cpp</a> ]</code></div>
-<div class="date"><span class="timestamp"><2024-05-28></span></div>
+<div class="date"><span class="timestamp"><2024-05-29></span></div>
 </div>
 
-<div id="outline-container-orgf178a10" class="outline-2">
-<h2 id="orgf178a10">Embedding Shader Source Code in a C/C++ Program</h2>
-<div class="outline-text-2" id="text-orgf178a10">
-<h2 class="subtitle">Include a shader as a string inside your code (and make it hot-reloadable)</h1><div class="figure"><img src="shader_strings.gif" alt=""></div>
-
+<div id="outline-container-orgcc574f6" class="outline-2">
+<h2 id="orgcc574f6">Hot-Reloadable, Embedded Shader Code in C/C++</h2>
+<div class="outline-text-2" id="text-orgcc574f6">
+<h2 class="subtitle">How to include a GLSL shader as a string inside your code (and still make it hot-reloadable)</h1><div class="figure"><img src="shader_strings.gif" alt=""></div>
 <p>
-Most OpenGL tutorials will tell you to first include any shader code by writing
-it out as a string literal:
+Most OpenGL tutorials that start you out on shaders will tell you to include
+your first shaders as string literals by writing out the GLSL code out like
+this:
 </p>
 
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">vertex_shader_source</span> = <span class="org-string">"#version 330 core\n"</span>
-                                   <span class="org-string">"layout(location = 0) in vec3 aPos;\n"</span>
-                                   <span class="org-string">"void main() {\n"</span>
-                                   <span class="org-string">"    gl_Position = vec4(aPos, 1.0);\n"</span>
-                                   <span class="org-string">"}\n"</span>;
-
-<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">fragment_shader_source</span> = <span class="org-string">"#version 330 core\n"</span>
-                                     <span class="org-string">"out vec4 FragColor;\n"</span>
-                                     <span class="org-string">"void main() {\n"</span>
-                                     <span class="org-string">"    FragColor = vec4(1.0, 0.5, 0.2, 1.0);\n"</span>
-                                     <span class="org-string">"}\n"</span>;
+    <span class="org-string">"layout(location = 0) in vec3 aPos;\n"</span>
+    <span class="org-string">"void main() {\n"</span>
+    <span class="org-string">"    gl_Position = vec4(aPos, 1.0);\n"</span>
+    <span class="org-string">"}\0"</span>;
 </pre>
 </div>
 
 <p>
-However:
+This is done because it has the benefit of being able to pass over file IO &amp;
+parsing code and instead focus on teaching actual OpenGL/GLSL specific concepts.
+It would also be useful for fast prototyping with more complex shaders, if it
+wasn't for the fact that&#x2026;
 </p>
 <ul class="org-ul">
-<li>Newline characters makes this clumsy (forgetting the newline will break things
-in case of the <code>#version</code> directive)</li>
-<li>Annoying to write</li>
-<li>No GLSL specific syntax highlighting possible</li>
+<li>Writing out <code>"...\n"</code> for every line is tedious and easy to forget</li>
+<li>You don't get any syntax highlighting for the GLSL code</li>
+<li>It makes shader hot-reloading impossible (<a href="shader_strings.html#hot-reload">or does it?</a>)</li>
 </ul>
 
 <p>
-I was exploring how to better include the source code without having to write
-some bespoke shader management code that would have to load in a file, allocate
-memory for the string, append a null terminator, etc. I.e., something that
-just works quickly for prototyping.
+I was exploring better ways on how to include the shader without having to write
+some bespoke shader management code that loads in files, allocates memory for
+the string, appends null terminators, watches for file changes and so on. To my
+surprise, I stumbled upon my now preferred way of hot-reloading shaders.
 </p>
+</div>
 
+<div id="outline-container-org55f9bf4" class="outline-3">
+<h3 id="org55f9bf4">A Better Way of Embedding Shader Code</h3>
+<div class="outline-text-3" id="text-org55f9bf4">
 <p>
-My requirements were:
+My requirements for including the GLSL code:
 </p>
 <ul class="org-ul">
-<li>It shouldn't rely on an additional preprocessing step (e.g. invoking something
-in a <code>CMakeLists.txt</code>)</li>
-<li>I should still have the option of having the shader source code in a separate
-file</li>
-<li>It would be nice to still be able to hot-reload any shader</li>
+<li>It shouldn't rely on an additional preprocessing step (e.g. invoking a tool in
+your <code>CMakeLists.txt</code> or adding something to your build script)</li>
+<li>I should have the option of having the shader in a separate file</li>
+<li>Preserving (some) syntax highlighting would be nice</li>
+<li>It should be as portable as possible across both C and C++</li>
 </ul>
 
 <p>
-All solutions build on a <code>stringify</code> macro that includes the <code>#version</code> directive by
-default. This needs to be done because the <code>#</code> character will always be
-interpreted as a C preprocessor directive when it is the first non-whitespace
-character in a source file.
+In C++11 (and apparently some versions of gcc via GNU extensions), you can have
+raw string literals of the following form:
+</p>
+<div class="org-src-container">
+<pre class="src src-C++"><span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">fragment_shader_source</span> = R"<span class="org-string">(</span>
+<span class="org-string">    #version 330</span>
+<span class="org-string">    int main()</span>
+<span class="org-string">    {</span>
+<span class="org-string">        // ...</span>
+<span class="org-string">    }</span>
+<span class="org-string">)</span>";
+</pre>
+</div>
+
+<p>
+This is a step up, but it is not fully portable and the editor will still
+highlight it as just a string. Instead, all following solutions build on a
+<code>stringify</code> macro that includes the <code>#version</code> directive by default. This needs to
+be done because the <code>#</code> character will always be interpreted as a C preprocessor
+directive when it is the first non-whitespace character in a source file.
 </p>
 
 <div class="org-src-container">
@@ -299,22 +315,21 @@ having to write out quotes or newlines:
 <pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">first option: shader src code as an inlined string</span>
 <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">inline_shader</span> = SHADER_STRINGIFY(
     uniform <span class="org-type">mat4</span> <span class="org-variable-name">u_mvp</span>;
-
-    in <span class="org-type">vec2</span> <span class="org-variable-name">in_pos</span>;
-    in <span class="org-type">vec2</span> <span class="org-variable-name">in_uv</span>;
-
-    out <span class="org-type">vec2</span> <span class="org-variable-name">v_uv</span>;
-
-    <span class="org-type">void</span> <span class="org-function-name">main</span>( )
+    in <span class="org-type">vec3</span> <span class="org-variable-name">in_pos</span>;
+    <span class="org-type">void</span> <span class="org-function-name">main</span>()
     {
-        v_uv = in_uv;
-        gl_Position = u_mvp * vec4(in_pos, 0, 1);
+        <span class="org-type">int</span> <span class="org-variable-name">foo</span> = 5;
+        gl_Position = u_mvp * vec4(in_pos, 1);
     }
 );
-
-printf(<span class="org-string">"INLINE:\n%s\n\n"</span>, inline_shader);
 </pre>
 </div>
+
+<p>
+As you see, the C syntax highlighting should apply for this code and - depending
+on your colorscheme (mine isn't that colorful, admittedly) - can do a decent job
+of highlighting GLSL code.
+</p>
 
 <p>
 As a second option, we can write out the shader code in its own file and wrap it
@@ -322,18 +337,13 @@ inside the <code>stringify</code> macro:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-glsl">SHADER_STRINGIFY(
-uniform mat4 u_mvp;
-
-in vec2 in_pos;
-in vec2 in_uv;
-
-out vec2 v_uv;
-
-void main( )
+<pre class="src src-C"><span class="org-function-name">SHADER_STRINGIFY</span>(
+uniform <span class="org-type">mat4</span> <span class="org-variable-name">u_mvp</span>;
+in <span class="org-type">vec3</span> <span class="org-variable-name">in_pos</span>;
+<span class="org-type">void</span> <span class="org-function-name">main</span>()
 {
-    v_uv = in_uv;
-    gl_Position = u_mvp * vec4(in_pos, 0, 1);
+    <span class="org-type">int</span> <span class="org-variable-name">foo</span> = 5;
+    gl_Position = u_mvp * vec4(in_pos, 1);
 }
 )
 </pre>
@@ -347,15 +357,13 @@ We can then <code>#include</code> this file in our C/C++ source code like so:
 <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">file_shader</span> =
 <span class="org-preprocessor">  #include</span> <span class="org-string">"shader.vert"</span>
 ;
-
-printf(<span class="org-string">"FILE:\n%s\n\n"</span>, file_shader);
 </pre>
 </div>
 
 <p>
-If you prefer not to have a dangling semicolon, you can instead write it at the
-end of the <code>shader.vert</code>. However, using the version without the
-semicolon at the end lets you write code using initializers:
+If you prefer not to have a dangling semicolon, you can instead write it out at
+the end of the shader file. However, using the version without the semicolon at
+the end lets you write code using initializers:
 </p>
 
 <div class="org-src-container">
@@ -368,19 +376,100 @@ semicolon at the end lets you write code using initializers:
 <span class="org-type">shader_t</span> <span class="org-variable-name">shader</span> =
 {
     <span class="org-string">"Shader Name"</span>,
-<span class="org-preprocessor">    #include</span> <span class="org-string">"reload.vert"</span>
+<span class="org-preprocessor">    #include</span> <span class="org-string">"shader.vert"</span>
 };
 </pre>
 </div>
+
+<p>
+If you like to have both your fragment and vertex shader in the same <code>.glsl</code> file,
+you can do that as well. This time, we can use the fact that any line starting
+with a <code>#</code> is interpreted as a preprocessor directive, so that we can write our
+<code>shader.glsl</code> like so:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-function-name">SHADER_STRINGIFY</span>(
+<span class="org-preprocessor">#if</span> <span class="org-preprocessor">defined</span>(VERT_SHADER)
+    <span class="org-comment-delimiter">// </span><span class="org-comment">vertex shader code</span>
+<span class="org-preprocessor">#undef</span> VERT_SHADER
+<span class="org-preprocessor">#elif</span> <span class="org-preprocessor">defined</span>(FRAG_SHADER)
+    <span class="org-comment-delimiter">// </span><span class="org-comment">fragment shader code</span>
+<span class="org-preprocessor">#undef</span> FRAG_SHADER
+<span class="org-preprocessor">#endif</span>
+)
+</pre>
 </div>
 
-<div id="outline-container-org8b25680" class="outline-3">
-<h3 id="org8b25680">Hot-Reloading Shaders</h3>
-<div class="outline-text-3" id="text-org8b25680">
 <p>
-If you implement <a href="https://slembcke.github.io/HotLoadC">code hot-reloading</a>, you can get hot-reloadable shaders for
-basically free with this method<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
+To include the shaders in your code:
 </p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-variable-name">VERT_SHADER</span>
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">vertex_shader_source</span> =
+<span class="org-preprocessor">      #include</span> <span class="org-string">"shader.glsl"</span>
+    ;
+
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">FRAG_SHADER</span>
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">fragment_shader_source</span> =
+<span class="org-preprocessor">      #include</span> <span class="org-string">"shader.glsl"</span>
+    ;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdf5ffed" class="outline-3">
+<h3 id="orgdf5ffed">Limitations</h3>
+<div class="outline-text-3" id="text-orgdf5ffed">
+<p>
+Shader code will be stored with all newline characters missing (except the one
+after the <code>#version</code> directive):
+</p>
+
+<pre class="example">
+#version 330
+in vec3 aPos; void main() { gl_Position = vec4(aPos, 1); }
+</pre>
+
+<p>
+This means you won't get matching line numbers from the shader compiler in case
+of an error. If you are using C++11 or higher, you can use the <code>R"()"</code> method for
+your included GLSL files, which will preserve line numbers.<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C">R<span class="org-warning">"</span><span class="org-string">(</span>
+<span class="org-preprocessor">#version</span> 330
+
+in vec3 aPos;
+
+<span class="org-type">void</span> <span class="org-function-name">main</span>()
+{
+    gl_Position = vec4(aPos, 1);
+}
+)<span class="org-warning">"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-hot-reload" class="outline-3">
+<h3 id="hot-reload">Hot-Reloading Embedded Shaders</h3>
+<div class="outline-text-3" id="text-hot-reload">
+<p>
+Usually, you wouldn't be able to hot-reload shaders that are included in your
+source code. After all, they are baked into the executable. But what if we just
+reload the entirety of our code using DLL-based <a href="https://slembcke.github.io/HotLoadC">code hot-reloading</a>? This way, we
+get a buffer to the string of a new shader anytime we recompile.
+</p>
+
+<p>
+Instead of having code that checks several shader files for modifications times
+or setting up file watchers, we only check the <code>.dll</code> or <code>.so</code> for changes.
+</p>
+
+
 
 <p>
 All you need to do is to recompile and link the shader program again after you
@@ -419,7 +508,8 @@ management system that loads in shaders as real text files.
 <h2 class="footnotes">Footnotes: </h2>
 <div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">To be fair, it will also work with shaders as string-literals</p></div></div>
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">Make sure to
+include no GLSL code on the very first line, only <code>R"(</code></p></div></div>
 
 <div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">Make sure to exclude <code>SHADER_STRINGIFY(...)</code> from the
 <code>string_equals()</code> check if comparing at the file level</p></div></div>

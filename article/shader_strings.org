@@ -1,6 +1,6 @@
-#+TITLE:       Embedding Shader Source Code in a C/C++ Program
-#+DESCRIPTION: Include a shader as a string inside your code (and make it hot-reloadable)
-#+DATE:        <2024-05-28>
+#+TITLE:       Hot-Reloadable, Embedded Shader Code in C/C++
+#+DESCRIPTION: How to include a GLSL shader as a string inside your code (and still make it hot-reloadable)
+#+DATE:        <2024-05-29>
 #+IMAGE:       shader_strings.gif
 #+TAGS[]:      opengl graphics cpp
 #+OPTIONS:     toc:nil num:nil
@@ -8,48 +8,64 @@
 #+CALL: ../code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
 #+CALL: ../code.org:generate-article-subtitle[:eval yes]()
-
-Most OpenGL tutorials will tell you to first include any shader code by writing
-it out as a string literal:
+** Introduction                                                      :ignore:
+Most OpenGL tutorials that start you out on shaders will tell you to include
+your first shaders as string literals by writing out the GLSL code out like
+this:
 
 #+BEGIN_SRC C
 const char* vertex_shader_source = "#version 330 core\n"
-                                   "layout(location = 0) in vec3 aPos;\n"
-                                   "void main() {\n"
-                                   "    gl_Position = vec4(aPos, 1.0);\n"
-                                   "}\n";
-
-const char* fragment_shader_source = "#version 330 core\n"
-                                     "out vec4 FragColor;\n"
-                                     "void main() {\n"
-                                     "    FragColor = vec4(1.0, 0.5, 0.2, 1.0);\n"
-                                     "}\n";
+    "layout(location = 0) in vec3 aPos;\n"
+    "void main() {\n"
+    "    gl_Position = vec4(aPos, 1.0);\n"
+    "}\0";
 #+END_SRC
+# const char* fragment_shader_source = "#version 330 core\n"
+#     "out vec4 FragColor;\n"
+#     "void main() {\n"
+#     "    FragColor = vec4(1.0, 0.5, 0.2, 1.0);\n"
+#     "}\0";
 
-However:
-- Newline characters makes this clumsy (forgetting the newline will break things
-  in case of the ~#version~ directive)
-- Annoying to write
-- No GLSL specific syntax highlighting possible
+This is done because it has the benefit of being able to pass over file IO &
+parsing code and instead focus on teaching actual OpenGL/GLSL specific concepts.
+It would also be useful for fast prototyping with more complex shaders, if it
+wasn't for the fact that...
+- Writing out ~"...\n"~ for every line is tedious and easy to forget
+- You don't get any syntax highlighting for the GLSL code
+- It makes shader hot-reloading impossible ([[file:shader_strings.org::#hot-reload][or does it?]])
 
-I was exploring how to better include the source code without having to write
-some bespoke shader management code that would have to load in a file, allocate
-memory for the string, append a null terminator, etc. I.e., something that
-just works quickly for prototyping.
+I was exploring better ways on how to include the shader without having to write
+some bespoke shader management code that loads in files, allocates memory for
+the string, appends null terminators, watches for file changes and so on. To my
+surprise, I stumbled upon my now preferred way of hot-reloading shaders.
 
 # endsnippet
 
-My requirements were:
-- It shouldn't rely on an additional preprocessing step (e.g. invoking something
-  in a ~CMakeLists.txt~)
-- I should still have the option of having the shader source code in a separate
-  file
-- It would be nice to still be able to hot-reload any shader
+** A Better Way of Embedding Shader Code
+My requirements for including the GLSL code:
+- It shouldn't rely on an additional preprocessing step (e.g. invoking a tool in
+  your ~CMakeLists.txt~ or adding something to your build script)
+- I should have the option of having the shader in a separate file
+- Preserving (some) syntax highlighting would be nice
+- It should be as portable as possible across both C and C++
 
-All solutions build on a ~stringify~ macro that includes the ~#version~ directive by
-default. This needs to be done because the ~#~ character will always be
-interpreted as a C preprocessor directive when it is the first non-whitespace
-character in a source file.
+In C++11 (and apparently some versions of gcc via GNU extensions), you can have
+raw string literals of the following form:
+#+BEGIN_SRC C++
+const char* fragment_shader_source = R"(
+    #version 330
+    int main()
+    {
+        // ...
+    }
+)";
+#+END_SRC
+
+This is a step up, but it is not fully portable and the editor will still
+highlight it as just a string. Instead, all following solutions build on a
+~stringify~ macro that includes the ~#version~ directive by default. This needs to
+be done because the ~#~ character will always be interpreted as a C preprocessor
+directive when it is the first non-whitespace character in a source file.
 
 #+BEGIN_SRC C
 #define SHADER_STRINGIFY(x) "#version 330\n" #x
@@ -62,38 +78,31 @@ having to write out quotes or newlines:
 // first option: shader src code as an inlined string
 const char* inline_shader = SHADER_STRINGIFY(
     uniform mat4 u_mvp;
-
-    in vec2 in_pos;
-    in vec2 in_uv;
-
-    out vec2 v_uv;
-
-    void main( )
+    in vec3 in_pos;
+    void main()
     {
-        v_uv = in_uv;
-        gl_Position = u_mvp * vec4(in_pos, 0, 1);
+        int foo = 5;
+        gl_Position = u_mvp * vec4(in_pos, 1);
     }
 );
-
-printf("INLINE:\n%s\n\n", inline_shader);
 #+END_SRC
+
+As you see, the C syntax highlighting should apply for this code and - depending
+on your colorscheme (mine isn't that colorful, admittedly) - can do a decent job
+of highlighting GLSL code.
 
 As a second option, we can write out the shader code in its own file and wrap it
 inside the ~stringify~ macro:
 
-#+BEGIN_SRC glsl
+# NOTE: marked as C, glsl doesn't export to html with syntax highlighting
+#+BEGIN_SRC C
 SHADER_STRINGIFY(
 uniform mat4 u_mvp;
-
-in vec2 in_pos;
-in vec2 in_uv;
-
-out vec2 v_uv;
-
-void main( )
+in vec3 in_pos;
+void main()
 {
-    v_uv = in_uv;
-    gl_Position = u_mvp * vec4(in_pos, 0, 1);
+    int foo = 5;
+    gl_Position = u_mvp * vec4(in_pos, 1);
 }
 )
 #+END_SRC
@@ -104,13 +113,11 @@ We can then ~#include~ this file in our C/C++ source code like so:
 const char* file_shader =
   #include "shader.vert"
 ;
-
-printf("FILE:\n%s\n\n", file_shader);
 #+END_SRC
 
-If you prefer not to have a dangling semicolon, you can instead write it at the
-end of the ~shader.vert~. However, using the version without the
-semicolon at the end lets you write code using initializers:
+If you prefer not to have a dangling semicolon, you can instead write it out at
+the end of the shader file. However, using the version without the semicolon at
+the end lets you write code using initializers:
 
 #+BEGIN_SRC C
 typedef struct shader_t
@@ -122,13 +129,81 @@ typedef struct shader_t
 shader_t shader =
 {
     "Shader Name",
-    #include "reload.vert"
+    #include "shader.vert"
 };
 #+END_SRC
 
-** Hot-Reloading Shaders
-If you implement [[https://slembcke.github.io/HotLoadC][code hot-reloading]], you can get hot-reloadable shaders for
-basically free with this method[fn::To be fair, it will also work with shaders as string-literals].
+If you like to have both your fragment and vertex shader in the same ~.glsl~ file,
+you can do that as well. This time, we can use the fact that any line starting
+with a ~#~ is interpreted as a preprocessor directive, so that we can write our
+~shader.glsl~ like so:
+
+#+BEGIN_SRC C
+SHADER_STRINGIFY(
+#if defined(VERT_SHADER)
+    // vertex shader code
+#undef VERT_SHADER
+#elif defined(FRAG_SHADER)
+    // fragment shader code
+#undef FRAG_SHADER
+#endif
+)
+#+END_SRC
+
+To include the shaders in your code:
+#+BEGIN_SRC C
+#define VERT_SHADER
+const char* vertex_shader_source =
+      #include "shader.glsl"
+    ;
+
+#define FRAG_SHADER
+const char* fragment_shader_source =
+      #include "shader.glsl"
+    ;
+#+END_SRC
+
+** Limitations
+Shader code will be stored with all newline characters missing (except the one
+after the ~#version~ directive):
+
+#+BEGIN_SRC
+#version 330
+in vec3 aPos; void main() { gl_Position = vec4(aPos, 1); }
+#+END_SRC
+
+This means you won't get matching line numbers from the shader compiler in case
+of an error. If you are using C++11 or higher, you can use the ~R"()"~ method for
+your included GLSL files, which will preserve line numbers.[fn::Make sure to
+include no GLSL code on the very first line, only ~R"(~ ]
+
+# NOTE: marked as C, glsl doesn't export to html with syntax highlighting
+#+BEGIN_SRC C
+R"(
+#version 330
+
+in vec3 aPos;
+
+void main()
+{
+    gl_Position = vec4(aPos, 1);
+}
+)"
+#+END_SRC
+
+** Hot-Reloading Embedded Shaders
+:PROPERTIES:
+:CUSTOM_ID: hot-reload
+:END:
+Usually, you wouldn't be able to hot-reload shaders that are included in your
+source code. After all, they are baked into the executable. But what if we just
+reload the entirety of our code using DLL-based [[https://slembcke.github.io/HotLoadC][code hot-reloading]]? This way, we
+get a buffer to the string of a new shader anytime we recompile.
+
+Instead of having code that checks several shader files for modifications times
+or setting up file watchers, we only check the ~.dll~ or ~.so~ for changes.
+
+
 
 All you need to do is to recompile and link the shader program again after you
 have loaded in the new DLL.

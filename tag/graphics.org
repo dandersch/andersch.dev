@@ -1,6 +1,6 @@
 #+TITLE: Pages tagged graphics
 * Articles tagged ~graphics~
-- [[../article/shader_strings.org][Embedding Shader Source Code in a C/C++ Program]]
+- [[../article/shader_strings.org][Hot-Reloadable, Embedded Shader Code in C/C++]]
 - [[../article/opengl-tutorial.org][How to write a graphics application with OpenGL]]
 * Projects tagged ~graphics~
 - [[../project/raytracer.org][OpenGL Raytracer]]
