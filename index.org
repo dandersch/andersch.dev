@@ -26,11 +26,14 @@
 
 (setq latest (car list))
 
+(setq articles-as-images "")
+(dolist (article list)
+  (setq articles-as-images (concat articles-as-images (format-entry-as-image-link article "article"))))
+
 (if (eq org-export-current-backend 'html)
   (concat
     "#+BEGIN_EXPORT html\n"
-    (format-entry-as-image-link latest "article")
-    (format-entry-as-image-link (cadr list) "article") ;; TODO testing, hardcoded
+    articles-as-images
     "#+END_EXPORT\n")
   ; else
   (format "Latest article: [[./%s][%s]]\n#+attr_html: :width 700px\n[[./article/%s]]\n"
@@ -71,10 +74,14 @@ Latest article: [[./article/embed_binary_files.org][Every Way to Embed a Binary 
      (cadr (assoc "IMAGE" (cadr entry)))))
 
 (setq latest (car list))
+
+(setq articles-as-images "")
+(dolist (article list)
+  (setq articles-as-images (concat articles-as-images (format-entry-as-image-link article "project"))))
+
 (if (eq org-export-current-backend 'html)
   (concat "#+BEGIN_EXPORT html\n"
-          (format-entry-as-image-link latest "project")
-          (format-entry-as-image-link (cadr list) "project") ;; TODO testing, hardcoded
+          articles-as-images
           "#+END_EXPORT\n")
   ; else
   (format "Latest project: [[./%s][%s]]\n[[./project/%s]]\n" (car latest) (cadr (assoc "TITLE" (cadr latest))) (cadr (assoc "IMAGE" (cadr latest)))))

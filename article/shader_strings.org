@@ -231,3 +231,8 @@ new ones [fn::Make sure to exclude ~SHADER_STRINGIFY(...)~ from the
 modification timestamps and only reload the corresponding shaders. But at that
 point, you would probably be better of implementing a conventional shader
 management system that loads in shaders as real text files.
+
+** Resources
+- https://antongerdelan.net/opengl/shader_hot_reload.html
+- https://slembcke.github.io/HotLoadC
+- https://shadowndacorner.com/2018/04/14/adventures-in-cpp-hotloading/
