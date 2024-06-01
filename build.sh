@@ -1,11 +1,22 @@
 #!/bin/sh
 
+terminate_program()
+{
+    echo "Terminating program running in background"
+    if [[ -n "$bg_pid" ]]; then
+        kill "$bg_pid"
+    fi
+}
+
 emacs -Q --script publish.el
+
+trap terminate_program EXIT # call on exit
 
 # serve webpage if not already serving
 if [[ -z $(ss -tulpn | grep 1337) ]]
 then
        python -m http.server --dir ./ 1337 &
+       bg_pid=$!
        firefox -new-tab http://localhost:1337
 fi
 
