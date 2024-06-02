@@ -2,7 +2,7 @@
 #+DESCRIPTION: Article 1 description with cursive
 #+DATE:        <2024-05-08 Wed 13:15>
 #+IMAGE:       test.gif
-#+TAGS[]:      algorithm lisp
+#+TAGS[]:      noexport cpp algorithm lisp
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../code.org:generate-article-header[:eval yes]()

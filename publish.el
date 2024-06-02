@@ -42,6 +42,9 @@
               (string> date-str-a date-str-b)
               (string< date-str-a date-str-b))))))
 
+(defun article-marked-for-noexport-p (article)
+  (string-match-p (regexp-quote "noexport") (cadr (assoc "TAGS[]" (cadr article)))))
+
 ; TODO put together
 (setq article-keyword-list '())
 (setq project-keyword-list '())
@@ -51,7 +54,9 @@
   ; FILL & SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/
   ;
   (dolist (article (get-org-files "article"))
-    (push (get-org-file-keywords article) article-keyword-list))
+    (let ((article-keywords (get-org-file-keywords article)))
+      (unless (article-marked-for-noexport-p article-keywords)
+        (push (get-org-file-keywords article) article-keyword-list))))
   (setq article-keyword-list (sort-keyword-list-by-date article-keyword-list t))
 
   (dolist (project (get-org-files "project"))
