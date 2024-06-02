@@ -225,9 +225,9 @@
 <div class="date"><span class="timestamp"><2024-05-29></span></div>
 </div>
 
-<div id="outline-container-org9352a83" class="outline-2">
-<h2 id="org9352a83">Hot-Reloadable, Embedded Shader Code in C/C++</h2>
-<div class="outline-text-2" id="text-org9352a83">
+<div class="outline-2">
+<h2>Hot-Reloadable, Embedded Shader Code in C/C++</h2>
+<div class="outline-text-2">
 <h2 class="subtitle">How to include a GLSL shader as a string inside your code (and still make it hot-reloadable)</h1><div class="figure"><img src="/article/shader_strings/preview.gif" alt=""></div>
 <p>
 Most OpenGL tutorials that start you out on shaders will tell you to include
@@ -253,7 +253,7 @@ wasn't for the fact that&#x2026;
 <ul class="org-ul">
 <li>Writing out <code>"...\n"</code> for every line is tedious and easy to forget</li>
 <li>You don't get any syntax highlighting for the GLSL code</li>
-<li>It makes shader hot-reloading impossible (<a href="index.html#hot-reload">or does it?</a>)</li>
+<li>It makes shader hot-reloading impossible (<a href="#hot-reload">or does it?</a>)</li>
 </ul>
 
 <p>
@@ -264,9 +264,9 @@ surprise, I stumbled upon my now preferred way of hot-reloading shaders.
 </p>
 </div>
 
-<div id="outline-container-org348e489" class="outline-3">
-<h3 id="org348e489">A Better Way of Embedding Shader Code</h3>
-<div class="outline-text-3" id="text-org348e489">
+<div class="outline-3">
+<h3>A Better Way of Embedding Shader Code</h3>
+<div class="outline-text-3">
 <p>
 My requirements for including the GLSL code:
 </p>
@@ -419,9 +419,9 @@ To include the shaders in your code:
 </div>
 </div>
 
-<div id="outline-container-org032da36" class="outline-3">
-<h3 id="org032da36">Limitations</h3>
-<div class="outline-text-3" id="text-org032da36">
+<div class="outline-3">
+<h3>Limitations</h3>
+<div class="outline-text-3">
 <p>
 Shader code will be stored with all newline characters missing (except the one
 after the <code>#version</code> directive):
@@ -504,9 +504,9 @@ management system that loads in shaders as real text files.
 </div>
 </div>
 
-<div id="outline-container-org6683bab" class="outline-3">
-<h3 id="org6683bab">Resources</h3>
-<div class="outline-text-3" id="text-org6683bab">
+<div class="outline-3">
+<h3>Resources</h3>
+<div class="outline-text-3">
 <ul class="org-ul">
 <li><a href="https://antongerdelan.net/opengl/shader_hot_reload.html">https://antongerdelan.net/opengl/shader_hot_reload.html</a></li>
 <li><a href="https://slembcke.github.io/HotLoadC">https://slembcke.github.io/HotLoadC</a></li>
