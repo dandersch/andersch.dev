@@ -1,5 +1,9 @@
 TODO -*- mode: org -*-
 
+- fix rss feed
+- no "_ tagged with ..." when empty
+- clean up code
+
 - [2/2] latest {article,project} side-by-side view
   + [X] no side-by-side view on mobile (or when zoomed in)
   + [X] display up to 3 articles/projects per side
