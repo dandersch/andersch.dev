@@ -1,13 +1,13 @@
 #+TITLE:       OpenGL Raytracer
 #+DATE:        <2020-03-05 Thu>
 #+DESCRIPTION: A raytracer written in C using OpenGL compute shaders
-#+IMAGE:       raytracer.gif
+#+IMAGE:       preview.gif
 #+TAGS[]:      graphics cpp
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ../code.org:generate-article-header[:eval yes]()
+#+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
-#+CALL: ../code.org:generate-article-subtitle[:eval yes]()
+#+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
 
 A raytracer is alksdj laksjdkl jaskldsjdlkjaklsdklajs kldjslkdf;asdjfk
 asjdlfkjaslk;df sksjdlk ajsdklajslkd jlkasjdkl ajskldl sjdlkajl ksdlkajslk

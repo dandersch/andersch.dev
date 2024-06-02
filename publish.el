@@ -15,6 +15,8 @@
 (require 'ox-extra) ; for :IGNORE: headlines
 (ox-extras-activate '(latex-header-blocks ignore-headlines))
 
+(require 'ob-emacs-lisp)
+
 (setq
       keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]") ; keywords to parse from .org files
       org-html-htmlize-output-type 'css
@@ -23,7 +25,7 @@
 (defun get-org-files (directory)
   "Return a list of .org files in DIRECTORY excluding 'index.org'."
   (cl-remove-if
-   (lambda (file) (string-equal "index.org" (file-name-nondirectory file)))
+   (lambda (file) (string-equal (concat directory "/" "index.org") file))
    (directory-files-recursively directory "\\.org$")))
 (defun get-org-file-keywords (file)
   (with-temp-buffer
@@ -47,6 +49,13 @@
 (setq project-keyword-list '())
 (setq other-keyword-list   '())
 
+(defun filter-out-index-html (transcoded-data-string backend communication-channel-plist)
+  (when (org-export-derived-backend-p backend 'html)
+    (replace-regexp-in-string "/index.html" "" transcoded-data-string)
+  ))
+
+(add-to-list 'org-export-filter-link-functions 'filter-out-index-html)
+
 (defun prepare-publishing (project-properties)
   ;
   ; FILL & SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/
@@ -58,11 +67,15 @@
   (setq article-keyword-list (sort-keyword-list-by-date article-keyword-list t))
 
   (dolist (project (get-org-files "project"))
-    (push (get-org-file-keywords project) project-keyword-list))
+    (let ((project-keywords (get-org-file-keywords project)))
+      (unless (article-marked-for-noexport-p project-keywords)
+        (push (get-org-file-keywords project) project-keyword-list))))
   (setq project-keyword-list (sort-keyword-list-by-date project-keyword-list t))
 
   (dolist (other (get-org-files "other"))
-    (push (get-org-file-keywords other) other-keyword-list))
+    (let ((other-keywords (get-org-file-keywords other)))
+      (unless (article-marked-for-noexport-p other-keywords)
+        (push (get-org-file-keywords other) other-keyword-list))))
   (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t))
 
   ;
@@ -132,12 +145,15 @@
      (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +") all-tags)))
   (dolist (project project-keyword-list)
      (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +") all-tags)))
+  (dolist (other other-keyword-list)
+     (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +") all-tags)))
   (delete-dups all-tags)
   ; generate .org files for all tags
   (dolist (tag all-tags)
     (with-temp-file (format "tag/%s.org" tag)
       (insert (format "#+TITLE: Pages tagged %s\n" tag)))
-    (write-region (format "* Articles tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
+
+  (write-region (format "* Articles tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
   ; add entry of an article to its tag.org's
   (dolist (article article-keyword-list)
     (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +"))
@@ -145,6 +161,7 @@
                             (car article)
                             (cadr (assoc "TITLE" (cadr article))))
                     nil (format "tag/%s.org" tag) 'append)))
+
   ; append "* Projects" headline
   (dolist (tag all-tags)
     (write-region (format "* Projects tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
@@ -154,6 +171,17 @@
       (write-region (format "- [[../%s][%s]]\n"
                             (car project)
                             (cadr (assoc "TITLE" (cadr project))))
+                    nil (format "tag/%s.org" tag) 'append)))
+
+  ; append "* Projects" headline
+  (dolist (tag all-tags)
+    (write-region (format "* Other tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
+  ; add entry of a project to its tag.org's
+  (dolist (other other-keyword-list)
+    (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +"))
+      (write-region (format "- [[../%s][%s]]\n"
+                            (car other)
+                            (cadr (assoc "TITLE" (cadr other))))
                     nil (format "tag/%s.org" tag) 'append)))
 )
 
@@ -169,6 +197,7 @@
              :preparation-function 'prepare-publishing       ;; called before publishing
            ; :completion-function                            ;; called after
            ; :base-extension                                 ;; extension of source files
+           ; :html-extension       ""                        ;; extension of generated html files
              :exclude "code.org"                 ;; regex of files to exclude NOTE excluding dirs seems to not work
            ; :include                                        ;; list of files to include
            ; :html-doctype "html5"                           ;; default is "xhtml-strict"

@@ -1,0 +1,12 @@
+#+TITLE:       Paper on Lisp
+#+DESCRIPTION: A paper on Lisp I have written
+#+DATE:        <2022-05-08>
+#+IMAGE:
+#+TAGS[]:      noexport lisp
+#+OPTIONS:     toc:nil num:nil
+
+#+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
+* {{{TITLE}}}
+#+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
+
+# endsnippet

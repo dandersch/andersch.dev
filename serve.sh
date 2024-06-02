@@ -8,6 +8,7 @@ PORT = 1337
 class HttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     extensions_map = {
         '':      'text/html',
+        '.':     'text/html',
         '.html': 'text/html',
         '.png':  'image/png',
         '.jpg':  'image/jpg',

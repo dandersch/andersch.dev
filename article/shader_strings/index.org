@@ -1,13 +1,13 @@
 #+TITLE:       Hot-Reloadable, Embedded Shader Code in C/C++
 #+DESCRIPTION: How to include a GLSL shader as a string inside your code (and still make it hot-reloadable)
 #+DATE:        <2024-05-29>
-#+IMAGE:       shader_strings.gif
+#+IMAGE:       preview.gif
 #+TAGS[]:      opengl graphics cpp
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ../code.org:generate-article-header[:eval yes]()
+#+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
-#+CALL: ../code.org:generate-article-subtitle[:eval yes]()
+#+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
 ** Introduction                                                      :ignore:
 Most OpenGL tutorials that start you out on shaders will tell you to include
 your first shaders as string literals by writing out the GLSL code out like
@@ -32,7 +32,7 @@ It would also be useful for fast prototyping with more complex shaders, if it
 wasn't for the fact that...
 - Writing out ~"...\n"~ for every line is tedious and easy to forget
 - You don't get any syntax highlighting for the GLSL code
-- It makes shader hot-reloading impossible ([[file:shader_strings.org::#hot-reload][or does it?]])
+- It makes shader hot-reloading impossible ([[file:index.org::#hot-reload][or does it?]])
 
 I was exploring better ways on how to include the shader without having to write
 some bespoke shader management code that loads in files, allocates memory for

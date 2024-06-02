@@ -1,13 +1,13 @@
 #+TITLE:       Game2D
 #+DATE:        <2021-01-25>
 #+DESCRIPTION: A platformer written in C++ with SFML
-#+IMAGE:       game2d.gif
+#+IMAGE:       preview.gif
 #+TAGS[]:      gamedev cpp
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ../code.org:generate-article-header[:eval yes]()
+#+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
-#+CALL: ../code.org:generate-article-subtitle[:eval yes]()
+#+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
 
 Game2D ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
 tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At

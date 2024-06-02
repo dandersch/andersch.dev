@@ -1,36 +1,3 @@
-#+NAME: list-of-articles
-#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='()
-(setq list-string '())
-(if (eq org-export-current-backend 'html)
-  (dolist (entry list)
-    (push
-     (format
-       (concat
-        "#+BEGIN_EXPORT html\n"
-        "<div class=\"image-container\">\n"
-           ; NOTE "../" as a workaround
-           "<a href=\"../%s\">\n"
-               "<div class=\"overlay\">\n"
-                   "<div class=\"title\">%s</div>\n"
-                   "<div class=\"description\">%s</div>\n"
-               "</div>\n"
-               "<img src=\"./%s\" alt=\"\">\n"
-           "</a>\n"
-        "</div>\n"
-        "#+END_EXPORT\n")
-       (string-replace ".org" ".html" (car entry))
-       (cadr (assoc "TITLE" (cadr entry)))
-       (cadr (assoc "DESCRIPTION" (cadr entry)))
-       (cadr (assoc "IMAGE" (cadr entry))))
-    list-string)
-  )
-  (dolist (entry list)
-    ; NOTE "../" as a workaround
-    (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) list-string)
-  ))
-(mapconcat #'identity list-string "\n") ; flatten string list to a string
-#+END_SRC
-
 #+NAME: generate-tags
 #+BEGIN_SRC emacs-lisp :eval no :exports results :results html
 (setq tags-string '())
@@ -82,11 +49,23 @@
 #+NAME: generate-article-subtitle
 #+BEGIN_SRC emacs-lisp :eval no :exports results :results html
 (setq keywords (org-collect-keywords '("TITLE" "DESCRIPTION" "DATE" "IMAGE" "TAGS[]")))
+
+; check if IMAGE is set
+(if (string= "" (cadr (assoc "IMAGE" keywords)))
+  (progn
+    (setq image-fmt-string "%s")
+    (setq image-path ""))
+  (progn
+    ; TODO hardcoded
+    (setq image-path (string-replace "/index.org" "" (string-replace "/home/da/dev/andersch.dev/" "" (buffer-file-name))))
+    (setq image-fmt-string "<div class=\"figure\"><img src=\"/%s/%s\" alt=\"\"></div>")))
+
 (format
    (concat
      "<h2 class=\"subtitle\">%s</h1>"
-     "<div class=\"figure\"><img src=\"%s\" alt=\"\"></div>")
+     image-fmt-string)
    (cadr (assoc "DESCRIPTION" keywords))
+   image-path
    (cadr (assoc "IMAGE" keywords)))
 #+END_SRC
 
@@ -98,15 +77,17 @@
     (insert-file-contents (concat "../" (car article)))
 
     ;; remove everything after the snippet marker
-    (setq snippet-marker "# endsnippet") ; TODO handle if marker is missing
+    (setq snippet-marker "# endsnippet")
     (if (search-forward snippet-marker nil t)
       (setq begin (point))
-      (error (format "Snippet marker is not set for %s" (car article)))
-    )
+      (error (format "Snippet marker is not set for %s" (car article))))
     (end-of-buffer)
     (setq end (point))
     (goto-char (point-min))
     (delete-region begin end)
+
+    ;; NOTE: otherwise (buffer-file-name) in generate-article-subtitle returns nil
+    (set-visited-file-name (concat "../" (car article)))
 
     ;; export snippet as html
     (setq org-export-show-temporary-export-buffer nil)
@@ -115,7 +96,7 @@
     (setq article-snippets (append article-snippets (list (buffer-string))))
 
     ;; read more link
-    (setq read-more-html (format "<div class=\"read-more\"><a href=\"/%s\">READ MORE</a></div>" (string-replace ".org" ".html" (car article))))
+    (setq read-more-html (format "<div class=\"read-more\"><a href=\"/%s\">READ MORE</a></div>" (string-replace "/index.org" "" (car article))))
     (setq article-snippets (append article-snippets (list read-more-html)))
 
     ;; dividing line between snippets
@@ -124,4 +105,37 @@
 )
 
 (mapconcat #'identity article-snippets "") ; flatten string list to a string
+#+END_SRC
+
+#+NAME: list-of-articles
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='()
+(setq list-string '())
+(if (eq org-export-current-backend 'html)
+  (dolist (entry list)
+    (push
+     (format
+       (concat
+        "#+BEGIN_EXPORT html\n"
+        "<div class=\"image-container\">\n"
+           ; NOTE "../" as a workaround
+           "<a href=\"../%s\">\n"
+               "<div class=\"overlay\">\n"
+                   "<div class=\"title\">%s</div>\n"
+                   "<div class=\"description\">%s</div>\n"
+               "</div>\n"
+               "<img src=\"./%s\" alt=\"\">\n"
+           "</a>\n"
+        "</div>\n"
+        "#+END_EXPORT\n")
+       (string-replace ".org" ".html" (car entry))
+       (cadr (assoc "TITLE" (cadr entry)))
+       (cadr (assoc "DESCRIPTION" (cadr entry)))
+       (cadr (assoc "IMAGE" (cadr entry))))
+    list-string)
+  )
+  (dolist (entry list)
+    ; NOTE "../" as a workaround
+    (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) list-string)
+  ))
+(mapconcat #'identity list-string "\n") ; flatten string list to a string
 #+END_SRC

@@ -18,10 +18,11 @@
             "<img src=\"./%s/%s\" alt=\"\">\n"
         "</a>\n"
      "</div>\n")
-     (string-replace ".org" ".html" (car entry))
+     (string-replace "/index.org" "" (car entry))
      (cadr (assoc "TITLE" (cadr entry)))
      (cadr (assoc "DESCRIPTION" (cadr entry)))
-     type
+     ;type
+     (string-replace "/index.org" "" (car entry))
      (cadr (assoc "IMAGE" (cadr entry)))))
 
 (setq latest (car list))
@@ -44,9 +45,9 @@
 
 #+RESULTS: latest-article
 :results:
-Latest article: [[./article/embed_binary_files.org][Every Way to Embed a Binary File into your C/C++ Program]]
+Latest article: [[./article/embed_binary_files/index.org][Every Way to Embed a Binary File into your C/C++ Program]]
 #+attr_html: :width 700px
-[[./article/embed_binary_files.png]]
+[[./article/preview.png]]
 :end:
 
 * Latest [[./project/index.org][projects]]
@@ -67,10 +68,11 @@ Latest article: [[./article/embed_binary_files.org][Every Way to Embed a Binary 
             "<img src=\"./%s/%s\" alt=\"\">\n"
         "</a>\n"
      "</div>\n")
-     (string-replace ".org" ".html" (car entry))
+     (string-replace "/index.org" "" (car entry))
      (cadr (assoc "TITLE" (cadr entry)))
      (cadr (assoc "DESCRIPTION" (cadr entry)))
-     type
+     ;type
+     (string-replace "/index.org" "" (car entry))
      (cadr (assoc "IMAGE" (cadr entry)))))
 
 (setq latest (car list))
@@ -89,6 +91,6 @@ Latest article: [[./article/embed_binary_files.org][Every Way to Embed a Binary 
 
 #+RESULTS: latest-project
 :results:
-Latest project: [[./project/game2d.org][Game2D]]
-[[./project/game2d.gif]]
+Latest project: [[./project/game2d/index.org][Game2D]]
+[[./project/preview.gif]]
 :end:

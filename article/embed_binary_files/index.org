@@ -1,13 +1,13 @@
 #+TITLE:       Every Way to Embed a Binary File into your C/C++ Program
 #+DESCRIPTION: They don't want you to decide what data will be part of your executable
 #+DATE:        <2024-05-31>
-#+IMAGE:       embed_binary_files.png
+#+IMAGE:       preview.png
 #+TAGS[]:      cpp
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ../code.org:generate-article-header[:eval yes]()
+#+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
-#+CALL: ../code.org:generate-article-subtitle[:eval yes]()
+#+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
 
 How to embed a binary into your program
 
@@ -52,7 +52,7 @@ done
 As you can see, I run the generated code through some ~sed~ delete operations to
 remove the first and last two lines of the file. I also keep the generated file
 under the same name as the binary. This allows me to use it in a way that
-reflects [[./shader_strings.org][my inclusion of glsl shaders in source code]]:
+reflects [[../shader_strings/index.org][my inclusion of glsl shaders in source code]]:
 
 #+BEGIN_SRC C
 unsigned char buffer[] = {
