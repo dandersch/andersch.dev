@@ -3,6 +3,7 @@
 #+DATE:        <2023-01-01>
 #+IMAGE:       preview.png
 #+TAGS[]:      opengl graphics cpp
+#+COMMENTS:    t
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
@@ -96,3 +97,8 @@ Hello world example code:
 def hello_world(name):
     print(name)
 #+END_SRC
+
+
+#+BIND: org-html-postamble  t
+#+BIND: org-export-html-postamble "<script src=\"https://utteranc.es/client.js\" repo=\"dandersch/andersch.dev\" issue-term=\"pathname\" label=\".💬\" theme=\"photon-dark\" crossorigin=\"anonymous\" async> </script>"
+#+BIND: org-html-postamble first-postamble

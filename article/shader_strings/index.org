@@ -2,6 +2,7 @@
 #+DESCRIPTION: How to include a GLSL shader as a string inside your code (and still make it hot-reloadable)
 #+DATE:        <2024-05-29>
 #+IMAGE:       preview.gif
+#+COMMENTS:    nil
 #+TAGS[]:      opengl graphics cpp
 #+OPTIONS:     toc:nil num:nil
 

@@ -35,7 +35,13 @@
       (setq tags-string (append tags-string (list "</div>\n")))
       (mapconcat #'identity tags-string "")) ; flatten string list to a string
 
-(setq keywords (org-collect-keywords '("TITLE" "DESCRIPTION" "DATE" "IMAGE" "TAGS[]")))
+(setq keywords (org-collect-keywords '("TITLE" "DESCRIPTION" "DATE" "IMAGE" "TAGS[]" "COMMENTS")))
+
+; comment section hook
+(make-variable-buffer-local 'org-export-filter-final-output-functions)
+(when (assoc "COMMENTS" keywords)
+  (if (string-match-p "t" (cadr (assoc "COMMENTS" keywords)))
+    (add-hook 'org-export-filter-final-output-functions 'insert-comment-section nil nil)))
 
 (format
    (concat

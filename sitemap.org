@@ -7,6 +7,7 @@
   - [[file:tag/lisp.org][Pages tagged lisp]]
   - [[file:tag/opengl.org][Pages tagged opengl]]
   - [[file:tag/graphics.org][Pages tagged graphics]]
+  - [[file:tag/comments.org][Pages tagged comments]]
 - project
   - [[file:project/index.org][Projects]]
   - raytracer
@@ -24,6 +25,7 @@
   - template
     - [[file:article/template/index.org][index]]
 - other
+  - [[file:other/publish.org][Publishing Script]]
   - [[file:other/index.org][Other]]
   - publish
     - [[file:other/publish/index.org][Publishing Script]]

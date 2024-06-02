@@ -20,7 +20,9 @@
 (setq
       keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]") ; keywords to parse from .org files
       org-html-htmlize-output-type 'css
-      org-src-fontify-natively t)
+      org-src-fontify-natively t
+      org-export-allow-bind-keywords t ; Allows #+BIND: in a buffer
+      )
 
 (defun get-org-files (directory)
   "Return a list of .org files in DIRECTORY excluding 'index.org'."
@@ -55,6 +57,43 @@
   ))
 
 (add-to-list 'org-export-filter-link-functions 'filter-out-index-html)
+
+
+(defun footnotes-filter (transcoded-data-string backend communication-channel-plist)
+  ;(when (org-export-derived-backend-p backend 'html)
+    (replace-regexp-in-string "\*" "" transcoded-data-string)
+  ;  )
+  )
+(add-to-list 'org-export-filter-footnote-reference-functions 'footnotes-filter)
+
+(defun footnotes-def-filter (transcoded-data-string backend communication-channel-plist)
+  ;(when (org-export-derived-backend-p backend 'html)
+    (replace-regexp-in-string "\*" "" transcoded-data-string)
+  ;  )
+  )
+(add-to-list 'org-export-filter-footnote-definition-functions 'footnotes-def-filter)
+
+; set footnotes to be h3
+(setq org-html-footnotes-section
+      "<div id=\"footnotes\">\n<h3 class=\"footnotes\">%s: </h3>\n<div id=\"text-footnotes\">\n%s\n</div>\n</div>")
+
+(setq comment-section-html
+      (concat "<hr>\n"
+       "<div id=\"comment-section\">\n"
+       "<h3 id=\"comment-section-title\">Comments</h3>\n"
+       "<script src=\"https://utteranc.es/client.js\"
+               repo=\"dandersch/andersch.dev\"
+               issue-term=\"pathname\"
+               label=\".💬\"
+               theme=\"photon-dark\"
+               crossorigin=\"anonymous\"
+               async>
+       </script></div>\n"))
+
+; needed because otherwise footnotes will be below the comment section
+(defun insert-comment-section  (contents html-backend info)
+  (when (string-match "</main>" contents)
+    (replace-match (concat comment-section-html "</main>") t t contents 0)))
 
 (defun prepare-publishing (project-properties)
   ;
