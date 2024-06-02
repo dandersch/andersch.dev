@@ -1,0 +1,20 @@
+#+TITLE:
+#+DESCRIPTION:
+#+DATE:        <0000-01-01 Mon>
+#+IMAGE:       test.png
+#+TAGS[]:      noexport opengl graphics cpp
+#+OPTIONS:     toc:nil num:nil
+
+#+CALL: ../code.org:generate-article-header[:eval yes]()
+* {{{TITLE}}}
+#+CALL: ../code.org:generate-article-subtitle[:eval yes]()
+
+* Introduction                                                       :ignore:
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+labore et dolore magna aliquyam erat, sed diam voluptua.
+
+# endsnippet
