@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Publishing Script</title>
+<meta name="description" content="The publishing script that creates this website" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.rss" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<!-- <a class="nav-link" href="/">home</a> -->
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<!--<a class="nav-link" href="about">about</a>-->
+		<!-- <a class="nav-link" href="/feed.rss">rss</a> -->
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<div class="tags-date-box">
+<div class="tags"><code>[ <a href="/tag/lisp.html">lisp</a> ]</code></div>
+<div class="date"><span class="timestamp"><2024-06-02></span></div>
+</div>
+
+<div id="outline-container-org3686a25" class="outline-2">
+<h2 id="org3686a25">Publishing Script</h2>
+<div class="outline-text-2" id="text-org3686a25">
+<h2 class="subtitle">The publishing script that creates this website</h1><div class="figure"><img src="" alt=""></div>
+
+<p>
+This file is the template for the <code>publish.el</code> publishing script.
+</p>
+</div>
+
+<div id="outline-container-orgbec07b5" class="outline-3">
+<h3 id="orgbec07b5">Packages</h3>
+<div class="outline-text-3" id="text-orgbec07b5">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">set package install dir to local directory</span>
+(<span class="org-keyword">require</span> '<span class="org-constant">package</span>)
+(<span class="org-keyword">setq</span> package-user-dir (expand-file-name <span class="org-string">"./.packages"</span>))
+(<span class="org-keyword">setq</span> package-archives '((<span class="org-string">"melpa"</span> . <span class="org-string">"https://melpa.org/packages/"</span>)
+                         (<span class="org-string">"elpa"</span> . <span class="org-string">"https://elpa.gnu.org/packages/"</span>)
+                         (<span class="org-string">"nongnu"</span> . <span class="org-string">"https://elpa.nongnu.org/nongnu/"</span>)))
+(package-initialize)
+(<span class="org-keyword">unless</span> package-archive-contents (package-refresh-contents))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org07dcd55" class="outline-3">
+<h3 id="org07dcd55">Dependencies</h3>
+<div class="outline-text-3" id="text-org07dcd55">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(package-install 'htmlize) <span class="org-comment-delimiter">; </span><span class="org-comment">enable export of #+begin_src code blocks</span>
+(<span class="org-keyword">require</span> '<span class="org-constant">ox-publish</span>)
+(<span class="org-keyword">require</span> '<span class="org-constant">org</span>)
+(<span class="org-keyword">require</span> '<span class="org-constant">cl-lib</span>)
+(package-install 'org-contrib) <span class="org-comment-delimiter">; </span><span class="org-comment">for ox-extra</span>
+(<span class="org-keyword">require</span> '<span class="org-constant">ox-extra</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">for :IGNORE: headlines</span>
+(ox-extras-activate '(latex-header-blocks ignore-headlines))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5d3e0df" class="outline-3">
+<h3 id="org5d3e0df">Configuration</h3>
+<div class="outline-text-3" id="text-org5d3e0df">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span>
+      keywords '(<span class="org-string">"TITLE"</span> <span class="org-string">"DATE"</span> <span class="org-string">"DESCRIPTION"</span> <span class="org-string">"IMAGE"</span> <span class="org-string">"TAGS[]"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">keywords to parse from .org files</span>
+      org-html-htmlize-output-type 'css
+      org-src-fontify-natively t)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org95e1d3b" class="outline-3">
+<h3 id="org95e1d3b">Helper functions</h3>
+<div class="outline-text-3" id="text-org95e1d3b">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">get-org-files</span> (directory)
+  <span class="org-doc">"Return a list of .org files in DIRECTORY excluding '</span><span class="org-doc"><span class="org-constant">index.org</span></span><span class="org-doc">'."</span>
+  (cl-remove-if
+   (<span class="org-keyword">lambda</span> (file) (string-equal <span class="org-string">"index.org"</span> (file-name-nondirectory file)))
+   (directory-files-recursively directory <span class="org-string">"\\.org$"</span>)))
+(<span class="org-keyword">defun</span> <span class="org-function-name">get-org-file-keywords</span> (file)
+  (<span class="org-keyword">with-temp-buffer</span>
+    (insert-file-contents file)
+    <span class="org-comment-delimiter">;</span><span class="org-comment">(org-mode)</span>
+    (list file (org-collect-keywords keywords))))
+(<span class="org-keyword">defun</span> <span class="org-function-name">sort-keyword-list-by-date</span> (keyword-list <span class="org-type">&amp;optional</span> new-to-old)
+  <span class="org-doc">"Sort the list by the date value of the form &lt;YYYY-MM-DD HH:MM&gt;"</span>
+  (sort keyword-list
+        (<span class="org-keyword">lambda</span> (a b)
+          (<span class="org-keyword">let*</span> ((date-str-a (replace-regexp-in-string <span class="org-string">"&lt;\\[</span><span class="org-string"><span class="org-constant">\\</span></span><span class="org-string">]&gt;"</span> <span class="org-string">""</span> (cadr (assoc <span class="org-string">"DATE"</span> (cadr a)))))
+                 (date-str-b (replace-regexp-in-string <span class="org-string">"&lt;\\[</span><span class="org-string"><span class="org-constant">\\</span></span><span class="org-string">]&gt;"</span> <span class="org-string">""</span> (cadr (assoc <span class="org-string">"DATE"</span> (cadr b))))))
+            (<span class="org-keyword">if</span> new-to-old
+              (string&gt; date-str-a date-str-b)
+              (string&lt; date-str-a date-str-b))))))
+(<span class="org-keyword">defun</span> <span class="org-function-name">article-marked-for-noexport-p</span> (article)
+  (string-match-p (regexp-quote <span class="org-string">"noexport"</span>) (cadr (assoc <span class="org-string">"TAGS[]"</span> (cadr article)))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6be88f9" class="outline-3">
+<h3 id="org6be88f9">State</h3>
+<div class="outline-text-3" id="text-org6be88f9">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">TODO put together</span>
+(<span class="org-keyword">setq</span> article-keyword-list '())
+(<span class="org-keyword">setq</span> project-keyword-list '())
+(<span class="org-keyword">setq</span> other-keyword-list   '())
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org23376e7" class="outline-3">
+<h3 id="org23376e7">Prepare publishing function</h3>
+<div class="outline-text-3" id="text-org23376e7">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">prepare-publishing</span> (project-properties)
+  <span class="org-comment-delimiter">;</span>
+  <span class="org-comment-delimiter">; </span><span class="org-comment">FILL &amp; SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/</span>
+  <span class="org-comment-delimiter">;</span>
+  (<span class="org-keyword">dolist</span> (article (get-org-files <span class="org-string">"article"</span>))
+    (<span class="org-keyword">let</span> ((article-keywords (get-org-file-keywords article)))
+      (<span class="org-keyword">unless</span> (article-marked-for-noexport-p article-keywords)
+        (<span class="org-keyword">push</span> (get-org-file-keywords article) article-keyword-list))))
+  (<span class="org-keyword">setq</span> article-keyword-list (sort-keyword-list-by-date article-keyword-list t))
+
+  (<span class="org-keyword">dolist</span> (project (get-org-files <span class="org-string">"project"</span>))
+    (<span class="org-keyword">push</span> (get-org-file-keywords project) project-keyword-list))
+  (<span class="org-keyword">setq</span> project-keyword-list (sort-keyword-list-by-date project-keyword-list t))
+
+  (<span class="org-keyword">dolist</span> (other (get-org-files <span class="org-string">"other"</span>))
+    (<span class="org-keyword">push</span> (get-org-file-keywords other) other-keyword-list))
+  (<span class="org-keyword">setq</span> other-keyword-list (sort-keyword-list-by-date other-keyword-list t))
+
+  <span class="org-comment-delimiter">;</span>
+  <span class="org-comment-delimiter">; </span><span class="org-comment">GENERATE RSS FEED FOR ARTICLES</span>
+  <span class="org-comment-delimiter">;</span>
+  <span class="org-comment-delimiter">; </span><span class="org-comment">rss header, check with  https://validator.w3.org/feed/</span>
+  (<span class="org-keyword">with-temp-file</span> <span class="org-string">"feed.rss"</span>
+    (insert
+     (<span class="org-keyword">let*</span> ((website-title <span class="org-string">"andersch.dev"</span>)
+            (homepage      <span class="org-string">"https://andersch.dev"</span>)
+            (rss-filepath  <span class="org-string">"/feed.rss"</span>))
+     (concat <span class="org-string">"&lt;?xml version=\"1.0\" encoding=\"utf-8\"?&gt;\n"</span>
+             <span class="org-string">"&lt;rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\"&gt;\n"</span>
+             <span class="org-string">"&lt;channel&gt;\n"</span>
+             (format <span class="org-string">"&lt;title&gt;%s&lt;/title&gt;\n"</span> website-title)
+             <span class="org-string">"&lt;!-- &lt;lastBuildDate&gt;Wed, 15 Dec 2021 00:00:00 +0000&lt;/lastBuildDate&gt; --&gt;\n"</span> <span class="org-comment-delimiter">; </span><span class="org-comment">TODO insert todays date</span>
+             (format <span class="org-string">"&lt;atom:link href=\"%s%s\" rel=\"self\" type=\"application/rss+xml\"/&gt;\n"</span> homepage rss-filepath)
+             (format <span class="org-string">"&lt;link&gt;%s/index.html&lt;/link&gt;\n"</span> homepage)
+             <span class="org-string">"&lt;description&gt;Stuff on programming&lt;/description&gt;\n"</span>
+             <span class="org-string">"&lt;language&gt;en-us&lt;/language&gt;\n"</span>))))
+  <span class="org-comment-delimiter">; </span><span class="org-comment">rss entries</span>
+  (<span class="org-keyword">dolist</span> (article article-keyword-list)
+    (write-region
+      (format
+         (concat <span class="org-string">"&lt;item&gt;\n"</span>
+                 <span class="org-string">"&lt;title&gt;%s&lt;/title&gt;\n"</span>
+                 <span class="org-string">"&lt;link&gt;%s&lt;/link&gt;\n"</span>
+                 <span class="org-string">"&lt;guid&gt;%s&lt;/guid&gt;\n"</span>
+                 <span class="org-string">"&lt;description&gt;\n"</span>
+                 <span class="org-string">"&amp;lt;p&amp;gt;%s&amp;lt;/p&amp;gt;\n"</span>
+                 <span class="org-string">"&amp;lt;img src=\"https://andersch.dev/article/%s\"/&amp;gt;\n"</span>
+                 <span class="org-string">"&lt;/description&gt;\n"</span>
+                 <span class="org-string">"&lt;pubDate&gt;%s&lt;/pubDate&gt;\n&lt;/item&gt;\n"</span>)
+            (cadr (assoc <span class="org-string">"TITLE"</span> (cadr article)))
+            (concat <span class="org-string">"https://andersch.dev/"</span> (string-replace <span class="org-string">".org"</span> <span class="org-string">".html"</span> (car article)))
+            (concat <span class="org-string">"https://andersch.dev/"</span> (string-replace <span class="org-string">".org"</span> <span class="org-string">".html"</span> (car article)))
+            (cadr (assoc <span class="org-string">"DESCRIPTION"</span> (cadr article)))
+            (cadr (assoc <span class="org-string">"IMAGE"</span> (cadr article)))
+            (format-time-string <span class="org-string">"%a, %d %b %Y %H:%M:%S %z"</span> (seconds-to-time (org-time-string-to-time (cadr (assoc <span class="org-string">"DATE"</span> (cadr article))))))
+            )
+      nil <span class="org-string">"feed.rss"</span> 'append))
+  <span class="org-comment-delimiter">; </span><span class="org-comment">rss ending</span>
+  (write-region <span class="org-string">"&lt;/channel&gt;\n&lt;/rss&gt;"</span> nil <span class="org-string">"feed.rss"</span> 'append)
+
+  <span class="org-comment-delimiter">;</span>
+  <span class="org-comment-delimiter">; </span><span class="org-comment">EXECUTE NAMED SRC BLOCKS</span>
+  <span class="org-comment-delimiter">;</span>
+  (<span class="org-keyword">dolist</span> (org-file (directory-files-recursively <span class="org-string">"./"</span> <span class="org-string">"\\.org$"</span>))
+      (find-file org-file)
+      (<span class="org-keyword">setq</span> src-block-names '(<span class="org-string">"list-of-projects"</span> <span class="org-string">"latest-article"</span> <span class="org-string">"latest-project"</span> <span class="org-string">"generate-tags"</span>))
+      (goto-char (point-min))
+      (<span class="org-keyword">setq</span> org-confirm-babel-evaluate nil) <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE needed when org-babel-execute-src-block is called in a script</span>
+      (<span class="org-keyword">dolist</span> (src-block-name src-block-names)
+        (<span class="org-keyword">if</span> (org-babel-find-named-block src-block-name)
+          (<span class="org-keyword">progn</span>
+            (org-babel-goto-named-src-block src-block-name)
+            (org-babel-execute-src-block))))
+      (save-buffer)
+      (kill-buffer))
+
+  <span class="org-comment-delimiter">;</span>
+  <span class="org-comment-delimiter">; </span><span class="org-comment">TAGGING SYSTEM</span>
+  <span class="org-comment-delimiter">;</span>
+  <span class="org-comment-delimiter">; </span><span class="org-comment">collect all tags</span>
+  (<span class="org-keyword">setq</span> all-tags '())
+  (<span class="org-keyword">dolist</span> (article article-keyword-list)
+     (<span class="org-keyword">setq</span> all-tags (append (split-string (cadr (assoc <span class="org-string">"TAGS[]"</span> (cadr article)))  <span class="org-string">" +"</span>) all-tags)))
+  (<span class="org-keyword">dolist</span> (project project-keyword-list)
+     (<span class="org-keyword">setq</span> all-tags (append (split-string (cadr (assoc <span class="org-string">"TAGS[]"</span> (cadr project)))  <span class="org-string">" +"</span>) all-tags)))
+  (delete-dups all-tags)
+  <span class="org-comment-delimiter">; </span><span class="org-comment">generate .org files for all tags</span>
+  (<span class="org-keyword">dolist</span> (tag all-tags)
+    (<span class="org-keyword">with-temp-file</span> (format <span class="org-string">"tag/%s.org"</span> tag)
+      (insert (format <span class="org-string">"#+TITLE: Pages tagged %s\n"</span> tag)))
+    (write-region (format <span class="org-string">"* Articles tagged ~%s~\n"</span> tag) nil (format <span class="org-string">"tag/%s.org"</span> tag) 'append))
+  <span class="org-comment-delimiter">; </span><span class="org-comment">add entry of an article to its tag.org's</span>
+  (<span class="org-keyword">dolist</span> (article article-keyword-list)
+    (<span class="org-keyword">dolist</span> (tag (split-string (cadr (assoc <span class="org-string">"TAGS[]"</span> (cadr article)))  <span class="org-string">" +"</span>))
+      (write-region (format <span class="org-string">"- [[../%s][%s]]\n"</span>
+                            (car article)
+                            (cadr (assoc <span class="org-string">"TITLE"</span> (cadr article))))
+                    nil (format <span class="org-string">"tag/%s.org"</span> tag) 'append)))
+  <span class="org-comment-delimiter">; </span><span class="org-comment">append "* Projects" headline</span>
+  (<span class="org-keyword">dolist</span> (tag all-tags)
+    (write-region (format <span class="org-string">"* Projects tagged ~%s~\n"</span> tag) nil (format <span class="org-string">"tag/%s.org"</span> tag) 'append))
+  <span class="org-comment-delimiter">; </span><span class="org-comment">add entry of a project to its tag.org's</span>
+  (<span class="org-keyword">dolist</span> (project project-keyword-list)
+    (<span class="org-keyword">dolist</span> (tag (split-string (cadr (assoc <span class="org-string">"TAGS[]"</span> (cadr project)))  <span class="org-string">" +"</span>))
+      (write-region (format <span class="org-string">"- [[../%s][%s]]\n"</span>
+                            (car project)
+                            (cadr (assoc <span class="org-string">"TITLE"</span> (cadr project))))
+                    nil (format <span class="org-string">"tag/%s.org"</span> tag) 'append)))
+)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdaf1f50" class="outline-3">
+<h3 id="orgdaf1f50">Org-publish Customization</h3>
+<div class="outline-text-3" id="text-orgdaf1f50">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">customize HTML output (see https://pank.eu/blog/blog-setup.html)</span>
+<span class="org-comment-delimiter">; </span><span class="org-comment">see https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options.html</span>
+(<span class="org-keyword">setq</span> org-publish-project-alist
+      (list
+       (list <span class="org-string">"andersch.dev"</span>
+             <span class="org-builtin">:recursive</span>            t
+             <span class="org-builtin">:base-directory</span>       <span class="org-string">"./"</span>
+             <span class="org-builtin">:publishing-directory</span> <span class="org-string">"./"</span>
+             <span class="org-builtin">:publishing-function</span>  'org-html-publish-to-html <span class="org-comment-delimiter">;; </span><span class="org-comment">may be a list of functions</span>
+             <span class="org-builtin">:preparation-function</span> 'prepare-publishing       <span class="org-comment-delimiter">;; </span><span class="org-comment">called before publishing</span>
+           <span class="org-comment-delimiter">; </span><span class="org-comment">:completion-function                            ;; called after</span>
+           <span class="org-comment-delimiter">; </span><span class="org-comment">:base-extension                                 ;; extension of source files</span>
+             <span class="org-builtin">:exclude</span> <span class="org-string">"code.org"</span>                 <span class="org-comment-delimiter">;; </span><span class="org-comment">regex of files to exclude NOTE excluding dirs seems to not work</span>
+           <span class="org-comment-delimiter">; </span><span class="org-comment">:include                                        ;; list of files to include</span>
+           <span class="org-comment-delimiter">; </span><span class="org-comment">:html-doctype "html5"                           ;; default is "xhtml-strict"</span>
+             <span class="org-builtin">:html-divs</span>            '((preamble <span class="org-string">"header"</span> <span class="org-string">"top"</span>)
+                                     (content <span class="org-string">"main"</span> <span class="org-string">"content"</span>)
+                                     (postamble <span class="org-string">"footer"</span> <span class="org-string">"postamble"</span>))
+             <span class="org-builtin">:html-html5-fancy</span>     t
+             <span class="org-builtin">:html-head</span>            (concat <span class="org-string">"&lt;title&gt;andersch.dev&lt;/title&gt;\n"</span>
+                                           <span class="org-string">"&lt;link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\"&gt;\n"</span>
+                                           <span class="org-string">"&lt;link rel=\"stylesheet\" href=\"/style.css\"&gt;\n"</span>
+                                           <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE import ubuntu font for now</span>
+                                           <span class="org-string">"&lt;link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&amp;subset=Latin\"&gt;"</span>
+                                           )
+             <span class="org-builtin">:html-preamble</span>        t
+             <span class="org-builtin">:html-preamble-format</span> `((<span class="org-string">"en"</span> ,(<span class="org-keyword">with-temp-buffer</span> (insert-file-contents <span class="org-string">"header.html"</span>) (buffer-string))))
+             <span class="org-builtin">:html-postamble</span>       nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">don't insert a footer with a date etc.</span>
+
+             <span class="org-builtin">:auto-sitemap</span>         t                         <span class="org-comment-delimiter">;; </span><span class="org-comment">https://orgmode.org/manual/Site-map.html</span>
+             <span class="org-builtin">:sitemap-filename</span>     <span class="org-string">"sitemap.org"</span>             <span class="org-comment-delimiter">;; </span><span class="org-comment">...</span>
+           <span class="org-comment-delimiter">; </span><span class="org-comment">:sitemap-title</span>
+             <span class="org-builtin">:sitemap-style</span>        'tree                     <span class="org-comment-delimiter">;; </span><span class="org-comment">list or tree</span>
+             <span class="org-builtin">:sitemap-sort-files</span>   'anti-chronologically
+           <span class="org-comment-delimiter">; </span><span class="org-comment">:makeindex t                                    ;; https://orgmode.org/manual/Generating-an-index.html</span>
+             <span class="org-builtin">:with-title</span>           nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">we include our own header</span>
+             <span class="org-builtin">:with-author</span>          nil
+             <span class="org-builtin">:with-creator</span>         nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">don't include emacs and org versions in footer</span>
+             <span class="org-builtin">:with-toc</span>             nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">no table of contents</span>
+             <span class="org-builtin">:section-numbers</span>      nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">no section numbers for headings</span>
+             <span class="org-builtin">:html-validation-link</span> nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">don't show validation link</span>
+             <span class="org-builtin">:time-stamp-file</span>      nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">don't include "Created: &lt;timestamp&gt;" in footer</span>
+             <span class="org-builtin">:with-date</span>            nil)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org16cf0c7" class="outline-3">
+<h3 id="org16cf0c7">Fix caching issue</h3>
+<div class="outline-text-3" id="text-org16cf0c7">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">NOTE caching causes problems with updating titles etc., so we reset the cache before publishing</span>
+(<span class="org-keyword">setq</span> org-publish-use-timestamps-flag nil)
+(<span class="org-keyword">setq</span> org-publish-timestamp-directory <span class="org-string">"./.org-timestamps/"</span>)
+(org-publish-remove-all-timestamps)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2fdd4e2" class="outline-3">
+<h3 id="org2fdd4e2">Workaround</h3>
+<div class="outline-text-3" id="text-org2fdd4e2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">NOTE workaround to not get a "Symbol&#8217;s function definition is void" error when publishing</span>
+(<span class="org-keyword">defun</span> <span class="org-function-name">get-article-keyword-list</span> () article-keyword-list) <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE workaround to pass keyword-list to a source-block in an org file</span>
+(<span class="org-keyword">defun</span> <span class="org-function-name">get-project-keyword-list</span> () project-keyword-list) <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE workaround to pass keyword-list to a source-block in an org file</span>
+(<span class="org-keyword">defun</span> <span class="org-function-name">get-other-keyword-list</span>   () other-keyword-list)   <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE workaround to pass keyword-list to a source-block in an org file</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9fd9bce" class="outline-3">
+<h3 id="org9fd9bce">Build</h3>
+<div class="outline-text-3" id="text-org9fd9bce">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(org-publish <span class="org-string">"andersch.dev"</span> t) <span class="org-comment-delimiter">;; </span><span class="org-comment">export html files</span>
+(message <span class="org-string">"Build complete"</span>)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7f5a271" class="outline-3">
+<h3 id="org7f5a271">Code snippets</h3>
+<div class="outline-text-3" id="text-org7f5a271">
+</div>
+<div id="outline-container-orgdff2742" class="outline-4">
+<h4 id="orgdff2742">List of articles</h4>
+<div class="outline-text-4" id="text-orgdff2742">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">#+NAME: list-of-articles
+#+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> raw drawer <span class="org-builtin">:var</span> list='()
+(<span class="org-keyword">setq</span> list-string '())
+(<span class="org-keyword">if</span> (eq org-export-current-backend 'html)
+  (<span class="org-keyword">dolist</span> (entry list)
+    (<span class="org-keyword">push</span>
+     (format
+       (concat
+        <span class="org-string">"#+BEGIN_EXPORT html\n"</span>
+        <span class="org-string">"&lt;div class=\"image-container\"&gt;\n"</span>
+           <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE "../" as a workaround</span>
+           <span class="org-string">"&lt;a href=\"../%s\"&gt;\n"</span>
+               <span class="org-string">"&lt;div class=\"overlay\"&gt;\n"</span>
+                   <span class="org-string">"&lt;div class=\"title\"&gt;%s&lt;/div&gt;\n"</span>
+                   <span class="org-string">"&lt;div class=\"description\"&gt;%s&lt;/div&gt;\n"</span>
+               <span class="org-string">"&lt;/div&gt;\n"</span>
+               <span class="org-string">"&lt;img src=\"./%s\" alt=\"\"&gt;\n"</span>
+           <span class="org-string">"&lt;/a&gt;\n"</span>
+        <span class="org-string">"&lt;/div&gt;\n"</span>
+        <span class="org-string">"#+END_EXPORT\n"</span>)
+       (string-replace <span class="org-string">".org"</span> <span class="org-string">".html"</span> (car entry))
+       (cadr (assoc <span class="org-string">"TITLE"</span> (cadr entry)))
+       (cadr (assoc <span class="org-string">"DESCRIPTION"</span> (cadr entry)))
+       (cadr (assoc <span class="org-string">"IMAGE"</span> (cadr entry))))
+    list-string)
+  )
+  (<span class="org-keyword">dolist</span> (entry list)
+    <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE "../" as a workaround</span>
+    (<span class="org-keyword">push</span> (format <span class="org-string">"- [[../%s][%s]]"</span> (car entry) (cadr (assoc <span class="org-string">"TITLE"</span> (cadr entry)))) list-string)
+  ))
+(mapconcat #'identity list-string <span class="org-string">"\n"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">flatten string list to a string</span>
+#+END_SRC
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4dc5433" class="outline-4">
+<h4 id="org4dc5433">Generate Tags</h4>
+<div class="outline-text-4" id="text-org4dc5433">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">#+NAME: generate-tags
+#+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> html
+(<span class="org-keyword">setq</span> tags-string '())
+<span class="org-comment-delimiter">;</span><span class="org-comment">(if (eq org-export-current-backend 'html)</span>
+<span class="org-comment-delimiter">;  </span><span class="org-comment">(progn</span>
+    <span class="org-comment-delimiter">;</span><span class="org-comment">(setq tags-string (append tags-string (list "#+BEGIN_EXPORT html\n")))</span>
+    (<span class="org-keyword">setq</span> tags-string (append tags-string (list <span class="org-string">"&lt;div class=\"tags\"&gt;"</span>)))
+    (<span class="org-keyword">setq</span> tags-string (append tags-string (list <span class="org-string">"[ "</span>)))
+    (<span class="org-keyword">setq</span> tags (split-string (cadar (org-collect-keywords '(<span class="org-string">"TAGS[]"</span>))) <span class="org-string">" +"</span>))
+    (<span class="org-keyword">dolist</span> (tag tags)
+      (<span class="org-keyword">setq</span> tags-string (append tags-string (list (format <span class="org-string">"&lt;a href=\"/tag/%s.html\"&gt;%s&lt;/a&gt; "</span> tag tag))))
+      )
+    (<span class="org-keyword">setq</span> tags-string (append tags-string (list <span class="org-string">"]"</span>)))
+    (<span class="org-keyword">setq</span> tags-string (append tags-string (list <span class="org-string">"&lt;/div&gt;\n"</span>)))
+    <span class="org-comment-delimiter">;</span><span class="org-comment">(setq tags-string (append tags-string (list "#+END_EXPORT")))</span>
+    (mapconcat #'identity tags-string <span class="org-string">""</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">flatten string list to a string</span>
+<span class="org-comment-delimiter">;  </span><span class="org-comment">)</span>
+<span class="org-comment-delimiter">;  </span><span class="org-comment">(print "")</span>
+<span class="org-comment-delimiter">;</span><span class="org-comment">)</span>
+#+END_SRC
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5e402f0" class="outline-4">
+<h4 id="org5e402f0">Generate Article Header &amp; Subtitle</h4>
+<div class="outline-text-4" id="text-org5e402f0">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">#+NAME: generate-article-header
+#+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> html
+(<span class="org-keyword">defun</span> <span class="org-function-name">generate-tags</span> ()
+  (<span class="org-keyword">setq</span> tags-string '())
+      (<span class="org-keyword">setq</span> tags-string (append tags-string (list <span class="org-string">"&lt;div class=\"tags\"&gt;"</span>)))
+      (<span class="org-keyword">setq</span> tags-string (append tags-string (list <span class="org-string">"&lt;code&gt;"</span>)))
+      (<span class="org-keyword">setq</span> tags-string (append tags-string (list <span class="org-string">"[ "</span>)))
+      (<span class="org-keyword">setq</span> tags (split-string (cadar (org-collect-keywords '(<span class="org-string">"TAGS[]"</span>))) <span class="org-string">" +"</span>))
+      (<span class="org-keyword">dolist</span> (tag tags)
+        (<span class="org-keyword">setq</span> tags-string (append tags-string (list (format <span class="org-string">"&lt;a href=\"/tag/%s.html\"&gt;%s&lt;/a&gt; "</span> tag tag))))
+        )
+      (<span class="org-keyword">setq</span> tags-string (append tags-string (list <span class="org-string">"]"</span>)))
+      (<span class="org-keyword">setq</span> tags-string (append tags-string (list <span class="org-string">"&lt;/code&gt;"</span>)))
+      (<span class="org-keyword">setq</span> tags-string (append tags-string (list <span class="org-string">"&lt;/div&gt;\n"</span>)))
+      (mapconcat #'identity tags-string <span class="org-string">""</span>)) <span class="org-comment-delimiter">; </span><span class="org-comment">flatten string list to a string</span>
+
+(<span class="org-keyword">setq</span> keywords (org-collect-keywords '(<span class="org-string">"TITLE"</span> <span class="org-string">"DESCRIPTION"</span> <span class="org-string">"DATE"</span> <span class="org-string">"IMAGE"</span> <span class="org-string">"TAGS[]"</span>)))
+
+(format
+   (concat
+     <span class="org-string">"&lt;div class=\"tags-date-box\"&gt;\n"</span>
+       (generate-tags)
+       <span class="org-string">"&lt;div class=\"date\"&gt;&lt;span class=\"timestamp\"&gt;%s&lt;/span&gt;&lt;/div&gt;\n"</span>
+     <span class="org-string">"&lt;/div&gt;\n"</span>)
+   (cadr (assoc <span class="org-string">"DATE"</span> keywords)))
+#+END_SRC
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">#+NAME: generate-article-subtitle
+#+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> html
+(<span class="org-keyword">setq</span> keywords (org-collect-keywords '(<span class="org-string">"TITLE"</span> <span class="org-string">"DESCRIPTION"</span> <span class="org-string">"DATE"</span> <span class="org-string">"IMAGE"</span> <span class="org-string">"TAGS[]"</span>)))
+(format
+   (concat
+     <span class="org-string">"&lt;h2 class=\"subtitle\"&gt;%s&lt;/h1&gt;"</span>
+     <span class="org-string">"&lt;div class=\"figure\"&gt;&lt;img src=\"%s\" alt=\"\"&gt;&lt;/div&gt;"</span>)
+   (cadr (assoc <span class="org-string">"DESCRIPTION"</span> keywords))
+   (cadr (assoc <span class="org-string">"IMAGE"</span> keywords)))
+#+END_SRC
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfc4d193" class="outline-4">
+<h4 id="orgfc4d193">Generate Article Snippets</h4>
+<div class="outline-text-4" id="text-orgfc4d193">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">#+NAME: generate-article-snippets
+#+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> html <span class="org-builtin">:var</span> list='()
+(<span class="org-keyword">setq</span> article-snippets '())
+(<span class="org-keyword">dolist</span> (article list)
+  (<span class="org-keyword">with-temp-buffer</span>
+    (insert-file-contents (concat <span class="org-string">"../"</span> (car article)))
+
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">remove everything after the snippet marker</span>
+    (<span class="org-keyword">setq</span> snippet-marker <span class="org-string">"# endsnippet"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">TODO handle if marker is missing</span>
+    (<span class="org-keyword">if</span> (search-forward snippet-marker nil t)
+      (<span class="org-keyword">setq</span> begin (point))
+      (<span class="org-warning">error</span> (format <span class="org-string">"Snippet marker is not set for %s"</span> (car article)))
+    )
+    (end-of-buffer)
+    (<span class="org-keyword">setq</span> end (point))
+    (goto-char (point-min))
+    (delete-region begin end)
+
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">export snippet as html</span>
+    (<span class="org-keyword">setq</span> org-export-show-temporary-export-buffer nil)
+    (org-html-export-as-html nil nil nil t nil)
+    (switch-to-buffer <span class="org-string">"*Org HTML Export*"</span>)
+    (<span class="org-keyword">setq</span> article-snippets (append article-snippets (list (buffer-string))))
+
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">read more link</span>
+    (<span class="org-keyword">setq</span> read-more-html (format <span class="org-string">"&lt;div class=\"read-more\"&gt;&lt;a href=\"/%s\"&gt;READ MORE&lt;/a&gt;&lt;/div&gt;"</span> (string-replace <span class="org-string">".org"</span> <span class="org-string">".html"</span> (car article))))
+    (<span class="org-keyword">setq</span> article-snippets (append article-snippets (list read-more-html)))
+
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">dividing line between snippets</span>
+    (<span class="org-keyword">setq</span> article-snippets (append article-snippets (list <span class="org-string">"&lt;hr&gt;\n"</span>)))
+  )
+)
+
+(mapconcat #'identity article-snippets <span class="org-string">""</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">flatten string list to a string</span>
+#+END_SRC
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>
