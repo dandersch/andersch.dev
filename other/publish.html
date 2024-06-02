@@ -225,9 +225,9 @@
 <div class="date"><span class="timestamp"><2024-06-02></span></div>
 </div>
 
-<div id="outline-container-org3686a25" class="outline-2">
-<h2 id="org3686a25">Publishing Script</h2>
-<div class="outline-text-2" id="text-org3686a25">
+<div id="outline-container-org6d4f476" class="outline-2">
+<h2 id="org6d4f476">Publishing Script</h2>
+<div class="outline-text-2" id="text-org6d4f476">
 <h2 class="subtitle">The publishing script that creates this website</h1><div class="figure"><img src="" alt=""></div>
 
 <p>
@@ -235,9 +235,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </p>
 </div>
 
-<div id="outline-container-orgbec07b5" class="outline-3">
-<h3 id="orgbec07b5">Packages</h3>
-<div class="outline-text-3" id="text-orgbec07b5">
+<div id="outline-container-org5a5c443" class="outline-3">
+<h3 id="org5a5c443">Packages</h3>
+<div class="outline-text-3" id="text-org5a5c443">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">set package install dir to local directory</span>
 (<span class="org-keyword">require</span> '<span class="org-constant">package</span>)
@@ -252,9 +252,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org07dcd55" class="outline-3">
-<h3 id="org07dcd55">Dependencies</h3>
-<div class="outline-text-3" id="text-org07dcd55">
+<div id="outline-container-org1e4f018" class="outline-3">
+<h3 id="org1e4f018">Dependencies</h3>
+<div class="outline-text-3" id="text-org1e4f018">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(package-install 'htmlize) <span class="org-comment-delimiter">; </span><span class="org-comment">enable export of #+begin_src code blocks</span>
 (<span class="org-keyword">require</span> '<span class="org-constant">ox-publish</span>)
@@ -268,9 +268,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org5d3e0df" class="outline-3">
-<h3 id="org5d3e0df">Configuration</h3>
-<div class="outline-text-3" id="text-org5d3e0df">
+<div id="outline-container-orgf103d65" class="outline-3">
+<h3 id="orgf103d65">Configuration</h3>
+<div class="outline-text-3" id="text-orgf103d65">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span>
       keywords '(<span class="org-string">"TITLE"</span> <span class="org-string">"DATE"</span> <span class="org-string">"DESCRIPTION"</span> <span class="org-string">"IMAGE"</span> <span class="org-string">"TAGS[]"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">keywords to parse from .org files</span>
@@ -281,9 +281,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org95e1d3b" class="outline-3">
-<h3 id="org95e1d3b">Helper functions</h3>
-<div class="outline-text-3" id="text-org95e1d3b">
+<div id="outline-container-orgc2a9552" class="outline-3">
+<h3 id="orgc2a9552">Helper functions</h3>
+<div class="outline-text-3" id="text-orgc2a9552">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">get-org-files</span> (directory)
   <span class="org-doc">"Return a list of .org files in DIRECTORY excluding '</span><span class="org-doc"><span class="org-constant">index.org</span></span><span class="org-doc">'."</span>
@@ -311,9 +311,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org6be88f9" class="outline-3">
-<h3 id="org6be88f9">State</h3>
-<div class="outline-text-3" id="text-org6be88f9">
+<div id="outline-container-org7bc7d5a" class="outline-3">
+<h3 id="org7bc7d5a">State</h3>
+<div class="outline-text-3" id="text-org7bc7d5a">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">TODO put together</span>
 (<span class="org-keyword">setq</span> article-keyword-list '())
@@ -324,9 +324,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org23376e7" class="outline-3">
-<h3 id="org23376e7">Prepare publishing function</h3>
-<div class="outline-text-3" id="text-org23376e7">
+<div id="outline-container-org49eeb61" class="outline-3">
+<h3 id="org49eeb61">Prepare publishing function</h3>
+<div class="outline-text-3" id="text-org49eeb61">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">prepare-publishing</span> (project-properties)
   <span class="org-comment-delimiter">;</span>
@@ -442,9 +442,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-orgdaf1f50" class="outline-3">
-<h3 id="orgdaf1f50">Org-publish Customization</h3>
-<div class="outline-text-3" id="text-orgdaf1f50">
+<div id="outline-container-org4855cea" class="outline-3">
+<h3 id="org4855cea">Org-publish Customization</h3>
+<div class="outline-text-3" id="text-org4855cea">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">customize HTML output (see https://pank.eu/blog/blog-setup.html)</span>
 <span class="org-comment-delimiter">; </span><span class="org-comment">see https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options.html</span>
@@ -494,9 +494,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org16cf0c7" class="outline-3">
-<h3 id="org16cf0c7">Fix caching issue</h3>
-<div class="outline-text-3" id="text-org16cf0c7">
+<div id="outline-container-org39ed369" class="outline-3">
+<h3 id="org39ed369">Fix caching issue</h3>
+<div class="outline-text-3" id="text-org39ed369">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">NOTE caching causes problems with updating titles etc., so we reset the cache before publishing</span>
 (<span class="org-keyword">setq</span> org-publish-use-timestamps-flag nil)
@@ -507,9 +507,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org2fdd4e2" class="outline-3">
-<h3 id="org2fdd4e2">Workaround</h3>
-<div class="outline-text-3" id="text-org2fdd4e2">
+<div id="outline-container-org39b2a74" class="outline-3">
+<h3 id="org39b2a74">Workaround</h3>
+<div class="outline-text-3" id="text-org39b2a74">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">NOTE workaround to not get a "Symbol&#8217;s function definition is void" error when publishing</span>
 (<span class="org-keyword">defun</span> <span class="org-function-name">get-article-keyword-list</span> () article-keyword-list) <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE workaround to pass keyword-list to a source-block in an org file</span>
@@ -520,9 +520,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org9fd9bce" class="outline-3">
-<h3 id="org9fd9bce">Build</h3>
-<div class="outline-text-3" id="text-org9fd9bce">
+<div id="outline-container-orgd304ce7" class="outline-3">
+<h3 id="orgd304ce7">Build</h3>
+<div class="outline-text-3" id="text-orgd304ce7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(org-publish <span class="org-string">"andersch.dev"</span> t) <span class="org-comment-delimiter">;; </span><span class="org-comment">export html files</span>
 (message <span class="org-string">"Build complete"</span>)
@@ -531,13 +531,13 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org7f5a271" class="outline-3">
-<h3 id="org7f5a271">Code snippets</h3>
-<div class="outline-text-3" id="text-org7f5a271">
+<div id="outline-container-orgafb0606" class="outline-3">
+<h3 id="orgafb0606">Code snippets</h3>
+<div class="outline-text-3" id="text-orgafb0606">
 </div>
-<div id="outline-container-orgdff2742" class="outline-4">
-<h4 id="orgdff2742">List of articles</h4>
-<div class="outline-text-4" id="text-orgdff2742">
+<div id="outline-container-orgd2112c1" class="outline-4">
+<h4 id="orgd2112c1">List of articles</h4>
+<div class="outline-text-4" id="text-orgd2112c1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">#+NAME: list-of-articles
 #+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> raw drawer <span class="org-builtin">:var</span> list='()
@@ -576,9 +576,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org4dc5433" class="outline-4">
-<h4 id="org4dc5433">Generate Tags</h4>
-<div class="outline-text-4" id="text-org4dc5433">
+<div id="outline-container-org85e318e" class="outline-4">
+<h4 id="org85e318e">Generate Tags</h4>
+<div class="outline-text-4" id="text-org85e318e">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">#+NAME: generate-tags
 #+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> html
@@ -605,9 +605,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-org5e402f0" class="outline-4">
-<h4 id="org5e402f0">Generate Article Header &amp; Subtitle</h4>
-<div class="outline-text-4" id="text-org5e402f0">
+<div id="outline-container-org5b32cd7" class="outline-4">
+<h4 id="org5b32cd7">Generate Article Header &amp; Subtitle</h4>
+<div class="outline-text-4" id="text-org5b32cd7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">#+NAME: generate-article-header
 #+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> html
@@ -654,9 +654,9 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 </div>
 
-<div id="outline-container-orgfc4d193" class="outline-4">
-<h4 id="orgfc4d193">Generate Article Snippets</h4>
-<div class="outline-text-4" id="text-orgfc4d193">
+<div id="outline-container-org2647a49" class="outline-4">
+<h4 id="org2647a49">Generate Article Snippets</h4>
+<div class="outline-text-4" id="text-org2647a49">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">#+NAME: generate-article-snippets
 #+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> html <span class="org-builtin">:var</span> list='()

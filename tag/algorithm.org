@@ -1,4 +1,0 @@
-#+TITLE: Pages tagged algorithm
-* Articles tagged ~algorithm~
-- [[../article/test.org][Testing article 1]]
-* Projects tagged ~algorithm~

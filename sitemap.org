@@ -2,10 +2,8 @@
 
 - [[file:index.org][andersch.dev]]
 - tag
-  - [[file:tag/algorithm.org][Pages tagged algorithm]]
   - [[file:tag/cpp.org][Pages tagged cpp]]
   - [[file:tag/gamedev.org][Pages tagged gamedev]]
-  - [[file:tag/lisp.org][Pages tagged lisp]]
   - [[file:tag/opengl.org][Pages tagged opengl]]
   - [[file:tag/graphics.org][Pages tagged graphics]]
 - project
@@ -16,8 +14,9 @@
   - [[file:article/embed_binary_files.org][Every Way to Embed a Binary File into your C/C++ Program]]
   - [[file:article/shader_strings.org][Hot-Reloadable, Embedded Shader Code in C/C++]]
   - [[file:article/index.org][Articles]]
-  - [[file:article/test.org][Testing article 1]]
   - [[file:article/opengl-tutorial.org][How to write a graphics application with OpenGL]]
+  - [[file:article/template.org][template]]
 - other
+  - [[file:other/publish.org][Publishing Script]]
   - [[file:other/index.org][Other]]
   - [[file:other/lisp-paper.org][Paper on Lisp]]

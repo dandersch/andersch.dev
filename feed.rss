@@ -28,16 +28,6 @@
 <pubDate>Wed, 29 May 2024 00:00:00 +0200</pubDate>
 </item>
 <item>
-<title>Testing article 1</title>
-<link>https://andersch.dev/article/test.html</link>
-<guid>https://andersch.dev/article/test.html</guid>
-<description>
-&lt;p&gt;Article 1 description with cursive&lt;/p&gt;
-&lt;img src="https://andersch.dev/article/test.gif"/&gt;
-</description>
-<pubDate>Wed, 08 May 2024 13:15:00 +0200</pubDate>
-</item>
-<item>
 <title>How to write a graphics application with OpenGL</title>
 <link>https://andersch.dev/article/opengl-tutorial.html</link>
 <guid>https://andersch.dev/article/opengl-tutorial.html</guid>
