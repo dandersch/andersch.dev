@@ -225,9 +225,9 @@
 <div class="date"><span class="timestamp"><2024-06-02></span></div>
 </div>
 
-<div id="outline-container-publishing-script-title" class="outline-2">
-<h2 id="publishing-script-title">Publishing Script</h2>
-<div class="outline-text-2" id="text-publishing-script-title">
+<div class="outline-2">
+<h2>Publishing Script</h2>
+<div class="outline-text-2">
 <h2 class="subtitle">The publishing script that creates this website</h1>
 
 <p>
@@ -444,7 +444,7 @@ Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"<
              (format <span class="org-string">"&lt;title&gt;%s&lt;/title&gt;\n"</span> website-title)
              <span class="org-string">"&lt;!-- &lt;lastBuildDate&gt;Wed, 15 Dec 2021 00:00:00 +0000&lt;/lastBuildDate&gt; --&gt;\n"</span> <span class="org-comment-delimiter">; </span><span class="org-comment">TODO insert todays date</span>
              (format <span class="org-string">"&lt;atom:link href=\"%s%s\" rel=\"self\" type=\"application/rss+xml\"/&gt;\n"</span> homepage rss-filepath)
-             (format <span class="org-string">"&lt;link&gt;%s/index.html&lt;/link&gt;\n"</span> homepage)
+             (format <span class="org-string">"&lt;link&gt;%s&lt;/link&gt;\n"</span> homepage)
              <span class="org-string">"&lt;description&gt;Stuff on programming&lt;/description&gt;\n"</span>
              <span class="org-string">"&lt;language&gt;en-us&lt;/language&gt;\n"</span>))))
   <span class="org-comment-delimiter">; </span><span class="org-comment">rss entries</span>
@@ -457,14 +457,14 @@ Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"<
                  <span class="org-string">"&lt;guid&gt;%s&lt;/guid&gt;\n"</span>
                  <span class="org-string">"&lt;description&gt;\n"</span>
                  <span class="org-string">"&amp;lt;p&amp;gt;%s&amp;lt;/p&amp;gt;\n"</span>
-                 <span class="org-string">"&amp;lt;img src=\"https://andersch.dev/article/%s\"/&amp;gt;\n"</span>
+                 <span class="org-string">"&amp;lt;img src=\"https://andersch.dev/%s\"/&amp;gt;\n"</span>
                  <span class="org-string">"&lt;/description&gt;\n"</span>
                  <span class="org-string">"&lt;pubDate&gt;%s&lt;/pubDate&gt;\n&lt;/item&gt;\n"</span>)
             (cadr (assoc <span class="org-string">"TITLE"</span> (cadr article)))
-            (concat <span class="org-string">"https://andersch.dev/"</span> (string-replace <span class="org-string">".org"</span> <span class="org-string">".html"</span> (car article)))
-            (concat <span class="org-string">"https://andersch.dev/"</span> (string-replace <span class="org-string">".org"</span> <span class="org-string">".html"</span> (car article)))
+            (concat <span class="org-string">"https://andersch.dev/"</span> (string-replace <span class="org-string">"/index.org"</span> <span class="org-string">""</span> (car article)))
+            (concat <span class="org-string">"https://andersch.dev/"</span> (string-replace <span class="org-string">"/index.org"</span> <span class="org-string">""</span> (car article)))
             (cadr (assoc <span class="org-string">"DESCRIPTION"</span> (cadr article)))
-            (cadr (assoc <span class="org-string">"IMAGE"</span> (cadr article)))
+            (concat (string-replace <span class="org-string">"index.org"</span> <span class="org-string">""</span> (car article)) (cadr (assoc <span class="org-string">"IMAGE"</span> (cadr article))))
             (format-time-string <span class="org-string">"%a, %d %b %Y %H:%M:%S %z"</span> (seconds-to-time (org-time-string-to-time (cadr (assoc <span class="org-string">"DATE"</span> (cadr article))))))
             )
       nil <span class="org-string">"feed.rss"</span> 'append))

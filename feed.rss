@@ -4,36 +4,36 @@
 <title>andersch.dev</title>
 <!-- <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate> -->
 <atom:link href="https://andersch.dev/feed.rss" rel="self" type="application/rss+xml"/>
-<link>https://andersch.dev/index.html</link>
+<link>https://andersch.dev</link>
 <description>Stuff on programming</description>
 <language>en-us</language>
 <item>
 <title>Every Way to Embed a Binary File into your C/C++ Program</title>
-<link>https://andersch.dev/article/embed_binary_files.html</link>
-<guid>https://andersch.dev/article/embed_binary_files.html</guid>
+<link>https://andersch.dev/article/embed_binary_files</link>
+<guid>https://andersch.dev/article/embed_binary_files</guid>
 <description>
 &lt;p&gt;They don't want you to decide what data will be part of your executable&lt;/p&gt;
-&lt;img src="https://andersch.dev/article/embed_binary_files.png"/&gt;
+&lt;img src="https://andersch.dev/article/embed_binary_files/preview.png"/&gt;
 </description>
 <pubDate>Fri, 31 May 2024 00:00:00 +0200</pubDate>
 </item>
 <item>
 <title>Hot-Reloadable, Embedded Shader Code in C/C++</title>
-<link>https://andersch.dev/article/shader_strings.html</link>
-<guid>https://andersch.dev/article/shader_strings.html</guid>
+<link>https://andersch.dev/article/shader_strings</link>
+<guid>https://andersch.dev/article/shader_strings</guid>
 <description>
 &lt;p&gt;How to include a GLSL shader as a string inside your code (and still make it hot-reloadable)&lt;/p&gt;
-&lt;img src="https://andersch.dev/article/shader_strings.gif"/&gt;
+&lt;img src="https://andersch.dev/article/shader_strings/preview.gif"/&gt;
 </description>
 <pubDate>Wed, 29 May 2024 00:00:00 +0200</pubDate>
 </item>
 <item>
 <title>How to write a graphics application with OpenGL</title>
-<link>https://andersch.dev/article/opengl-tutorial.html</link>
-<guid>https://andersch.dev/article/opengl-tutorial.html</guid>
+<link>https://andersch.dev/article/opengl-tutorial</link>
+<guid>https://andersch.dev/article/opengl-tutorial</guid>
 <description>
 &lt;p&gt;Real-time rasterization made possible using this rendering API&lt;/p&gt;
-&lt;img src="https://andersch.dev/article/opengl.png"/&gt;
+&lt;img src="https://andersch.dev/article/opengl-tutorial/preview.png"/&gt;
 </description>
 <pubDate>Sun, 01 Jan 2023 00:00:00 +0100</pubDate>
 </item>

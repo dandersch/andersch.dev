@@ -134,7 +134,7 @@
              (format "<title>%s</title>\n" website-title)
              "<!-- <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate> -->\n" ; TODO insert todays date
              (format "<atom:link href=\"%s%s\" rel=\"self\" type=\"application/rss+xml\"/>\n" homepage rss-filepath)
-             (format "<link>%s/index.html</link>\n" homepage)
+             (format "<link>%s</link>\n" homepage)
              "<description>Stuff on programming</description>\n"
              "<language>en-us</language>\n"))))
   ; rss entries
@@ -147,14 +147,14 @@
                  "<guid>%s</guid>\n"
                  "<description>\n"
                  "&lt;p&gt;%s&lt;/p&gt;\n"
-                 "&lt;img src=\"https://andersch.dev/article/%s\"/&gt;\n"
+                 "&lt;img src=\"https://andersch.dev/%s\"/&gt;\n"
                  "</description>\n"
                  "<pubDate>%s</pubDate>\n</item>\n")
             (cadr (assoc "TITLE" (cadr article)))
-            (concat "https://andersch.dev/" (string-replace ".org" ".html" (car article)))
-            (concat "https://andersch.dev/" (string-replace ".org" ".html" (car article)))
+            (concat "https://andersch.dev/" (string-replace "/index.org" "" (car article)))
+            (concat "https://andersch.dev/" (string-replace "/index.org" "" (car article)))
             (cadr (assoc "DESCRIPTION" (cadr article)))
-            (cadr (assoc "IMAGE" (cadr article)))
+            (concat (string-replace "index.org" "" (car article)) (cadr (assoc "IMAGE" (cadr article))))
             (format-time-string "%a, %d %b %Y %H:%M:%S %z" (seconds-to-time (org-time-string-to-time (cadr (assoc "DATE" (cadr article))))))
             )
       nil "feed.rss" 'append))
