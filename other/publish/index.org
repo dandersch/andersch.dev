@@ -435,7 +435,7 @@ See [[https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options
 ** Code snippets
 *** Helper functions
 #+NAME: format-entry-as-image-link
-#+BEGIN_SRC emacs-lisp :eval no :exports none :results raw drawer
+#+BEGIN_SRC emacs-lisp :eval no :results raw drawer
 (defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
   (format
    (concat

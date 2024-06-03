@@ -31,12 +31,13 @@ nav.nav {
 }
 
 a:link {
-  color: #46D0FF;
+  color: #4db5bd;
   /* background-color: yellow; */
 }
 
 a:visited {
-  color: #0170BF;
+  /* color: #0170BF; */
+  color: #4d85bd;
 }
 
 a.nav-link {
@@ -69,7 +70,7 @@ h1 a {
 /* center all headings */
 h2 { text-align: center; font-size: 27px; font-weight: 500; } /* article title */
 h3 { font-size: 24px; font-weight: normal; } /* headings in article */
-h4 { text-align: center; }
+h4 { font-size: 20px; font-weight: normal; }
 h5 { text-align: center; }
 
 .org-src-container pre { color: #000000; font-size: 16px; }
@@ -83,8 +84,8 @@ h5 { text-align: center; }
 #postamble p, #preamble p { font-size: 80%; margin: .2em; }
 
 .icons      {  position: relative; left : 55px; text-align: center; }
-.icons span { position: relative; display: inline-block; top: -7px; font-size: 12px; opacity: 0; ; transition: opacity 0.5s ease;  background-color: black;}
-.icons img  { max-width: 100%; width: 20px; /* background-color: white; */ }
+.icons span { position: relative; display: inline-block; top: -7px; font-size: 12px; opacity: 0; ; transition: opacity 0.5s ease;  background-color: #18191b;}
+.icons img  { max-width: 100%; width: 20px; }
 #icon-github span { right:  2px; }
 #icon-mail   span { right: -2px; }
 #icon-github:hover span { opacity: 1; right: 2px; }
@@ -96,21 +97,16 @@ h5 { text-align: center; }
     to   { transform: scale(1.0);  opacity: 0.5;}
 }
 #comment-section-title { text-align : center; }
+.utterances iframe:not(:empty) + #comment-section-title { animation: none; }
 
-.side-by-side {
-  text-align: center;
-}
+.side-by-side { text-align: center; }
 
 #outline-container-latest-articles {
-  /* align-content: left; */
-  /* float: left; */
   display: inline-block;
   max-width: 100%;
   padding-right: 4px;
 }
 #outline-container-latest-projects {
-  /* align-content: right; */
-  /* float: right; */
   display: inline-block;
   max-width: 100%;
   padding-left: 4px;

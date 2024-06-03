@@ -766,7 +766,31 @@ See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-
 </div>
 <div class="outline-4">
 <h4>Helper functions</h4>
+<div class="outline-text-4">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">format-entry-as-image-link</span> (entry type) <span class="org-comment-delimiter">; </span><span class="org-comment">of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))</span>
+  (format
+   (concat
+     <span class="org-string">"&lt;div class=\"image-container\"&gt;\n"</span>
+        <span class="org-string">"&lt;a href=\"./%s\"&gt;\n"</span>
+            <span class="org-string">"&lt;div class=\"overlay\"&gt;\n"</span>
+                <span class="org-string">"&lt;div class=\"title\"&gt;%s&lt;/div&gt;\n"</span>
+                <span class="org-string">"&lt;div class=\"description\"&gt;%s&lt;/div&gt;\n"</span>
+            <span class="org-string">"&lt;/div&gt;\n"</span>
+            <span class="org-string">"&lt;img src=\"./%s/%s\" alt=\"\"&gt;\n"</span>
+        <span class="org-string">"&lt;/a&gt;\n"</span>
+     <span class="org-string">"&lt;/div&gt;\n"</span>)
+     (string-replace <span class="org-string">"/index.org"</span> <span class="org-string">""</span> (car entry))
+     (cadr (assoc <span class="org-string">"TITLE"</span> (cadr entry)))
+     (cadr (assoc <span class="org-string">"DESCRIPTION"</span> (cadr entry)))
+     <span class="org-comment-delimiter">;</span><span class="org-comment">type</span>
+     (string-replace <span class="org-string">"/index.org"</span> <span class="org-string">""</span> (car entry))
+     (cadr (assoc <span class="org-string">"IMAGE"</span> (cadr entry)))))
+</pre>
 </div>
+</div>
+</div>
+
 <div class="outline-4">
 <h4><span class="todo TODO">TODO</span> Generate "Latest Articles/Projects" View</h4>
 <div class="outline-text-4">
