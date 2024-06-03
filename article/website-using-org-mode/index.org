@@ -1,7 +1,7 @@
 #+TITLE:       How I create my Website using Org-mode
 #+DESCRIPTION: ...
 #+DATE:        <2024-06-02>
-#+IMAGE:
+#+IMAGE:       preview.png
 #+COMMENTS:
 #+TAGS[]:      noexport lisp org web
 #+OPTIONS:     toc:nil num:nil
@@ -20,6 +20,15 @@ actual org-mode file, since it is part of the GitHub Pages repo. For example,
 [[http:./index.org][here]] you can find the original source for the page you are on right now. In
 fact, you can get the ~.org~ of every page by appending ~index.org~ to the current
 link or changing ~.html~ to ~.org~.
+
+** Features
+The features are basically anything you can see on this site, including:
+- A "Latest articles" panel as seen [[../../index.org][here]]
+- Article snippets as seen [[../index.org][here]]
+- A tagging system as seen [[../../tag/index.org][here]]
+- RSS feeds for all subfolders, including for every tag
+- Syntax highlighted source blocks using my colorscheme
+- Comment sections using [[https://utteranc.es][utterances]]
 
 ** Comment Section
 - Using utterances

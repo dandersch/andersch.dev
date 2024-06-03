@@ -332,7 +332,7 @@ See [[https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options
            ; :completion-function                            ;; called afterwards
            ; :base-extension                                 ;; extension of source files
            ; :html-extension       ""                        ;; extension of generated html files (without dot)
-             :exclude "code.org"                 ;; regex of files to exclude NOTE excluding dirs seems to not work
+             :exclude  (regexp-opt '("code.org" "publish.org")) ;; regex of files to exclude NOTE excluding dirs seems to not work
            ; :include                                        ;; list of files to include
            ; :html-doctype "html5"                           ;; default is "xhtml-strict"
              :html-divs            '((preamble "header" "top")
@@ -644,3 +644,4 @@ NOTE: Unused
 
 ** Resources
 - [[https://pank.eu/blog/blog-setup.html][Blogging with Org]]
+- [[https://ogbe.net/blog/blogging_with_org][Blogging using org-mode (and nothing else)]]

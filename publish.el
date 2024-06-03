@@ -243,7 +243,7 @@
            ; :completion-function                            ;; called afterwards
            ; :base-extension                                 ;; extension of source files
            ; :html-extension       ""                        ;; extension of generated html files (without dot)
-             :exclude "code.org"                 ;; regex of files to exclude NOTE excluding dirs seems to not work
+             :exclude  (regexp-opt '("code.org" "publish.org")) ;; regex of files to exclude NOTE excluding dirs seems to not work
            ; :include                                        ;; list of files to include
            ; :html-doctype "html5"                           ;; default is "xhtml-strict"
              :html-divs            '((preamble "header" "top")
