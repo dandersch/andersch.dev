@@ -2,7 +2,9 @@
 
 - [[file:index.org][andersch.dev]]
 - tag
+  - [[file:tag/web.org][Pages tagged web]]
   - [[file:tag/cpp.org][Pages tagged cpp]]
+  - [[file:tag/org.org][Pages tagged org]]
   - [[file:tag/gamedev.org][Pages tagged gamedev]]
   - [[file:tag/lisp.org][Pages tagged lisp]]
   - [[file:tag/opengl.org][Pages tagged opengl]]
@@ -26,6 +28,6 @@
 - other
   - [[file:other/index.org][Other]]
   - publish
-    - [[file:other/publish/index.org][Publishing Script]]
+    - [[file:other/publish/index.org][The Publishing Script of this Website]]
   - lisp-paper
     - [[file:other/lisp-paper/index.org][Paper on Lisp]]

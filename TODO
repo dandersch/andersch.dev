@@ -1,30 +1,40 @@
 TODO -*- mode: org -*-
 
-- fix rss feed
 - no "_ tagged with ..." when empty
 - clean up code
 
-- [2/2] latest {article,project} side-by-side view
-  + [X] no side-by-side view on mobile (or when zoomed in)
-  + [X] display up to 3 articles/projects per side
-
-- [X] display date above article title
-- [X] display description underneath article title
-- [X] date/tags system for all articles
-
-- [X] add div next to website title
-  + [X] add github, mail & rss feed to div
-  + [X] turn them into links
-  + [X] use icons for every link
-  + [X] hide text, show only show icon and animate transition when hovering
-  + [X] remove rss entry from navbar
-
-- [X] add ~other~ entry to navbar
-  + [X] remove ~home~ entry
-
-- [5/5] implement a tag system
-  + [X] display tags above/underneath article
-  + [X] clickable tags that link to ~/tag/gamedev~, etc.
-  + [X] collect tags for every article in publishing function
-  + [X] generate a ~/tag/tag.org~ for every collected tag
-  + [X] add entries for corresponding articles to every tag .org file
+- Follow this directory structure:
+  website.com
+  ├── article
+  │   ├── article_1_name
+  │   │   ├── index.org
+  │   │   └── image.png
+  │   ├── article_2_name
+  │   │   ├── index.org
+  │   │   └── image.png
+  │   ├── feed.rss
+  │   └── index.org
+  ├── tutorial
+  │   ├── tutorial_1_name
+  │   │   ├── index.org
+  │   │   └── image.png
+  │   ├── tutorial_2_name
+  │   │   ├── index.org
+  │   │   └── image.png
+  │   ├── feed.rss
+  │   └── index.org
+  ├── tag # auto-generated
+  │   ├── cpp
+  │   │   ├── index.org
+  │   │   └── feed.rss
+  │   ├── web
+  │   │   ├── index.org
+  │   │   └── feed.rss
+  │   └── index.org
+  ├── build.sh
+  ├── dev.sh
+  ├── serve.sh
+  ├── header.html
+  ├── publish.el
+  ├── index.org
+  └── style.css

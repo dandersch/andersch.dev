@@ -4,93 +4,12 @@
 :PROPERTIES:
 :CUSTOM_ID: latest-articles
 :END:
-#+NAME: latest-article
-#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-article-keyword-list)
-(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
-  (format
-   (concat
-     "<div class=\"image-container\">\n"
-        "<a href=\"./%s\">\n"
-            "<div class=\"overlay\">\n"
-                "<div class=\"title\">%s</div>\n"
-                "<div class=\"description\">%s</div>\n"
-            "</div>\n"
-            "<img src=\"./%s/%s\" alt=\"\">\n"
-        "</a>\n"
-     "</div>\n")
-     (string-replace "/index.org" "" (car entry))
-     (cadr (assoc "TITLE" (cadr entry)))
-     (cadr (assoc "DESCRIPTION" (cadr entry)))
-     ;type
-     (string-replace "/index.org" "" (car entry))
-     (cadr (assoc "IMAGE" (cadr entry)))))
-
-(setq latest (car list))
-
-(setq articles-as-images "")
-(dolist (article list)
-  (setq articles-as-images (concat articles-as-images (format-entry-as-image-link article "article"))))
-
-(if (eq org-export-current-backend 'html)
-  (concat
-    "#+BEGIN_EXPORT html\n"
-    articles-as-images
-    "#+END_EXPORT\n")
-  ; else
-  (format "Latest article: [[./%s][%s]]\n#+attr_html: :width 700px\n[[./article/%s]]\n"
-          (car latest)
-          (cadr (assoc "TITLE" (cadr latest)))
-          (cadr (assoc "IMAGE" (cadr latest)))))
-#+END_SRC
-
+#+CALL: code.org:latest-article[:eval yes](list=(get-article-keyword-list))
 #+RESULTS: latest-article
-:results:
-Latest article: [[./article/embed_binary_files/index.org][Every Way to Embed a Binary File into your C/C++ Program]]
-#+attr_html: :width 700px
-[[./article/preview.png]]
-:end:
 
 * Latest [[./project/index.org][projects]]
 :PROPERTIES:
 :CUSTOM_ID: latest-projects
 :END:
-#+NAME: latest-project
-#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-project-keyword-list)
-(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
-  (format
-   (concat
-     "<div class=\"image-container\">\n"
-        "<a href=\"./%s\">\n"
-            "<div class=\"overlay\">\n"
-                "<div class=\"title\">%s</div>\n"
-                "<div class=\"description\">%s</div>\n"
-            "</div>\n"
-            "<img src=\"./%s/%s\" alt=\"\">\n"
-        "</a>\n"
-     "</div>\n")
-     (string-replace "/index.org" "" (car entry))
-     (cadr (assoc "TITLE" (cadr entry)))
-     (cadr (assoc "DESCRIPTION" (cadr entry)))
-     ;type
-     (string-replace "/index.org" "" (car entry))
-     (cadr (assoc "IMAGE" (cadr entry)))))
-
-(setq latest (car list))
-
-(setq articles-as-images "")
-(dolist (article list)
-  (setq articles-as-images (concat articles-as-images (format-entry-as-image-link article "project"))))
-
-(if (eq org-export-current-backend 'html)
-  (concat "#+BEGIN_EXPORT html\n"
-          articles-as-images
-          "#+END_EXPORT\n")
-  ; else
-  (format "Latest project: [[./%s][%s]]\n[[./project/%s]]\n" (car latest) (cadr (assoc "TITLE" (cadr latest))) (cadr (assoc "IMAGE" (cadr latest)))))
-#+END_SRC
-
+#+CALL: code.org:latest-project[:eval yes](list=(get-project-keyword-list))
 #+RESULTS: latest-project
-:results:
-Latest project: [[./project/game2d/index.org][Game2D]]
-[[./project/preview.gif]]
-:end:

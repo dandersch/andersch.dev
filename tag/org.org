@@ -2,4 +2,4 @@
 * Articles tagged ~org~
 * Projects tagged ~org~
 * Other tagged ~org~
-- [[../other/publish/index.org][Publishing Script]]
+- [[../other/publish/index.org][The Publishing Script of this Website]]

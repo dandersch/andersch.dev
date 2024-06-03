@@ -2,4 +2,4 @@
 * Articles tagged ~lisp~
 * Projects tagged ~lisp~
 * Other tagged ~lisp~
-- [[../other/publish/index.org][Publishing Script]]
+- [[../other/publish/index.org][The Publishing Script of this Website]]

@@ -156,8 +156,17 @@ function to later add as a filter-hook to insert the HTML at the very end.
 #+END_SRC
 
 ** Prepare publishing function
+*** Beginning                                                        :ignore:
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 (defun prepare-publishing (project-properties)
+#+END_SRC
+
+*** Fill keyword lists
+Fills the primary datastructure of this script of the form:
+
+~("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))~
+
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
   ;
   ; FILL & SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/
   ;
@@ -178,7 +187,10 @@ function to later add as a filter-hook to insert the HTML at the very end.
       (unless (article-marked-for-noexport-p other-keywords)
         (push (get-org-file-keywords other) other-keyword-list))))
   (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t))
+#+END_SRC
 
+*** Generate RSS Feed
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
   ;
   ; GENERATE RSS FEED FOR ARTICLES
   ;
@@ -220,7 +232,11 @@ function to later add as a filter-hook to insert the HTML at the very end.
       nil "feed.rss" 'append))
   ; rss ending
   (write-region "</channel>\n</rss>" nil "feed.rss" 'append)
+#+END_SRC
 
+*** TODO Execute Named Source Blocks
+Is this still needed/does it do something?
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
   ;
   ; EXECUTE NAMED SRC BLOCKS
   ;
@@ -236,7 +252,10 @@ function to later add as a filter-hook to insert the HTML at the very end.
             (org-babel-execute-src-block))))
       (save-buffer)
       (kill-buffer))
+#+END_SRC
 
+*** Tagging System
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
   ;
   ; TAGGING SYSTEM
   ;
@@ -291,6 +310,10 @@ function to later add as a filter-hook to insert the HTML at the very end.
                             (car other)
                             (cadr (assoc "TITLE" (cadr other))))
                     nil (format "tag/%s.org" tag) 'append)))
+#+END_SRC
+
+*** End of prepare publishing function
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 )
 #+END_SRC
 
@@ -365,6 +388,112 @@ function to later add as a filter-hook to insert the HTML at the very end.
 #+END_SRC
 
 ** Code snippets
+*** Helper functions
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
+,#+NAME: format-entry-as-image-link
+,#+BEGIN_SRC emacs-lisp :eval no :exports none :results raw drawer
+(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
+  (format
+   (concat
+     "<div class=\"image-container\">\n"
+        "<a href=\"./%s\">\n"
+            "<div class=\"overlay\">\n"
+                "<div class=\"title\">%s</div>\n"
+                "<div class=\"description\">%s</div>\n"
+            "</div>\n"
+            "<img src=\"./%s/%s\" alt=\"\">\n"
+        "</a>\n"
+     "</div>\n")
+     (string-replace "/index.org" "" (car entry))
+     (cadr (assoc "TITLE" (cadr entry)))
+     (cadr (assoc "DESCRIPTION" (cadr entry)))
+     ;type
+     (string-replace "/index.org" "" (car entry))
+     (cadr (assoc "IMAGE" (cadr entry)))))
+,#+END_SRC
+#+END_SRC
+
+*** TODO Generate "Latest Articles/Projects" View
+Doesn't get "nowebbed" into the source codes after
+
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
+,#+NAME: latest-article
+,#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list=(get-article-keyword-list) :noweb yes
+<<format-entry-as-image-link>>
+(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
+  (format
+   (concat
+     "<div class=\"image-container\">\n"
+        "<a href=\"./%s\">\n"
+            "<div class=\"overlay\">\n"
+                "<div class=\"title\">%s</div>\n"
+                "<div class=\"description\">%s</div>\n"
+            "</div>\n"
+            "<img src=\"./%s/%s\" alt=\"\">\n"
+        "</a>\n"
+     "</div>\n")
+     (string-replace "/index.org" "" (car entry))
+     (cadr (assoc "TITLE" (cadr entry)))
+     (cadr (assoc "DESCRIPTION" (cadr entry)))
+     ;type
+     (string-replace "/index.org" "" (car entry))
+     (cadr (assoc "IMAGE" (cadr entry)))))
+
+(setq latest (car list))
+
+(setq articles-as-images "")
+(dolist (article list)
+  (setq articles-as-images (concat articles-as-images (format-entry-as-image-link article "article"))))
+
+(if (eq org-export-current-backend 'html)
+  (concat "#+BEGIN_EXPORT html\n"
+          articles-as-images
+          "#+END_EXPORT\n")
+  (format "Latest article: [[./%s][%s]]\n#+attr_html: :width 700px\n[[./article/%s]]\n"
+          (car latest)
+          (cadr (assoc "TITLE" (cadr latest)))
+          (cadr (assoc "IMAGE" (cadr latest)))))
+,#+END_SRC
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
+,#+NAME: latest-project
+,#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list=(get-project-keyword-list) :noweb yes
+<<format-entry-as-image-link>>
+(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
+  (format
+   (concat
+     "<div class=\"image-container\">\n"
+        "<a href=\"./%s\">\n"
+            "<div class=\"overlay\">\n"
+                "<div class=\"title\">%s</div>\n"
+                "<div class=\"description\">%s</div>\n"
+            "</div>\n"
+            "<img src=\"./%s/%s\" alt=\"\">\n"
+        "</a>\n"
+     "</div>\n")
+     (string-replace "/index.org" "" (car entry))
+     (cadr (assoc "TITLE" (cadr entry)))
+     (cadr (assoc "DESCRIPTION" (cadr entry)))
+     ;type
+     (string-replace "/index.org" "" (car entry))
+     (cadr (assoc "IMAGE" (cadr entry)))))
+
+(setq latest (car list))
+
+(setq articles-as-images "")
+(dolist (article list)
+  (setq articles-as-images (concat articles-as-images (format-entry-as-image-link article "project"))))
+
+(if (eq org-export-current-backend 'html)
+  (concat "#+BEGIN_EXPORT html\n"
+          articles-as-images
+          "#+END_EXPORT\n")
+  ; else
+  (format "Latest project: [[./%s][%s]]\n[[./project/%s]]\n" (car latest) (cadr (assoc "TITLE" (cadr latest))) (cadr (assoc "IMAGE" (cadr latest)))))
+,#+END_SRC
+#+END_SRC
+
 *** Generate Tags
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
 ,#+NAME: generate-tags
@@ -491,8 +620,8 @@ function to later add as a filter-hook to insert the HTML at the very end.
 ,#+END_SRC
 #+END_SRC
 
-*** List of articles
-Unused
+*** List of articles/projects
+NOTE: Unused
 
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
 ,#+NAME: list-of-articles
@@ -529,3 +658,37 @@ Unused
 ,#+END_SRC
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
+,#+NAME: list-of-projects
+,#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-project-keyword-list)
+(setq list-string '())
+(if (eq org-export-current-backend 'html)
+  (dolist (entry list)
+    (push
+     (format
+       (concat
+        "#+BEGIN_EXPORT html\n"
+        "<div class=\"image-container\">\n"
+           ; NOTE "../" as a workaround
+           "<a href=\"../%s\">\n"
+               "<div class=\"overlay\">\n"
+                   "<div class=\"title\">%s</div>\n"
+                   "<div class=\"description\">%s</div>\n"
+               "</div>\n"
+               "<img src=\"./%s\" alt=\"\">\n"
+           "</a>\n"
+        "</div>\n"
+        "#+END_EXPORT\n")
+       (string-replace ".org" ".html" (car entry))
+       (cadr (assoc "TITLE" (cadr entry)))
+       (cadr (assoc "DESCRIPTION" (cadr entry)))
+       (cadr (assoc "IMAGE" (cadr entry))))
+    list-string)
+  )
+  (dolist (entry list)
+    ; NOTE "../" as a workaround
+    (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) list-string)
+  ))
+(mapconcat #'identity list-string "\n") ; flatten string list to a string
+,#+END_SRC
+#+END_SRC
