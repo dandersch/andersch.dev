@@ -9,40 +9,6 @@ body {
 
 html { font-family: "Ubuntu", "Trebuchet MS", Arial, sans-serif; }
 
-.utterances {}
-
-#comment-section-title {
-  animation: loading 0.6s infinite alternate;
-  text-align : center;
-}
-@keyframes loading {
-    from {
-        transform: scale(0.9);
-        opacity: 1;
-    }
-    to {
-        transform: scale(1.0);
-        opacity: 0.5;
-    }
-}
-/* .utterances:has(iframe:not([src="about:blank"])) + #comment-section-title { */
-/*       display: block; */
-/* } */
-/* .utterances:has(iframe[src="about:blank"]) + #comment-section-title { */
-/*       display: none; */
-/* } */
-/* .uterrances-frame iframe:not(:empty) { */
-/*     background-color : white; */
-/* } */
-/* .uterrances iframe:not(:empty) + #comment-section-title { */
-/*     animation: none !important; */
-/* } */
-/* .uterrances-frame:not(:empty)  { */
-/* } */
-/* .uterrances iframe:empty + #comment-section-title { */
-/*     animation: loading 0.6s infinite alternate; */
-/* } */
-
 #content {
     max-width: 100%;
     margin: auto;
@@ -123,6 +89,13 @@ h5 { text-align: center; }
 #icon-mail   span { right: -2px; }
 #icon-github:hover span { opacity: 1; right: 2px; }
 #icon-mail:hover span   { display: inline; opacity: 1; right: -2px; }
+
+/* loading animation for comment section, controlled by js code */
+@keyframes loading {
+    from { transform: scale(0.9);  opacity: 1;  }
+    to   { transform: scale(1.0);  opacity: 0.5;}
+}
+#comment-section-title { text-align : center; }
 
 .side-by-side {
   text-align: center;

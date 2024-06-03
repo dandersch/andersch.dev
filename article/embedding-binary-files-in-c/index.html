@@ -523,42 +523,42 @@ an <code>.incbin</code> equivalent in its inline assembly</p></div></div>
 
 </div>
 </div><hr>
-<div id="comment-section">
-<h3 id="comment-section-title">Comments</h3>
-<script src="https://utteranc.es/client.js"
-               repo="dandersch/andersch.dev"
-               issue-term="pathname"
-               label=".💬"
-               theme="photon-dark"
-               crossorigin="anonymous"
-               async>
-       </script></div>
-       <script type="text/javascript">
-       document.addEventListener('DOMContentLoaded', function() {
-         const commentsDiv = document.getElementById('comment-section');
-         const commentSectionTitle = document.getElementById('comment-section-title');
+<div id='comment-section'>
+<h3 id='comment-section-title'>Comments</h3>
+<script src='https://utteranc.es/client.js'
+       repo='dandersch/andersch.dev'
+       issue-term='pathname'
+       label='.💬'
+       theme='photon-dark'
+       crossorigin='anonymous'
+       async>
+</script>
+<script type='text/javascript'>
+const commentSectionTitle = document.getElementById('comment-section-title');
+const commentsDiv         = document.getElementById('comment-section');
+commentSectionTitle.style.animation = 'loading 0.6s infinite alternate';
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new MutationObserver(function(mutationsList) {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        for (let node of mutation.addedNodes) {
+          if (node.nodeName === 'DIV') {
+            for (const child of node.children) {
+              if (child.tagName === 'IFRAME') {
+                child.addEventListener('load', function() {
+                  commentSectionTitle.style.animation = 'none';
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  });
 
-         const observer = new MutationObserver(function(mutationsList) {
-           for (let mutation of mutationsList) {
-             if (mutation.type === 'childList') {
-               for (let node of mutation.addedNodes) {
-                 if (node.nodeName === 'DIV') {
-                   for (const child of node.children) {
-                     if (child.tagName === 'IFRAME') {
-                       child.addEventListener('load', function() {
-                         commentSectionTitle.style.display = 'none';
-                       });
-                     }
-                   }
-                 }
-               }
-             }
-           }
-         });
-
-         observer.observe(commentsDiv, { childList: true });
-       });
-       </script>
-</main>
+  observer.observe(commentsDiv, { childList: true });
+});
+</script>
+</div></main>
 </body>
 </html>

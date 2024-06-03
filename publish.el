@@ -75,18 +75,44 @@
 
 (add-to-list 'org-export-filter-final-output-functions 'html-body-id-filter)
 
-(setq comment-section-html
-      (concat "<hr>\n"
-       "<div id=\"comment-section\">\n"
-       "<h3 id=\"comment-section-title\">Comments</h3>\n"
-       "<script src=\"https://utteranc.es/client.js\"
-               repo=\"dandersch/andersch.dev\"
-               issue-term=\"pathname\"
-               label=\".💬\"
-               theme=\"photon-dark\"
-               crossorigin=\"anonymous\"
-               async>
-       </script></div>\n"))
+(setq comment-section-html "<hr>
+<div id='comment-section'>
+<h3 id='comment-section-title'>Comments</h3>
+<script src='https://utteranc.es/client.js'
+       repo='dandersch/andersch.dev'
+       issue-term='pathname'
+       label='.💬'
+       theme='photon-dark'
+       crossorigin='anonymous'
+       async>
+</script>
+<script type='text/javascript'>
+const commentSectionTitle = document.getElementById('comment-section-title');
+const commentsDiv         = document.getElementById('comment-section');
+commentSectionTitle.style.animation = 'loading 0.6s infinite alternate';
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new MutationObserver(function(mutationsList) {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        for (let node of mutation.addedNodes) {
+          if (node.nodeName === 'DIV') {
+            for (const child of node.children) {
+              if (child.tagName === 'IFRAME') {
+                child.addEventListener('load', function() {
+                  commentSectionTitle.style.animation = 'none';
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+
+  observer.observe(commentsDiv, { childList: true });
+});
+</script>
+</div>" )
 
 ; needed because otherwise footnotes will be below the comment section
 (defun insert-comment-section  (contents html-backend info)

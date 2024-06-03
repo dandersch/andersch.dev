@@ -16,7 +16,7 @@ class HttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         '.css':	 'text/css',
     }
 
-httpd = socketserver.TCPServer(("localhost", PORT), HttpRequestHandler)
+httpd = socketserver.TCPServer(("0.0.0.0", PORT), HttpRequestHandler)
 
 try:
     print(f"serving at http://localhost:{PORT}")

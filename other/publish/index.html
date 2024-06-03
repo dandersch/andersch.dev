@@ -375,21 +375,82 @@ for a heading that we want to link to.
 Adds a GitHub Issues-based comment section using <a href="https://utteranc.es/">utterances</a>. Only applies to
 articles that are marked with the keyword <code>#+COMMENTS: t</code>.
 </p>
+</div>
+
+<div class="outline-4">
+<h4>Loading animation script</h4>
+<div class="outline-text-4">
+<p>
+Following javascript animates the comment section title until the lazy-loaded
+comment section has loaded in.
+</p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> comment-section-html
-      (concat <span class="org-string">"&lt;hr&gt;\n"</span>
-       <span class="org-string">"&lt;div id=\"comment-section\"&gt;\n"</span>
-       <span class="org-string">"&lt;h3 id=\"comment-section-title\"&gt;Comments&lt;/h3&gt;\n"</span>
-       <span class="org-string">"&lt;script src=\"https://utteranc.es/client.js\"</span>
-<span class="org-string">               repo=\"dandersch/andersch.dev\"</span>
-<span class="org-string">               issue-term=\"pathname\"</span>
-<span class="org-string">               label=\".&#128172;\"</span>
-<span class="org-string">               theme=\"photon-dark\"</span>
-<span class="org-string">               crossorigin=\"anonymous\"</span>
-<span class="org-string">               async&gt;</span>
-<span class="org-string">       &lt;/script&gt;&lt;/div&gt;\n"</span>))
+<pre class="src src-js"><span class="org-keyword">const</span> <span class="org-variable-name">commentSectionTitle</span> = document.getElementById(<span class="org-string">'comment-section-title'</span>);
+<span class="org-keyword">const</span> <span class="org-variable-name">commentsDiv</span>         = document.getElementById(<span class="org-string">'comment-section'</span>);
+commentSectionTitle.style.animation = <span class="org-string">'loading 0.6s infinite alternate'</span>;
+document.addEventListener(<span class="org-string">'DOMContentLoaded'</span>, <span class="org-keyword">function</span>() {
+  <span class="org-keyword">const</span> <span class="org-variable-name">observer</span> = <span class="org-keyword">new</span> <span class="org-type">MutationObserver</span>(<span class="org-keyword">function</span>(<span class="org-variable-name">mutationsList</span>) {
+    <span class="org-keyword">for</span> (<span class="org-keyword">let</span> <span class="org-variable-name">mutation</span> <span class="org-keyword">of</span> mutationsList) {
+      <span class="org-keyword">if</span> (mutation.type === <span class="org-string">'childList'</span>) {
+        <span class="org-keyword">for</span> (<span class="org-keyword">let</span> <span class="org-variable-name">node</span> <span class="org-keyword">of</span> mutation.addedNodes) {
+          <span class="org-keyword">if</span> (node.nodeName === <span class="org-string">'DIV'</span>) {
+            <span class="org-keyword">for</span> (<span class="org-keyword">const</span> <span class="org-variable-name">child</span> <span class="org-keyword">of</span> node.children) {
+              <span class="org-keyword">if</span> (child.tagName === <span class="org-string">'IFRAME'</span>) {
+                child.addEventListener(<span class="org-string">'load'</span>, <span class="org-keyword">function</span>() {
+                  commentSectionTitle.style.animation = <span class="org-string">'none'</span>;
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+
+  observer.observe(commentsDiv, { childList: <span class="org-constant">true</span> });
+});
 </pre>
+</div>
+</div>
+</div>
+
+<div class="outline-4">
+<h4>HTML Layout</h4>
+<div class="outline-text-4">
+<p>
+Note the usage of single quotes instead of double quotes for attribute values.
+This way we can use noweb to include the html without having to escape strings.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-function-name">hr</span>&gt;
+&lt;<span class="org-function-name">div</span> <span class="org-variable-name">id</span>=<span class="org-string">'comment-section'</span>&gt;
+&lt;<span class="org-function-name">h3</span> <span class="org-variable-name">id</span>=<span class="org-string">'comment-section-title'</span>&gt;<span class="org-underline"><span class="org-italic">Comments</span></span>&lt;/<span class="org-function-name">h3</span>&gt;
+&lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">'https://utteranc.es/client.js'</span>
+       <span class="org-variable-name">repo</span>=<span class="org-string">'dandersch/andersch.dev'</span>
+       <span class="org-variable-name">issue-term</span>=<span class="org-string">'pathname'</span>
+       <span class="org-variable-name">label</span>=<span class="org-string">'.&#128172;'</span>
+       <span class="org-variable-name">theme</span>=<span class="org-string">'photon-dark'</span>
+       <span class="org-variable-name">crossorigin</span>=<span class="org-string">'anonymous'</span>
+       async&gt;
+&lt;/<span class="org-function-name">script</span>&gt;
+&lt;<span class="org-function-name">script</span> <span class="org-variable-name">type</span>=<span class="org-string">'text/javascript'</span>&gt;
+&lt;&lt;<span class="org-function-name">comment-loading-animation-js</span>&gt;&gt;
+&lt;/<span class="org-function-name">script</span>&gt;
+&lt;/<span class="org-function-name">div</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div class="outline-4">
+<h4>Elisp variable</h4>
+<div class="outline-text-4">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> comment-section-html <span class="org-string">"&lt;&lt;comment-section-html&gt;&gt;"</span> )
+</pre>
+</div>
 </div>
 </div>
 </div>

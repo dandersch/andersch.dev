@@ -127,19 +127,64 @@ for a heading that we want to link to.
 Adds a GitHub Issues-based comment section using [[https://utteranc.es/][utterances]]. Only applies to
 articles that are marked with the keyword ~#+COMMENTS: t~.
 
-#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
-(setq comment-section-html
-      (concat "<hr>\n"
-       "<div id=\"comment-section\">\n"
-       "<h3 id=\"comment-section-title\">Comments</h3>\n"
-       "<script src=\"https://utteranc.es/client.js\"
-               repo=\"dandersch/andersch.dev\"
-               issue-term=\"pathname\"
-               label=\".💬\"
-               theme=\"photon-dark\"
-               crossorigin=\"anonymous\"
-               async>
-       </script></div>\n"))
+*** Loading animation script
+Following javascript animates the comment section title until the lazy-loaded
+comment section has loaded in.
+
+#+NAME: comment-loading-animation-js
+#+BEGIN_SRC js
+const commentSectionTitle = document.getElementById('comment-section-title');
+const commentsDiv         = document.getElementById('comment-section');
+commentSectionTitle.style.animation = 'loading 0.6s infinite alternate';
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new MutationObserver(function(mutationsList) {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        for (let node of mutation.addedNodes) {
+          if (node.nodeName === 'DIV') {
+            for (const child of node.children) {
+              if (child.tagName === 'IFRAME') {
+                child.addEventListener('load', function() {
+                  commentSectionTitle.style.animation = 'none';
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+
+  observer.observe(commentsDiv, { childList: true });
+});
+#+END_SRC
+
+*** HTML Layout
+Note the usage of single quotes instead of double quotes for attribute values.
+This way we can use noweb to include the html without having to escape strings.
+
+#+NAME: comment-section-html
+#+BEGIN_SRC html :noweb no-export
+<hr>
+<div id='comment-section'>
+<h3 id='comment-section-title'>Comments</h3>
+<script src='https://utteranc.es/client.js'
+       repo='dandersch/andersch.dev'
+       issue-term='pathname'
+       label='.💬'
+       theme='photon-dark'
+       crossorigin='anonymous'
+       async>
+</script>
+<script type='text/javascript'>
+<<comment-loading-animation-js>>
+</script>
+</div>
+#+END_SRC
+
+*** Elisp variable
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el :noweb no-export :noweb-prefix no
+(setq comment-section-html "<<comment-section-html>>" )
 #+END_SRC
 
 ** Footnotes Section workaround
