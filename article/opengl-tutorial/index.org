@@ -6,9 +6,9 @@
 #+COMMENTS:    t
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
+#+CALL: ../../code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
-#+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
+#+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
 
 OpenGL ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
 tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At

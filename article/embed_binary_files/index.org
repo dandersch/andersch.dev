@@ -6,9 +6,9 @@
 #+COMMENTS:    t
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
+#+CALL: ../../code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
-#+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
+#+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
 
 How to embed a binary into your program
 
@@ -217,18 +217,4 @@ implement this C23 feature as of this writing.
 - https://github.com/mortie/strliteral
 - https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man
 - https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html
-
-
-** Comments                                                        :noexport:
-#+BEGIN_EXPORT html
-<script src="https://utteranc.es/client.js"
-        repo="dandersch/andersch.dev"
-        issue-term="pathname"
-        label=".💬"
-        theme="photon-dark"
-        crossorigin="anonymous"
-        async>
-</script>
-#+END_EXPORT
-
 

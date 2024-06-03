@@ -5,9 +5,9 @@
 #+TAGS[]:      graphics cpp
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
+#+CALL: ../../code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
-#+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
+#+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
 
 A raytracer is alksdj laksjdkl jaskldsjdlkjaklsdklajs kldjslkdf;asdjfk
 asjdlfkjaslk;df sksjdlk ajsdklajslkd jlkasjdkl ajskldl sjdlkajl ksdlkajslk

@@ -330,19 +330,6 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 </div>
 
 <div class="outline-3">
-<h3><span class="todo TODO">TODO</span> Variables</h3>
-<div class="outline-text-3">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">TODO put together</span>
-(<span class="org-keyword">setq</span> article-keyword-list '())
-(<span class="org-keyword">setq</span> project-keyword-list '())
-(<span class="org-keyword">setq</span> other-keyword-list   '())
-</pre>
-</div>
-</div>
-</div>
-
-<div class="outline-3">
 <h3>Filter out links to <code>index.html</code></h3>
 <div class="outline-text-3">
 <p>
@@ -442,6 +429,22 @@ Fills the primary datastructure of this script of the form:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">TODO put together</span>
+(<span class="org-keyword">setq</span> article-keyword-list '())
+(<span class="org-keyword">setq</span> project-keyword-list '())
+(<span class="org-keyword">setq</span> other-keyword-list   '())
+
+<span class="org-comment-delimiter">;</span><span class="org-comment">(setq keyword-list</span>
+<span class="org-comment-delimiter">;  </span><span class="org-comment">'(</span>
+<span class="org-comment-delimiter">;     </span><span class="org-comment">("article" '("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2"))))</span>
+<span class="org-comment-delimiter">;     </span><span class="org-comment">("project" '("project1.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2"))))</span>
+
+<span class="org-comment-delimiter">; </span><span class="org-comment">(cadr (assoc "TITLE" (cadr (assoc "article" article)))</span>
+<span class="org-comment-delimiter">;                  </span><span class="org-comment">(print</span>
+</pre>
+</div>
+
+<div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">FILL &amp; SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/</span>
 (<span class="org-keyword">defun</span> <span class="org-function-name">fill-keyword-lists</span> ()
   (<span class="org-keyword">dolist</span> (article (get-org-files <span class="org-string">"article"</span>))
@@ -460,7 +463,10 @@ Fills the primary datastructure of this script of the form:
     (<span class="org-keyword">let</span> ((other-keywords (get-org-file-keywords other)))
       (<span class="org-keyword">unless</span> (article-marked-for-noexport-p other-keywords)
         (<span class="org-keyword">push</span> (get-org-file-keywords other) other-keyword-list))))
-  (<span class="org-keyword">setq</span> other-keyword-list (sort-keyword-list-by-date other-keyword-list t)))
+  (<span class="org-keyword">setq</span> other-keyword-list (sort-keyword-list-by-date other-keyword-list t))
+
+  <span class="org-comment-delimiter">; </span><span class="org-comment">article-keyword-list == (cdr (assoc "article" keyword-list))</span>
+  (<span class="org-keyword">setq</span> keyword-list `(,(cons <span class="org-string">"article"</span> article-keyword-list) ,(cons <span class="org-string">"project"</span> project-keyword-list) ,(cons <span class="org-string">"other"</span> other-keyword-list))))
 </pre>
 </div>
 </div>
@@ -700,34 +706,7 @@ See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-
 </div>
 <div class="outline-4">
 <h4>Helper functions</h4>
-<div class="outline-text-4">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">#+NAME: format-entry-as-image-link
-#+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> none <span class="org-builtin">:results</span> raw drawer
-(<span class="org-keyword">defun</span> <span class="org-function-name">format-entry-as-image-link</span> (entry type) <span class="org-comment-delimiter">; </span><span class="org-comment">of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))</span>
-  (format
-   (concat
-     <span class="org-string">"&lt;div class=\"image-container\"&gt;\n"</span>
-        <span class="org-string">"&lt;a href=\"./%s\"&gt;\n"</span>
-            <span class="org-string">"&lt;div class=\"overlay\"&gt;\n"</span>
-                <span class="org-string">"&lt;div class=\"title\"&gt;%s&lt;/div&gt;\n"</span>
-                <span class="org-string">"&lt;div class=\"description\"&gt;%s&lt;/div&gt;\n"</span>
-            <span class="org-string">"&lt;/div&gt;\n"</span>
-            <span class="org-string">"&lt;img src=\"./%s/%s\" alt=\"\"&gt;\n"</span>
-        <span class="org-string">"&lt;/a&gt;\n"</span>
-     <span class="org-string">"&lt;/div&gt;\n"</span>)
-     (string-replace <span class="org-string">"/index.org"</span> <span class="org-string">""</span> (car entry))
-     (cadr (assoc <span class="org-string">"TITLE"</span> (cadr entry)))
-     (cadr (assoc <span class="org-string">"DESCRIPTION"</span> (cadr entry)))
-     <span class="org-comment-delimiter">;</span><span class="org-comment">type</span>
-     (string-replace <span class="org-string">"/index.org"</span> <span class="org-string">""</span> (car entry))
-     (cadr (assoc <span class="org-string">"IMAGE"</span> (cadr entry)))))
-#+END_SRC
-</pre>
 </div>
-</div>
-</div>
-
 <div class="outline-4">
 <h4><span class="todo TODO">TODO</span> Generate "Latest Articles/Projects" View</h4>
 <div class="outline-text-4">
@@ -737,8 +716,7 @@ Doesn't get "nowebbed" into the source codes after
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">#+NAME: latest-article
-#+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> raw drawer <span class="org-builtin">:var</span> list=(get-article-keyword-list) <span class="org-builtin">:noweb</span> yes
-&lt;&lt;format-entry-as-image-link&gt;&gt;
+#+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> raw drawer <span class="org-builtin">:var</span> list='(get-article-keyword-list) <span class="org-builtin">:noweb</span> yes
 (<span class="org-keyword">defun</span> <span class="org-function-name">format-entry-as-image-link</span> (entry type) <span class="org-comment-delimiter">; </span><span class="org-comment">of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))</span>
   (format
    (concat
@@ -779,7 +757,6 @@ Doesn't get "nowebbed" into the source codes after
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">#+NAME: latest-project
 #+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> raw drawer <span class="org-builtin">:var</span> list=(get-project-keyword-list) <span class="org-builtin">:noweb</span> yes
-&lt;&lt;format-entry-as-image-link&gt;&gt;
 (<span class="org-keyword">defun</span> <span class="org-function-name">format-entry-as-image-link</span> (entry type) <span class="org-comment-delimiter">; </span><span class="org-comment">of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))</span>
   (format
    (concat
@@ -991,7 +968,7 @@ NOTE: Unused
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">#+NAME: list-of-projects
-#+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> eval <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> raw drawer <span class="org-builtin">:var</span> list=(get-project-keyword-list)
+#+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> raw drawer <span class="org-builtin">:var</span> list=(get-project-keyword-list)
 (<span class="org-keyword">setq</span> list-string '())
 (<span class="org-keyword">if</span> (eq org-export-current-backend 'html)
   (<span class="org-keyword">dolist</span> (entry list)

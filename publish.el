@@ -56,11 +56,6 @@
 (defun article-marked-for-noexport-p (article)
   (string-match-p (regexp-quote "noexport") (cadr (assoc "TAGS[]" (cadr article)))))
 
-; TODO put together
-(setq article-keyword-list '())
-(setq project-keyword-list '())
-(setq other-keyword-list   '())
-
 (defun filter-out-index-html (transcoded-data-string backend communication-channel-plist)
   (when (org-export-derived-backend-p backend 'html)
     ; NOTE "/index.html" doesn't get replaced in case of internal links for some reason...
@@ -94,6 +89,19 @@
   (when (string-match "</main>" contents)
     (replace-match (concat comment-section-html "</main>") t t contents 0)))
 
+; TODO put together
+(setq article-keyword-list '())
+(setq project-keyword-list '())
+(setq other-keyword-list   '())
+
+;(setq keyword-list
+;  '(
+;     ("article" '("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2"))))
+;     ("project" '("project1.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2"))))
+
+; (cadr (assoc "TITLE" (cadr (assoc "article" article)))
+;                  (print
+
 ; FILL & SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/
 (defun fill-keyword-lists ()
   (dolist (article (get-org-files "article"))
@@ -112,7 +120,10 @@
     (let ((other-keywords (get-org-file-keywords other)))
       (unless (article-marked-for-noexport-p other-keywords)
         (push (get-org-file-keywords other) other-keyword-list))))
-  (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t)))
+  (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t))
+
+  ; article-keyword-list == (cdr (assoc "article" keyword-list))
+  (setq keyword-list `(,(cons "article" article-keyword-list) ,(cons "project" project-keyword-list) ,(cons "other" other-keyword-list))))
 
 (defun generate-main-rss-feed ()
   ;

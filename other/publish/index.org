@@ -4,10 +4,11 @@
 #+IMAGE:       preview.png
 #+TAGS[]:      lisp org web
 #+OPTIONS:     toc:nil num:nil
+#+INCLUDE:     ../../code.org
 
-#+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
+#+CALL: generate-article-header[:eval yes]()
 * {{{TITLE}}}
-#+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
+#+CALL: generate-article-subtitle[:eval yes]()
 
 This page is the HTML exported version of the script that generates this
 website. The script is written in ~emacs-lisp~, but is using org-mode to write it
@@ -87,14 +88,6 @@ see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][ta
   (string-match-p (regexp-quote "noexport") (cadr (assoc "TAGS[]" (cadr article)))))
 #+END_SRC
 
-** TODO Variables
-#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
-; TODO put together
-(setq article-keyword-list '())
-(setq project-keyword-list '())
-(setq other-keyword-list   '())
-#+END_SRC
-
 ** Filter out links to ~index.html~
 Replace links to e.g. ~"article/index.html"~ to just ~"article"~.
 
@@ -161,6 +154,21 @@ Fills the primary datastructure of this script of the form:
 ~("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))~
 
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
+; TODO put together
+(setq article-keyword-list '())
+(setq project-keyword-list '())
+(setq other-keyword-list   '())
+
+;(setq keyword-list
+;  '(
+;     ("article" '("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2"))))
+;     ("project" '("project1.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2"))))
+
+; (cadr (assoc "TITLE" (cadr (assoc "article" article)))
+;                  (print
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 ; FILL & SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/
 (defun fill-keyword-lists ()
   (dolist (article (get-org-files "article"))
@@ -179,7 +187,10 @@ Fills the primary datastructure of this script of the form:
     (let ((other-keywords (get-org-file-keywords other)))
       (unless (article-marked-for-noexport-p other-keywords)
         (push (get-org-file-keywords other) other-keyword-list))))
-  (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t)))
+  (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t))
+
+  ; article-keyword-list == (cdr (assoc "article" keyword-list))
+  (setq keyword-list `(,(cons "article" article-keyword-list) ,(cons "project" project-keyword-list) ,(cons "other" other-keyword-list))))
 #+END_SRC
 
 ** RSS Feed Generation
@@ -371,9 +382,8 @@ See [[https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options
 
 ** Code snippets
 *** Helper functions
-#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
-,#+NAME: format-entry-as-image-link
-,#+BEGIN_SRC emacs-lisp :eval no :exports none :results raw drawer
+#+NAME: format-entry-as-image-link
+#+BEGIN_SRC emacs-lisp :eval no :exports none :results raw drawer
 (defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
   (format
    (concat
@@ -392,34 +402,15 @@ See [[https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options
      ;type
      (string-replace "/index.org" "" (car entry))
      (cadr (assoc "IMAGE" (cadr entry)))))
-,#+END_SRC
 #+END_SRC
 
 *** TODO Generate "Latest Articles/Projects" View
 Doesn't get "nowebbed" into the source codes after
 
-#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org :noweb yes
 ,#+NAME: latest-article
-,#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list=(get-article-keyword-list) :noweb yes
+,#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='(get-article-keyword-list) :noweb yes
 <<format-entry-as-image-link>>
-(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
-  (format
-   (concat
-     "<div class=\"image-container\">\n"
-        "<a href=\"./%s\">\n"
-            "<div class=\"overlay\">\n"
-                "<div class=\"title\">%s</div>\n"
-                "<div class=\"description\">%s</div>\n"
-            "</div>\n"
-            "<img src=\"./%s/%s\" alt=\"\">\n"
-        "</a>\n"
-     "</div>\n")
-     (string-replace "/index.org" "" (car entry))
-     (cadr (assoc "TITLE" (cadr entry)))
-     (cadr (assoc "DESCRIPTION" (cadr entry)))
-     ;type
-     (string-replace "/index.org" "" (car entry))
-     (cadr (assoc "IMAGE" (cadr entry)))))
 
 (setq latest (car list))
 
@@ -438,28 +429,10 @@ Doesn't get "nowebbed" into the source codes after
 ,#+END_SRC
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org :noweb yes
 ,#+NAME: latest-project
 ,#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list=(get-project-keyword-list) :noweb yes
 <<format-entry-as-image-link>>
-(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
-  (format
-   (concat
-     "<div class=\"image-container\">\n"
-        "<a href=\"./%s\">\n"
-            "<div class=\"overlay\">\n"
-                "<div class=\"title\">%s</div>\n"
-                "<div class=\"description\">%s</div>\n"
-            "</div>\n"
-            "<img src=\"./%s/%s\" alt=\"\">\n"
-        "</a>\n"
-     "</div>\n")
-     (string-replace "/index.org" "" (car entry))
-     (cadr (assoc "TITLE" (cadr entry)))
-     (cadr (assoc "DESCRIPTION" (cadr entry)))
-     ;type
-     (string-replace "/index.org" "" (car entry))
-     (cadr (assoc "IMAGE" (cadr entry)))))
 
 (setq latest (car list))
 
@@ -629,7 +602,7 @@ NOTE: Unused
 
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
 ,#+NAME: list-of-projects
-,#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-project-keyword-list)
+,#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list=(get-project-keyword-list)
 (setq list-string '())
 (if (eq org-export-current-backend 'html)
   (dolist (entry list)

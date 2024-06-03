@@ -6,9 +6,9 @@
 #+TAGS[]:      opengl graphics cpp
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
+#+CALL: ../../code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
-#+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
+#+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
 ** Introduction                                                      :ignore:
 Most OpenGL tutorials that start you out on shaders will tell you to include
 your first shaders as string literals by writing out the GLSL code out like

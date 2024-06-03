@@ -1,28 +1,5 @@
-#+NAME: format-entry-as-image-link
-#+BEGIN_SRC emacs-lisp :eval no :exports none :results raw drawer
-(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
-  (format
-   (concat
-     "<div class=\"image-container\">\n"
-        "<a href=\"./%s\">\n"
-            "<div class=\"overlay\">\n"
-                "<div class=\"title\">%s</div>\n"
-                "<div class=\"description\">%s</div>\n"
-            "</div>\n"
-            "<img src=\"./%s/%s\" alt=\"\">\n"
-        "</a>\n"
-     "</div>\n")
-     (string-replace "/index.org" "" (car entry))
-     (cadr (assoc "TITLE" (cadr entry)))
-     (cadr (assoc "DESCRIPTION" (cadr entry)))
-     ;type
-     (string-replace "/index.org" "" (car entry))
-     (cadr (assoc "IMAGE" (cadr entry)))))
-#+END_SRC
-
 #+NAME: latest-article
-#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list=(get-article-keyword-list) :noweb yes
-<<format-entry-as-image-link>>
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='(get-article-keyword-list) :noweb yes
 (defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
   (format
    (concat
@@ -60,7 +37,6 @@
 
 #+NAME: latest-project
 #+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list=(get-project-keyword-list) :noweb yes
-<<format-entry-as-image-link>>
 (defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
   (format
    (concat
@@ -230,7 +206,7 @@
 #+END_SRC
 
 #+NAME: list-of-projects
-#+BEGIN_SRC emacs-lisp :eval eval :exports results :results raw drawer :var list=(get-project-keyword-list)
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list=(get-project-keyword-list)
 (setq list-string '())
 (if (eq org-export-current-backend 'html)
   (dolist (entry list)
