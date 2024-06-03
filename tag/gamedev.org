@@ -1,5 +1,3 @@
 #+TITLE: Pages tagged gamedev
-* Articles tagged ~gamedev~
 * Projects tagged ~gamedev~
 - [[../project/game2d/index.org][Game2D]]
-* Other tagged ~gamedev~

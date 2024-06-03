@@ -4,4 +4,3 @@
 - [[../article/opengl-tutorial/index.org][How to write a graphics application with OpenGL]]
 * Projects tagged ~graphics~
 - [[../project/raytracer/index.org][OpenGL Raytracer]]
-* Other tagged ~graphics~

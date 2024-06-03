@@ -25,6 +25,7 @@
       keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]") ; keywords to parse from .org files
       org-html-htmlize-output-type 'css
       org-export-allow-bind-keywords t ; Allows #+BIND: in a buffer
+      org-confirm-babel-evaluate nil   ; needed to enable org-babel src-block execution from a script
       org-src-fontify-natively t)
 
 ; set footnotes to be h3, everything else is default
@@ -40,7 +41,6 @@
 (defun get-org-file-keywords (file)
   (with-temp-buffer
     (insert-file-contents file)
-    ;(org-mode)
     (list file (org-collect-keywords keywords))))
 
 (defun sort-keyword-list-by-date (keyword-list &optional new-to-old)
@@ -94,146 +94,129 @@
   (when (string-match "</main>" contents)
     (replace-match (concat comment-section-html "</main>") t t contents 0)))
 
-(defun prepare-publishing (project-properties)
-
-;
 ; FILL & SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/
-;
-(dolist (article (get-org-files "article"))
-  (let ((article-keywords (get-org-file-keywords article)))
-    (unless (article-marked-for-noexport-p article-keywords)
-      (push (get-org-file-keywords article) article-keyword-list))))
-(setq article-keyword-list (sort-keyword-list-by-date article-keyword-list t))
+(defun fill-keyword-lists ()
+  (dolist (article (get-org-files "article"))
+    (let ((article-keywords (get-org-file-keywords article)))
+      (unless (article-marked-for-noexport-p article-keywords)
+        (push (get-org-file-keywords article) article-keyword-list))))
+  (setq article-keyword-list (sort-keyword-list-by-date article-keyword-list t))
 
-(dolist (project (get-org-files "project"))
-  (let ((project-keywords (get-org-file-keywords project)))
-    (unless (article-marked-for-noexport-p project-keywords)
-      (push (get-org-file-keywords project) project-keyword-list))))
-(setq project-keyword-list (sort-keyword-list-by-date project-keyword-list t))
+  (dolist (project (get-org-files "project"))
+    (let ((project-keywords (get-org-file-keywords project)))
+      (unless (article-marked-for-noexport-p project-keywords)
+        (push (get-org-file-keywords project) project-keyword-list))))
+  (setq project-keyword-list (sort-keyword-list-by-date project-keyword-list t))
 
-(dolist (other (get-org-files "other"))
-  (let ((other-keywords (get-org-file-keywords other)))
-    (unless (article-marked-for-noexport-p other-keywords)
-      (push (get-org-file-keywords other) other-keyword-list))))
-(setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t))
+  (dolist (other (get-org-files "other"))
+    (let ((other-keywords (get-org-file-keywords other)))
+      (unless (article-marked-for-noexport-p other-keywords)
+        (push (get-org-file-keywords other) other-keyword-list))))
+  (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t)))
 
-;
-; GENERATE RSS FEED FOR ARTICLES
-;
-; rss header, check with  https://validator.w3.org/feed/
-(with-temp-file "feed.rss"
-  (insert
-   (let* ((website-title "andersch.dev")
-          (homepage      "https://andersch.dev")
-          (rss-filepath  "/feed.rss"))
-   (concat "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-           "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n"
-           "<channel>\n"
-           (format "<title>%s</title>\n" website-title)
-           "<!-- <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate> -->\n" ; TODO insert todays date
-           (format "<atom:link href=\"%s%s\" rel=\"self\" type=\"application/rss+xml\"/>\n" homepage rss-filepath)
-           (format "<link>%s</link>\n" homepage)
-           "<description>Stuff on programming</description>\n"
-           "<language>en-us</language>\n"))))
-; rss entries
-(dolist (article article-keyword-list)
-  (write-region
-    (format
-       (concat "<item>\n"
-               "<title>%s</title>\n"
-               "<link>%s</link>\n"
-               "<guid>%s</guid>\n"
-               "<description>\n"
-               "&lt;p&gt;%s&lt;/p&gt;\n"
-               "&lt;img src=\"https://andersch.dev/%s\"/&gt;\n"
-               "</description>\n"
-               "<pubDate>%s</pubDate>\n</item>\n")
-          (cadr (assoc "TITLE" (cadr article)))
-          (concat "https://andersch.dev/" (string-replace "/index.org" "" (car article)))
-          (concat "https://andersch.dev/" (string-replace "/index.org" "" (car article)))
-          (cadr (assoc "DESCRIPTION" (cadr article)))
-          (concat (string-replace "index.org" "" (car article)) (cadr (assoc "IMAGE" (cadr article))))
-          (format-time-string "%a, %d %b %Y %H:%M:%S %z" (seconds-to-time (org-time-string-to-time (cadr (assoc "DATE" (cadr article))))))
-          )
-    nil "feed.rss" 'append))
-; rss ending
-(write-region "</channel>\n</rss>" nil "feed.rss" 'append)
+(defun generate-main-rss-feed ()
+  ;
+  ; GENERATE RSS FEED FOR ARTICLES
+  ;
+  ; rss header, check with  https://validator.w3.org/feed/
+  (with-temp-file "feed.rss"
+    (insert
+     (let* ((website-title "andersch.dev")
+            (homepage      "https://andersch.dev")
+            (rss-filepath  "/feed.rss"))
+     (concat "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+             "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n"
+             "<channel>\n"
+             (format "<title>%s</title>\n" website-title)
+             "<!-- <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate> -->\n" ; TODO insert todays date
+             (format "<atom:link href=\"%s%s\" rel=\"self\" type=\"application/rss+xml\"/>\n" homepage rss-filepath)
+             (format "<link>%s</link>\n" homepage)
+             "<description>Stuff on programming</description>\n"
+             "<language>en-us</language>\n"))))
+  ; rss entries
+  (dolist (article article-keyword-list)
+    (write-region
+      (format
+         (concat "<item>\n"
+                 "<title>%s</title>\n"
+                 "<link>%s</link>\n"
+                 "<guid>%s</guid>\n"
+                 "<description>\n"
+                 "&lt;p&gt;%s&lt;/p&gt;\n"
+                 "&lt;img src=\"https://andersch.dev/%s\"/&gt;\n"
+                 "</description>\n"
+                 "<pubDate>%s</pubDate>\n</item>\n")
+            (cadr (assoc "TITLE" (cadr article)))
+            (concat "https://andersch.dev/" (string-replace "/index.org" "" (car article)))
+            (concat "https://andersch.dev/" (string-replace "/index.org" "" (car article)))
+            (cadr (assoc "DESCRIPTION" (cadr article)))
+            (concat (string-replace "index.org" "" (car article)) (cadr (assoc "IMAGE" (cadr article))))
+            (format-time-string "%a, %d %b %Y %H:%M:%S %z" (seconds-to-time (org-time-string-to-time (cadr (assoc "DATE" (cadr article))))))
+            )
+      nil "feed.rss" 'append))
+  ; rss ending
+  (write-region "</channel>\n</rss>" nil "feed.rss" 'append))
 
-;
-; EXECUTE NAMED SRC BLOCKS
-;
-(dolist (org-file (directory-files-recursively "./" "\\.org$"))
-    (find-file org-file)
-    (setq src-block-names '("list-of-projects" "latest-article" "latest-project" "generate-tags"))
-    (goto-char (point-min))
-    (setq org-confirm-babel-evaluate nil) ; NOTE needed when org-babel-execute-src-block is called in a script
-    (dolist (src-block-name src-block-names)
-      (if (org-babel-find-named-block src-block-name)
-        (progn
-          (org-babel-goto-named-src-block src-block-name)
-          (org-babel-execute-src-block))))
-    (save-buffer)
-    (kill-buffer))
+(defun generate-tag-files ()
 
-;
-; TAGGING SYSTEM
-;
-; collect all tags
-(setq all-tags '())
-(dolist (article article-keyword-list)
-   (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +") all-tags)))
-(dolist (project project-keyword-list)
-   (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +") all-tags)))
-(dolist (other other-keyword-list)
-   (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +") all-tags)))
-(delete-dups all-tags)
-; generate .org files for all tags
-(dolist (tag all-tags)
-  (with-temp-file (format "tag/%s.org" tag)
-    (insert (format "#+TITLE: Pages tagged %s\n" tag)))
+  ; collect all tags
+  (setq article-tags '())
+  (dolist (article article-keyword-list)
+     (setq article-tags (append (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +") article-tags)))
+  (delete-dups article-tags)
 
-(write-region (format "* Articles tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
-; add entry of an article to its tag.org's
-(dolist (article article-keyword-list)
-  (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +"))
-    (write-region (format "- [[../%s][%s]]\n"
-                          (car article)
-                          (cadr (assoc "TITLE" (cadr article))))
-                  nil (format "tag/%s.org" tag) 'append)))
+  (setq project-tags '())
+  (dolist (project project-keyword-list)
+     (setq project-tags (append (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +") project-tags)))
+  (delete-dups project-tags)
 
-(setq projects-tags-empty nil)
-(dolist (project project-keyword-list)
-    (when (string-empty-p (cadr (assoc "TAGS[]" (cadr project))))
-      (setq projects-tags-empty t)))
+  (setq other-tags '())
+  (dolist (other other-keyword-list)
+     (setq other-tags (append (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +") other-tags)))
+  (delete-dups other-tags)
 
-(unless projects-tags-empty
-; append "* Projects" headline
-(dolist (tag all-tags)
-  (write-region (format "* Projects tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
-)
-; add entry of a project to its tag.org's
-(dolist (project project-keyword-list)
-  (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +"))
-    (write-region (format "- [[../%s][%s]]\n"
-                          (car project)
-                          (cadr (assoc "TITLE" (cadr project))))
-                  nil (format "tag/%s.org" tag) 'append)))
+  (setq all-tags '())
+  (setq all-tags (cl-concatenate 'list article-tags project-tags other-tags))
+  (delete-dups all-tags)
 
-; append "* Projects" headline
-(dolist (tag all-tags)
-  (write-region (format "* Other tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
-; add entry of a project to its tag.org's
-(dolist (other other-keyword-list)
-  (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +"))
-    (write-region (format "- [[../%s][%s]]\n"
-                          (car other)
-                          (cadr (assoc "TITLE" (cadr other))))
-                  nil (format "tag/%s.org" tag) 'append)))
+  ; generate .org files for all tags
+  (dolist (tag all-tags)
+    (with-temp-file (format "tag/%s.org" tag)
+      (insert (format "#+TITLE: Pages tagged %s\n" tag))))
 
-)
+  ; append "* Articles" headline
+  (dolist (tag article-tags)
+    (write-region (format "* Articles tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
+  ; add entry of an article to its tag.org's
+  (dolist (article article-keyword-list)
+    (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +"))
+      (write-region (format "- [[../%s][%s]]\n" (car article) (cadr (assoc "TITLE" (cadr article))))
+                    nil (format "tag/%s.org" tag) 'append)))
+
+  ; append "* Projects" headline
+  (dolist (tag project-tags)
+    (write-region (format "* Projects tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
+  ; add entry of a project to its tag.org's
+  (dolist (project project-keyword-list)
+    (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +"))
+      (write-region (format "- [[../%s][%s]]\n" (car project) (cadr (assoc "TITLE" (cadr project))))
+                    nil (format "tag/%s.org" tag) 'append)))
+
+  ; append "* Other" headline
+  (dolist (tag other-tags)
+    (write-region (format "* Other tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
+  ; add entry of a project to its tag.org's
+  (dolist (other other-keyword-list)
+    (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +"))
+      (write-region (format "- [[../%s][%s]]\n" (car other) (cadr (assoc "TITLE" (cadr other))))
+                    nil (format "tag/%s.org" tag) 'append))))
+
+(defun prepare-publishing (project-properties)
+  (fill-keyword-lists)
+  (generate-main-rss-feed)
+  (generate-tag-files))
 
 ;; customize HTML output (see https://pank.eu/blog/blog-setup.html)
-; see https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options.html
 (setq org-publish-project-alist
       (list
        (list "andersch.dev"
@@ -242,9 +225,9 @@
              :publishing-directory "./"
              :publishing-function  'org-html-publish-to-html ;; may be a list of functions
              :preparation-function 'prepare-publishing       ;; called before publishing
-           ; :completion-function                            ;; called after
+           ; :completion-function                            ;; called afterwards
            ; :base-extension                                 ;; extension of source files
-           ; :html-extension       ""                        ;; extension of generated html files
+           ; :html-extension       ""                        ;; extension of generated html files (without dot)
              :exclude "code.org"                 ;; regex of files to exclude NOTE excluding dirs seems to not work
            ; :include                                        ;; list of files to include
            ; :html-doctype "html5"                           ;; default is "xhtml-strict"
@@ -262,7 +245,7 @@
              :html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string))))
              :html-postamble       nil                       ;; don't insert a footer with a date etc.
 
-             :auto-sitemap         t                         ;; https://orgmode.org/manual/Site-map.html
+             :auto-sitemap         nil                       ;; https://orgmode.org/manual/Site-map.html
              :sitemap-filename     "sitemap.org"             ;; ...
            ; :sitemap-title
              :sitemap-style        'tree                     ;; list or tree
@@ -287,5 +270,5 @@
 (defun get-project-keyword-list () project-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
 (defun get-other-keyword-list   () other-keyword-list)   ; NOTE workaround to pass keyword-list to a source-block in an org file
 
-(org-publish "andersch.dev" t) ;; export html files
+(org-publish "andersch.dev" t)
 (message "Build complete")

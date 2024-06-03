@@ -2,5 +2,3 @@
 * Articles tagged ~opengl~
 - [[../article/shader_strings/index.org][Hot-Reloadable, Embedded Shader Code in C/C++]]
 - [[../article/opengl-tutorial/index.org][How to write a graphics application with OpenGL]]
-* Projects tagged ~opengl~
-* Other tagged ~opengl~

@@ -1,9 +1,7 @@
 TODO -*- mode: org -*-
 
-- no "_ tagged with ..." when empty
-- clean up code
-
-- Follow this directory structure:
+- [ ] Follow this directory structure:
+  #+BEGIN_SRC
   website.com
   ├── article
   │   ├── article_1_name
@@ -38,3 +36,4 @@ TODO -*- mode: org -*-
   ├── publish.el
   ├── index.org
   └── style.css
+  #+END_SRC

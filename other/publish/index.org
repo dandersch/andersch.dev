@@ -52,6 +52,7 @@ see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][ta
       keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]") ; keywords to parse from .org files
       org-html-htmlize-output-type 'css
       org-export-allow-bind-keywords t ; Allows #+BIND: in a buffer
+      org-confirm-babel-evaluate nil   ; needed to enable org-babel src-block execution from a script
       org-src-fontify-natively t)
 
 ; set footnotes to be h3, everything else is default
@@ -70,7 +71,6 @@ see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][ta
 (defun get-org-file-keywords (file)
   (with-temp-buffer
     (insert-file-contents file)
-    ;(org-mode)
     (list file (org-collect-keywords keywords))))
 
 (defun sort-keyword-list-by-date (keyword-list &optional new-to-old)
@@ -87,7 +87,7 @@ see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][ta
   (string-match-p (regexp-quote "noexport") (cadr (assoc "TAGS[]" (cadr article)))))
 #+END_SRC
 
-** Variables
+** TODO Variables
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 ; TODO put together
 (setq article-keyword-list '())
@@ -155,21 +155,14 @@ function to later add as a filter-hook to insert the HTML at the very end.
     (replace-match (concat comment-section-html "</main>") t t contents 0)))
 #+END_SRC
 
-** Prepare publishing function
-*** Beginning                                                        :ignore:
-#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
-(defun prepare-publishing (project-properties)
-#+END_SRC
-
-*** Fill keyword lists
+** TODO Keyword Lists
 Fills the primary datastructure of this script of the form:
 
 ~("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))~
 
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
-  ;
-  ; FILL & SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/
-  ;
+; FILL & SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/
+(defun fill-keyword-lists ()
   (dolist (article (get-org-files "article"))
     (let ((article-keywords (get-org-file-keywords article)))
       (unless (article-marked-for-noexport-p article-keywords)
@@ -186,11 +179,12 @@ Fills the primary datastructure of this script of the form:
     (let ((other-keywords (get-org-file-keywords other)))
       (unless (article-marked-for-noexport-p other-keywords)
         (push (get-org-file-keywords other) other-keyword-list))))
-  (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t))
+  (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t)))
 #+END_SRC
 
-*** Generate RSS Feed
+** RSS Feed Generation
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
+(defun generate-main-rss-feed ()
   ;
   ; GENERATE RSS FEED FOR ARTICLES
   ;
@@ -231,96 +225,84 @@ Fills the primary datastructure of this script of the form:
             )
       nil "feed.rss" 'append))
   ; rss ending
-  (write-region "</channel>\n</rss>" nil "feed.rss" 'append)
+  (write-region "</channel>\n</rss>" nil "feed.rss" 'append))
 #+END_SRC
 
-*** TODO Execute Named Source Blocks
-Is this still needed/does it do something?
-#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
-  ;
-  ; EXECUTE NAMED SRC BLOCKS
-  ;
-  (dolist (org-file (directory-files-recursively "./" "\\.org$"))
-      (find-file org-file)
-      (setq src-block-names '("list-of-projects" "latest-article" "latest-project" "generate-tags"))
-      (goto-char (point-min))
-      (setq org-confirm-babel-evaluate nil) ; NOTE needed when org-babel-execute-src-block is called in a script
-      (dolist (src-block-name src-block-names)
-        (if (org-babel-find-named-block src-block-name)
-          (progn
-            (org-babel-goto-named-src-block src-block-name)
-            (org-babel-execute-src-block))))
-      (save-buffer)
-      (kill-buffer))
-#+END_SRC
+** TODO Tagging System
+Generates a ~tag.org~ for every unique tag across all articles.
 
-*** Tagging System
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
-  ;
-  ; TAGGING SYSTEM
-  ;
+(defun generate-tag-files ()
+
   ; collect all tags
-  (setq all-tags '())
+  (setq article-tags '())
   (dolist (article article-keyword-list)
-     (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +") all-tags)))
+     (setq article-tags (append (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +") article-tags)))
+  (delete-dups article-tags)
+
+  (setq project-tags '())
   (dolist (project project-keyword-list)
-     (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +") all-tags)))
+     (setq project-tags (append (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +") project-tags)))
+  (delete-dups project-tags)
+
+  (setq other-tags '())
   (dolist (other other-keyword-list)
-     (setq all-tags (append (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +") all-tags)))
+     (setq other-tags (append (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +") other-tags)))
+  (delete-dups other-tags)
+
+  (setq all-tags '())
+  (setq all-tags (cl-concatenate 'list article-tags project-tags other-tags))
   (delete-dups all-tags)
+
   ; generate .org files for all tags
   (dolist (tag all-tags)
     (with-temp-file (format "tag/%s.org" tag)
-      (insert (format "#+TITLE: Pages tagged %s\n" tag)))
+      (insert (format "#+TITLE: Pages tagged %s\n" tag))))
 
-  (write-region (format "* Articles tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
+  ; append "* Articles" headline
+  (dolist (tag article-tags)
+    (write-region (format "* Articles tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
   ; add entry of an article to its tag.org's
   (dolist (article article-keyword-list)
     (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr article)))  " +"))
-      (write-region (format "- [[../%s][%s]]\n"
-                            (car article)
-                            (cadr (assoc "TITLE" (cadr article))))
+      (write-region (format "- [[../%s][%s]]\n" (car article) (cadr (assoc "TITLE" (cadr article))))
                     nil (format "tag/%s.org" tag) 'append)))
 
-  (setq projects-tags-empty nil)
-  (dolist (project project-keyword-list)
-      (when (string-empty-p (cadr (assoc "TAGS[]" (cadr project))))
-        (setq projects-tags-empty t)))
-
-  (unless projects-tags-empty
   ; append "* Projects" headline
-  (dolist (tag all-tags)
+  (dolist (tag project-tags)
     (write-region (format "* Projects tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
-  )
   ; add entry of a project to its tag.org's
   (dolist (project project-keyword-list)
     (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +"))
-      (write-region (format "- [[../%s][%s]]\n"
-                            (car project)
-                            (cadr (assoc "TITLE" (cadr project))))
+      (write-region (format "- [[../%s][%s]]\n" (car project) (cadr (assoc "TITLE" (cadr project))))
                     nil (format "tag/%s.org" tag) 'append)))
 
-  ; append "* Projects" headline
-  (dolist (tag all-tags)
+  ; append "* Other" headline
+  (dolist (tag other-tags)
     (write-region (format "* Other tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
   ; add entry of a project to its tag.org's
   (dolist (other other-keyword-list)
     (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +"))
-      (write-region (format "- [[../%s][%s]]\n"
-                            (car other)
-                            (cadr (assoc "TITLE" (cadr other))))
-                    nil (format "tag/%s.org" tag) 'append)))
+      (write-region (format "- [[../%s][%s]]\n" (car other) (cadr (assoc "TITLE" (cadr other))))
+                    nil (format "tag/%s.org" tag) 'append))))
 #+END_SRC
 
-*** End of prepare publishing function
+** Prepare publishing function
+Gets called by ~org-publish~ before the main publishing step.
+
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
-)
+(defun prepare-publishing (project-properties)
+  (fill-keyword-lists)
+  (generate-main-rss-feed)
+  (generate-tag-files))
 #+END_SRC
 
 ** Org-publish Customization
+See [[https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options.html][here]] for exporter-specific properties and use ~(describe-variable
+'org-publish-project-alist)~ for documentation on general options.
+
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 ;; customize HTML output (see https://pank.eu/blog/blog-setup.html)
-; see https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options.html
 (setq org-publish-project-alist
       (list
        (list "andersch.dev"
@@ -329,9 +311,9 @@ Is this still needed/does it do something?
              :publishing-directory "./"
              :publishing-function  'org-html-publish-to-html ;; may be a list of functions
              :preparation-function 'prepare-publishing       ;; called before publishing
-           ; :completion-function                            ;; called after
+           ; :completion-function                            ;; called afterwards
            ; :base-extension                                 ;; extension of source files
-           ; :html-extension       ""                        ;; extension of generated html files
+           ; :html-extension       ""                        ;; extension of generated html files (without dot)
              :exclude "code.org"                 ;; regex of files to exclude NOTE excluding dirs seems to not work
            ; :include                                        ;; list of files to include
            ; :html-doctype "html5"                           ;; default is "xhtml-strict"
@@ -349,7 +331,7 @@ Is this still needed/does it do something?
              :html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string))))
              :html-postamble       nil                       ;; don't insert a footer with a date etc.
 
-             :auto-sitemap         t                         ;; https://orgmode.org/manual/Site-map.html
+             :auto-sitemap         nil                       ;; https://orgmode.org/manual/Site-map.html
              :sitemap-filename     "sitemap.org"             ;; ...
            ; :sitemap-title
              :sitemap-style        'tree                     ;; list or tree
@@ -383,7 +365,7 @@ Is this still needed/does it do something?
 
 ** Build
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
-(org-publish "andersch.dev" t) ;; export html files
+(org-publish "andersch.dev" t)
 (message "Build complete")
 #+END_SRC
 
@@ -499,22 +481,17 @@ Doesn't get "nowebbed" into the source codes after
 ,#+NAME: generate-tags
 ,#+BEGIN_SRC emacs-lisp :eval no :exports results :results html
 (setq tags-string '())
-;(if (eq org-export-current-backend 'html)
-;  (progn
-    ;(setq tags-string (append tags-string (list "#+BEGIN_EXPORT html\n")))
+(if (eq org-export-current-backend 'html)
+  (progn
     (setq tags-string (append tags-string (list "<div class=\"tags\">")))
     (setq tags-string (append tags-string (list "[ ")))
     (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
     (dolist (tag tags)
-      (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag))))
-      )
+      (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))))
     (setq tags-string (append tags-string (list "]")))
     (setq tags-string (append tags-string (list "</div>\n")))
-    ;(setq tags-string (append tags-string (list "#+END_EXPORT")))
-    (mapconcat #'identity tags-string "") ; flatten string list to a string
-;  )
-;  (print "")
-;)
+    (mapconcat #'identity tags-string "")) ; flatten string list to a string
+  (print ""))
 ,#+END_SRC
 #+END_SRc
 
@@ -529,8 +506,7 @@ Doesn't get "nowebbed" into the source codes after
       (setq tags-string (append tags-string (list "[ ")))
       (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
       (dolist (tag tags)
-        (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag))))
-        )
+        (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))))
       (setq tags-string (append tags-string (list "]")))
       (setq tags-string (append tags-string (list "</code>")))
       (setq tags-string (append tags-string (list "</div>\n")))
@@ -569,13 +545,8 @@ Doesn't get "nowebbed" into the source codes after
     (setq image-path (string-replace "/index.org" "" (string-replace "/home/da/dev/andersch.dev/" "" (buffer-file-name))))
     (setq image-fmt-string "<div class=\"figure\"><img src=\"/%s/%s\" alt=\"\"></div>")))
 
-(format
-   (concat
-     "<h2 class=\"subtitle\">%s</h1>"
-     image-fmt-string)
-   (cadr (assoc "DESCRIPTION" keywords))
-   image-path
-   (cadr (assoc "IMAGE" keywords)))
+(format (concat "<h2 class=\"subtitle\">%s</h1>" image-fmt-string)
+   (cadr (assoc "DESCRIPTION" keywords)) image-path (cadr (assoc "IMAGE" keywords)))
 ,#+END_SRC
 #+END_SRC
 
@@ -612,9 +583,7 @@ Doesn't get "nowebbed" into the source codes after
     (setq article-snippets (append article-snippets (list read-more-html)))
 
     ;; dividing line between snippets
-    (setq article-snippets (append article-snippets (list "<hr>\n")))
-  )
-)
+    (setq article-snippets (append article-snippets (list "<hr>\n")))))
 
 (mapconcat #'identity article-snippets "") ; flatten string list to a string
 ,#+END_SRC
@@ -625,7 +594,7 @@ NOTE: Unused
 
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
 ,#+NAME: list-of-articles
-,#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='()
+,#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='(get-article-keyword-list)
 (setq list-string '())
 (if (eq org-export-current-backend 'html)
   (dolist (entry list)
@@ -692,3 +661,6 @@ NOTE: Unused
 (mapconcat #'identity list-string "\n") ; flatten string list to a string
 ,#+END_SRC
 #+END_SRC
+
+** Resources
+- [[https://pank.eu/blog/blog-setup.html][Blogging with Org]]

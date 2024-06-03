@@ -97,22 +97,17 @@
 #+NAME: generate-tags
 #+BEGIN_SRC emacs-lisp :eval no :exports results :results html
 (setq tags-string '())
-;(if (eq org-export-current-backend 'html)
-;  (progn
-    ;(setq tags-string (append tags-string (list "#+BEGIN_EXPORT html\n")))
+(if (eq org-export-current-backend 'html)
+  (progn
     (setq tags-string (append tags-string (list "<div class=\"tags\">")))
     (setq tags-string (append tags-string (list "[ ")))
     (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
     (dolist (tag tags)
-      (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag))))
-      )
+      (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))))
     (setq tags-string (append tags-string (list "]")))
     (setq tags-string (append tags-string (list "</div>\n")))
-    ;(setq tags-string (append tags-string (list "#+END_EXPORT")))
-    (mapconcat #'identity tags-string "") ; flatten string list to a string
-;  )
-;  (print "")
-;)
+    (mapconcat #'identity tags-string "")) ; flatten string list to a string
+  (print ""))
 #+END_SRC
 
 #+NAME: generate-article-header
@@ -124,8 +119,7 @@
       (setq tags-string (append tags-string (list "[ ")))
       (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
       (dolist (tag tags)
-        (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag))))
-        )
+        (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))))
       (setq tags-string (append tags-string (list "]")))
       (setq tags-string (append tags-string (list "</code>")))
       (setq tags-string (append tags-string (list "</div>\n")))
@@ -162,13 +156,8 @@
     (setq image-path (string-replace "/index.org" "" (string-replace "/home/da/dev/andersch.dev/" "" (buffer-file-name))))
     (setq image-fmt-string "<div class=\"figure\"><img src=\"/%s/%s\" alt=\"\"></div>")))
 
-(format
-   (concat
-     "<h2 class=\"subtitle\">%s</h1>"
-     image-fmt-string)
-   (cadr (assoc "DESCRIPTION" keywords))
-   image-path
-   (cadr (assoc "IMAGE" keywords)))
+(format (concat "<h2 class=\"subtitle\">%s</h1>" image-fmt-string)
+   (cadr (assoc "DESCRIPTION" keywords)) image-path (cadr (assoc "IMAGE" keywords)))
 #+END_SRC
 
 #+NAME: generate-article-snippets
@@ -202,15 +191,13 @@
     (setq article-snippets (append article-snippets (list read-more-html)))
 
     ;; dividing line between snippets
-    (setq article-snippets (append article-snippets (list "<hr>\n")))
-  )
-)
+    (setq article-snippets (append article-snippets (list "<hr>\n")))))
 
 (mapconcat #'identity article-snippets "") ; flatten string list to a string
 #+END_SRC
 
 #+NAME: list-of-articles
-#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='()
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='(get-article-keyword-list)
 (setq list-string '())
 (if (eq org-export-current-backend 'html)
   (dolist (entry list)
@@ -274,9 +261,3 @@
   ))
 (mapconcat #'identity list-string "\n") ; flatten string list to a string
 #+END_SRC
-
-#+RESULTS: list-of-projects
-:results:
-- [[../project/raytracer/index.org][OpenGL Raytracer]]
-- [[../project/game2d/index.org][Game2D]]
-:end:
