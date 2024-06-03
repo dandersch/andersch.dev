@@ -130,15 +130,12 @@
   (setq keyword-list `(,(cons "article" article-keyword-list) ,(cons "project" project-keyword-list) ,(cons "other" other-keyword-list))))
 
 (defun generate-main-rss-feed ()
-  ;
-  ; GENERATE RSS FEED FOR ARTICLES
-  ;
   ; rss header, check with  https://validator.w3.org/feed/
-  (with-temp-file "feed.rss"
+  (with-temp-file "feed.xml"
     (insert
      (let* ((website-title "andersch.dev")
             (homepage      "https://andersch.dev")
-            (rss-filepath  "/feed.rss"))
+            (rss-filepath  "/feed.xml"))
      (concat "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
              "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n"
              "<channel>\n"
@@ -168,9 +165,9 @@
             (concat (string-replace "index.org" "" (car article)) (cadr (assoc "IMAGE" (cadr article))))
             (format-time-string "%a, %d %b %Y %H:%M:%S %z" (seconds-to-time (org-time-string-to-time (cadr (assoc "DATE" (cadr article))))))
             )
-      nil "feed.rss" 'append))
+      nil "feed.xml" 'append))
   ; rss ending
-  (write-region "</channel>\n</rss>" nil "feed.rss" 'append))
+  (write-region "</channel>\n</rss>" nil "feed.xml" 'append))
 
 (defun generate-tag-files ()
 
@@ -231,21 +228,21 @@
   (generate-main-rss-feed)
   (generate-tag-files))
 
-;; customize HTML output (see https://pank.eu/blog/blog-setup.html)
 (setq org-publish-project-alist
       (list
        (list "andersch.dev"
              :recursive            t
              :base-directory       "./"
              :publishing-directory "./"
-             :publishing-function  'org-html-publish-to-html ;; may be a list of functions
-             :preparation-function 'prepare-publishing       ;; called before publishing
-           ; :completion-function                            ;; called afterwards
-           ; :base-extension                                 ;; extension of source files
-           ; :html-extension       ""                        ;; extension of generated html files (without dot)
-             :exclude  (regexp-opt '("code.org" "publish.org")) ;; regex of files to exclude NOTE excluding dirs seems to not work
-           ; :include                                        ;; list of files to include
-           ; :html-doctype "html5"                           ;; default is "xhtml-strict"
+             :publishing-function  'org-html-publish-to-html    ;; may be a list of functions
+             :preparation-function 'prepare-publishing          ;; called before publishing
+           ; :completion-function                               ;; called afterwards
+           ; :base-extension                                    ;; extension of source files
+           ; :html-extension       ""                           ;; extension of generated html files (without dot)
+             :exclude  (regexp-opt '("code.org" "publish.org")) ;; regex of files to exclude
+           ; :include                                           ;; list of files to include
+
+           ; :html-doctype "html5"                              ;; default is "xhtml-strict"
              :html-divs            '((preamble "header" "top")
                                      (content "main" "content")
                                      (postamble "footer" "postamble"))
@@ -261,11 +258,12 @@
              :html-postamble       nil                       ;; don't insert a footer with a date etc.
 
              :auto-sitemap         nil                       ;; https://orgmode.org/manual/Site-map.html
-             :sitemap-filename     "sitemap.org"             ;; ...
+           ; :sitemap-filename     "sitemap.org"
            ; :sitemap-title
-             :sitemap-style        'tree                     ;; list or tree
-             :sitemap-sort-files   'anti-chronologically
-           ; :makeindex t                                    ;; https://orgmode.org/manual/Generating-an-index.html
+           ; :sitemap-style        'tree                     ;; list or tree
+           ; :sitemap-sort-files   'anti-chronologically
+
+             :makeindex            nil                       ;; https://orgmode.org/manual/Generating-an-index.html
              :with-title           nil                       ;; we include our own header
              :with-author          nil
              :with-creator         nil                       ;; don't include emacs and org versions in footer
