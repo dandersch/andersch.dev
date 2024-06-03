@@ -18,6 +18,13 @@ see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][ta
 
 # endsnippet
 
+** Disclaimer                                                      :noexport:
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
+;;
+;; This file is auto-generated. Any changes here will not be reflected when building.
+;;
+#+END_SRC
+
 ** Packages
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 ;; set package install dir to local directory
@@ -148,7 +155,7 @@ function to later add as a filter-hook to insert the HTML at the very end.
     (replace-match (concat comment-section-html "</main>") t t contents 0)))
 #+END_SRC
 
-** TODO Keyword Lists
+** Keyword Lists
 Fills the primary datastructure of this script of the form:
 
 ~("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))~
@@ -239,7 +246,7 @@ Fills the primary datastructure of this script of the form:
   (write-region "</channel>\n</rss>" nil "feed.rss" 'append))
 #+END_SRC
 
-** TODO Tagging System
+** Tagging System
 Generates a ~tag.org~ for every unique tag across all articles.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el

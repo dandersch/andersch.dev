@@ -1,0 +1,26 @@
+#+TITLE:       How I create my Website using Org-mode
+#+DESCRIPTION: ...
+#+DATE:        <2024-06-02>
+#+IMAGE:
+#+COMMENTS:
+#+TAGS[]:      noexport lisp org web
+#+OPTIONS:     toc:nil num:nil
+#+INCLUDE:     ../../code.org
+
+#+CALL: generate-article-header[:eval yes]()
+* {{{TITLE}}}
+#+CALL: generate-article-subtitle[:eval yes]()
+
+** Publishing
+Both the ~.org~ and ~.html~ files are part of the same repository. This means that
+the directory structure is identical and all links to images, files, etc. are
+the same for both formats. Org-publish takes care of mapping every link to an
+~.org~ to the corresponding ~.html~, but if I want to, I can still link to the
+actual org-mode file, since it is part of the GitHub Pages repo. For example,
+[[http:./index.org][here]] you can find the original source for the page you are on right now. In
+fact, you can get the ~.org~ of every page by appending ~index.org~ to the current
+link or changing ~.html~ to ~.org~.
+
+** Comment Section
+- Using utterances
+- Some workaround to have the section appear under footnotes

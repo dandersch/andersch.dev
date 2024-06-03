@@ -1,3 +1,7 @@
+;;
+;; This file is auto-generated. Any changes here will not be reflected when building.
+;;
+
 ;; set package install dir to local directory
 (require 'package)
 (setq package-user-dir (expand-file-name "./.packages"))
