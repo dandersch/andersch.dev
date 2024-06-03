@@ -1,0 +1,5 @@
+#+TITLE: Pages tagged web
+* Articles tagged ~web~
+* Projects tagged ~web~
+* Other tagged ~web~
+- [[../other/publish/index.org][Publishing Script]]

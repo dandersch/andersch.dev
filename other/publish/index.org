@@ -1,15 +1,19 @@
-#+TITLE:       Publishing Script
-#+DESCRIPTION: The publishing script that creates this website
+#+TITLE:       The Publishing Script of this Website
+#+DESCRIPTION: Using org-mode to write a publishing script as a literate program
 #+DATE:        <2024-06-02>
-#+IMAGE:
-#+TAGS[]:      lisp
+#+IMAGE:       preview.png
+#+TAGS[]:      lisp org web
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ~/dev/andersch.dev/code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
 #+CALL: ~/dev/andersch.dev/code.org:generate-article-subtitle[:eval yes]()
 
-This file is the template for the ~publish.el~ publishing script.
+This page is the HTML exported version of the script that generates this
+website. The script is written in ~emacs-lisp~, but is using org-mode to write it
+out as a [[https://en.wikipedia.org/wiki/Literate_programming][literate program]]. When generating, all emacs-lisp source code that you
+see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][tangled]] from the [[http:./index.org][original org-file]] to a file called
+[[file:../../publish.el][~publish.el~]].
 
 # endsnippet
 
@@ -28,11 +32,15 @@ This file is the template for the ~publish.el~ publishing script.
 ** Dependencies
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 (package-install 'htmlize) ; enable export of #+begin_src code blocks
+
 (require 'ox-publish)
 (require 'org)
+
 (require 'cl-lib)
+
+; for :IGNORE: headlines
 (package-install 'org-contrib) ; for ox-extra
-(require 'ox-extra) ; for :IGNORE: headlines
+(require 'ox-extra)
 (ox-extras-activate '(latex-header-blocks ignore-headlines))
 
 (require 'ob-emacs-lisp)
@@ -43,9 +51,12 @@ This file is the template for the ~publish.el~ publishing script.
 (setq
       keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]") ; keywords to parse from .org files
       org-html-htmlize-output-type 'css
-      org-src-fontify-natively t
       org-export-allow-bind-keywords t ; Allows #+BIND: in a buffer
-      )
+      org-src-fontify-natively t)
+
+; set footnotes to be h3, everything else is default
+(setq org-html-footnotes-section
+      "<div id=\"footnotes\">\n<h3 class=\"footnotes\">%s: </h3>\n<div id=\"text-footnotes\">\n%s\n</div>\n</div>")
 #+END_SRC
 
 ** Helper functions
@@ -55,11 +66,13 @@ This file is the template for the ~publish.el~ publishing script.
   (cl-remove-if
    (lambda (file) (string-equal (concat directory "/" "index.org") file))
    (directory-files-recursively directory "\\.org$")))
+
 (defun get-org-file-keywords (file)
   (with-temp-buffer
     (insert-file-contents file)
     ;(org-mode)
     (list file (org-collect-keywords keywords))))
+
 (defun sort-keyword-list-by-date (keyword-list &optional new-to-old)
   "Sort the list by the date value of the form <YYYY-MM-DD HH:MM>"
   (sort keyword-list
@@ -69,11 +82,12 @@ This file is the template for the ~publish.el~ publishing script.
             (if new-to-old
               (string> date-str-a date-str-b)
               (string< date-str-a date-str-b))))))
+
 (defun article-marked-for-noexport-p (article)
   (string-match-p (regexp-quote "noexport") (cadr (assoc "TAGS[]" (cadr article)))))
 #+END_SRC
 
-** State
+** Variables
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 ; TODO put together
 (setq article-keyword-list '())
@@ -81,45 +95,39 @@ This file is the template for the ~publish.el~ publishing script.
 (setq other-keyword-list   '())
 #+END_SRC
 
-** Filter function
+** Filter out links to ~index.html~
 Replace links to e.g. ~"article/index.html"~ to just ~"article"~.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 (defun filter-out-index-html (transcoded-data-string backend communication-channel-plist)
   (when (org-export-derived-backend-p backend 'html)
-  ; NOTE "/index.html" doesn't get replace in case of internal links for some reason...
-    (string-replace "index.html" "" (string-replace "/index.html" "" (substring-no-properties transcoded-data-string)))
-  )
-    ;(replace-regexp-in-string "/index.html" "" transcoded-data-string)
-    ;(if (string-match-p "#hot-reload" (string-replace "index" "" (substring-no-properties transcoded-data-string)))
-    ;    (print (concat transcoded-data-string "\n\nHELLO \n \n \n")))
-  ;  (print (substring-no-properties transcoded-data-string))
-  ;)
-)
+    ; NOTE "/index.html" doesn't get replaced in case of internal links for some reason...
+    (string-replace "index.html" ""
+                    (string-replace "/index.html" "" (substring-no-properties transcoded-data-string)))))
 
 (add-to-list 'org-export-filter-link-functions 'filter-out-index-html)
 #+END_SRC
 
-** Remove auto-generated org ids
+** Filter out auto-generated org-ids
+Normally org-mode randomly generates an org-id for every heading and uses those
+links, which causes a bunch of noise in commits. This filter strips out all
+org-ids from exported html files. We can instead use the ~:CUSTOM_ID:~ property
+for a heading that we want to link to.
+
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 (defun html-body-id-filter (output backend info)
   "Remove random ID attributes generated by Org."
   (when (eq backend 'html)
-    (replace-regexp-in-string
-     " id=\"[[:alpha:]-]*org[[:alnum:]]\\{7\\}\""
-     ""
-     output t)))
+    (replace-regexp-in-string " id=\"[[:alpha:]-]*org[[:alnum:]]\\{7\\}\"" "" output t)))
 
 (add-to-list 'org-export-filter-final-output-functions 'html-body-id-filter)
 #+END_SRC
 
-
 ** Comment Section
-#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
-; set footnotes to be h3
-(setq org-html-footnotes-section
-      "<div id=\"footnotes\">\n<h3 class=\"footnotes\">%s: </h3>\n<div id=\"text-footnotes\">\n%s\n</div>\n</div>")
+Adds a GitHub Issues-based comment section using [[https://utteranc.es/][utterances]]. Only applies to
+articles that are marked with the keyword ~#+COMMENTS: t~.
 
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 (setq comment-section-html
       (concat "<hr>\n"
        "<div id=\"comment-section\">\n"
@@ -132,7 +140,15 @@ Replace links to e.g. ~"article/index.html"~ to just ~"article"~.
                crossorigin=\"anonymous\"
                async>
        </script></div>\n"))
+#+END_SRC
 
+** Footnotes Section workaround
+If we include above HTML at the very end of an org-file using ~#+BEGIN_EXPORT
+html~, org-mode will still append the footnotes section below that (if the
+article ever used ~[fn::footnote text]~). As a workaround, we define below
+function to later add as a filter-hook to insert the HTML at the very end.
+
+#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 ; needed because otherwise footnotes will be below the comment section
 (defun insert-comment-section  (contents html-backend info)
   (when (string-match "</main>" contents)
@@ -247,9 +263,16 @@ Replace links to e.g. ~"article/index.html"~ to just ~"article"~.
                             (cadr (assoc "TITLE" (cadr article))))
                     nil (format "tag/%s.org" tag) 'append)))
 
+  (setq projects-tags-empty nil)
+  (dolist (project project-keyword-list)
+      (when (string-empty-p (cadr (assoc "TAGS[]" (cadr project))))
+        (setq projects-tags-empty t)))
+
+  (unless projects-tags-empty
   ; append "* Projects" headline
   (dolist (tag all-tags)
     (write-region (format "* Projects tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
+  )
   ; add entry of a project to its tag.org's
   (dolist (project project-keyword-list)
     (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr project)))  " +"))

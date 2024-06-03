@@ -221,17 +221,21 @@
 </header>
 <main id="content" class="content">
 <div class="tags-date-box">
-<div class="tags"><code>[ <a href="/tag/lisp.html">lisp</a> ]</code></div>
+<div class="tags"><code>[ <a href="/tag/lisp.html">lisp</a> <a href="/tag/org.html">org</a> <a href="/tag/web.html">web</a> ]</code></div>
 <div class="date"><span class="timestamp"><2024-06-02></span></div>
 </div>
 
 <div class="outline-2">
 <h2>Publishing Script</h2>
 <div class="outline-text-2">
-<h2 class="subtitle">The publishing script that creates this website</h1>
+<h2 class="subtitle">The publishing script that creates this website</h1><div class="figure"><img src="/other/publish/preview.png" alt=""></div>
 
 <p>
-This file is the template for the <code>publish.el</code> publishing script.
+This page is the HTML exported version of the script that generates this
+website. The script is written in <code>emacs-lisp</code>, but is using org-mode to write it
+out as a <a href="https://en.wikipedia.org/wiki/Literate_programming">literate program</a>. When generating, all emacs-lisp source code that you
+see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.html">tangled</a> from the <a href="http:./index.org">original org-file</a> to a file called
+<a href="../../publish.el"><code>publish.el</code></a>.
 </p>
 </div>
 
@@ -257,11 +261,15 @@ This file is the template for the <code>publish.el</code> publishing script.
 <div class="outline-text-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(package-install 'htmlize) <span class="org-comment-delimiter">; </span><span class="org-comment">enable export of #+begin_src code blocks</span>
+
 (<span class="org-keyword">require</span> '<span class="org-constant">ox-publish</span>)
 (<span class="org-keyword">require</span> '<span class="org-constant">org</span>)
+
 (<span class="org-keyword">require</span> '<span class="org-constant">cl-lib</span>)
+
+<span class="org-comment-delimiter">; </span><span class="org-comment">for :IGNORE: headlines</span>
 (package-install 'org-contrib) <span class="org-comment-delimiter">; </span><span class="org-comment">for ox-extra</span>
-(<span class="org-keyword">require</span> '<span class="org-constant">ox-extra</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">for :IGNORE: headlines</span>
+(<span class="org-keyword">require</span> '<span class="org-constant">ox-extra</span>)
 (ox-extras-activate '(latex-header-blocks ignore-headlines))
 
 (<span class="org-keyword">require</span> '<span class="org-constant">ob-emacs-lisp</span>)
@@ -277,9 +285,12 @@ This file is the template for the <code>publish.el</code> publishing script.
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span>
       keywords '(<span class="org-string">"TITLE"</span> <span class="org-string">"DATE"</span> <span class="org-string">"DESCRIPTION"</span> <span class="org-string">"IMAGE"</span> <span class="org-string">"TAGS[]"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">keywords to parse from .org files</span>
       org-html-htmlize-output-type 'css
-      org-src-fontify-natively t
       org-export-allow-bind-keywords t <span class="org-comment-delimiter">; </span><span class="org-comment">Allows #+BIND: in a buffer</span>
-      )
+      org-src-fontify-natively t)
+
+<span class="org-comment-delimiter">; </span><span class="org-comment">set footnotes to be h3, everything else is default</span>
+(<span class="org-keyword">setq</span> org-html-footnotes-section
+      <span class="org-string">"&lt;div id=\"footnotes\"&gt;\n&lt;h3 class=\"footnotes\"&gt;%s: &lt;/h3&gt;\n&lt;div id=\"text-footnotes\"&gt;\n%s\n&lt;/div&gt;\n&lt;/div&gt;"</span>)
 </pre>
 </div>
 </div>
@@ -294,11 +305,13 @@ This file is the template for the <code>publish.el</code> publishing script.
   (cl-remove-if
    (<span class="org-keyword">lambda</span> (file) (string-equal (concat directory <span class="org-string">"/"</span> <span class="org-string">"index.org"</span>) file))
    (directory-files-recursively directory <span class="org-string">"\\.org$"</span>)))
+
 (<span class="org-keyword">defun</span> <span class="org-function-name">get-org-file-keywords</span> (file)
   (<span class="org-keyword">with-temp-buffer</span>
     (insert-file-contents file)
     <span class="org-comment-delimiter">;</span><span class="org-comment">(org-mode)</span>
     (list file (org-collect-keywords keywords))))
+
 (<span class="org-keyword">defun</span> <span class="org-function-name">sort-keyword-list-by-date</span> (keyword-list <span class="org-type">&amp;optional</span> new-to-old)
   <span class="org-doc">"Sort the list by the date value of the form &lt;YYYY-MM-DD HH:MM&gt;"</span>
   (sort keyword-list
@@ -308,6 +321,7 @@ This file is the template for the <code>publish.el</code> publishing script.
             (<span class="org-keyword">if</span> new-to-old
               (string&gt; date-str-a date-str-b)
               (string&lt; date-str-a date-str-b))))))
+
 (<span class="org-keyword">defun</span> <span class="org-function-name">article-marked-for-noexport-p</span> (article)
   (string-match-p (regexp-quote <span class="org-string">"noexport"</span>) (cadr (assoc <span class="org-string">"TAGS[]"</span> (cadr article)))))
 </pre>
@@ -316,7 +330,7 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 
 <div class="outline-3">
-<h3>State</h3>
+<h3>Variables</h3>
 <div class="outline-text-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">TODO put together</span>
@@ -329,7 +343,7 @@ This file is the template for the <code>publish.el</code> publishing script.
 </div>
 
 <div class="outline-3">
-<h3>Filter function</h3>
+<h3>Filter out links to <code>index.html</code></h3>
 <div class="outline-text-3">
 <p>
 Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"</code>.
@@ -338,15 +352,9 @@ Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"<
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">filter-out-index-html</span> (transcoded-data-string backend communication-channel-plist)
   (<span class="org-keyword">when</span> (org-export-derived-backend-p backend 'html)
-  <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE "/index.html" doesn't get replace in case of internal links for some reason...</span>
-    (string-replace <span class="org-string">"index.html"</span> <span class="org-string">""</span> (string-replace <span class="org-string">"/index.html"</span> <span class="org-string">""</span> (substring-no-properties transcoded-data-string)))
-  )
-    <span class="org-comment-delimiter">;</span><span class="org-comment">(replace-regexp-in-string "/index.html" "" transcoded-data-string)</span>
-    <span class="org-comment-delimiter">;</span><span class="org-comment">(if (string-match-p "#hot-reload" (string-replace "index" "" (substring-no-properties transcoded-data-string)))</span>
-    <span class="org-comment-delimiter">;    </span><span class="org-comment">(print (concat transcoded-data-string "\n\nHELLO \n \n \n")))</span>
-  <span class="org-comment-delimiter">;  </span><span class="org-comment">(print (substring-no-properties transcoded-data-string))</span>
-  <span class="org-comment-delimiter">;</span><span class="org-comment">)</span>
-)
+    <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE "/index.html" doesn't get replaced in case of internal links for some reason...</span>
+    (string-replace <span class="org-string">"index.html"</span> <span class="org-string">""</span>
+                    (string-replace <span class="org-string">"/index.html"</span> <span class="org-string">""</span> (substring-no-properties transcoded-data-string)))))
 
 (add-to-list 'org-export-filter-link-functions 'filter-out-index-html)
 </pre>
@@ -355,16 +363,20 @@ Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"<
 </div>
 
 <div class="outline-3">
-<h3>Remove auto-generated org ids</h3>
+<h3>Filter out auto-generated org-ids</h3>
 <div class="outline-text-3">
+<p>
+Normally org-mode randomly generates an org-id for every heading and uses those
+links, which causes a bunch of noise in commits. This filter strips out all
+org-ids from exported html files. We can instead use the <code>:CUSTOM_ID:</code> property
+for a heading that we want to link to.
+</p>
+
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">html-body-id-filter</span> (output backend info)
   <span class="org-doc">"Remove random ID attributes generated by Org."</span>
   (<span class="org-keyword">when</span> (eq backend 'html)
-    (replace-regexp-in-string
-     <span class="org-string">" id=\"[[:alpha:]-]*org[[:alnum:]]\\{</span><span class="org-string"><span class="org-variable-name">7\\</span></span><span class="org-string">}\""</span>
-     <span class="org-string">""</span>
-     output t)))
+    (replace-regexp-in-string <span class="org-string">" id=\"[[:alpha:]-]*org[[:alnum:]]\\{</span><span class="org-string"><span class="org-variable-name">7\\</span></span><span class="org-string">}\""</span> <span class="org-string">""</span> output t)))
 
 (add-to-list 'org-export-filter-final-output-functions 'html-body-id-filter)
 </pre>
@@ -372,16 +384,16 @@ Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"<
 </div>
 </div>
 
-
 <div class="outline-3">
 <h3>Comment Section</h3>
 <div class="outline-text-3">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">set footnotes to be h3</span>
-(<span class="org-keyword">setq</span> org-html-footnotes-section
-      <span class="org-string">"&lt;div id=\"footnotes\"&gt;\n&lt;h3 class=\"footnotes\"&gt;%s: &lt;/h3&gt;\n&lt;div id=\"text-footnotes\"&gt;\n%s\n&lt;/div&gt;\n&lt;/div&gt;"</span>)
+<p>
+Adds a GitHub Issues-based comment section using <a href="https://utteranc.es/">utterances</a>. Only applies to
+articles that are marked with the keyword <code>#+COMMENTS: t</code>.
+</p>
 
-(<span class="org-keyword">setq</span> comment-section-html
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> comment-section-html
       (concat <span class="org-string">"&lt;hr&gt;\n"</span>
        <span class="org-string">"&lt;div id=\"comment-section\"&gt;\n"</span>
        <span class="org-string">"&lt;h3 id=\"comment-section-title\"&gt;Comments&lt;/h3&gt;\n"</span>
@@ -393,8 +405,23 @@ Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"<
 <span class="org-string">               crossorigin=\"anonymous\"</span>
 <span class="org-string">               async&gt;</span>
 <span class="org-string">       &lt;/script&gt;&lt;/div&gt;\n"</span>))
+</pre>
+</div>
+</div>
+</div>
 
-<span class="org-comment-delimiter">; </span><span class="org-comment">needed because otherwise footnotes will be below the comment section</span>
+<div class="outline-3">
+<h3>Footnotes Section workaround</h3>
+<div class="outline-text-3">
+<p>
+If we include above HTML at the very end of an org-file using <code>#+BEGIN_EXPORT
+html</code>, org-mode will still append the footnotes section below that (if the
+article ever used <code>[fn::footnote text]</code>). As a workaround, we define below
+function to later add as a filter-hook to insert the HTML at the very end.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">needed because otherwise footnotes will be below the comment section</span>
 (<span class="org-keyword">defun</span> <span class="org-function-name">insert-comment-section</span>  (contents html-backend info)
   (<span class="org-keyword">when</span> (string-match <span class="org-string">"&lt;/main&gt;"</span> contents)
     (replace-match (concat comment-section-html <span class="org-string">"&lt;/main&gt;"</span>) t t contents 0)))
@@ -513,9 +540,16 @@ Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"<
                             (cadr (assoc <span class="org-string">"TITLE"</span> (cadr article))))
                     nil (format <span class="org-string">"tag/%s.org"</span> tag) 'append)))
 
+  (<span class="org-keyword">setq</span> projects-tags-empty nil)
+  (<span class="org-keyword">dolist</span> (project project-keyword-list)
+      (<span class="org-keyword">when</span> (string-empty-p (cadr (assoc <span class="org-string">"TAGS[]"</span> (cadr project))))
+        (<span class="org-keyword">setq</span> projects-tags-empty t)))
+
+  (<span class="org-keyword">unless</span> projects-tags-empty
   <span class="org-comment-delimiter">; </span><span class="org-comment">append "* Projects" headline</span>
   (<span class="org-keyword">dolist</span> (tag all-tags)
     (write-region (format <span class="org-string">"* Projects tagged ~%s~\n"</span> tag) nil (format <span class="org-string">"tag/%s.org"</span> tag) 'append))
+  )
   <span class="org-comment-delimiter">; </span><span class="org-comment">add entry of a project to its tag.org's</span>
   (<span class="org-keyword">dolist</span> (project project-keyword-list)
     (<span class="org-keyword">dolist</span> (tag (split-string (cadr (assoc <span class="org-string">"TAGS[]"</span> (cadr project)))  <span class="org-string">" +"</span>))
