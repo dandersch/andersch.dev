@@ -27,5 +27,15 @@
 </description>
 <pubDate>Wed, 29 May 2024 00:00:00 +0200</pubDate>
 </item>
+<item>
+<title>The Lisp Programming Language and its Influence</title>
+<link>https://andersch.dev/article/lisp-paper</link>
+<guid>https://andersch.dev/article/lisp-paper</guid>
+<description>
+&lt;p&gt;A paper on the history, influence and concepts of the Lisp family of programming languages&lt;/p&gt;
+&lt;img src="https://andersch.dev/article/lisp-paper/s-expression.png"/&gt;
+</description>
+<pubDate>Fri, 20 Nov 2020 00:00:00 +0100</pubDate>
+</item>
 </channel>
 </rss>

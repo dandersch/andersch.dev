@@ -1,4 +1,5 @@
 #+TITLE: Pages tagged lisp
+* Articles tagged ~lisp~
+- [[../article/lisp-paper/index.org][The Lisp Programming Language and its Influence]]
 * Other tagged ~lisp~
 - [[../other/publish/index.org][The Publishing Script of this Website]]
-- [[../other/lisp-paper/index.org][The Lisp Programming Language and its Influence]]
