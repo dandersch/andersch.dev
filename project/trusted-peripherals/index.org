@@ -1,14 +1,25 @@
 #+TITLE:       Trusted Peripherals in TrustZone-M
 #+DATE:        <2023-09-01>
-#+DESCRIPTION: ...
-#+IMAGE:
-#+TAGS[]:      noexport cpp embedded arm
+#+DESCRIPTION: Securing Peripherals in Embedded Systems using ARM TrustZone-M
+#+IMAGE:       hardware.png
+#+TAGS[]:      cpp embedded arm
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
 * {{{TITLE}}}
 #+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
 
+As part of my bachelor's thesis, I researched the prospect of isolating
+peripherals in embedded devices to a Trusted Execution Environment (TEE), which
+in theory should make them an equally trusted part of the system. This would
+enable us to, e.g., have confidence in the integrity of a sensor's readings,
+even if the device attached to the sensor is located in an untrusted
+environment.
+
 # endsnippet
 
-** ...
+For the hardware I used the Cortex-M33-based /NUCLEO-L5552ZE-Q/ development board
+and for the RTOS I used [[https://www.zephyrproject.org/][Zephyr]] in combination with a customized version of
+[[https://www.trustedfirmware.org/projects/tf-m/][TrustedFirmware-M]], which provides a standard-compliant TEE implementation.
+
+You can find the source code [[https://github.com/dandersch/trusted-peripherals][here]] and the thesis as a pdf [[./thesis.pdf][here]].

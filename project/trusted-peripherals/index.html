@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Trusted Peripherals in TrustZone-M</title>
-<meta name="description" content="..." />
+<meta name="description" content="Securing Peripherals in Embedded Systems using ARM TrustZone-M" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -218,18 +218,33 @@
 </header>
 <main id="content" class="content">
 <div class="tags-date-box">
-<div class="tags"><code>[ <a href="/tag/noexport.html">noexport</a> <a href="/tag/cpp.html">cpp</a> <a href="/tag/embedded.html">embedded</a> <a href="/tag/arm.html">arm</a> ]</code></div>
+<div class="tags"><code>[ <a href="/tag/cpp.html">cpp</a> <a href="/tag/embedded.html">embedded</a> <a href="/tag/arm.html">arm</a> ]</code></div>
 <div class="date"><span class="timestamp"><2023-09-01></span></div>
 </div>
 
 <div class="outline-2">
 <h2>Trusted Peripherals in TrustZone-M</h2>
 <div class="outline-text-2">
-<h2 class="subtitle">...</h1>
-</div>
+<h2 class="subtitle">Securing Peripherals in Embedded Systems using ARM TrustZone-M</h1><div class="figure"><img src="/project/trusted-peripherals/hardware.png" alt=""></div>
 
-<div class="outline-3">
-<h3>&#x2026;</h3>
+<p>
+As part of my bachelor's thesis, I researched the prospect of isolating
+peripherals in embedded devices to a Trusted Execution Environment (TEE), which
+in theory should make them an equally trusted part of the system. This would
+enable us to, e.g., have confidence in the integrity of a sensor's readings,
+even if the device attached to the sensor is located in an untrusted
+environment.
+</p>
+
+<p>
+For the hardware I used the Cortex-M33-based <i>NUCLEO-L5552ZE-Q</i> development board
+and for the RTOS I used <a href="https://www.zephyrproject.org/">Zephyr</a> in combination with a customized version of
+<a href="https://www.trustedfirmware.org/projects/tf-m/">TrustedFirmware-M</a>, which provides a standard-compliant TEE implementation.
+</p>
+
+<p>
+You can find the source code here and the thesis as a pdf <a href="./thesis.pdf">here</a>.
+</p>
 </div>
 </div>
 </main>
