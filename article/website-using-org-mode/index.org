@@ -21,6 +21,8 @@ actual org-mode file, since it is part of the GitHub Pages repo. For example,
 fact, you can get the ~.org~ of every page by appending ~index.org~ to the current
 link or changing ~.html~ to ~.org~.
 
+# endsnippet
+
 ** Features
 The features are basically anything you can see on this site, including:
 - A "Latest articles" panel as seen [[../../index.org][here]]

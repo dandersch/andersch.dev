@@ -52,6 +52,9 @@ see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][ta
 (ox-extras-activate '(latex-header-blocks ignore-headlines))
 
 (require 'ob-emacs-lisp)
+
+(add-to-list 'load-path "~/dev/org-slide")
+(require 'org-slide)
 #+END_SRC
 
 ** Configuration

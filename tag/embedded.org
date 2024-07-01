@@ -1,0 +1,3 @@
+#+TITLE: Pages tagged embedded
+* Projects tagged ~embedded~
+- [[../project/trusted-peripherals/index.org][Trusted Peripherals in TrustZone-M]]

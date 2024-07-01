@@ -30,15 +30,9 @@ nav.nav {
   background-color: #18191b;
 }
 
-a:link {
-  color: #4db5bd;
-  /* background-color: yellow; */
-}
+a:link    { color: #4db5bd; }
 
-a:visited {
-  /* color: #0170BF; */
-  color: #4d85bd;
-}
+a:visited { color: #4d85bd; }
 
 a.nav-link {
   margin: 15px;
@@ -49,7 +43,7 @@ a.nav-link {
 
 p { text-align: justify; text-justify: inter-word; }
 
-code { font-size: 16px; }
+code { font-size: 16px; color: #b4916d; }
 
 @font-face {
   font-family: 'DejaVu Serif';

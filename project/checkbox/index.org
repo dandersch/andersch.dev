@@ -1,0 +1,22 @@
+#+TITLE:       CHECKBOX
+#+DATE:        <2020-12-10>
+#+DESCRIPTION: A puzzle platformer written in C++ using SFML and Box2D
+#+IMAGE:       preview.gif
+#+TAGS[]:      gamedev cpp
+#+OPTIONS:     toc:nil num:nil
+
+#+CALL: ../../code.org:generate-article-header[:eval yes]()
+* {{{TITLE}}}
+#+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
+
+/CHECKBOX/ is a simple puzzle platformer I wrote in C++ using SFML as a framework.
+It uses Box2D for physics and Dear Imgui for a debug menu (opens with ~F1~).
+
+# endsnippet
+
+As a special game mechanic, the checkpoint system in the game is based on a
+single box/chest that you can pick up, carry and throw using the ~F~ key. Pressing
+~R~ makes your player character respawn from the chest. These respawns are
+infinite and so you can use them to your advantage and to solve puzzles.
+
+You can find the source code [[https://github.com/dandersch/checkbox][here]].

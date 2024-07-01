@@ -25,6 +25,9 @@
 
 (require 'ob-emacs-lisp)
 
+(add-to-list 'load-path "~/dev/org-slide")
+(require 'org-slide)
+
 (setq
       keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]") ; keywords to parse from .org files
       org-html-htmlize-output-type 'css

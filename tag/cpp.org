@@ -3,5 +3,5 @@
 - [[../article/embedding-binary-files-in-c/index.org][Embedding a Binary File into a C/C++ Program]]
 - [[../article/hot-reloadable-embedded-shaders-in-c/index.org][Hot-Reloadable, Embedded Shader Code in C/C++]]
 * Projects tagged ~cpp~
-- [[../project/game2d/index.org][Game2D]]
+- [[../project/checkbox/index.org][CHECKBOX]]
 - [[../project/raytracer/index.org][OpenGL Raytracer]]

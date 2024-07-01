@@ -1,8 +1,8 @@
-#+TITLE:       The Lisp Programming Language and its Influence
-#+DESCRIPTION: A paper on Lisp I have written as part of a university course
-#+DATE:        <2022-05-08>
+#+TITLE:       Trusted Peripherals in TrustZone-M
+#+DATE:        <2023-09-01>
+#+DESCRIPTION: ...
 #+IMAGE:
-#+TAGS[]:      noexport lisp
+#+TAGS[]:      noexport cpp embedded arm
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
