@@ -1,3 +1,4 @@
 #+TITLE: Pages tagged gamedev
 * Projects tagged ~gamedev~
+- [[../project/game2d/index.org][game2d]]
 - [[../project/checkbox/index.org][CHECKBOX]]

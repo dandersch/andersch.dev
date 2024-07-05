@@ -4,5 +4,6 @@
 - [[../article/hot-reloadable-embedded-shaders-in-c/index.org][Hot-Reloadable, Embedded Shader Code in C/C++]]
 * Projects tagged ~cpp~
 - [[../project/trusted-peripherals/index.org][Trusted Peripherals in TrustZone-M]]
+- [[../project/game2d/index.org][game2d]]
 - [[../project/checkbox/index.org][CHECKBOX]]
 - [[../project/raytracer/index.org][OpenGL Raytracer]]
