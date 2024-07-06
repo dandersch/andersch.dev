@@ -2,4 +2,4 @@
 * Articles tagged ~graphics~
 - [[../article/hot-reloadable-embedded-shaders-in-c/index.org][Hot-Reloadable, Embedded Shader Code in C/C++]]
 * Projects tagged ~graphics~
-- [[../project/raytracer/index.org][OpenGL Raytracer]]
+- [[../project/raytracer/index.org][Compute Raytracer]]

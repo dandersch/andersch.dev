@@ -1,8 +1,8 @@
 #+TITLE:       game2d
-#+DESCRIPTION: A 2D game engine
+#+DESCRIPTION: A 2D game engine in C++ using SDL
 #+DATE:        <2022-01-01 Mon>
 #+IMAGE:       preview.gif
-#+TAGS[]:      noexport cpp gamedev
+#+TAGS[]:      cpp gamedev
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
@@ -10,11 +10,6 @@
 #+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
 
 * Introduction                                                       :ignore:
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-labore et dolore magna aliquyam erat, sed diam voluptua.
+You can find the source code [[https://github.com/dandersch/game2d][here]].
 
 # endsnippet
