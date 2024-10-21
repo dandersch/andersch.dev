@@ -6,4 +6,5 @@
 - [[../project/trusted-peripherals/index.org][Trusted Peripherals in TrustZone-M]]
 - [[../project/game2d/index.org][game2d]]
 - [[../project/checkbox/index.org][CHECKBOX]]
+- [[../project/planetarium/index.org][Planetarium]]
 - [[../project/raytracer/index.org][Compute Raytracer]]
