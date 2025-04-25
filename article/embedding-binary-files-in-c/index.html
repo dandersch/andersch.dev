@@ -8,7 +8,7 @@
 <title>Embedding a Binary File into a C/C++ Program</title>
 <meta name="description" content="How to bake any file as a buffer into your executable" />
 <meta name="generator" content="Org Mode" />
-<style>
+<style type="text/css">
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -221,20 +221,29 @@
 <div class="tags"><code>[ <a href="/tag/cpp.html">cpp</a> ]</code></div>
 <div class="date"><span class="timestamp"><2024-05-31></span></div>
 </div>
-
-<div class="outline-2">
-<h2>Embedding a Binary File into a C/C++ Program</h2>
-<div class="outline-text-2">
+<div id="outline-container-orgfdb2941" class="outline-2">
+<h2 id="orgfdb2941">Embedding a Binary File into a C/C++ Program</h2>
+<div class="outline-text-2" id="text-orgfdb2941">
 <h2 class="subtitle">How to bake any file as a buffer into your executable</h1><div class="figure"><img src="/article/embedding-binary-files-in-c/preview.png" alt=""></div>
 
-<p>
-How to embed a binary into your program
-</p>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org430118d">1. Convert Binary Files to hex-formatted text files</a></li>
+<li><a href="#orgaba8611">2. Use the linker</a></li>
+<li><a href="#orgd74d457">3. Inline Assembly using <code>.incbin</code></a></li>
+<li><a href="#orgfbaf432">4. Use a library</a></li>
+<li><a href="#org0413038">5. Use a language feature</a></li>
+<li><a href="#orgdc5e356">6. Resources</a></li>
+</ul>
 </div>
-
-<div class="outline-3">
-<h3>1st Option: Convert Binary Files to hex-formatted text files</h3>
-<div class="outline-text-3">
+</div>
+</div>
+</div>
+<div id="outline-container-org430118d" class="outline-2">
+<h2 id="org430118d"><span class="section-number-2">1.</span> Convert Binary Files to hex-formatted text files</h2>
+<div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>adds xxd (or convert, bin2h, &#x2026;) as a build dependency&#x2026;</li>
 <li>OR requires writing custom program that can be included with the source code</li>
@@ -293,10 +302,9 @@ reflects <a href="../hot-reloadable-embedded-shaders-in-c">my inclusion of glsl 
 </div>
 </div>
 </div>
-
-<div class="outline-3">
-<h3>2nd Option: Use the linker</h3>
-<div class="outline-text-3">
+<div id="outline-container-orgaba8611" class="outline-2">
+<h2 id="orgaba8611"><span class="section-number-2">2.</span> Use the linker</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 SECOND OPTION:
 </p>
@@ -397,10 +405,9 @@ from its extension is more cumbersome.</li>
 </ul>
 </div>
 </div>
-
-<div class="outline-3">
-<h3>3rd Option: Inline Assembly using <code>.incbin</code></h3>
-<div class="outline-text-3">
+<div id="outline-container-orgd74d457" class="outline-2">
+<h2 id="orgd74d457"><span class="section-number-2">3.</span> Inline Assembly using <code>.incbin</code></h2>
+<div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">BINARY_ASM_INCLUDE</span>(<span class="org-variable-name">filename</span>, <span class="org-variable-name">buffername</span>)     \
     <span class="org-keyword">__asm__</span>(<span class="org-string">".section .rodata\n"</span>                     \
@@ -446,10 +453,9 @@ names of the buffer and its size directly.
 </p>
 </div>
 </div>
-
-<div class="outline-3">
-<h3>4th Option: Use a library</h3>
-<div class="outline-text-3">
+<div id="outline-container-orgfbaf432" class="outline-2">
+<h2 id="orgfbaf432"><span class="section-number-2">4.</span> Use a library</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 The library <a href="https://github.com/graphitemaster/incbin">incbin</a> actually uses the previous approach by default and tries to
 be as crossplatform as it can. In case of MSVC, it falls back to using the first
@@ -471,10 +477,9 @@ The usage code looks basically like this:
 </div>
 </div>
 </div>
-
-<div class="outline-3">
-<h3>5th Option: Use a language feature</h3>
-<div class="outline-text-3">
+<div id="outline-container-org0413038" class="outline-2">
+<h2 id="org0413038"><span class="section-number-2">5.</span> Use a language feature</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 C23 actually introduced a new <code>#embed</code> directive. Usage-wise, it is supposed to be
 similar to the first approach:
@@ -498,19 +503,17 @@ implement this C23 feature as of this writing.
 </p>
 </div>
 </div>
-
-<div class="outline-3">
-<h3>RESOURCES / REFERENCES</h3>
-<div class="outline-text-3">
+<div id="outline-container-orgdc5e356" class="outline-2">
+<h2 id="orgdc5e356"><span class="section-number-2">6.</span> Resources</h2>
+<div class="outline-text-2" id="text-6">
 <ul class="org-ul">
-<li><a href="https://www.devever.net/~hl/incbin">https://www.devever.net/~hl/incbin</a></li>
-<li><a href="https://github.com/graphitemaster/incbin">https://github.com/graphitemaster/incbin</a></li>
+<li><a href="https://www.devever.net/~hl/incbin">Embedding of binary data into programs</a></li>
+<li><a href="https://github.com/graphitemaster/incbin">GitHub - graphitemaster/incbin: Include binary files in C/C++</a></li>
 <li><a href="https://mort.coffee/home/fast-cpp-embeds/">https://mort.coffee/home/fast-cpp-embeds/</a></li>
 <li><a href="https://github.com/mortie/strliteral">https://github.com/mortie/strliteral</a></li>
 <li><a href="https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man">https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man</a></li>
 <li><a href="https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html">https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html</a></li>
 </ul>
-</div>
 </div>
 </div>
 <div id="footnotes">

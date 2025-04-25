@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Articles</title>
 <meta name="generator" content="Org Mode" />
-<style>
+<style type="text/css">
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -220,15 +220,10 @@
 <div class="tags"><code>[ <a href="/tag/cpp.html">cpp</a> ]</code></div>
 <div class="date"><span class="timestamp"><2024-05-31></span></div>
 </div>
-
-<div class="outline-2">
-<h2>Embedding a Binary File into a C/C++ Program</h2>
-<div class="outline-text-2">
+<div id="outline-container-orgde2050a" class="outline-2">
+<h2 id="orgde2050a">Embedding a Binary File into a C/C++ Program</h2>
+<div class="outline-text-2" id="text-orgde2050a">
 <h2 class="subtitle">How to bake any file as a buffer into your executable</h1><div class="figure"><img src="/article/embedding-binary-files-in-c/preview.png" alt=""></div>
-
-<p>
-How to embed a binary into your program
-</p>
 </div>
 </div>
 <div class="read-more"><a href="/article/embedding-binary-files-in-c">READ MORE</a></div><hr>
@@ -236,15 +231,14 @@ How to embed a binary into your program
 <div class="tags"><code>[ <a href="/tag/opengl.html">opengl</a> <a href="/tag/graphics.html">graphics</a> <a href="/tag/cpp.html">cpp</a> ]</code></div>
 <div class="date"><span class="timestamp"><2024-05-29></span></div>
 </div>
+<div id="outline-container-org69175af" class="outline-2">
+<h2 id="org69175af">Embedding Shader Code in C/C++</h2>
+<div class="outline-text-2" id="text-org69175af">
+<h2 class="subtitle">How to (nicely) include GLSL shaders as strings (and hot-reload them)</h1><div class="figure"><img src="/article/hot-reloadable-embedded-shaders-in-c/preview.gif" alt=""></div>
 
-<div class="outline-2">
-<h2>Hot-Reloadable, Embedded Shader Code in C/C++</h2>
-<div class="outline-text-2">
-<h2 class="subtitle">How to include a GLSL shader as a string inside your code (and still make it hot-reloadable)</h1><div class="figure"><img src="/article/hot-reloadable-embedded-shaders-in-c/preview.gif" alt=""></div>
 <p>
-Most OpenGL tutorials that start you out on shaders will tell you to include
-your first shaders as string literals by writing out the GLSL code out like
-this:
+OpenGL tutorials usually skip over any file I/O code by telling you to write out
+your very first shader as a string literal like this:
 </p>
 
 <div class="org-src-container">
@@ -257,23 +251,25 @@ this:
 </div>
 
 <p>
-This is done because it has the benefit of being able to pass over file IO &amp;
-parsing code and instead focus on teaching actual OpenGL/GLSL specific concepts.
-It would also be useful for fast prototyping with more complex shaders, if it
-wasn't for the fact that&#x2026;
+While simple, this becomes impractical for complex shaders, since it's tedious
+to write and we lose any syntax highlighting.
 </p>
-<ul class="org-ul">
-<li>Writing out <code>"...\n"</code> for every line is tedious and easy to forget</li>
-<li>You don't get any syntax highlighting for the GLSL code</li>
-<li>It makes shader hot-reloading impossible (<a href="#hot-reload">or does it?</a>)</li>
-</ul>
 
 <p>
-I was exploring better ways on how to include the shader without having to write
-some bespoke shader management code that loads in files, allocates memory for
-the string, appends null terminators, watches for file changes and so on. To my
-surprise, I stumbled upon my now preferred way of hot-reloading shaders.
+Here is an alternative approach that still avoids file I/O but has following
+advantages:
 </p>
+<ul class="org-ul">
+<li>No additional preprocessing step &amp; portable across C/C++</li>
+<li>Shader code embedded as a C string (no file I/O necessary)</li>
+<li>Option of having shader code in a separate file or defined inline</li>
+<li>Preserves (most) syntax highlighting in both cases</li>
+<li>Share <code>#define</code>'s between C and GLSL code</li>
+<li>Centralize common helper functions between shaders (e.g. in <code>common.glsl</code>)</li>
+<li>Centralize common struct definitions between GLSL and C (e.g. in <code>common.h</code>)</li>
+<li>Conditional compilation (e.g. for having fragment &amp; vertex shader in one file)</li>
+<li>Can pair well with hot-reloading C code</li>
+</ul>
 </div>
 </div>
 <div class="read-more"><a href="/article/hot-reloadable-embedded-shaders-in-c">READ MORE</a></div><hr>
@@ -281,10 +277,9 @@ surprise, I stumbled upon my now preferred way of hot-reloading shaders.
 <div class="tags"><code>[ <a href="/tag/lisp.html">lisp</a> ]</code></div>
 <div class="date"><span class="timestamp"><2020-11-20></span></div>
 </div>
-
-<div class="outline-2">
-<h2>The Lisp Programming Language and its Influence</h2>
-<div class="outline-text-2">
+<div id="outline-container-org7788762" class="outline-2">
+<h2 id="org7788762">The Lisp Programming Language and its Influence</h2>
+<div class="outline-text-2" id="text-org7788762">
 <h2 class="subtitle">A paper on the history, influence and concepts of the Lisp family of programming languages</h1><div class="figure"><img src="/article/lisp-paper/s-expression.png" alt=""></div>
 
 <p>

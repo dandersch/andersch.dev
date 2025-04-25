@@ -2,3 +2,6 @@
 .org-timestamps/
 *.html~
 .dir-locals.el
+*.mp4
+*.mkv
+*.woff

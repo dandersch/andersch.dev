@@ -14,7 +14,7 @@ html { font-family: "Ubuntu", "Trebuchet MS", Arial, sans-serif; }
     margin: auto;
     background-color: #28292b;
     color: #ffffff;
-    padding: 10px 20px 20px 20px;
+    padding: 10px 30px 20px 30px;
 }
 
 header {
@@ -62,10 +62,34 @@ h1 a {
 }
 
 /* center all headings */
-h2 { text-align: center; font-size: 27px; font-weight: 500; } /* article title */
-h3 { font-size: 24px; font-weight: normal; } /* headings in article */
+h1 { text-align: center; font-weight: normal;} /* article title */
+h2 { text-align: left; font-size: 27px; font-weight: 500; margin-top: 40px; } /* headings in article */
+h3 { font-size: 24px; font-weight: normal; }
 h4 { font-size: 20px; font-weight: normal; }
 h5 { text-align: center; }
+
+/* better lists */
+ul { list-style-type: circle; }
+li { margin-bottom: 5px; }
+
+/* table of contents */
+#table-of-contents {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+  padding: 10px;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+#table-of-contents h2 { color: #f1f1f1; margin-left: 10px; margin-top: 5px; margin-bottom: 5px; text-align: left;}
+#table-of-contents ul { list-style-type: none; padding-left: 10px; }
+#table-of-contents li { margin-bottom: 10px; }
+#table-of-contents a { color: #b3b3b3; text-decoration: none; transition: color 0.3s ease; }
+#table-of-contents a:hover { color: #f1f1f1; }
+
 
 .org-src-container pre { color: #000000; font-size: 16px; }
 
@@ -105,14 +129,14 @@ h5 { text-align: center; }
   max-width: 100%;
   padding-left: 4px;
 }
-#latest-articles { margin: 0px 0px 1px 0px; font-weight: normal; }
-#latest-projects { margin: 0px 0px 1px 0px; font-weight: normal; }
+#latest-articles { text-align: center; margin: 0px 0px 1px 0px; font-weight: normal; }
+#latest-projects { text-align: center; margin: 0px 0px 1px 0px; font-weight: normal; }
 
 /* CLICKABLE IMAGES WITH TEXT OVERLAY */
 .image-container {
     position: relative;
-    width: 400px;
-    height: 225px;
+    width: 390px;
+    height: 220px;
     margin-top: 1px;
     margin-bottom: 1px;
 
@@ -201,7 +225,7 @@ h5 { text-align: center; }
     text-align: center;
     padding: 2px 2px 2px 2px;
     opacity: 1;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8) !important;
     /* text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; */
 
     width: 100%;
@@ -247,7 +271,7 @@ body {
 {
   color: #FFFFFF !important;
   background-color: #18191b !important;
-  margin: 16px 0px 16px 0px;
+  margin: 16px 20px 16px 20px;
 }
 .org-builtin           { color: #FFFFFF; background-color: #18191b;  }
 .org-button            { color: #0066CC; text-decoration: underline; }
