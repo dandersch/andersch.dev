@@ -109,13 +109,30 @@
   (if (string-match-p "t" (cadr (assoc "COMMENTS" keywords)))
     (add-hook 'org-export-filter-final-output-functions 'insert-comment-section nil nil)))
 
+; check if IMAGE is set
+(if (string= "" (cadr (assoc "IMAGE" keywords)))
+  (progn
+    (setq image-fmt-string "%s")
+    (setq image-path ""))
+  (progn
+    ; TODO hardcoded
+    (setq image-path (string-replace "/index.org" "" (string-replace "/home/da/dev/andersch.dev/" "" (buffer-file-name))))
+    (setq image-fmt-string "<div class=\"figure\"><img src=\"/%s/%s\" alt=\"\"></div>")))
+
+(format (concat "<h2 class=\"subtitle\">%s</h1>" image-fmt-string)
+   (cadr (assoc "DESCRIPTION" keywords)) image-path (cadr (assoc "IMAGE" keywords)))
+
 (format
-   (concat
-     "<div class=\"tags-date-box\">\n"
-       (generate-tags)
-       "<div class=\"date\"><span class=\"timestamp\">%s</span></div>\n"
-     "</div>\n")
-   (cadr (assoc "DATE" keywords)))
+  (concat
+    "<div class=\"tags-date-box\">\n"
+      (generate-tags)
+      "<div class=\"date\"><span class=\"timestamp\">%s</span></div>\n"
+    "</div>\n"
+    "<h1>%s</h1>"
+    "<h2 class=\"subtitle\">%s</h1>" image-fmt-string)
+   (cadr (assoc "DATE" keywords))
+   (cadr (assoc "TITLE" keywords))
+   (cadr (assoc "DESCRIPTION" keywords)) image-path (cadr (assoc "IMAGE" keywords)))
 #+END_SRC
 
 #+NAME: generate-article-subtitle
@@ -170,70 +187,4 @@
     (setq article-snippets (append article-snippets (list "<hr>\n")))))
 
 (mapconcat #'identity article-snippets "") ; flatten string list to a string
-#+END_SRC
-
-#+NAME: list-of-articles
-#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='(get-article-keyword-list)
-(setq list-string '())
-(if (eq org-export-current-backend 'html)
-  (dolist (entry list)
-    (push
-     (format
-       (concat
-        "#+BEGIN_EXPORT html\n"
-        "<div class=\"image-container\">\n"
-           ; NOTE "../" as a workaround
-           "<a href=\"../%s\">\n"
-               "<div class=\"overlay\">\n"
-                   "<div class=\"title\">%s</div>\n"
-                   "<div class=\"description\">%s</div>\n"
-               "</div>\n"
-               "<img src=\"./%s\" alt=\"\">\n"
-           "</a>\n"
-        "</div>\n"
-        "#+END_EXPORT\n")
-       (string-replace ".org" ".html" (car entry))
-       (cadr (assoc "TITLE" (cadr entry)))
-       (cadr (assoc "DESCRIPTION" (cadr entry)))
-       (cadr (assoc "IMAGE" (cadr entry))))
-    list-string)
-  )
-  (dolist (entry list)
-    ; NOTE "../" as a workaround
-    (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) list-string)
-  ))
-(mapconcat #'identity list-string "\n") ; flatten string list to a string
-#+END_SRC
-
-#+NAME: list-of-projects
-#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list=(get-project-keyword-list)
-(setq list-string '())
-(if (eq org-export-current-backend 'html)
-  (dolist (entry list)
-    (push
-     (format
-       (concat
-        "#+BEGIN_EXPORT html\n"
-        "<div class=\"image-container\">\n"
-           ; NOTE "../" as a workaround
-           "<a href=\"../%s\">\n"
-               "<div class=\"overlay\">\n"
-                   "<div class=\"title\">%s</div>\n"
-                   "<div class=\"description\">%s</div>\n"
-               "</div>\n"
-               "<img src=\"./%s\" alt=\"\">\n"
-           "</a>\n"
-        "</div>\n"
-        "#+END_EXPORT\n")
-       (string-replace ".org" ".html" (car entry))
-       (cadr (assoc "TITLE" (cadr entry)))
-       (cadr (assoc "DESCRIPTION" (cadr entry)))
-       (cadr (assoc "IMAGE" (cadr entry))))
-    list-string)
-  )
-  (dolist (entry list)
-    ; NOTE "../" as a workaround
-    (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) list-string)
-  ))
-(mapconcat #'identity list-string "\n") ; flatten string list to a string
 #+END_SRC

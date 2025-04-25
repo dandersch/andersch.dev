@@ -1,7 +1,7 @@
 #+TITLE: Pages tagged cpp
 * Articles tagged ~cpp~
-- [[../article/embedding-binary-files-in-c/index.org][Embedding a Binary File into a C/C++ Program]]
-- [[../article/hot-reloadable-embedded-shaders-in-c/index.org][Embedding Shader Code in C/C++]]
+- [[../article/embedding-binary-files-in-c/index.org][Embedding Binaries in C(++)]]
+- [[../article/hot-reloadable-embedded-shaders-in-c/index.org][#include "shader.glsl"]]
 * Projects tagged ~cpp~
 - [[../project/trusted-peripherals/index.org][Trusted Peripherals in TrustZone-M]]
 - [[../project/game2d/index.org][game2d]]

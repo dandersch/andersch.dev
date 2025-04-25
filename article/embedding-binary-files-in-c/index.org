@@ -1,47 +1,45 @@
-#+TITLE:       Embedding a Binary File into a C/C++ Program
-#+DESCRIPTION: How to bake any file as a buffer into your executable
+#+TITLE:       Embedding Binaries in C(++)
+#+DESCRIPTION: Five ways to bake any file as a buffer into your executable
 #+DATE:        <2024-05-31>
 #+IMAGE:       preview.png
 #+TAGS[]:      cpp
 #+COMMENTS:    t
-#+OPTIONS:     toc:nil num:2
+#+OPTIONS:     toc:nil num:1
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
-* {{{TITLE}}}
-:PROPERTIES:
-:UNNUMBERED: notoc
-:END:
-#+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
+
+* Introduction                                                       :ignore:
+When programming, it can be desirable to embed the data of arbitrary binary
+files directly in the final executable of your application. This is great to:
+- /Provide fallbacks/ for fonts/textures/... in case files can't be accessed
+- Simplify code and making it more robust (by omitting file I/O)
+- Distribute /self-contained executables/
+
+Here is a list of some of the ways you can achieve this (comfortably) in C and
+C++.
 
 # endsnippet
-#+TOC: headlines
-
-* Convert Binary Files to hex-formatted text files
-- adds xxd (or convert, bin2h, ...) as a build dependency...
-- OR requires writing custom program that can be included with the source code
-- requires modification to the build script if you want to keep binary files up-to-date
-- binary files can be included with their original name (if you want)
-- larger filesizes
-- you get the buffer as a real array (sizeof(buffer) works)
-- can be slooow
+#+TOC: headlines 1
 
 
+* Convert to C Code
+** Introduction                                                      :ignore:
+By converting a binary file to to a properly formatted ~char~ array, we can simply
+include the resulting code in the source code. Programs to do this are ~xxd~,
+~convert~ or ~bin2h~.
 
-In the case of ~xxd~, running ~xxd -i file.ext~ will output C code of the following form:
+** Example
+In the case of ~xxd~, running ~xxd -i file.ext~ will output C code:
 #+BEGIN_SRC C
 unsigned char file_ext[] = {
   0x58, 0x61, 0x59, 0x62, 0x58, 0x37, 0x70, 0x78, 0x32, 0x4e, 0x35, 0x70,
   0x41, 0x59, 0x56, 0x39, 0x0a, /* ... */
 };
-unsigned int test_url_len = 1234;
+unsigned int file_ext_len = 1234;
 #+END_SRC
-
-The resulting file can be included and the buffers be used as if they come
-straight from ~fread~.
 
 If you want to have e.g. a folder of binary files always be at the ready for
 embedding, you could include the following in your build script:
-
 #+BEGIN_SRC sh
 # generate a C char array for all files in the "res" folder
 for i in $(ls "res")
@@ -50,10 +48,9 @@ do
 done
 #+END_SRC
 
-As you can see, I run the generated code through some ~sed~ delete operations to
-remove the first and last two lines of the file. I also keep the generated file
-under the same name as the binary. This allows me to use it in a way that
-reflects [[../hot-reloadable-embedded-shaders-in-c/index.org][my inclusion of glsl shaders in source code]]
+By using some ~sed~ operations and by keeping the generated file under the same
+name as the binary, we can ~#include~ the file in a way that reflects [[../hot-reloadable-embedded-shaders-in-c/index.org][my inclusion
+of glsl shaders in source code]]:
 
 #+BEGIN_SRC C
 unsigned char buffer[] = {
@@ -61,18 +58,36 @@ unsigned char buffer[] = {
 };
 #+END_SRC
 
-* Use the linker
-SECOND OPTION:
-- link against a .o version of the binary file with predefined symbols
-- convert all binary files into .o files that can be linked against
-- Build dependency: using ~ld~ or ~objcopy~ (Windows: bin2coff, bin2obj)
-- you can specify different types (not just char) if you want
-- (memory will be always const unless you memcpy)
-- smaller filesizes compared to first option (textfile vs binary object fiel)
-- requires (more complex) modifications to the build script than the first option
-- no additional build dependencies (linker was needed anyway)
-- probably faster compile times than the first option (xxd vs linker + no need to parse all those hex values)
+** Pros & Cons
+- ✅ Should work everywhere
+- ✅ Binaries can be included with their original name
+- ✅ Buffer as a real array (i.e. ~sizeof(buffer)~ works)
+- ❌ Adds a build dependency
+- ❌ Adds a precompilation step
+- ❌ Generated files are larger in size than the binaries
+- ❌ Slows down build times
 
+** Improving build times with ~strliteral~
+Parsing hex-formatted char arrays from a program like ~xxd~ like above can be slow
+for large binaries. It turns out that parsing string literals containing escaped
+byte values is *much* faster[fn::[[https://mort.coffee/home/fast-cpp-embeds/][C/C++: 70x faster file embeds using string
+literals]]], which is the approach of the tool [[https://github.com/mortie/strliteral][strliteral]].
+
+Since it's contained in a single C file, you can also trivially compile it as
+part of your build system, which eliminates the disadvantage of an external
+build dependency.
+
+
+* Use the linker
+** Introduction                                                      :ignore:
+Instead of getting the binary into a compilable format, we can go one step
+further and "compile" it directly. The output is an object file with predefined
+symbols that can be linked against.
+
+Programs (or linkers) that can do this are ~ld~, ~objcopy~ or ~bin2coff~, ~bin2obj~ on
+Windows.
+
+** Example
 The basic usage with ~ld~:
 #+BEGIN_SRC sh
 ld -r -b binary data.bin -o data.o
@@ -81,7 +96,6 @@ clang -o main main.c data.o
 #+END_SRC
 
 Can be generalized in your build script like this:
-
 #+BEGIN_SRC bash
 OBJECT_FILES=()
 for i in $(ls "res")
@@ -97,8 +111,8 @@ done
 clang -o main main.c ${OBJECT_FILES[*]}
 #+END_SRC
 
-Will generate symbols in the ~.o~ file that can be accessed in your program like this:
-#+BEGIN_SRC  C
+This will generate symbols in the ~.o~ file that can be accessed like this:
+#+BEGIN_SRC C
 extern const unsigned char _binary_file_ext_start[];
 extern const unsigned char _binary_file_ext_end[];
 extern const unsigned char _binary_file_ext_size; // NOTE: access with (size_t)&_binary_file_ext_size
@@ -120,25 +134,34 @@ comfortable, you can define some macros to help you:
 Which makes usage look like this:
 
 #+BEGIN_SRC C
-// NOTE: no quotes and filename and extension separated by a comma
-BINARY_INCLUDE(data, bin);
+BINARY_INCLUDE(data, bin); // filename & ext separated by a comma without quotes
 
 int main()
 {
-    unsigned char* my_buffer    = BINARY_BUFFER(data, bin);
-    unsigned int my_buffer_size = BINARY_BUFFER_SIZE(data, bin);
+    unsigned char* my_buffer      = BINARY_BUFFER(data, bin);
+    unsigned int   my_buffer_size = BINARY_BUFFER_SIZE(data, bin);
 }
 #+END_SRC
 
-You might already see some of the downsides to this approach compared to the
-previous one:
-- You don't get a proper array, just a pointer and size (i.e. you shouldn't call ~sizeof(buffer)~)
-- Since they are ~extern~, you don't have access to the data or size at compile-time (only after linking)
-- You include the binary by writing ~MY_INCLUDE(file, ext)~ instead of ~#include
-  "file.ext"~. Having to remember to not pass in strings and separate filename
-  from its extension is more cumbersome.
+** Pros & Cons
+- ✅ No added build dependency (since we already depended on having linker)
+- ✅ Faster build times than first option
+- ✅ Can specify different types (not just char)
+- ✅ Smaller filesizes compared to first option
+- ✅ Can be cross-platform...
+- ❌ ...but may require a different tool for each platform
+- ❌ Adds a precompilation step (and arguably more complex than first option)
+- ❌ Memory always ~const~ (i.e. needs a ~memcpy~ to mutate it)
+- ❌ No real array, just a pointer and size (i.e. ~sizeof(buffer)~ doesn't work)
+- ❌ No access to ~extern~ data or size at compile-time (only after linking)
+- ❌ Arguably worse ergonomics: ~MY_INCLUDE(file, ext)~ vs. ~#include "file.ext"~
+
 
 * Inline Assembly using ~.incbin~
+** Introduction                                                      :ignore:
+~.incbin~ is a GNU directive that can be used in ~asm~ blocks to basically perform
+the linking step from before inside the application code:
+
 #+BEGIN_SRC C
 #define BINARY_ASM_INCLUDE(filename, buffername)     \
     __asm__(".section .rodata\n"                     \
@@ -166,19 +189,24 @@ BINARY_ASM_INCLUDE("image.png", image_buf);
 int main()
 {
     int width, height, nrChannels;
-    unsigned char* image_data = stbi_load_from_memory(image_buf, image_buf_size, &width, &height, &nrChannels, 0);
+    unsigned char* image_data = stbi_load_from_memory(image_buf, image_buf_size,
+                                                      &width, &height, &nrChannels, 0);
 }
 #+END_SRC
 
-Not very cross-platform: ~.incbin~ is a GNU-specific asm directive.
+** Pros & Cons
+Same as the linker option, except...
+- ✅ Choose names of buffer and size
+- ✅ Better ergonomics: Use buffer and size directly
+- ✅ No precompilation step
+- ❌ Not cross-platform (GCC & Clang support ~.incbin~)
 
-While it is still no real array and everything is ~extern~, you can now choose the
-names of the buffer and its size directly.
 
 * Use a library
-The library [[https://github.com/graphitemaster/incbin][incbin]] actually uses the previous approach by default and tries to
-be as crossplatform as it can. In case of MSVC, it falls back to using the first
-option by providing a tool that needs to be compiled and included in your build
+** Introduction                                                      :ignore:
+The library [[https://github.com/graphitemaster/incbin][incbin]] actually uses the previous approach by default and aims to be
+cross-platform. In case of MSVC, it falls back to using the first option by
+providing a tool that needs to be compiled and included in your build
 step[fn::Apparently this is due to fact that the MSVC compiler doesn't support
 an ~.incbin~ equivalent in its inline assembly].
 
@@ -192,9 +220,21 @@ The usage code looks basically like this:
 INCBIN(song, "music.mp3"); // defines song_data, song_end and song_size
 #+END_SRC
 
-* Use a language feature
-C23 actually introduced a new ~#embed~ directive. Usage-wise, it is supposed to be
-similar to the first approach:
+** Pros & Cons
+Same as the ~.incbin~ option, except...
+- ✅ Can be cross-platform
+- ✅ No precompilation step...
+- ❌ ...except for MSVC
+- ❌ Adds a dependency
+
+
+* Using ~#embed~
+** Introduction                                                      :ignore:
+A new ~#embed~ directive has been introduced to C23[fn::[[https://thephd.dev/finally-embed-in-c23][finally. #embed]]] and
+C++26[fn::https://en.cppreference.com/w/cpp/preprocessor/embed].
+
+It's still too early for me to really use this, but usage-wise, it is supposed
+to be similar to the first approach:
 
 #+BEGIN_SRC C
 static const unsigned char embedded_texture[] = {
@@ -202,19 +242,18 @@ static const unsigned char embedded_texture[] = {
 };
 #+END_SRC
 
-However, since this will presumably have compiler support as opposed to just be
-a preprocessing step, it could be much faster by skipping code generation and
-parsing by instead directly applying the effects of the 2nd/3rd option to the
-program. In that regard, it would be the best of all worlds: A real array of
-bytes that is known at compile-time with a name of your choice and without too
-much of a hit in compile times. However, current compilers do not seem to
-implement this C23 feature as of this writing.
+This would be the best and fastest option, since it does not introduce a new
+preprocessing step and skips the code generation and parsing step. However,
+implementation of ~#embed~ in current compilers is not yet wide spread, so it may
+not be an option for you.
+
+** Pros & Cons
+- ✅ Fastest & easiest way
+- ❌ Requires modern compiler support
+
 
 * Resources
 - [[https://www.devever.net/~hl/incbin][Embedding of binary data into programs]]
-- [[https://github.com/graphitemaster/incbin][GitHub - graphitemaster/incbin: Include binary files in C/C++]]
-- https://mort.coffee/home/fast-cpp-embeds/
-- https://github.com/mortie/strliteral
-- https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man
-- https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html
-
+- [[https://github.com/graphitemaster/incbin][incbin: Include binary files in C/C++]]
+- [[https://github.com/mortie/strliteral][strliteral: Embed files into C/C++ projects.]]
+- [[https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html][Use #embed from C23 today with the Cedro pre-processor]]

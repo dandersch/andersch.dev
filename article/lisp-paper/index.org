@@ -6,9 +6,7 @@
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
-* {{{TITLE}}}
-#+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
-
+* Introduction                                                       :ignore:
 As part of a university seminar on programming languages I wrote a small paper
 on Lisp. It ended up being about the history of Lisp and its dialects, their
 influences on other languages, as well as a short tutorial on how Lisp works.

@@ -1,5 +1,5 @@
 #+TITLE: Pages tagged opengl
 * Articles tagged ~opengl~
-- [[../article/hot-reloadable-embedded-shaders-in-c/index.org][Embedding Shader Code in C/C++]]
+- [[../article/hot-reloadable-embedded-shaders-in-c/index.org][#include "shader.glsl"]]
 * Projects tagged ~opengl~
 - [[../project/planetarium/index.org][Planetarium]]

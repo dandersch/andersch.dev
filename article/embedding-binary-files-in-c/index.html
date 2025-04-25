@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Embedding a Binary File into a C/C++ Program</title>
-<meta name="description" content="How to bake any file as a buffer into your executable" />
+<title>Embedding Binaries in C(++)</title>
+<meta name="description" content="Five ways to bake any file as a buffer into your executable" />
 <meta name="generator" content="Org Mode" />
 <style type="text/css">
   #content { max-width: 60em; margin: auto; }
@@ -221,63 +221,63 @@
 <div class="tags"><code>[ <a href="/tag/cpp.html">cpp</a> ]</code></div>
 <div class="date"><span class="timestamp"><2024-05-31></span></div>
 </div>
-<div id="outline-container-orgfdb2941" class="outline-2">
-<h2 id="orgfdb2941">Embedding a Binary File into a C/C++ Program</h2>
-<div class="outline-text-2" id="text-orgfdb2941">
-<h2 class="subtitle">How to bake any file as a buffer into your executable</h1><div class="figure"><img src="/article/embedding-binary-files-in-c/preview.png" alt=""></div>
+<h1>Embedding Binaries in C(++)</h1><h2 class="subtitle">Five ways to bake any file as a buffer into your executable</h1><div class="figure"><img src="/article/embedding-binary-files-in-c/preview.png" alt=""></div>
+<p>
+When programming, it can be desirable to embed the data of arbitrary binary
+files directly in the final executable of your application. This is great to:
+</p>
+<ul class="org-ul">
+<li><i>Provide fallbacks</i> for fonts/textures/&#x2026; in case files can't be accessed</li>
+<li>Simplify code and making it more robust (by omitting file I/O)</li>
+<li>Distribute <i>self-contained executables</i></li>
+</ul>
+
+<p>
+Here is a list of some of the ways you can achieve this (comfortably) in C and
+C++.
+</p>
 
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org430118d">1. Convert Binary Files to hex-formatted text files</a></li>
-<li><a href="#orgaba8611">2. Use the linker</a></li>
-<li><a href="#orgd74d457">3. Inline Assembly using <code>.incbin</code></a></li>
-<li><a href="#orgfbaf432">4. Use a library</a></li>
-<li><a href="#org0413038">5. Use a language feature</a></li>
-<li><a href="#orgdc5e356">6. Resources</a></li>
+<li><a href="#org978bfa1">1. Convert to C Code</a></li>
+<li><a href="#orga09e214">2. Use the linker</a></li>
+<li><a href="#orga81f09d">3. Inline Assembly using <code>.incbin</code></a></li>
+<li><a href="#org0db2d5e">4. Use a library</a></li>
+<li><a href="#orga77a237">5. Using <code>#embed</code></a></li>
+<li><a href="#org9b26906">6. Resources</a></li>
 </ul>
 </div>
 </div>
-</div>
-</div>
-<div id="outline-container-org430118d" class="outline-2">
-<h2 id="org430118d"><span class="section-number-2">1.</span> Convert Binary Files to hex-formatted text files</h2>
+<div id="outline-container-org978bfa1" class="outline-2">
+<h2 id="org978bfa1"><span class="section-number-2">1.</span> Convert to C Code</h2>
 <div class="outline-text-2" id="text-1">
-<ul class="org-ul">
-<li>adds xxd (or convert, bin2h, &#x2026;) as a build dependency&#x2026;</li>
-<li>OR requires writing custom program that can be included with the source code</li>
-<li>requires modification to the build script if you want to keep binary files up-to-date</li>
-<li>binary files can be included with their original name (if you want)</li>
-<li>larger filesizes</li>
-<li>you get the buffer as a real array (sizeof(buffer) works)</li>
-<li>can be slooow</li>
-</ul>
-
-
-
 <p>
-In the case of <code>xxd</code>, running <code>xxd -i file.ext</code> will output C code of the following form:
+By converting a binary file to to a properly formatted <code>char</code> array, we can simply
+include the resulting code in the source code. Programs to do this are <code>xxd</code>,
+<code>convert</code> or <code>bin2h</code>.
+</p>
+</div>
+<div id="outline-container-org9deff6e" class="outline-3">
+<h3 id="org9deff6e">Example</h3>
+<div class="outline-text-3" id="text-org9deff6e">
+<p>
+In the case of <code>xxd</code>, running <code>xxd -i file.ext</code> will output C code:
 </p>
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">file_ext</span>[] = {
   0x58, 0x61, 0x59, 0x62, 0x58, 0x37, 0x70, 0x78, 0x32, 0x4e, 0x35, 0x70,
   0x41, 0x59, 0x56, 0x39, 0x0a, <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span>
 };
-<span class="org-type">unsigned</span> <span class="org-type">int</span> <span class="org-variable-name">test_url_len</span> = 1234;
+<span class="org-type">unsigned</span> <span class="org-type">int</span> <span class="org-variable-name">file_ext_len</span> = 1234;
 </pre>
 </div>
-
-<p>
-The resulting file can be included and the buffers be used as if they come
-straight from <code>fread</code>.
-</p>
 
 <p>
 If you want to have e.g. a folder of binary files always be at the ready for
 embedding, you could include the following in your build script:
 </p>
-
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">generate a C char array for all files in the "res" folder</span>
 <span class="org-keyword">for</span> i<span class="org-keyword"> in</span> $(ls <span class="org-string">"res"</span>)
@@ -288,10 +288,9 @@ embedding, you could include the following in your build script:
 </div>
 
 <p>
-As you can see, I run the generated code through some <code>sed</code> delete operations to
-remove the first and last two lines of the file. I also keep the generated file
-under the same name as the binary. This allows me to use it in a way that
-reflects <a href="../hot-reloadable-embedded-shaders-in-c">my inclusion of glsl shaders in source code</a>
+By using some <code>sed</code> operations and by keeping the generated file under the same
+name as the binary, we can <code>#include</code> the file in a way that reflects <a href="../hot-reloadable-embedded-shaders-in-c">my inclusion
+of glsl shaders in source code</a>:
 </p>
 
 <div class="org-src-container">
@@ -302,24 +301,54 @@ reflects <a href="../hot-reloadable-embedded-shaders-in-c">my inclusion of glsl 
 </div>
 </div>
 </div>
-<div id="outline-container-orgaba8611" class="outline-2">
-<h2 id="orgaba8611"><span class="section-number-2">2.</span> Use the linker</h2>
+<div id="outline-container-orga5b879e" class="outline-3">
+<h3 id="orga5b879e">Pros &amp; Cons</h3>
+<div class="outline-text-3" id="text-orga5b879e">
+<ul class="org-ul">
+<li>✅ Should work everywhere</li>
+<li>✅ Binaries can be included with their original name</li>
+<li>✅ Buffer as a real array (i.e. <code>sizeof(buffer)</code> works)</li>
+<li>❌ Adds a build dependency</li>
+<li>❌ Adds a precompilation step</li>
+<li>❌ Generated files are larger in size than the binaries</li>
+<li>❌ Slows down build times</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgadf41b9" class="outline-3">
+<h3 id="orgadf41b9">Improving build times with <code>strliteral</code></h3>
+<div class="outline-text-3" id="text-orgadf41b9">
+<p>
+Parsing hex-formatted char arrays from a program like <code>xxd</code> like above can be slow
+for large binaries. It turns out that parsing string literals containing escaped
+byte values is <b>much</b> faster<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, which is the approach of the tool <a href="https://github.com/mortie/strliteral">strliteral</a>.
+</p>
+
+<p>
+Since it's contained in a single C file, you can also trivially compile it as
+part of your build system, which eliminates the disadvantage of an external
+build dependency.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orga09e214" class="outline-2">
+<h2 id="orga09e214"><span class="section-number-2">2.</span> Use the linker</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-SECOND OPTION:
+Instead of getting the binary into a compilable format, we can go one step
+further and "compile" it directly. The output is an object file with predefined
+symbols that can be linked against.
 </p>
-<ul class="org-ul">
-<li>link against a .o version of the binary file with predefined symbols</li>
-<li>convert all binary files into .o files that can be linked against</li>
-<li>Build dependency: using <code>ld</code> or <code>objcopy</code> (Windows: bin2coff, bin2obj)</li>
-<li>you can specify different types (not just char) if you want</li>
-<li>(memory will be always const unless you memcpy)</li>
-<li>smaller filesizes compared to first option (textfile vs binary object fiel)</li>
-<li>requires (more complex) modifications to the build script than the first option</li>
-<li>no additional build dependencies (linker was needed anyway)</li>
-<li>probably faster compile times than the first option (xxd vs linker + no need to parse all those hex values)</li>
-</ul>
 
+<p>
+Programs (or linkers) that can do this are <code>ld</code>, <code>objcopy</code> or <code>bin2coff</code>, <code>bin2obj</code> on
+Windows.
+</p>
+</div>
+<div id="outline-container-orge99eafb" class="outline-3">
+<h3 id="orge99eafb">Example</h3>
+<div class="outline-text-3" id="text-orge99eafb">
 <p>
 The basic usage with <code>ld</code>:
 </p>
@@ -333,7 +362,6 @@ clang -o main main.c data.o
 <p>
 Can be generalized in your build script like this:
 </p>
-
 <div class="org-src-container">
 <pre class="src src-bash"><span class="org-variable-name">OBJECT_FILES</span>=()
 <span class="org-keyword">for</span> i<span class="org-keyword"> in</span> $(ls <span class="org-string">"res"</span>)
@@ -351,7 +379,7 @@ clang -o main main.c ${<span class="org-variable-name">OBJECT_FILES</span>[*]}
 </div>
 
 <p>
-Will generate symbols in the <code>.o</code> file that can be accessed in your program like this:
+This will generate symbols in the <code>.o</code> file that can be accessed like this:
 </p>
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-keyword">extern</span> <span class="org-keyword">const</span> <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">_binary_file_ext_start</span>[];
@@ -381,33 +409,44 @@ Which makes usage look like this:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">NOTE: no quotes and filename and extension separated by a comma</span>
-<span class="org-function-name">BINARY_INCLUDE</span>(data, bin);
+<pre class="src src-C"><span class="org-function-name">BINARY_INCLUDE</span>(data, bin); <span class="org-comment-delimiter">// </span><span class="org-comment">filename &amp; ext separated by a comma without quotes</span>
 
 <span class="org-type">int</span> <span class="org-function-name">main</span>()
 {
-    <span class="org-type">unsigned</span> <span class="org-type">char</span>* <span class="org-variable-name">my_buffer</span>    = BINARY_BUFFER(data, bin);
-    <span class="org-type">unsigned</span> <span class="org-type">int</span> <span class="org-variable-name">my_buffer_size</span> = BINARY_BUFFER_SIZE(data, bin);
+    <span class="org-type">unsigned</span> <span class="org-type">char</span>* <span class="org-variable-name">my_buffer</span>      = BINARY_BUFFER(data, bin);
+    <span class="org-type">unsigned</span> <span class="org-type">int</span>   <span class="org-variable-name">my_buffer_size</span> = BINARY_BUFFER_SIZE(data, bin);
 }
 </pre>
 </div>
-
-<p>
-You might already see some of the downsides to this approach compared to the
-previous one:
-</p>
+</div>
+</div>
+<div id="outline-container-org489552e" class="outline-3">
+<h3 id="org489552e">Pros &amp; Cons</h3>
+<div class="outline-text-3" id="text-org489552e">
 <ul class="org-ul">
-<li>You don't get a proper array, just a pointer and size (i.e. you shouldn't call <code>sizeof(buffer)</code>)</li>
-<li>Since they are <code>extern</code>, you don't have access to the data or size at compile-time (only after linking)</li>
-<li>You include the binary by writing <code>MY_INCLUDE(file, ext)</code> instead of <code>#include
-  "file.ext"</code>. Having to remember to not pass in strings and separate filename
-from its extension is more cumbersome.</li>
+<li>✅ No added build dependency (since we already depended on having linker)</li>
+<li>✅ Faster build times than first option</li>
+<li>✅ Can specify different types (not just char)</li>
+<li>✅ Smaller filesizes compared to first option</li>
+<li>✅ Can be cross-platform&#x2026;</li>
+<li>❌ &#x2026;but may require a different tool for each platform</li>
+<li>❌ Adds a precompilation step (and arguably more complex than first option)</li>
+<li>❌ Memory always <code>const</code> (i.e. needs a <code>memcpy</code> to mutate it)</li>
+<li>❌ No real array, just a pointer and size (i.e. <code>sizeof(buffer)</code> doesn't work)</li>
+<li>❌ No access to <code>extern</code> data or size at compile-time (only after linking)</li>
+<li>❌ Arguably worse ergonomics: <code>MY_INCLUDE(file, ext)</code> vs. <code>#include "file.ext"</code></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd74d457" class="outline-2">
-<h2 id="orgd74d457"><span class="section-number-2">3.</span> Inline Assembly using <code>.incbin</code></h2>
+</div>
+<div id="outline-container-orga81f09d" class="outline-2">
+<h2 id="orga81f09d"><span class="section-number-2">3.</span> Inline Assembly using <code>.incbin</code></h2>
 <div class="outline-text-2" id="text-3">
+<p>
+<code>.incbin</code> is a GNU directive that can be used in <code>asm</code> blocks to basically perform
+the linking step from before inside the application code:
+</p>
+
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">BINARY_ASM_INCLUDE</span>(<span class="org-variable-name">filename</span>, <span class="org-variable-name">buffername</span>)     \
     <span class="org-keyword">__asm__</span>(<span class="org-string">".section .rodata\n"</span>                     \
@@ -438,29 +477,35 @@ Usage code becomes:
 <span class="org-type">int</span> <span class="org-function-name">main</span>()
 {
     <span class="org-type">int</span> <span class="org-variable-name">width</span>, <span class="org-variable-name">height</span>, <span class="org-variable-name">nrChannels</span>;
-    <span class="org-type">unsigned</span> <span class="org-type">char</span>* <span class="org-variable-name">image_data</span> = stbi_load_from_memory(image_buf, image_buf_size, &amp;width, &amp;height, &amp;nrChannels, 0);
+    <span class="org-type">unsigned</span> <span class="org-type">char</span>* <span class="org-variable-name">image_data</span> = stbi_load_from_memory(image_buf, image_buf_size,
+                                                      &amp;width, &amp;height, &amp;nrChannels, 0);
 }
 </pre>
 </div>
-
+</div>
+<div id="outline-container-org55cb587" class="outline-3">
+<h3 id="org55cb587">Pros &amp; Cons</h3>
+<div class="outline-text-3" id="text-org55cb587">
 <p>
-Not very cross-platform: <code>.incbin</code> is a GNU-specific asm directive.
+Same as the linker option, except&#x2026;
 </p>
-
-<p>
-While it is still no real array and everything is <code>extern</code>, you can now choose the
-names of the buffer and its size directly.
-</p>
+<ul class="org-ul">
+<li>✅ Choose names of buffer and size</li>
+<li>✅ Better ergonomics: Use buffer and size directly</li>
+<li>✅ No precompilation step</li>
+<li>❌ Not cross-platform (GCC &amp; Clang support <code>.incbin</code>)</li>
+</ul>
 </div>
 </div>
-<div id="outline-container-orgfbaf432" class="outline-2">
-<h2 id="orgfbaf432"><span class="section-number-2">4.</span> Use a library</h2>
+</div>
+<div id="outline-container-org0db2d5e" class="outline-2">
+<h2 id="org0db2d5e"><span class="section-number-2">4.</span> Use a library</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-The library <a href="https://github.com/graphitemaster/incbin">incbin</a> actually uses the previous approach by default and tries to
-be as crossplatform as it can. In case of MSVC, it falls back to using the first
-option by providing a tool that needs to be compiled and included in your build
-step<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
+The library <a href="https://github.com/graphitemaster/incbin">incbin</a> actually uses the previous approach by default and aims to be
+cross-platform. In case of MSVC, it falls back to using the first option by
+providing a tool that needs to be compiled and included in your build
+step<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>.
 </p>
 
 <p>
@@ -476,13 +521,32 @@ The usage code looks basically like this:
 </pre>
 </div>
 </div>
+<div id="outline-container-orgd9c9a6b" class="outline-3">
+<h3 id="orgd9c9a6b">Pros &amp; Cons</h3>
+<div class="outline-text-3" id="text-orgd9c9a6b">
+<p>
+Same as the <code>.incbin</code> option, except&#x2026;
+</p>
+<ul class="org-ul">
+<li>✅ Can be cross-platform</li>
+<li>✅ No precompilation step&#x2026;</li>
+<li>❌ &#x2026;except for MSVC</li>
+<li>❌ Adds a dependency</li>
+</ul>
 </div>
-<div id="outline-container-org0413038" class="outline-2">
-<h2 id="org0413038"><span class="section-number-2">5.</span> Use a language feature</h2>
+</div>
+</div>
+<div id="outline-container-orga77a237" class="outline-2">
+<h2 id="orga77a237"><span class="section-number-2">5.</span> Using <code>#embed</code></h2>
 <div class="outline-text-2" id="text-5">
 <p>
-C23 actually introduced a new <code>#embed</code> directive. Usage-wise, it is supposed to be
-similar to the first approach:
+A new <code>#embed</code> directive has been introduced to C23<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup> and
+C++26<sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup>.
+</p>
+
+<p>
+It's still too early for me to really use this, but usage-wise, it is supposed
+to be similar to the first approach:
 </p>
 
 <div class="org-src-container">
@@ -493,35 +557,46 @@ similar to the first approach:
 </div>
 
 <p>
-However, since this will presumably have compiler support as opposed to just be
-a preprocessing step, it could be much faster by skipping code generation and
-parsing by instead directly applying the effects of the 2nd/3rd option to the
-program. In that regard, it would be the best of all worlds: A real array of
-bytes that is known at compile-time with a name of your choice and without too
-much of a hit in compile times. However, current compilers do not seem to
-implement this C23 feature as of this writing.
+This would be the best and fastest option, since it does not introduce a new
+preprocessing step and skips the code generation and parsing step. However,
+implementation of <code>#embed</code> in current compilers is not yet wide spread, so it may
+not be an option for you.
 </p>
 </div>
+<div id="outline-container-orge0c0737" class="outline-3">
+<h3 id="orge0c0737">Pros &amp; Cons</h3>
+<div class="outline-text-3" id="text-orge0c0737">
+<ul class="org-ul">
+<li>✅ Fastest &amp; easiest way</li>
+<li>❌ Requires modern compiler support</li>
+</ul>
 </div>
-<div id="outline-container-orgdc5e356" class="outline-2">
-<h2 id="orgdc5e356"><span class="section-number-2">6.</span> Resources</h2>
+</div>
+</div>
+<div id="outline-container-org9b26906" class="outline-2">
+<h2 id="org9b26906"><span class="section-number-2">6.</span> Resources</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li><a href="https://www.devever.net/~hl/incbin">Embedding of binary data into programs</a></li>
-<li><a href="https://github.com/graphitemaster/incbin">GitHub - graphitemaster/incbin: Include binary files in C/C++</a></li>
-<li><a href="https://mort.coffee/home/fast-cpp-embeds/">https://mort.coffee/home/fast-cpp-embeds/</a></li>
-<li><a href="https://github.com/mortie/strliteral">https://github.com/mortie/strliteral</a></li>
-<li><a href="https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man">https://thephd.dev/finally-embed-in-c23#and-in-c-you-can-make-it-constexpr-which-means-you-can-check-man</a></li>
-<li><a href="https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html">https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html</a></li>
+<li><a href="https://github.com/graphitemaster/incbin">incbin: Include binary files in C/C++</a></li>
+<li><a href="https://github.com/mortie/strliteral">strliteral: Embed files into C/C++ projects.</a></li>
+<li><a href="https://sentido-labs.com/en/library/cedro/202106171400/use-embed-c23-today.html">Use #embed from C23 today with the Cedro pre-processor</a></li>
 </ul>
 </div>
 </div>
 <div id="footnotes">
-<h3 class="footnotes">Footnotes: </h3>
+<h3 class="footnotes">Footnotes</h3>
 <div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">Apparently this is due to fact that the MSVC compiler doesn't support
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara"><a href="https://mort.coffee/home/fast-cpp-embeds/">C/C++: 70x faster file embeds using string
+literals</a></p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">Apparently this is due to fact that the MSVC compiler doesn't support
 an <code>.incbin</code> equivalent in its inline assembly</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara"><a href="https://thephd.dev/finally-embed-in-c23">finally. #embed</a></p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara"><a href="https://en.cppreference.com/w/cpp/preprocessor/embed">https://en.cppreference.com/w/cpp/preprocessor/embed</a></p></div></div>
 
 
 </div>

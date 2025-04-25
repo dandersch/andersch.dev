@@ -37,7 +37,7 @@
 
 ; set footnotes to be h3, everything else is default
 (setq org-html-footnotes-section
-      "<div id=\"footnotes\">\n<h3 class=\"footnotes\">%s: </h3>\n<div id=\"text-footnotes\">\n%s\n</div>\n</div>")
+      "<div id=\"footnotes\">\n<h3 class=\"footnotes\">%s</h3>\n<div id=\"text-footnotes\">\n%s\n</div>\n</div>")
 
 (defun get-org-files (directory)
   "Return a list of .org files in DIRECTORY excluding 'index.org'."
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
              :html-head            (concat "<title>andersch.dev</title>\n"
                                            "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
                                            "<link rel=\"stylesheet\" href=\"/style.css\">\n"
-                                           ; NOTE import ubuntu font for now
+                                           ; NOTE import ubuntu font for now TODO embed in repo
                                            "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin\">"
                                            )
              :html-preamble        t

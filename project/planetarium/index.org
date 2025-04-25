@@ -1,4 +1,4 @@
-#+TITLE: Planetarium
+#+TITLE:       Planetarium
 #+DESCRIPTION: A virtual reality planetarium application in C++ using a 3D OpenGL engine
 #+DATE:        <2020-11-20 Fri>
 #+IMAGE:       preview.gif
@@ -6,10 +6,7 @@
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
-* {{{TITLE}}}
-#+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
-
-* Introduction                                                       :ignore:
+* Introduction                                                        :ignore:
 This is a university project I have worked on in a team for an application that
 mimics a planetarium experience. It was developed using an existing 3D OpenGL
 engine that supports virtual reality devices. The planetarium was specifically

@@ -6,9 +6,7 @@
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
-* {{{TITLE}}}
-#+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
-
+* Introduction                                                       :ignore:
 As part of my bachelor's thesis, I researched the prospect of isolating
 peripherals in embedded devices to a Trusted Execution Environment (TEE), which
 in theory should make them an equally trusted part of the system. This would

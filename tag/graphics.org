@@ -1,6 +1,6 @@
 #+TITLE: Pages tagged graphics
 * Articles tagged ~graphics~
-- [[../article/hot-reloadable-embedded-shaders-in-c/index.org][Embedding Shader Code in C/C++]]
+- [[../article/hot-reloadable-embedded-shaders-in-c/index.org][#include "shader.glsl"]]
 * Projects tagged ~graphics~
 - [[../project/planetarium/index.org][Planetarium]]
 - [[../project/raytracer/index.org][Compute Raytracer]]

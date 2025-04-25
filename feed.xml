@@ -8,22 +8,22 @@
 <description>Stuff on programming</description>
 <language>en-us</language>
 <item>
-<title>Embedding a Binary File into a C/C++ Program</title>
+<title>Embedding Binaries in C(++)</title>
 <link>https://andersch.dev/article/embedding-binary-files-in-c</link>
 <guid>https://andersch.dev/article/embedding-binary-files-in-c</guid>
 <description>
-&lt;p&gt;How to bake any file as a buffer into your executable&lt;/p&gt;
+&lt;p&gt;Five ways to bake any file as a buffer into your executable&lt;/p&gt;
 &lt;img src="https://andersch.dev/article/embedding-binary-files-in-c/preview.png"/&gt;
 </description>
 <pubDate>Fri, 31 May 2024 00:00:00 +0200</pubDate>
 </item>
 <item>
-<title>Embedding Shader Code in C/C++</title>
+<title>#include "shader.glsl"</title>
 <link>https://andersch.dev/article/hot-reloadable-embedded-shaders-in-c</link>
 <guid>https://andersch.dev/article/hot-reloadable-embedded-shaders-in-c</guid>
 <description>
-&lt;p&gt;How to (nicely) include GLSL shaders as strings (and hot-reload them)&lt;/p&gt;
-&lt;img src="https://andersch.dev/article/hot-reloadable-embedded-shaders-in-c/preview.gif"/&gt;
+&lt;p&gt;How to leverage the C preprocessor to write reusable, hot-reloadable shader code&lt;/p&gt;
+&lt;img src="https://andersch.dev/article/hot-reloadable-embedded-shaders-in-c/preview.jpg"/&gt;
 </description>
 <pubDate>Wed, 29 May 2024 00:00:00 +0200</pubDate>
 </item>

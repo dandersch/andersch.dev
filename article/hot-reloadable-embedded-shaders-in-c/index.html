@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Embedding Shader Code in C/C++</title>
-<meta name="description" content="How to (nicely) include GLSL shaders as strings (and hot-reload them)" />
+<title>#include "shader.glsl"</title>
+<meta name="description" content="How to leverage the C preprocessor to write reusable, hot-reloadable shader code" />
 <meta name="generator" content="Org Mode" />
 <style type="text/css">
   #content { max-width: 60em; margin: auto; }
@@ -221,87 +221,69 @@
 <div class="tags"><code>[ <a href="/tag/opengl.html">opengl</a> <a href="/tag/graphics.html">graphics</a> <a href="/tag/cpp.html">cpp</a> ]</code></div>
 <div class="date"><span class="timestamp"><2024-05-29></span></div>
 </div>
-<div id="outline-container-org138d5d5" class="outline-2">
-<h2 id="org138d5d5">Embedding Shader Code in C/C++</h2>
-<div class="outline-text-2" id="text-org138d5d5">
-<h2 class="subtitle">How to (nicely) include GLSL shaders as strings (and hot-reload them)</h1><div class="figure"><img src="/article/hot-reloadable-embedded-shaders-in-c/preview.gif" alt=""></div>
-
+<h1>#include "shader.glsl"</h1><h2 class="subtitle">How to leverage the C preprocessor to write reusable, hot-reloadable shader code</h1><div class="figure"><img src="/article/hot-reloadable-embedded-shaders-in-c/preview.jpg" alt=""></div>
 <p>
 OpenGL tutorials usually skip over any file I/O code by telling you to write out
 your very first shader as a string literal like this:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">vertex_shader_source</span> = <span class="org-string">"#version 330 core\n"</span>
+<pre class="src src-cpp"><span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">vertex_shader_source</span> = <span class="org-string">"#version 330 core\n"</span>
     <span class="org-string">"layout(location = 0) in vec3 aPos;\n"</span>
     <span class="org-string">"void main() {\n"</span>
     <span class="org-string">"    gl_Position = vec4(aPos, 1.0);\n"</span>
     <span class="org-string">"}\0"</span>;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">...or using raw string literals (&gt;C++11):</span>
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">fragment_shader_source</span> = R"<span class="org-string">(#version 330 core</span>
+<span class="org-string">    layout(location = 0) in vec3 aPos;</span>
+<span class="org-string">    /* ... */)</span>";
 </pre>
 </div>
 
 <p>
-While simple, this becomes impractical for complex shaders, since it's tedious
-to write and we lose any syntax highlighting.
+This becomes impractical for more complex shaders, since it's tedious to write
+and we lose any syntax highlighting. Here is an alternative approach that still
+avoids file I/O and has some additional advantages.
 </p>
-
-<p>
-Here is an alternative approach that still avoids file I/O but has following
-advantages:
-</p>
-<ul class="org-ul">
-<li>No additional preprocessing step &amp; portable across C/C++</li>
-<li>Shader code embedded as a C string (no file I/O necessary)</li>
-<li>Option of having shader code in a separate file or defined inline</li>
-<li>Preserves (most) syntax highlighting in both cases</li>
-<li>Share <code>#define</code>'s between C and GLSL code</li>
-<li>Centralize common helper functions between shaders (e.g. in <code>common.glsl</code>)</li>
-<li>Centralize common struct definitions between GLSL and C (e.g. in <code>common.h</code>)</li>
-<li>Conditional compilation (e.g. for having fragment &amp; vertex shader in one file)</li>
-<li>Can pair well with hot-reloading C code</li>
-</ul>
 
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org138d5d5">Embedding Shader Code in C/C++</a>
-<ul>
-<li><a href="#orgffc5d96">Inline Shader Code</a></li>
-<li><a href="#org7586054">External <code>.glsl</code> Files</a></li>
-<li><a href="#org8bf1244">Conditional Compilation</a></li>
-<li><a href="#orgb767f2f">Share Code Between Shaders</a></li>
-<li><a href="#orgf86127d">Share Code Between C and GLSL</a></li>
-<li><a href="#orgffeca25">Downsides</a></li>
-<li><a href="#hot-reload">Hot-Reloading Embedded Shaders</a></li>
-<li><a href="#org2d351cb">Resources</a></li>
-</ul>
-</li>
+<li><a href="#org40bebf5">1. Pros &amp; Cons</a></li>
+<li><a href="#org4c991d4">2. Approach</a></li>
+<li><a href="#org9d36d1a">3. Conditional Compilation</a></li>
+<li><a href="#org62d365f">4. Share Code Between Shaders</a></li>
+<li><a href="#org0ad8a08">5. Share Code Between C and GLSL</a></li>
+<li><a href="#orge46af20">6. Hot-Reloading Embedded Shaders</a></li>
 </ul>
 </div>
 </div>
+<div id="outline-container-org40bebf5" class="outline-2">
+<h2 id="org40bebf5"><span class="section-number-2">1.</span> Pros &amp; Cons</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>✅ Shader code embedded as a C string (no file I/O necessary)</li>
+<li>✅ No additional preprocessing step &amp; portable across C/C++</li>
+<li>✅ Option of having shader code in a separate file or defined inline</li>
+<li>✅ Preserves (most) syntax highlighting in both cases</li>
+<li>✅ Share <code>#define</code>'s between C and GLSL code</li>
+<li>✅ Centralize common helper functions between shaders (e.g. in <code>common.glsl</code>)</li>
+<li>✅ Centralize common struct definitions between GLSL and C (e.g. in <code>common.h</code>)</li>
+<li>✅ Conditional compilation (e.g. having fragment &amp; vertex shader in one file)</li>
+<li>✅ Can pair well with hot-reloading C code</li>
+<li>❌ Newlines are lost, so debug info containing line numbers can be imprecise</li>
+<li>❌ The <code>glsl</code> files become more noisy</li>
+<li>❌ Somewhat ugly use of <code>#include</code> in the C code</li>
+</ul>
 </div>
-<div id="outline-container-orgffc5d96" class="outline-3">
-<h3 id="orgffc5d96">Inline Shader Code</h3>
-<div class="outline-text-3" id="text-orgffc5d96">
-<p>
-In C++11 (and some versions of GCC via GNU extensions), you can have raw string
-literals of the following form:
-</p>
-<div class="org-src-container">
-<pre class="src src-C++"><span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">fragment_shader_source</span> = R"<span class="org-string">(</span>
-<span class="org-string">    #version 330 core</span>
-<span class="org-string">    int main()</span>
-<span class="org-string">    {</span>
-<span class="org-string">        // ...</span>
-<span class="org-string">    }</span>
-<span class="org-string">)</span>";
-</pre>
 </div>
-
+<div id="outline-container-org4c991d4" class="outline-2">
+<h2 id="org4c991d4"><span class="section-number-2">2.</span> Approach</h2>
+<div class="outline-text-2" id="text-2">
 <p>
-This is a step up, but it is not fully portable and the editor will still
-highlight it as just a string. Instead, we can use a <code>stringify</code> macro:
+We make use a <code>STRINGIFY</code> macro:
 </p>
 
 <div class="org-src-container">
@@ -312,8 +294,8 @@ highlight it as just a string. Instead, we can use a <code>stringify</code> macr
 </div>
 
 <p>
-Using these macros, we have the option of specifying shader code inline without
-having to write out quotes or newlines:
+Now we can write out shader code inline without quotes or newlines. The C syntax
+highlighter should also do a decent job of highlighting the GLSL code:
 </p>
 
 <div class="org-src-container">
@@ -329,74 +311,42 @@ having to write out quotes or newlines:
 </div>
 
 <p>
-The C syntax highlighting should apply for this code and can do a decent job of
-highlighting GLSL code.
-</p>
-</div>
-</div>
-<div id="outline-container-org7586054" class="outline-3">
-<h3 id="org7586054">External <code>.glsl</code> Files</h3>
-<div class="outline-text-3" id="text-org7586054">
-<p>
-As a second option, we can write out the shader code in its own file and wrap it
-inside the stringify macro:
+To have external <code>.glsl</code> files, we write out the shader code and wrap it inside
+the stringify macro. In C/C++ we then <code>#include</code> that<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-type">SHADER_VERSION_STRING</span>
+<pre class="src src-glsl"><span class="org-comment-delimiter">/* </span><span class="org-comment">shader.glsl</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">SHADER_VERSION_STRING</span>
 <span class="org-function-name">S</span>(
-layout(location = 0) in <span class="org-type">vec3</span> <span class="org-variable-name">aPos</span>;
+<span class="org-keyword">layout</span>(location = 0) <span class="org-keyword">in</span> <span class="org-type">vec3</span> <span class="org-variable-name">aPos</span>;
 <span class="org-type">void</span> <span class="org-function-name">main</span>()
 {
-    gl_Position = vec4(aPos, 1);
+    <span class="org-glsl-shader-variable-name">gl_Position</span> = <span class="org-type">vec4</span>(aPos, 1);
 }
 )
 </pre>
 </div>
 
-<p>
-We then <code>#include</code> this file in our C/C++ source code like so:
-</p>
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">option 2: shader src code as an included file</span>
-<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">file_shader</span> =
-<span class="org-preprocessor">  #include</span> <span class="org-string">"shader.vert"</span>
-;
-</pre>
-</div>
-
-<p>
-If you prefer not to have a dangling semicolon, you can instead write it out at
-the end of the shader file. However, using the version without the semicolon at
-the end lets us use initializers:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">shader_t</span>
-{
-    <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">name</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">shader name</span>
-    <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">code</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">shader source code as a string</span>
-} <span class="org-type">shader_t</span>;
-
-<span class="org-type">shader_t</span> <span class="org-variable-name">shader</span> =
-{
-    <span class="org-string">"Shader Name"</span>,
-<span class="org-preprocessor">    #include</span> <span class="org-string">"shader.vert"</span>
-};
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">shader_src</span> =
+<span class="org-preprocessor">                         #include</span> <span class="org-string">"shader.glsl"</span>
+                       ;
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org8bf1244" class="outline-3">
-<h3 id="org8bf1244">Conditional Compilation</h3>
-<div class="outline-text-3" id="text-org8bf1244">
+<div id="outline-container-org9d36d1a" class="outline-2">
+<h2 id="org9d36d1a"><span class="section-number-2">3.</span> Conditional Compilation</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 To have both the fragment and vertex shader in the same <code>.glsl</code> file, we can
 invoke the C preprocessor:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-type">SHADER_VERSION_STRING</span>
+<pre class="src src-glsl"><span class="org-type">SHADER_VERSION_STRING</span>
 <span class="org-function-name">S</span>(
 <span class="org-preprocessor">#if</span> <span class="org-preprocessor">defined</span>(VERT_SHADER)
     <span class="org-comment-delimiter">// </span><span class="org-comment">vertex shader code</span>
@@ -431,23 +381,23 @@ enable/disable certain parts of the code:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-type">SHADER_VERSION_STRING</span>
+<pre class="src src-glsl"><span class="org-type">SHADER_VERSION_STRING</span>
 <span class="org-function-name">S</span>(
-uniform <span class="org-type">float</span> <span class="org-variable-name">time</span>;
-out <span class="org-type">vec4</span> <span class="org-variable-name">FragColor</span>;
+<span class="org-keyword">uniform</span> <span class="org-type">float</span> <span class="org-variable-name">time</span>;
+<span class="org-keyword">out</span> <span class="org-type">vec4</span> <span class="org-variable-name">FragColor</span>;
 <span class="org-type">void</span> <span class="org-function-name">main</span>()
 {
-    <span class="org-type">vec3</span> <span class="org-variable-name">color</span> = vec3(0,0,0);
+    <span class="org-type">vec3</span> <span class="org-variable-name">color</span> = <span class="org-type">vec3</span>(0,0,0);
 
 <span class="org-preprocessor">    #if</span> (SHADER_FEATURE &amp; SHADER_RED_PULSE)
-    color.r = sin(time)*0.5+0.5;
+    color.r = <span class="org-glsl-builtins">sin</span>(time)*0.5+0.5;
 <span class="org-preprocessor">    #endif</span>
 
 <span class="org-preprocessor">    #if</span> (SHADER_FEATURE &amp; SHADER_GREEN_PULSE)
-    color.g = cos(time)*0.5+0.5;
+    color.g = <span class="org-glsl-builtins">cos</span>(time)*0.5+0.5;
 <span class="org-preprocessor">    #endif</span>
 
-    FragColor  = vec4(color, 1.0);
+    FragColor  = <span class="org-type">vec4</span>(color, 1.0);
 }
 <span class="org-preprocessor">#endif</span>
 )
@@ -470,11 +420,27 @@ out <span class="org-type">vec4</span> <span class="org-variable-name">FragColor
                      ;
 </pre>
 </div>
+
+<p>
+We can still invoke the GLSL preprocessor by wrapping a directive in <code>\n</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-glsl"><span class="org-type">SHADER_VERSION_STRING</span>
+<span class="org-function-name">S</span>(
+\n#pragma optimize(on)\n <span class="org-comment-delimiter">// </span><span class="org-comment">enable optimizations</span>
+<span class="org-type">void</span> main()
+{
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span>
+}
+)
+</pre>
 </div>
 </div>
-<div id="outline-container-orgb767f2f" class="outline-3">
-<h3 id="orgb767f2f">Share Code Between Shaders</h3>
-<div class="outline-text-3" id="text-orgb767f2f">
+</div>
+<div id="outline-container-org62d365f" class="outline-2">
+<h2 id="org62d365f"><span class="section-number-2">4.</span> Share Code Between Shaders</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 The GLSL preprocessor does not have a native <code>#include</code> directive, making it hard
 to share common code between shaders. We can leverage the C preprocessor to
@@ -486,9 +452,9 @@ We start by writing out our helper or utility functions in a <code>.glsl</code> 
 <code>#version</code> directive:
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-function-name">S</span>(
+<pre class="src src-glsl">S(
 <span class="org-type">float</span> <span class="org-function-name">diffuse</span>(<span class="org-type">vec3</span> <span class="org-variable-name">normal</span>, <span class="org-type">vec3</span> <span class="org-variable-name">lightDir</span>) {
-    <span class="org-keyword">return</span> max(dot(<span class="org-type">normalize</span>(<span class="org-variable-name">normal</span>), <span class="org-type">normalize</span>(<span class="org-variable-name">lightDir</span>)), 0.0);
+    <span class="org-keyword">return</span> <span class="org-glsl-builtins">max</span>(<span class="org-glsl-builtins">dot</span>(<span class="org-glsl-builtins">normalize</span>(normal), <span class="org-glsl-builtins">normalize</span>(lightDir)), 0.0);
 }
 )
 </pre>
@@ -499,7 +465,7 @@ Shaders can then <code>#include</code> this file and call the functions like so:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-type">SHADER_VERSION_STRING</span>
+<pre class="src src-glsl"><span class="org-type">SHADER_VERSION_STRING</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">"common.glsl"</span> <span class="org-comment-delimiter">// </span><span class="org-comment">shared code between shaders</span>
 <span class="org-function-name">S</span>(
 <span class="org-type">int</span> <span class="org-function-name">main</span>() {
@@ -511,12 +477,12 @@ Shaders can then <code>#include</code> this file and call the functions like so:
 </div>
 </div>
 </div>
-<div id="outline-container-orgf86127d" class="outline-3">
-<h3 id="orgf86127d">Share Code Between C and GLSL</h3>
-<div class="outline-text-3" id="text-orgf86127d">
+<div id="outline-container-org0ad8a08" class="outline-2">
+<h2 id="org0ad8a08"><span class="section-number-2">5.</span> Share Code Between C and GLSL</h2>
+<div class="outline-text-2" id="text-5">
 <p>
-We can also centralize code that would normally be duplicated between the shader
-and the host application. For example:
+We can centralize code that would normally be duplicated between the shader and
+the host application. For example:
 </p>
 
 <div class="org-src-container">
@@ -527,11 +493,11 @@ and the host application. For example:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">compute.glsl</span><span class="org-comment-delimiter"> */</span>
+<pre class="src src-glsl"><span class="org-comment-delimiter">/* </span><span class="org-comment">compute.glsl</span><span class="org-comment-delimiter"> */</span>
 <span class="org-type">SHADER_VERSION_STRING</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">"common.h"</span>
 <span class="org-function-name">S</span>(
-layout (local_size_x = WORK_GROUP_SIZE_X, local_size_y = WORK_GROUP_SIZE_Y, local_size_z = 1) in;
+<span class="org-keyword">layout</span> (local_size_x = WORK_GROUP_SIZE_X, local_size_y = WORK_GROUP_SIZE_Y, local_size_z = 1) <span class="org-keyword">in</span>;
 <span class="org-type">void</span> <span class="org-function-name">main</span>() {
     <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
 }
@@ -553,7 +519,7 @@ layout (local_size_x = WORK_GROUP_SIZE_X, local_size_y = WORK_GROUP_SIZE_Y, loca
 
 <p>
 We can even keep <code>struct</code> definitions in sync between both parts of the program
-(e.g. for uniforms):
+(e.g. for uniforms)<sup><a id="fnr.std430" class="footref" href="#fn.std430" role="doc-backlink">2</a></sup>:
 </p>
 
 <div class="org-src-container">
@@ -576,46 +542,25 @@ We can even keep <code>struct</code> definitions in sync between both parts of t
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">shader.glsl</span><span class="org-comment-delimiter"> */</span>
+<pre class="src src-glsl"><span class="org-comment-delimiter">/* </span><span class="org-comment">shader.glsl</span><span class="org-comment-delimiter"> */</span>
 <span class="org-type">SHADER_VERSION_STRING</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">"common.h"</span> <span class="org-comment-delimiter">// </span><span class="org-comment">struct camera_t { vec4 pos; vec4 dir; };</span>
 <span class="org-function-name">S</span>(
-uniform <span class="org-type">camera_t</span> <span class="org-variable-name">camera</span>;
+<span class="org-keyword">uniform</span> <span class="org-type">camera_t</span> <span class="org-variable-name">camera</span>;
 <span class="org-type">int</span> <span class="org-function-name">main</span>() { <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span> }
 )
 </pre>
 </div>
-
-<p>
-However, keep in mind that the layout of both structs need to match. This means
-the C code needs to comply with the shader's memory layout qualifiers (usually
-<code>std430</code>). We can do this by specifying padding bytes manually (always aligned to
-the size of a <code>vec4</code>), or by making use of <code>_Pragma("pack(push,n)")</code> and
-<code>_Pragma("pack(pop)")</code> when expanding the macro on the C-side. YMMV.
-</p>
 </div>
 </div>
-<div id="outline-container-orgffeca25" class="outline-3">
-<h3 id="orgffeca25">Downsides</h3>
-<div class="outline-text-3" id="text-orgffeca25">
-<p>
-Problems with this approach:
-</p>
-<ul class="org-ul">
-<li>Newlines are lost, so debug info containing line numbers can be imprecise</li>
-<li>The <code>glsl</code> files become more noisy</li>
-<li>Admittedly ugly use of <code>#include</code> in the C code</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-hot-reload" class="outline-3">
-<h3 id="hot-reload">Hot-Reloading Embedded Shaders</h3>
-<div class="outline-text-3" id="text-hot-reload">
+<div id="outline-container-orge46af20" class="outline-2">
+<h2 id="orge46af20"><span class="section-number-2">6.</span> Hot-Reloading Embedded Shaders</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 Usually, you wouldn't be able to hot-reload shaders that are included in your
 source code. After all, they are now baked into the executable. But what if we
-reload the entirety of our code using DLL-based <a href="https://slembcke.github.io/HotLoadC">code hot-reloading</a>? This way, we
-get a buffer to the string of a new shader anytime we recompile.
+reload the entirety of our code using DLL-based <sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>
+This way, we get a buffer to the string of a new shader anytime we recompile.
 </p>
 
 <p>
@@ -652,17 +597,79 @@ real text files.
 </p>
 </div>
 </div>
-<div id="outline-container-org2d351cb" class="outline-3">
-<h3 id="org2d351cb">Resources</h3>
-<div class="outline-text-3" id="text-org2d351cb">
-<ul class="org-ul">
-<li><a href="https://antongerdelan.net/opengl/shader_hot_reload.html">https://antongerdelan.net/opengl/shader_hot_reload.html</a></li>
-<li><a href="https://slembcke.github.io/HotLoadC">https://slembcke.github.io/HotLoadC</a></li>
-<li><a href="https://shadowndacorner.com/2018/04/14/adventures-in-cpp-hotloading/">https://shadowndacorner.com/2018/04/14/adventures-in-cpp-hotloading/</a></li>
-</ul>
+<div id="footnotes">
+<h3 class="footnotes">Footnotes</h3>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+If you prefer not to have a dangling semicolon, you can instead write it
+out at the end of the shader file. However, using the version without the
+semicolon at the end lets us use initializers:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">shader_t</span>
+{
+    <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">name</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">shader name</span>
+    <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">code</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">shader source code as a string</span>
+} <span class="org-type">shader_t</span>;
+
+<span class="org-type">shader_t</span> <span class="org-variable-name">shader</span> =
+{
+    <span class="org-string">"Shader Name"</span>,
+<span class="org-preprocessor">    #include</span> <span class="org-string">"shader.vert"</span>
+};
+</pre>
+</div></div></div>
+
+<div class="footdef"><sup><a id="fn.std430" class="footnum" href="#fnr.std430" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Keep in mind that the layout of both structs need to match. This means
+the C code needs to comply with the shader's memory layout qualifiers (usually
+<code>std430</code>). We can do this by specifying padding bytes manually (always aligned to
+the size of a <code>vec4</code>), or by making use of <code>_Pragma("pack(push,n)")</code> and
+<code>_Pragma("pack(pop)")</code> when expanding the macro on the C-side. YMMV.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara"><a href="https://slembcke.net/blog/HotLoadC">Easy Hot-Loading for C</a></p></div></div>
+
+
 </div>
-</div>
-</div>
-</main>
+</div><hr>
+<div id='comment-section'>
+<h3 id='comment-section-title'>Comments</h3>
+<script src='https://utteranc.es/client.js'
+       repo='dandersch/andersch.dev'
+       issue-term='pathname'
+       label='.💬'
+       theme='photon-dark'
+       crossorigin='anonymous'
+       async>
+</script>
+<script type='text/javascript'>
+const commentSectionTitle = document.getElementById('comment-section-title');
+const commentsDiv         = document.getElementById('comment-section');
+commentSectionTitle.style.animation = 'loading 0.6s infinite alternate';
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new MutationObserver(function(mutationsList) {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        for (let node of mutation.addedNodes) {
+          if (node.nodeName === 'DIV') {
+            for (const child of node.children) {
+              if (child.tagName === 'IFRAME') {
+                child.addEventListener('load', function() {
+                  commentSectionTitle.style.animation = 'none';
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+
+  observer.observe(commentsDiv, { childList: true });
+});
+</script>
+</div></main>
 </body>
 </html>

@@ -1,7 +1,3 @@
 #+TITLE: Projects
 
 #+CALL: ../code.org:generate-article-snippets[:eval yes](list=(get-project-keyword-list))
-
-* Projects                                                         :noexport:
-#+CALL: ../code.org:list-of-projects[:eval yes](list=(get-project-keyword-list))
-#+RESULTS: list-of-projects

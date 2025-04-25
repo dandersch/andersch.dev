@@ -220,75 +220,62 @@
 <div class="tags"><code>[ <a href="/tag/cpp.html">cpp</a> ]</code></div>
 <div class="date"><span class="timestamp"><2024-05-31></span></div>
 </div>
-<div id="outline-container-orgde2050a" class="outline-2">
-<h2 id="orgde2050a">Embedding a Binary File into a C/C++ Program</h2>
-<div class="outline-text-2" id="text-orgde2050a">
-<h2 class="subtitle">How to bake any file as a buffer into your executable</h1><div class="figure"><img src="/article/embedding-binary-files-in-c/preview.png" alt=""></div>
-</div>
-</div>
+<h1>Embedding Binaries in C(++)</h1><h2 class="subtitle">Five ways to bake any file as a buffer into your executable</h1><div class="figure"><img src="/article/embedding-binary-files-in-c/preview.png" alt=""></div>
+<p>
+When programming, it can be desirable to embed the data of arbitrary binary
+files directly in the final executable of your application. This is great to:
+</p>
+<ul class="org-ul">
+<li><i>Provide fallbacks</i> for fonts/textures/&#x2026; in case files can't be accessed</li>
+<li>Simplify code and making it more robust (by omitting file I/O)</li>
+<li>Distribute <i>self-contained executables</i></li>
+</ul>
+
+<p>
+Here is a list of some of the ways you can achieve this (comfortably) in C and
+C++.
+</p>
 <div class="read-more"><a href="/article/embedding-binary-files-in-c">READ MORE</a></div><hr>
 <div class="tags-date-box">
 <div class="tags"><code>[ <a href="/tag/opengl.html">opengl</a> <a href="/tag/graphics.html">graphics</a> <a href="/tag/cpp.html">cpp</a> ]</code></div>
 <div class="date"><span class="timestamp"><2024-05-29></span></div>
 </div>
-<div id="outline-container-org69175af" class="outline-2">
-<h2 id="org69175af">Embedding Shader Code in C/C++</h2>
-<div class="outline-text-2" id="text-org69175af">
-<h2 class="subtitle">How to (nicely) include GLSL shaders as strings (and hot-reload them)</h1><div class="figure"><img src="/article/hot-reloadable-embedded-shaders-in-c/preview.gif" alt=""></div>
-
+<h1>#include "shader.glsl"</h1><h2 class="subtitle">How to leverage the C preprocessor to write reusable, hot-reloadable shader code</h1><div class="figure"><img src="/article/hot-reloadable-embedded-shaders-in-c/preview.jpg" alt=""></div>
 <p>
 OpenGL tutorials usually skip over any file I/O code by telling you to write out
 your very first shader as a string literal like this:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">vertex_shader_source</span> = <span class="org-string">"#version 330 core\n"</span>
+<pre class="src src-cpp"><span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">vertex_shader_source</span> = <span class="org-string">"#version 330 core\n"</span>
     <span class="org-string">"layout(location = 0) in vec3 aPos;\n"</span>
     <span class="org-string">"void main() {\n"</span>
     <span class="org-string">"    gl_Position = vec4(aPos, 1.0);\n"</span>
     <span class="org-string">"}\0"</span>;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">...or using raw string literals (&gt;C++11):</span>
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">fragment_shader_source</span> = R"<span class="org-string">(#version 330 core</span>
+<span class="org-string">    layout(location = 0) in vec3 aPos;</span>
+<span class="org-string">    /* ... */)</span>";
 </pre>
 </div>
 
 <p>
-While simple, this becomes impractical for complex shaders, since it's tedious
-to write and we lose any syntax highlighting.
+This becomes impractical for more complex shaders, since it's tedious to write
+and we lose any syntax highlighting. Here is an alternative approach that still
+avoids file I/O and has some additional advantages.
 </p>
-
-<p>
-Here is an alternative approach that still avoids file I/O but has following
-advantages:
-</p>
-<ul class="org-ul">
-<li>No additional preprocessing step &amp; portable across C/C++</li>
-<li>Shader code embedded as a C string (no file I/O necessary)</li>
-<li>Option of having shader code in a separate file or defined inline</li>
-<li>Preserves (most) syntax highlighting in both cases</li>
-<li>Share <code>#define</code>'s between C and GLSL code</li>
-<li>Centralize common helper functions between shaders (e.g. in <code>common.glsl</code>)</li>
-<li>Centralize common struct definitions between GLSL and C (e.g. in <code>common.h</code>)</li>
-<li>Conditional compilation (e.g. for having fragment &amp; vertex shader in one file)</li>
-<li>Can pair well with hot-reloading C code</li>
-</ul>
-</div>
-</div>
 <div class="read-more"><a href="/article/hot-reloadable-embedded-shaders-in-c">READ MORE</a></div><hr>
 <div class="tags-date-box">
 <div class="tags"><code>[ <a href="/tag/lisp.html">lisp</a> ]</code></div>
 <div class="date"><span class="timestamp"><2020-11-20></span></div>
 </div>
-<div id="outline-container-org7788762" class="outline-2">
-<h2 id="org7788762">The Lisp Programming Language and its Influence</h2>
-<div class="outline-text-2" id="text-org7788762">
-<h2 class="subtitle">A paper on the history, influence and concepts of the Lisp family of programming languages</h1><div class="figure"><img src="/article/lisp-paper/s-expression.png" alt=""></div>
-
+<h1>The Lisp Programming Language and its Influence</h1><h2 class="subtitle">A paper on the history, influence and concepts of the Lisp family of programming languages</h1><div class="figure"><img src="/article/lisp-paper/s-expression.png" alt=""></div>
 <p>
 As part of a university seminar on programming languages I wrote a small paper
 on Lisp. It ended up being about the history of Lisp and its dialects, their
 influences on other languages, as well as a short tutorial on how Lisp works.
 </p>
-</div>
-</div>
 <div class="read-more"><a href="/article/lisp-paper">READ MORE</a></div><hr>
 </main>
 </body>

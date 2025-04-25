@@ -1,17 +1,13 @@
-#+TITLE:       How I create my Website using Org-mode
-#+DESCRIPTION: ...
+#+TITLE:       Blogging using Org-Mode
+#+DESCRIPTION: How I create my Website using Org-mode
 #+DATE:        <2024-06-02>
 #+IMAGE:       preview.png
-#+COMMENTS:
+#+COMMENTS:    nil
 #+TAGS[]:      noexport lisp org web
 #+OPTIONS:     toc:nil num:nil
 #+INCLUDE:     ../../code.org
-
-#+CALL: generate-article-header[:eval yes]()
-* {{{TITLE}}}
-#+CALL: generate-article-subtitle[:eval yes]()
-
-** Publishing
+#+CALL: ../../code.org:generate-article-header[:eval yes]()
+* Publishing
 Both the ~.org~ and ~.html~ files are part of the same repository. This means that
 the directory structure is identical and all links to images, files, etc. are
 the same for both formats. Org-publish takes care of mapping every link to an
@@ -23,7 +19,7 @@ link or changing ~.html~ to ~.org~.
 
 # endsnippet
 
-** Features
+* Features
 The features are basically anything you can see on this site, including:
 - A "Latest articles" panel as seen [[../../index.org][here]]
 - Article snippets as seen [[../index.org][here]]
@@ -32,6 +28,6 @@ The features are basically anything you can see on this site, including:
 - Syntax highlighted source blocks using my colorscheme
 - Comment sections using [[https://utteranc.es][utterances]]
 
-** Comment Section
+* Comment Section
 - Using utterances
 - Some workaround to have the section appear under footnotes

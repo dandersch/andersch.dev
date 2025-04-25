@@ -4,12 +4,11 @@
 #+IMAGE:       preview.png
 #+TAGS[]:      lisp org web
 #+OPTIONS:     toc:nil num:nil
+
 #+INCLUDE:     ../../code.org
-
 #+CALL: generate-article-header[:eval yes]()
-* {{{TITLE}}}
-#+CALL: generate-article-subtitle[:eval yes]()
 
+* Introduction                                                       :ignore:
 This page is the HTML exported version of the script that generates this
 website. The script is written in ~emacs-lisp~, but is using org-mode to write it
 out as a [[https://en.wikipedia.org/wiki/Literate_programming][literate program]]. When generating, all emacs-lisp source code that you
@@ -68,7 +67,7 @@ see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][ta
 
 ; set footnotes to be h3, everything else is default
 (setq org-html-footnotes-section
-      "<div id=\"footnotes\">\n<h3 class=\"footnotes\">%s: </h3>\n<div id=\"text-footnotes\">\n%s\n</div>\n</div>")
+      "<div id=\"footnotes\">\n<h3 class=\"footnotes\">%s</h3>\n<div id=\"text-footnotes\">\n%s\n</div>\n</div>")
 #+END_SRC
 
 ** Helper functions
@@ -391,7 +390,7 @@ See [[https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options
              :html-head            (concat "<title>andersch.dev</title>\n"
                                            "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
                                            "<link rel=\"stylesheet\" href=\"/style.css\">\n"
-                                           ; NOTE import ubuntu font for now
+                                           ; NOTE import ubuntu font for now TODO embed in repo
                                            "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin\">"
                                            )
              :html-preamble        t
@@ -550,16 +549,34 @@ Doesn't get "nowebbed" into the source codes after
   (if (string-match-p "t" (cadr (assoc "COMMENTS" keywords)))
     (add-hook 'org-export-filter-final-output-functions 'insert-comment-section nil nil)))
 
+; check if IMAGE is set
+(if (string= "" (cadr (assoc "IMAGE" keywords)))
+  (progn
+    (setq image-fmt-string "%s")
+    (setq image-path ""))
+  (progn
+    ; TODO hardcoded
+    (setq image-path (string-replace "/index.org" "" (string-replace "/home/da/dev/andersch.dev/" "" (buffer-file-name))))
+    (setq image-fmt-string "<div class=\"figure\"><img src=\"/%s/%s\" alt=\"\"></div>")))
+
+(format (concat "<h2 class=\"subtitle\">%s</h1>" image-fmt-string)
+   (cadr (assoc "DESCRIPTION" keywords)) image-path (cadr (assoc "IMAGE" keywords)))
+
 (format
-   (concat
-     "<div class=\"tags-date-box\">\n"
-       (generate-tags)
-       "<div class=\"date\"><span class=\"timestamp\">%s</span></div>\n"
-     "</div>\n")
-   (cadr (assoc "DATE" keywords)))
+  (concat
+    "<div class=\"tags-date-box\">\n"
+      (generate-tags)
+      "<div class=\"date\"><span class=\"timestamp\">%s</span></div>\n"
+    "</div>\n"
+    "<h1>%s</h1>"
+    "<h2 class=\"subtitle\">%s</h1>" image-fmt-string)
+   (cadr (assoc "DATE" keywords))
+   (cadr (assoc "TITLE" keywords))
+   (cadr (assoc "DESCRIPTION" keywords)) image-path (cadr (assoc "IMAGE" keywords)))
 ,#+END_SRC
 #+END_SRC
 
+Unused (integrated into generate-article-header):
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
 ,#+NAME: generate-article-subtitle
 ,#+BEGIN_SRC emacs-lisp :eval no :exports results :results html
@@ -616,79 +633,6 @@ Doesn't get "nowebbed" into the source codes after
     (setq article-snippets (append article-snippets (list "<hr>\n")))))
 
 (mapconcat #'identity article-snippets "") ; flatten string list to a string
-,#+END_SRC
-#+END_SRC
-
-*** List of articles/projects
-NOTE: Unused
-
-#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
-,#+NAME: list-of-articles
-,#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='(get-article-keyword-list)
-(setq list-string '())
-(if (eq org-export-current-backend 'html)
-  (dolist (entry list)
-    (push
-     (format
-       (concat
-        "#+BEGIN_EXPORT html\n"
-        "<div class=\"image-container\">\n"
-           ; NOTE "../" as a workaround
-           "<a href=\"../%s\">\n"
-               "<div class=\"overlay\">\n"
-                   "<div class=\"title\">%s</div>\n"
-                   "<div class=\"description\">%s</div>\n"
-               "</div>\n"
-               "<img src=\"./%s\" alt=\"\">\n"
-           "</a>\n"
-        "</div>\n"
-        "#+END_EXPORT\n")
-       (string-replace ".org" ".html" (car entry))
-       (cadr (assoc "TITLE" (cadr entry)))
-       (cadr (assoc "DESCRIPTION" (cadr entry)))
-       (cadr (assoc "IMAGE" (cadr entry))))
-    list-string)
-  )
-  (dolist (entry list)
-    ; NOTE "../" as a workaround
-    (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) list-string)
-  ))
-(mapconcat #'identity list-string "\n") ; flatten string list to a string
-,#+END_SRC
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
-,#+NAME: list-of-projects
-,#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list=(get-project-keyword-list)
-(setq list-string '())
-(if (eq org-export-current-backend 'html)
-  (dolist (entry list)
-    (push
-     (format
-       (concat
-        "#+BEGIN_EXPORT html\n"
-        "<div class=\"image-container\">\n"
-           ; NOTE "../" as a workaround
-           "<a href=\"../%s\">\n"
-               "<div class=\"overlay\">\n"
-                   "<div class=\"title\">%s</div>\n"
-                   "<div class=\"description\">%s</div>\n"
-               "</div>\n"
-               "<img src=\"./%s\" alt=\"\">\n"
-           "</a>\n"
-        "</div>\n"
-        "#+END_EXPORT\n")
-       (string-replace ".org" ".html" (car entry))
-       (cadr (assoc "TITLE" (cadr entry)))
-       (cadr (assoc "DESCRIPTION" (cadr entry)))
-       (cadr (assoc "IMAGE" (cadr entry))))
-    list-string)
-  )
-  (dolist (entry list)
-    ; NOTE "../" as a workaround
-    (push (format "- [[../%s][%s]]" (car entry) (cadr (assoc "TITLE" (cadr entry)))) list-string)
-  ))
-(mapconcat #'identity list-string "\n") ; flatten string list to a string
 ,#+END_SRC
 #+END_SRC
 

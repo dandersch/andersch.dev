@@ -6,9 +6,9 @@
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
-* {{{TITLE}}}
-#+CALL: ../../code.org:generate-article-subtitle[:eval yes]()
-
+* Introduction                                                       :ignore:
 You can find the source code [[https://github.com/dandersch/compute_raytracer][here]].
+
+# TODO uses shader techniques from [[file:../../article/hot-reloadable-embedded-shaders-in-c/index.org][shader]]
 
 # endsnippet
