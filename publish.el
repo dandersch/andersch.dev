@@ -259,9 +259,8 @@ document.addEventListener('DOMContentLoaded', function() {
   (generate-main-rss-feed)
   (generate-tag-files))
 
-(setq org-publish-project-alist
-      (list
-       (list "andersch.dev"
+(setq andersch-dev
+      (list "andersch.dev"
              :recursive            t
              :base-directory       "./"
              :publishing-directory "./"
@@ -278,6 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                      (content "main" "content")
                                      (postamble "footer" "postamble"))
              :html-html5-fancy     t
+             ; TODO head defined else where and noweb it here
              :html-head            (concat "<title>andersch.dev</title>\n"
                                            "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
                                            "<link rel=\"stylesheet\" href=\"/style.css\">\n"
@@ -319,12 +319,51 @@ document.addEventListener('DOMContentLoaded', function() {
              :section-numbers      nil                       ;; no section numbers for headings
              :html-validation-link nil                       ;; don't show validation link
              :time-stamp-file      nil                       ;; don't include "Created: <timestamp>" in footer
-             :with-date            nil)))
+             :with-date            nil))
+
+(setq org-roam-directory "~/org/roam") ; NOTE not part of the repo
+
+(setq roam-andersch-dev
+      (list "roam.andersch.dev"
+             :recursive            t ; NOTE: does not need to be recursive...
+             :base-directory       org-roam-directory
+             :publishing-directory "./notes/"
+             :publishing-function  'org-html-publish-to-html    ;; may be a list of functions
+           ; :preparation-function 'prepare-publishing
+             :html-divs            '((preamble "header" "top")
+                                     (content "main" "content")
+                                     (postamble "footer" "postamble"))
+             :html-html5-fancy     t
+             ; TODO head defined else where and noweb it here
+             :html-head            (concat "<title>andersch.dev</title>\n"
+                                           "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
+                                           "<link rel=\"stylesheet\" href=\"/style.css\">\n"
+                                           ; NOTE import ubuntu font for now TODO embed in repo
+                                           "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin\">"
+                                           "<script type=\"text/javascript\" src=\"/script.js\" defer></script>"
+                                           )
+             :html-preamble        t
+             :html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string))))
+             :html-postamble       nil                       ;; don't insert a footer with a date etc.
+             :auto-sitemap         nil
+             :makeindex            nil                       ;; https://orgmode.org/manual/Generating-an-index.html
+             :with-title           t                         ;; we include our own header
+             :with-author          nil
+             :with-creator         nil                       ;; don't include emacs and org versions in footer
+             :with-toc             nil                       ;; no table of contents
+             :section-numbers      nil                       ;; no section numbers for headings
+             :html-validation-link nil                       ;; don't show validation link
+             :time-stamp-file      nil                       ;; don't include "Created: <timestamp>" in footer
+             :with-date            nil))
+
+;; TODO roam-andersch-dev-attachment
+
+(setq org-publish-project-alist (list andersch-dev roam-andersch-dev))
 
 ; NOTE caching causes problems with updating titles etc., so we reset the cache before publishing
 (setq org-publish-use-timestamps-flag nil)
 (setq org-publish-timestamp-directory "./.org-timestamps/")
-(org-publish-remove-all-timestamps)
+;(org-publish-remove-all-timestamps)
 
 ; NOTE workaround to not get a "Symbol’s function definition is void" error when publishing
 (defun get-article-keyword-list () article-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
@@ -332,4 +371,12 @@ document.addEventListener('DOMContentLoaded', function() {
 (defun get-other-keyword-list   () other-keyword-list)   ; NOTE workaround to pass keyword-list to a source-block in an org file
 
 (org-publish "andersch.dev" t)
-(message "Build complete")
+(message "Build complete: andersch.dev")
+
+; enable caching for roam.andersch.dev
+(org-publish-initialize-cache "roam.andersch.dev")
+(setq org-publish-use-timestamps-flag t)
+(setq org-export-with-broken-links t) ; TODO fix broken roam ID links...
+
+(org-publish "roam.andersch.dev" nil)
+(message "Build complete: roam.andersch.dev")

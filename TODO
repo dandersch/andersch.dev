@@ -1,39 +1,28 @@
 TODO -*- mode: org -*-
 
-- [ ] Follow this directory structure:
-  #+BEGIN_SRC
-  website.com
-  ├── article
-  │   ├── article_1_name
-  │   │   ├── index.org
-  │   │   └── image.png
-  │   ├── article_2_name
-  │   │   ├── index.org
-  │   │   └── image.png
-  │   ├── feed.rss
-  │   └── index.org
-  ├── tutorial
-  │   ├── tutorial_1_name
-  │   │   ├── index.org
-  │   │   └── image.png
-  │   ├── tutorial_2_name
-  │   │   ├── index.org
-  │   │   └── image.png
-  │   ├── feed.rss
-  │   └── index.org
-  ├── tag # auto-generated
-  │   ├── cpp
-  │   │   ├── index.org
-  │   │   └── feed.rss
-  │   ├── web
-  │   │   ├── index.org
-  │   │   └── feed.rss
-  │   └── index.org
-  ├── build.sh
-  ├── dev.sh
-  ├── serve.sh
-  ├── header.html
-  ├── publish.el
-  ├── index.org
-  └── style.css
-  #+END_SRC
+- [ ] use :html-format-drawer-function for custom drawers
+  + [ ] parameters: NAME ("DRAWER") & CONTENTS of drawer
+  + [ ] return string to be exported
+  + [ ] Custom drawer: :TAG-DATE-BOX: from ~{{{tag-date-box}}}~
+
+- [ ] switch auto-generated org-id's to derived ones
+  + [ ] need to stop using [id^="org"] selector in style.css & script.js
+  + [ ] see [[https://zzamboni.org/post/how-to-easily-create-and-use-human-readable-ids-in-org-mode-and-doom-emacs/][zzamboni.org | How to easily create and use human-readable IDs in Org mode an...]]
+  + [ ] see [[https://github.com/alphapapa/unpackaged.el#export-to-html-with-useful-anchors][GitHub - alphapapa/unpackaged.el: Export to HTML with useful anchors]]
+
+- [ ] use [[https://orgmode.org/manual/Publishing-options.html][publishing options]]
+  + [ ] :html-head-include-scripts (t/non-nil) & org-html-scripts
+
+- [ ] use #+filetags over #+tags[]
+  + [ ] migrate articles over to #+filetags
+
+- [ ] phase out code.org
+
+- [ ] add wiki
+  + [ ] publishing script in org/roam
+  + [ ] fix broken ID links
+  + [ ] add noexport notes
+  + [ ] wiki with tags
+    * [ ] output cached tags file for roam
+    * [ ] read in cached version and use that
+    * [ ] OR combine both publishing scripts
