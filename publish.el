@@ -299,6 +299,16 @@ document.addEventListener('DOMContentLoaded', function() {
            ; :sitemap-style        'tree                     ;; list or tree
            ; :sitemap-sort-files   'anti-chronologically
              :exclude-tags         org-export-exclude-tags
+             :html-prefer-user-labels  t                     ;; prefer CUSTOM_ID over auto-generated id's
+
+             :html-format-headline-function org-html-format-headline-function
+                                               ; function will be called with six arguments:
+                                               ; TODO      the todo keyword (string or nil).
+                                               ; TODO-TYPE the type of todo (symbol: todo, done, nil)
+                                               ; PRIORITY  the priority of the headline (integer or nil)
+                                               ; TEXT      the main headline text (string).
+                                               ; TAGS      the tags (string or nil).
+                                               ; INFO      the export options (plist).
 
              :makeindex            nil                       ;; https://orgmode.org/manual/Generating-an-index.html
              :with-title           nil                       ;; we include our own header

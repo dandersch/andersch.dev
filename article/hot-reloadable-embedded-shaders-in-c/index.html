@@ -252,17 +252,17 @@ avoids file I/O and has some additional advantages.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6775ccc">1. Pros &amp; Cons</a></li>
-<li><a href="#org06431f6">2. Approach</a></li>
-<li><a href="#orgffde396">3. Conditional Compilation</a></li>
-<li><a href="#org20a088e">4. Share Code Between Shaders</a></li>
-<li><a href="#org38501b1">5. Share Code Between C and GLSL</a></li>
-<li><a href="#org366c906">6. Hot-Reloading Embedded Shaders</a></li>
+<li><a href="#org048b66f">1. Pros &amp; Cons</a></li>
+<li><a href="#orgc15d47f">2. Approach</a></li>
+<li><a href="#org05b9f07">3. Conditional Compilation</a></li>
+<li><a href="#org2049737">4. Share Code Between Shaders</a></li>
+<li><a href="#org6cafe75">5. Share Code Between C and GLSL</a></li>
+<li><a href="#org4f3c789">6. Hot-Reloading Embedded Shaders</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org6775ccc" class="outline-2">
-<h2 id="org6775ccc"><span class="section-number-2">1.</span> <a href="#org6775ccc">Pros &amp; Cons</a></h2>
+<div id="outline-container-org048b66f" class="outline-2">
+<h2 id="org048b66f"><span class="section-number-2">1.</span> <a href="#org048b66f">Pros &amp; Cons</a></h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>✅ Shader code embedded as a C string (no file I/O necessary)</li>
@@ -280,8 +280,8 @@ avoids file I/O and has some additional advantages.
 </ul>
 </div>
 </div>
-<div id="outline-container-org06431f6" class="outline-2">
-<h2 id="org06431f6"><span class="section-number-2">2.</span> <a href="#org06431f6">Approach</a></h2>
+<div id="outline-container-orgc15d47f" class="outline-2">
+<h2 id="orgc15d47f"><span class="section-number-2">2.</span> <a href="#orgc15d47f">Approach</a></h2>
 <div class="outline-text-2" id="text-2">
 <p>
 We make use a <code>STRINGIFY</code> macro:
@@ -338,8 +338,8 @@ the stringify macro. In C/C++ we then <code>#include</code> that<sup><a id="fnr.
 </div>
 </div>
 </div>
-<div id="outline-container-orgffde396" class="outline-2">
-<h2 id="orgffde396"><span class="section-number-2">3.</span> <a href="#orgffde396">Conditional Compilation</a></h2>
+<div id="outline-container-org05b9f07" class="outline-2">
+<h2 id="org05b9f07"><span class="section-number-2">3.</span> <a href="#org05b9f07">Conditional Compilation</a></h2>
 <div class="outline-text-2" id="text-3">
 <p>
 To have both the fragment and vertex shader in the same <code>.glsl</code> file, we can
@@ -439,8 +439,8 @@ We can still invoke the GLSL preprocessor by wrapping a directive in <code>\n</c
 </div>
 </div>
 </div>
-<div id="outline-container-org20a088e" class="outline-2">
-<h2 id="org20a088e"><span class="section-number-2">4.</span> <a href="#org20a088e">Share Code Between Shaders</a></h2>
+<div id="outline-container-org2049737" class="outline-2">
+<h2 id="org2049737"><span class="section-number-2">4.</span> <a href="#org2049737">Share Code Between Shaders</a></h2>
 <div class="outline-text-2" id="text-4">
 <p>
 The GLSL preprocessor does not have a native <code>#include</code> directive, making it hard
@@ -478,8 +478,8 @@ Shaders can then <code>#include</code> this file and call the functions like so:
 </div>
 </div>
 </div>
-<div id="outline-container-org38501b1" class="outline-2">
-<h2 id="org38501b1"><span class="section-number-2">5.</span> <a href="#org38501b1">Share Code Between C and GLSL</a></h2>
+<div id="outline-container-org6cafe75" class="outline-2">
+<h2 id="org6cafe75"><span class="section-number-2">5.</span> <a href="#org6cafe75">Share Code Between C and GLSL</a></h2>
 <div class="outline-text-2" id="text-5">
 <p>
 We can centralize code that would normally be duplicated between the shader and
@@ -556,8 +556,8 @@ We can even keep <code>struct</code> definitions in sync between both parts of t
 </div>
 </div>
 </div>
-<div id="outline-container-org366c906" class="outline-2">
-<h2 id="org366c906"><span class="section-number-2">6.</span> <a href="#org366c906">Hot-Reloading Embedded Shaders</a></h2>
+<div id="outline-container-org4f3c789" class="outline-2">
+<h2 id="org4f3c789"><span class="section-number-2">6.</span> <a href="#org4f3c789">Hot-Reloading Embedded Shaders</a></h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Usually, you wouldn't be able to hot-reload shaders that are included in your
@@ -589,6 +589,13 @@ create_shaders = (<span class="org-type">void</span> (*)(<span class="org-type">
 <span class="org-comment-delimiter">// </span><span class="org-comment">reload all shaders</span>
 create_shaders(&amp;state);
 </pre>
+</div>
+
+
+<div id="hot-reload-shader" class="figure">
+<p><img src="./preview.gif" alt="preview.gif" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Reloading a shader under filewatch using code hot-reloading</p>
 </div>
 
 <p>

@@ -299,8 +299,9 @@ create_shaders(&state);
 
 # TODO gives it an org id, which interferes with collapsing
 # #+PROPERTY: CUSTOM_ID img
-# #+CAPTION: Reloading a shader under filewatch using code hot-reloading
-# [[./preview.gif]]
+#+NAME: hot-reload-shader
+#+CAPTION: Reloading a shader under filewatch using code hot-reloading
+[[./preview.gif]]
 
 If you don't want to compile all shaders again and instead only the ones that
 have changed, you could either check the embedded source code strings for
