@@ -39,6 +39,8 @@ see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][ta
 ** Dependencies
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 (package-install 'htmlize) ; enable export of #+begin_src code blocks
+(package-install 'glsl-mode) ; for coloring glsl src blocks
+(require 'glsl-mode)
 
 (require 'ox-publish)
 (require 'org)

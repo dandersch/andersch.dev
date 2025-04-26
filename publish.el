@@ -12,6 +12,8 @@
 (unless package-archive-contents (package-refresh-contents))
 
 (package-install 'htmlize) ; enable export of #+begin_src code blocks
+(package-install 'glsl-mode) ; for coloring glsl src blocks
+(require 'glsl-mode)
 
 (require 'ox-publish)
 (require 'org)
