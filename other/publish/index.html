@@ -230,9 +230,9 @@ out as a <a href="https://en.wikipedia.org/wiki/Literate_programming">literate p
 see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.html">tangled</a> from the <a href="http:./index.org">original org-file</a> to a file called
 <a href="../../publish.el"><code>publish.el</code></a>.
 </p>
-<div id="outline-container-org718cb83" class="outline-2">
-<h2 id="org718cb83">Packages</h2>
-<div class="outline-text-2" id="text-org718cb83">
+<div id="outline-container-orga2bba5f" class="outline-2">
+<h2 id="orga2bba5f"><a href="#orga2bba5f">Packages</a></h2>
+<div class="outline-text-2" id="text-orga2bba5f">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">set package install dir to local directory</span>
 (<span class="org-keyword">require</span> '<span class="org-constant">package</span>)
@@ -246,9 +246,9 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 </div>
 </div>
 </div>
-<div id="outline-container-orgb0865a5" class="outline-2">
-<h2 id="orgb0865a5">Dependencies</h2>
-<div class="outline-text-2" id="text-orgb0865a5">
+<div id="outline-container-org02b61e9" class="outline-2">
+<h2 id="org02b61e9"><a href="#org02b61e9">Dependencies</a></h2>
+<div class="outline-text-2" id="text-org02b61e9">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(package-install 'htmlize) <span class="org-comment-delimiter">; </span><span class="org-comment">enable export of #+begin_src code blocks</span>
 (package-install 'glsl-mode) <span class="org-comment-delimiter">; </span><span class="org-comment">for coloring glsl src blocks</span>
@@ -272,9 +272,9 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 </div>
 </div>
 </div>
-<div id="outline-container-orgb8fc701" class="outline-2">
-<h2 id="orgb8fc701">Configuration</h2>
-<div class="outline-text-2" id="text-orgb8fc701">
+<div id="outline-container-orge7779ad" class="outline-2">
+<h2 id="orge7779ad"><a href="#orge7779ad">Configuration</a></h2>
+<div class="outline-text-2" id="text-orge7779ad">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span>
       keywords '(<span class="org-string">"TITLE"</span> <span class="org-string">"DATE"</span> <span class="org-string">"DESCRIPTION"</span> <span class="org-string">"IMAGE"</span> <span class="org-string">"TAGS[]"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">keywords to parse from .org files</span>
@@ -290,9 +290,9 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 </div>
 </div>
 </div>
-<div id="outline-container-orgafdc09b" class="outline-2">
-<h2 id="orgafdc09b">Helper functions</h2>
-<div class="outline-text-2" id="text-orgafdc09b">
+<div id="outline-container-org6fcfaa2" class="outline-2">
+<h2 id="org6fcfaa2"><a href="#org6fcfaa2">Helper functions</a></h2>
+<div class="outline-text-2" id="text-org6fcfaa2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">get-org-files</span> (directory)
   <span class="org-doc">"Return a list of .org files in DIRECTORY excluding '</span><span class="org-doc"><span class="org-constant">index.org</span></span><span class="org-doc">'."</span>
@@ -321,9 +321,9 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 </div>
 </div>
 </div>
-<div id="outline-container-orge8c8f87" class="outline-2">
-<h2 id="orge8c8f87">Filter out links to <code>index.html</code></h2>
-<div class="outline-text-2" id="text-orge8c8f87">
+<div id="outline-container-org09e4320" class="outline-2">
+<h2 id="org09e4320"><a href="#org09e4320">Filter out links to <code>index.html</code></a></h2>
+<div class="outline-text-2" id="text-org09e4320">
 <p>
 Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"</code>.
 </p>
@@ -340,24 +340,24 @@ Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"<
 </div>
 </div>
 </div>
-<div id="outline-container-org4693090" class="outline-2">
-<h2 id="org4693090">Comment Section</h2>
-<div class="outline-text-2" id="text-org4693090">
+<div id="outline-container-org0417e23" class="outline-2">
+<h2 id="org0417e23"><a href="#org0417e23">Comment Section</a></h2>
+<div class="outline-text-2" id="text-org0417e23">
 <p>
 Adds a GitHub Issues-based comment section using <a href="https://utteranc.es/">utterances</a>. Only applies to
 articles that are marked with the keyword <code>#+COMMENTS: t</code>.
 </p>
 </div>
-<div id="outline-container-org7b9c5c0" class="outline-3">
-<h3 id="org7b9c5c0">Loading animation script</h3>
-<div class="outline-text-3" id="text-org7b9c5c0">
+<div id="outline-container-org7c58149" class="outline-3">
+<h3 id="org7c58149"><a href="#org7c58149">Loading animation script</a></h3>
+<div class="outline-text-3" id="text-org7c58149">
 <p>
 Following javascript animates the comment section title until the lazy-loaded
 comment section has loaded in.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-js" id="org409a735"><span class="org-keyword">const</span> <span class="org-variable-name">commentSectionTitle</span> = document.getElementById(<span class="org-string">'comment-section-title'</span>);
+<pre class="src src-js" id="org0808eea"><span class="org-keyword">const</span> <span class="org-variable-name">commentSectionTitle</span> = document.getElementById(<span class="org-string">'comment-section-title'</span>);
 <span class="org-keyword">const</span> <span class="org-variable-name">commentsDiv</span>         = document.getElementById(<span class="org-string">'comment-section'</span>);
 commentSectionTitle.style.animation = <span class="org-string">'loading 0.6s infinite alternate'</span>;
 document.addEventListener(<span class="org-string">'DOMContentLoaded'</span>, <span class="org-keyword">function</span>() {
@@ -385,16 +385,16 @@ document.addEventListener(<span class="org-string">'DOMContentLoaded'</span>, <s
 </div>
 </div>
 </div>
-<div id="outline-container-org17d3ebf" class="outline-3">
-<h3 id="org17d3ebf">HTML Layout</h3>
-<div class="outline-text-3" id="text-org17d3ebf">
+<div id="outline-container-orga430ce2" class="outline-3">
+<h3 id="orga430ce2"><a href="#orga430ce2">HTML Layout</a></h3>
+<div class="outline-text-3" id="text-orga430ce2">
 <p>
 Note the usage of single quotes instead of double quotes for attribute values.
 This way we can use noweb to include the html without having to escape strings.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="orgabb2143">&lt;<span class="org-function-name">hr</span>&gt;
+<pre class="src src-html" id="org5cb3177">&lt;<span class="org-function-name">hr</span>&gt;
 &lt;<span class="org-function-name">div</span> <span class="org-variable-name">id</span>=<span class="org-string">'comment-section'</span>&gt;
 &lt;<span class="org-function-name">h3</span> <span class="org-variable-name">id</span>=<span class="org-string">'comment-section-title'</span>&gt;<span class="org-underline"><span class="org-italic">Comments</span></span>&lt;/<span class="org-function-name">h3</span>&gt;
 &lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">'https://utteranc.es/client.js'</span>
@@ -413,9 +413,9 @@ This way we can use noweb to include the html without having to escape strings.
 </div>
 </div>
 </div>
-<div id="outline-container-org2bb1fa7" class="outline-3">
-<h3 id="org2bb1fa7">Elisp variable</h3>
-<div class="outline-text-3" id="text-org2bb1fa7">
+<div id="outline-container-orgcf78d36" class="outline-3">
+<h3 id="orgcf78d36"><a href="#orgcf78d36">Elisp variable</a></h3>
+<div class="outline-text-3" id="text-orgcf78d36">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> comment-section-html <span class="org-string">"&lt;&lt;comment-section-html&gt;&gt;"</span> )
 </pre>
@@ -423,9 +423,9 @@ This way we can use noweb to include the html without having to escape strings.
 </div>
 </div>
 </div>
-<div id="outline-container-org61b06e9" class="outline-2">
-<h2 id="org61b06e9">Footnotes Section workaround</h2>
-<div class="outline-text-2" id="text-org61b06e9">
+<div id="outline-container-org2861600" class="outline-2">
+<h2 id="org2861600"><a href="#org2861600">Footnotes Section workaround</a></h2>
+<div class="outline-text-2" id="text-org2861600">
 <p>
 If we include above HTML at the very end of an org-file using <code>#+BEGIN_EXPORT
 html</code>, org-mode will still append the footnotes section below that (if the
@@ -442,9 +442,9 @@ function to later add as a filter-hook to insert the HTML at the very end.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd26d8d7" class="outline-2">
-<h2 id="orgd26d8d7">Keyword Lists</h2>
-<div class="outline-text-2" id="text-orgd26d8d7">
+<div id="outline-container-org821803c" class="outline-2">
+<h2 id="org821803c"><a href="#org821803c">Keyword Lists</a></h2>
+<div class="outline-text-2" id="text-org821803c">
 <p>
 Fills the primary datastructure of this script of the form:
 </p>
@@ -496,9 +496,9 @@ Fills the primary datastructure of this script of the form:
 </div>
 </div>
 </div>
-<div id="outline-container-org7d9b369" class="outline-2">
-<h2 id="org7d9b369">RSS Feed Generation</h2>
-<div class="outline-text-2" id="text-org7d9b369">
+<div id="outline-container-org66b45b0" class="outline-2">
+<h2 id="org66b45b0"><a href="#org66b45b0">RSS Feed Generation</a></h2>
+<div class="outline-text-2" id="text-org66b45b0">
 <p>
 Generates a simple rss feed for articles specifically.
 </p>
@@ -547,9 +547,9 @@ Generates a simple rss feed for articles specifically.
 </div>
 </div>
 </div>
-<div id="outline-container-org365b74e" class="outline-2">
-<h2 id="org365b74e">Tagging System</h2>
-<div class="outline-text-2" id="text-org365b74e">
+<div id="outline-container-org0d859bb" class="outline-2">
+<h2 id="org0d859bb"><a href="#org0d859bb">Tagging System</a></h2>
+<div class="outline-text-2" id="text-org0d859bb">
 <p>
 Generates a <code>tag.org</code> for every unique tag across all articles.
 </p>
@@ -612,9 +612,9 @@ Generates a <code>tag.org</code> for every unique tag across all articles.
 </div>
 </div>
 </div>
-<div id="outline-container-org2999bf3" class="outline-2">
-<h2 id="org2999bf3">Prepare publishing function</h2>
-<div class="outline-text-2" id="text-org2999bf3">
+<div id="outline-container-org0d5c464" class="outline-2">
+<h2 id="org0d5c464"><a href="#org0d5c464">Prepare publishing function</a></h2>
+<div class="outline-text-2" id="text-org0d5c464">
 <p>
 Gets called by <code>org-publish</code> before the main publishing step.
 </p>
@@ -628,9 +628,9 @@ Gets called by <code>org-publish</code> before the main publishing step.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd9a28cd" class="outline-2">
-<h2 id="orgd9a28cd">Org-publish Customization</h2>
-<div class="outline-text-2" id="text-orgd9a28cd">
+<div id="outline-container-org8454375" class="outline-2">
+<h2 id="org8454375"><a href="#org8454375">Org-publish Customization</a></h2>
+<div class="outline-text-2" id="text-org8454375">
 <p>
 See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options.html">here</a> for exporter-specific properties and use <code>(describe-variable
 'org-publish-project-alist)</code> for documentation on general options.
@@ -667,14 +667,20 @@ See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-
              <span class="org-builtin">:html-preamble-format</span> `((<span class="org-string">"en"</span> ,(<span class="org-keyword">with-temp-buffer</span> (insert-file-contents <span class="org-string">"header.html"</span>) (buffer-string))))
              <span class="org-builtin">:html-postamble</span>       nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">don't insert a footer with a date etc.</span>
 
+             <span class="org-builtin">:html-link-home</span>                  <span class="org-string">""</span>
+             <span class="org-builtin">:html-head-include-default-style</span> t
+             <span class="org-builtin">:html-self-link-headlines</span>   t <span class="org-comment-delimiter">; </span><span class="org-comment">headings contain hyperlinks to themselves</span>
+
              <span class="org-builtin">:auto-sitemap</span>         nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">https://orgmode.org/manual/Site-map.html</span>
            <span class="org-comment-delimiter">; </span><span class="org-comment">:sitemap-filename     "sitemap.org"</span>
            <span class="org-comment-delimiter">; </span><span class="org-comment">:sitemap-title</span>
            <span class="org-comment-delimiter">; </span><span class="org-comment">:sitemap-style        'tree                     ;; list or tree</span>
            <span class="org-comment-delimiter">; </span><span class="org-comment">:sitemap-sort-files   'anti-chronologically</span>
+             <span class="org-builtin">:exclude-tags</span>         org-export-exclude-tags
 
              <span class="org-builtin">:makeindex</span>            nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">https://orgmode.org/manual/Generating-an-index.html</span>
              <span class="org-builtin">:with-title</span>           nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">we include our own header</span>
+             <span class="org-builtin">:with-tags</span>            nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">* headline :tag:</span>
              <span class="org-builtin">:with-author</span>          nil
              <span class="org-builtin">:with-creator</span>         nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">don't include emacs and org versions in footer</span>
              <span class="org-builtin">:with-toc</span>             nil                       <span class="org-comment-delimiter">;; </span><span class="org-comment">no table of contents</span>
@@ -686,9 +692,9 @@ See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-
 </div>
 </div>
 </div>
-<div id="outline-container-org180f33f" class="outline-2">
-<h2 id="org180f33f">Fix caching issue</h2>
-<div class="outline-text-2" id="text-org180f33f">
+<div id="outline-container-org8c98881" class="outline-2">
+<h2 id="org8c98881"><a href="#org8c98881">Fix caching issue</a></h2>
+<div class="outline-text-2" id="text-org8c98881">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">NOTE caching causes problems with updating titles etc., so we reset the cache before publishing</span>
 (<span class="org-keyword">setq</span> org-publish-use-timestamps-flag nil)
@@ -698,9 +704,9 @@ See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-
 </div>
 </div>
 </div>
-<div id="outline-container-orgdfba26b" class="outline-2">
-<h2 id="orgdfba26b">Workaround</h2>
-<div class="outline-text-2" id="text-orgdfba26b">
+<div id="outline-container-orgadee7e1" class="outline-2">
+<h2 id="orgadee7e1"><a href="#orgadee7e1">Workaround</a></h2>
+<div class="outline-text-2" id="text-orgadee7e1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">NOTE workaround to not get a "Symbol&#8217;s function definition is void" error when publishing</span>
 (<span class="org-keyword">defun</span> <span class="org-function-name">get-article-keyword-list</span> () article-keyword-list) <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE workaround to pass keyword-list to a source-block in an org file</span>
@@ -710,9 +716,9 @@ See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-
 </div>
 </div>
 </div>
-<div id="outline-container-orgbb96b50" class="outline-2">
-<h2 id="orgbb96b50">Build</h2>
-<div class="outline-text-2" id="text-orgbb96b50">
+<div id="outline-container-orgefc446d" class="outline-2">
+<h2 id="orgefc446d"><a href="#orgefc446d">Build</a></h2>
+<div class="outline-text-2" id="text-orgefc446d">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(org-publish <span class="org-string">"andersch.dev"</span> t)
 (message <span class="org-string">"Build complete"</span>)
@@ -720,15 +726,15 @@ See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-
 </div>
 </div>
 </div>
-<div id="outline-container-org63598b3" class="outline-2">
-<h2 id="org63598b3">Code snippets</h2>
-<div class="outline-text-2" id="text-org63598b3">
+<div id="outline-container-orgb2a5ab8" class="outline-2">
+<h2 id="orgb2a5ab8"><a href="#orgb2a5ab8">Code snippets</a></h2>
+<div class="outline-text-2" id="text-orgb2a5ab8">
 </div>
-<div id="outline-container-org29a493b" class="outline-3">
-<h3 id="org29a493b">Helper functions</h3>
-<div class="outline-text-3" id="text-org29a493b">
+<div id="outline-container-orgfd41236" class="outline-3">
+<h3 id="orgfd41236"><a href="#orgfd41236">Helper functions</a></h3>
+<div class="outline-text-3" id="text-orgfd41236">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org8c6ab01">(<span class="org-keyword">defun</span> <span class="org-function-name">format-entry-as-image-link</span> (entry type) <span class="org-comment-delimiter">; </span><span class="org-comment">of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))</span>
+<pre class="src src-emacs-lisp" id="org83ba081">(<span class="org-keyword">defun</span> <span class="org-function-name">format-entry-as-image-link</span> (entry type) <span class="org-comment-delimiter">; </span><span class="org-comment">of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))</span>
   (format
    (concat
      <span class="org-string">"&lt;div class=\"image-container\"&gt;\n"</span>
@@ -750,9 +756,9 @@ See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-
 </div>
 </div>
 </div>
-<div id="outline-container-orgf2c2dc2" class="outline-3">
-<h3 id="orgf2c2dc2"><span class="todo TODO">TODO</span> Generate "Latest Articles/Projects" View</h3>
-<div class="outline-text-3" id="text-orgf2c2dc2">
+<div id="outline-container-orgcf25551" class="outline-3">
+<h3 id="orgcf25551"><a href="#orgcf25551"><span class="todo TODO">TODO</span> Generate "Latest Articles/Projects" View</a></h3>
+<div class="outline-text-3" id="text-orgcf25551">
 <p>
 Doesn't get "nowebbed" into the source codes after
 </p>
@@ -836,9 +842,9 @@ Doesn't get "nowebbed" into the source codes after
 </div>
 </div>
 </div>
-<div id="outline-container-org14ba7d4" class="outline-3">
-<h3 id="org14ba7d4">Generate Tags</h3>
-<div class="outline-text-3" id="text-org14ba7d4">
+<div id="outline-container-orgf785aa7" class="outline-3">
+<h3 id="orgf785aa7"><a href="#orgf785aa7">Generate Tags</a></h3>
+<div class="outline-text-3" id="text-orgf785aa7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">#+NAME: generate-tags
 #+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> html
@@ -859,9 +865,9 @@ Doesn't get "nowebbed" into the source codes after
 </div>
 </div>
 </div>
-<div id="outline-container-orge6646cc" class="outline-3">
-<h3 id="orge6646cc">Generate Article Header &amp; Subtitle</h3>
-<div class="outline-text-3" id="text-orge6646cc">
+<div id="outline-container-org38b92e4" class="outline-3">
+<h3 id="org38b92e4"><a href="#org38b92e4">Generate Article Header &amp; Subtitle</a></h3>
+<div class="outline-text-3" id="text-org38b92e4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">#+NAME: generate-article-header
 #+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> html
@@ -939,9 +945,9 @@ Unused (integrated into generate-article-header):
 </div>
 </div>
 </div>
-<div id="outline-container-org30ea636" class="outline-3">
-<h3 id="org30ea636">Generate Article Snippets</h3>
-<div class="outline-text-3" id="text-org30ea636">
+<div id="outline-container-org56134ff" class="outline-3">
+<h3 id="org56134ff"><a href="#org56134ff">Generate Article Snippets</a></h3>
+<div class="outline-text-3" id="text-org56134ff">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">#+NAME: generate-article-snippets
 #+BEGIN_SRC emacs-lisp <span class="org-builtin">:eval</span> no <span class="org-builtin">:exports</span> results <span class="org-builtin">:results</span> html <span class="org-builtin">:var</span> list='()
@@ -983,9 +989,9 @@ Unused (integrated into generate-article-header):
 </div>
 </div>
 </div>
-<div id="outline-container-org3214f9f" class="outline-2">
-<h2 id="org3214f9f">Resources</h2>
-<div class="outline-text-2" id="text-org3214f9f">
+<div id="outline-container-orgdddfec8" class="outline-2">
+<h2 id="orgdddfec8"><a href="#orgdddfec8">Resources</a></h2>
+<div class="outline-text-2" id="text-orgdddfec8">
 <ul class="org-ul">
 <li><a href="https://pank.eu/blog/blog-setup.html">Blogging with Org</a></li>
 <li><a href="https://ogbe.net/blog/blogging_with_org">Blogging using org-mode (and nothing else)</a></li>

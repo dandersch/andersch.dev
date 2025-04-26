@@ -5,6 +5,7 @@
 #+TAGS[]:      cpp
 #+COMMENTS:    t
 #+OPTIONS:     toc:nil num:1
+# #+FILETAGS:    noexport
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
 
