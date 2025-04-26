@@ -117,7 +117,7 @@ li { margin-bottom: 5px; }
 
 .org-src-container pre { color: #000000; font-size: 16px; }
 
-.title     { text-align: center; margin-bottom: 0; color: #ECBE7B; }
+/* .title     { text-align: center; margin-bottom: 0; color: #ECBE7B; } */
 .subtitle  { text-align: center; font-size: medium; font-weight: normal; font-style: italic; margin-top:0; color: white; }
 .tag       { background-color: #eee; font-family: monospace; padding: 2px; font-size: 80%; font-weight: normal; }
 .underline { text-decoration: underline; }

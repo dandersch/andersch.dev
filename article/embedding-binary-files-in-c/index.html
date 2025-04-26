@@ -212,6 +212,7 @@
 		<a class="nav-link" href="/article">article</a>
 		<a class="nav-link" href="/project">project</a>
 		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
 	</nav>
 </div>
 </header>
@@ -241,17 +242,17 @@ C++.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org55e857a">1. Convert to C Code</a></li>
-<li><a href="#org30291c5">2. Use the linker</a></li>
-<li><a href="#org26cce95">3. Inline Assembly using <code>.incbin</code></a></li>
-<li><a href="#org6defbe1">4. Use a library</a></li>
-<li><a href="#org9c47b64">5. Using <code>#embed</code></a></li>
-<li><a href="#orgd4e6b02">6. Resources</a></li>
+<li><a href="#orgda91195">1. Convert to C Code</a></li>
+<li><a href="#org9e1c428">2. Use the linker</a></li>
+<li><a href="#org05d7d64">3. Inline Assembly using <code>.incbin</code></a></li>
+<li><a href="#org003986e">4. Use a library</a></li>
+<li><a href="#orgf4cbac5">5. Using <code>#embed</code></a></li>
+<li><a href="#org66406fb">6. Resources</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org55e857a" class="outline-2">
-<h2 id="org55e857a"><span class="section-number-2">1.</span> Convert to C Code</h2>
+<div id="outline-container-orgda91195" class="outline-2">
+<h2 id="orgda91195"><span class="section-number-2">1.</span> Convert to C Code</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 By converting a binary file to to a properly formatted <code>char</code> array, we can simply
@@ -259,9 +260,9 @@ include the resulting code in the source code. Programs to do this are <code>xxd
 <code>convert</code> or <code>bin2h</code>.
 </p>
 </div>
-<div id="outline-container-org41e68ae" class="outline-3">
-<h3 id="org41e68ae">Example</h3>
-<div class="outline-text-3" id="text-org41e68ae">
+<div id="outline-container-orgef9010f" class="outline-3">
+<h3 id="orgef9010f">Example</h3>
+<div class="outline-text-3" id="text-orgef9010f">
 <p>
 In the case of <code>xxd</code>, running <code>xxd -i file.ext</code> will output C code:
 </p>
@@ -301,9 +302,9 @@ of glsl shaders in source code</a>:
 </div>
 </div>
 </div>
-<div id="outline-container-org4e595a6" class="outline-3">
-<h3 id="org4e595a6">Pros &amp; Cons</h3>
-<div class="outline-text-3" id="text-org4e595a6">
+<div id="outline-container-org9df9310" class="outline-3">
+<h3 id="org9df9310">Pros &amp; Cons</h3>
+<div class="outline-text-3" id="text-org9df9310">
 <ul class="org-ul">
 <li>✅ Should work everywhere</li>
 <li>✅ Binaries can be included with their original name</li>
@@ -315,9 +316,9 @@ of glsl shaders in source code</a>:
 </ul>
 </div>
 </div>
-<div id="outline-container-orge6b1252" class="outline-3">
-<h3 id="orge6b1252">Improving build times with <code>strliteral</code></h3>
-<div class="outline-text-3" id="text-orge6b1252">
+<div id="outline-container-orgb3eeb58" class="outline-3">
+<h3 id="orgb3eeb58">Improving build times with <code>strliteral</code></h3>
+<div class="outline-text-3" id="text-orgb3eeb58">
 <p>
 Parsing hex-formatted char arrays from a program like <code>xxd</code> like above can be slow
 for large binaries. It turns out that parsing string literals containing escaped
@@ -332,8 +333,8 @@ build dependency.
 </div>
 </div>
 </div>
-<div id="outline-container-org30291c5" class="outline-2">
-<h2 id="org30291c5"><span class="section-number-2">2.</span> Use the linker</h2>
+<div id="outline-container-org9e1c428" class="outline-2">
+<h2 id="org9e1c428"><span class="section-number-2">2.</span> Use the linker</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Instead of getting the binary into a compilable format, we can go one step
@@ -346,9 +347,9 @@ Programs (or linkers) that can do this are <code>ld</code>, <code>objcopy</code>
 Windows.
 </p>
 </div>
-<div id="outline-container-orga00f34b" class="outline-3">
-<h3 id="orga00f34b">Example</h3>
-<div class="outline-text-3" id="text-orga00f34b">
+<div id="outline-container-org909c1e8" class="outline-3">
+<h3 id="org909c1e8">Example</h3>
+<div class="outline-text-3" id="text-org909c1e8">
 <p>
 The basic usage with <code>ld</code>:
 </p>
@@ -420,9 +421,9 @@ Which makes usage look like this:
 </div>
 </div>
 </div>
-<div id="outline-container-orge09c82d" class="outline-3">
-<h3 id="orge09c82d">Pros &amp; Cons</h3>
-<div class="outline-text-3" id="text-orge09c82d">
+<div id="outline-container-orgfd58260" class="outline-3">
+<h3 id="orgfd58260">Pros &amp; Cons</h3>
+<div class="outline-text-3" id="text-orgfd58260">
 <ul class="org-ul">
 <li>✅ No added build dependency (since we already depended on having linker)</li>
 <li>✅ Faster build times than first option</li>
@@ -439,8 +440,8 @@ Which makes usage look like this:
 </div>
 </div>
 </div>
-<div id="outline-container-org26cce95" class="outline-2">
-<h2 id="org26cce95"><span class="section-number-2">3.</span> Inline Assembly using <code>.incbin</code></h2>
+<div id="outline-container-org05d7d64" class="outline-2">
+<h2 id="org05d7d64"><span class="section-number-2">3.</span> Inline Assembly using <code>.incbin</code></h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <code>.incbin</code> is a GNU directive that can be used in <code>asm</code> blocks to basically perform
@@ -483,9 +484,9 @@ Usage code becomes:
 </pre>
 </div>
 </div>
-<div id="outline-container-org1cae560" class="outline-3">
-<h3 id="org1cae560">Pros &amp; Cons</h3>
-<div class="outline-text-3" id="text-org1cae560">
+<div id="outline-container-orga5529c1" class="outline-3">
+<h3 id="orga5529c1">Pros &amp; Cons</h3>
+<div class="outline-text-3" id="text-orga5529c1">
 <p>
 Same as the linker option, except&#x2026;
 </p>
@@ -498,8 +499,8 @@ Same as the linker option, except&#x2026;
 </div>
 </div>
 </div>
-<div id="outline-container-org6defbe1" class="outline-2">
-<h2 id="org6defbe1"><span class="section-number-2">4.</span> Use a library</h2>
+<div id="outline-container-org003986e" class="outline-2">
+<h2 id="org003986e"><span class="section-number-2">4.</span> Use a library</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 The library <a href="https://github.com/graphitemaster/incbin">incbin</a> actually uses the previous approach by default and aims to be
@@ -521,9 +522,9 @@ The usage code looks basically like this:
 </pre>
 </div>
 </div>
-<div id="outline-container-org5fa2999" class="outline-3">
-<h3 id="org5fa2999">Pros &amp; Cons</h3>
-<div class="outline-text-3" id="text-org5fa2999">
+<div id="outline-container-org6dca4f5" class="outline-3">
+<h3 id="org6dca4f5">Pros &amp; Cons</h3>
+<div class="outline-text-3" id="text-org6dca4f5">
 <p>
 Same as the <code>.incbin</code> option, except&#x2026;
 </p>
@@ -536,8 +537,8 @@ Same as the <code>.incbin</code> option, except&#x2026;
 </div>
 </div>
 </div>
-<div id="outline-container-org9c47b64" class="outline-2">
-<h2 id="org9c47b64"><span class="section-number-2">5.</span> Using <code>#embed</code></h2>
+<div id="outline-container-orgf4cbac5" class="outline-2">
+<h2 id="orgf4cbac5"><span class="section-number-2">5.</span> Using <code>#embed</code></h2>
 <div class="outline-text-2" id="text-5">
 <p>
 A new <code>#embed</code> directive has been introduced to C23<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup> and
@@ -563,9 +564,9 @@ implementation of <code>#embed</code> in current compilers is not yet wide sprea
 not be an option for you.
 </p>
 </div>
-<div id="outline-container-orgca81f89" class="outline-3">
-<h3 id="orgca81f89">Pros &amp; Cons</h3>
-<div class="outline-text-3" id="text-orgca81f89">
+<div id="outline-container-orgb282c06" class="outline-3">
+<h3 id="orgb282c06">Pros &amp; Cons</h3>
+<div class="outline-text-3" id="text-orgb282c06">
 <ul class="org-ul">
 <li>✅ Fastest &amp; easiest way</li>
 <li>❌ Requires modern compiler support</li>
@@ -573,8 +574,8 @@ not be an option for you.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd4e6b02" class="outline-2">
-<h2 id="orgd4e6b02"><span class="section-number-2">6.</span> Resources</h2>
+<div id="outline-container-org66406fb" class="outline-2">
+<h2 id="org66406fb"><span class="section-number-2">6.</span> Resources</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li><a href="https://www.devever.net/~hl/incbin">Embedding of binary data into programs</a></li>

@@ -219,7 +219,9 @@ the host application. For example:
 SHADER_VERSION_STRING
 #include "common.h"
 S(
-layout (local_size_x = WORK_GROUP_SIZE_X, local_size_y = WORK_GROUP_SIZE_Y, local_size_z = 1) in;
+layout (local_size_x = WORK_GROUP_SIZE_X,
+        local_size_y = WORK_GROUP_SIZE_Y,
+        local_size_z = 1) in;
 void main() {
     // ...
 }
@@ -270,8 +272,9 @@ int main() { /* ... */ }
 * Hot-Reloading Embedded Shaders
 Usually, you wouldn't be able to hot-reload shaders that are included in your
 source code. After all, they are now baked into the executable. But what if we
-reload the entirety of our code using DLL-based [fn::[[https://slembcke.net/blog/HotLoadC][Easy Hot-Loading for C]]]
-This way, we get a buffer to the string of a new shader anytime we recompile.
+reload the entirety of our code using DLL-based [fn::[[https://slembcke.net/blog/HotLoadC][Easy Hot-Loading for C]]] hot
+reloading? This way, we get a buffer to the string of a new shader anytime we
+recompile.
 
 Instead of having code that checks several shader files for modifications times
 or setting up file watchers, we only check the ~.dll~ or ~.so~ for changes. All we
@@ -293,6 +296,11 @@ create_shaders = (void (*)(state_t*)) dlsym(dll_handle, "create_shaders");
 // reload all shaders
 create_shaders(&state);
 #+END_SRC
+
+# TODO gives it an org id, which interferes with collapsing
+# #+PROPERTY: CUSTOM_ID img
+# #+CAPTION: Reloading a shader under filewatch using code hot-reloading
+# [[./preview.gif]]
 
 If you don't want to compile all shaders again and instead only the ones that
 have changed, you could either check the embedded source code strings for
