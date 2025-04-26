@@ -281,6 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                            "<link rel=\"stylesheet\" href=\"/style.css\">\n"
                                            ; NOTE import ubuntu font for now TODO embed in repo
                                            "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin\">"
+                                           "<script type=\"text/javascript\" src=\"/script.js\" defer></script>"
                                            )
              :html-preamble        t
              :html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string))))

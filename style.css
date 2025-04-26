@@ -64,8 +64,8 @@ h1 a {
 /* center all headings */
 h1 { text-align: center; font-weight: normal;} /* article title */
 h2 { text-align: left; font-size: 27px; font-weight: 500; margin-top: 40px; } /* headings in article */
-h3 { font-size: 24px; font-weight: normal; }
-h4 { font-size: 20px; font-weight: normal; }
+h3 { font-size: 20px; font-weight: normal; }
+h4 { font-size: 18px; font-weight: normal; }
 h5 { text-align: center; }
 
 /* better lists */
@@ -90,6 +90,30 @@ li { margin-bottom: 5px; }
 #table-of-contents a { color: #b3b3b3; text-decoration: none; transition: color 0.3s ease; }
 #table-of-contents a:hover { color: #f1f1f1; }
 
+/* collapsible sections */
+.outline-2 {
+    display: block; /* Shown by default */
+}
+[id^="org"] {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #1e1e1e;
+    /* border: 1px solid #ccc;*/
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+/* footnotes */
+#footnotes {
+  background-color: #1e1e1e;
+  padding: 1px 10px 1px 20px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
 .org-src-container pre { color: #000000; font-size: 16px; }
 
