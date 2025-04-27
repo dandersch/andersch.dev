@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OpenGL</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">OpenGL</h1>
+<p>
+OpenGL (Open Graphics Library) is an open specification for a 2D/3D <a href="rendering_api.html#ID-aaa98db5-f284-4a8a-9b0e-9e650530df6d">rendering
+API</a>. Cross-platform implementations are provided through graphics drivers -
+usually by the GPU manufacturers. It uses <a href="glsl.html#ID-afe813b3-c18d-41c4-9e6e-dd8504f14184">glsl</a> as its shading language.
+</p>
+<div id="outline-container-orgc6f601e" class="outline-2">
+<h2 id="orgc6f601e"><a href="#orgc6f601e">Vertex Array Object</a></h2>
+<div class="outline-text-2" id="text-orgc6f601e">
+<ul class="org-ul">
+<li>A vertex array object (VAO) can be bound just like a vertex buffer object
+(VBO) and any subsequent vertex attribute calls from that point on will be
+stored inside the VAO.</li>
+
+<li>Whenever we want to draw the object, we just bind the corresponding VAO.</li>
+
+<li>Core OpenGL requires that we use a VAO.</li>
+
+<li><p>
+A vertex array object stores the following:
+</p>
+<ul class="org-ul">
+<li>Calls to glEnableVertexAttribArray or glDisableVertexAttribArray.</li>
+<li>Vertex attribute configurations via glVertexAttribPointer.</li>
+<li>Vertex buffer objects associated with vertex attributes by calls to glVertexAttribPointer.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">u32</span> <span class="org-variable-name">vao</span>;
+glGenVertexArrays(1, &amp;vao); <span class="org-comment-delimiter">// </span><span class="org-comment">nr of vao's to generate &amp; where to store them</span>
+<span class="org-keyword">if</span> (vao == GL_INVALID_VALUE)
+    <span class="org-function-name">error</span>();
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc6b7912" class="outline-2">
+<h2 id="orgc6b7912"><a href="#orgc6b7912">Debugging OpenGL</a></h2>
+<div class="outline-text-2" id="text-orgc6b7912">
+<p>
+OpenGL versions above 4.3 (or drivers who have implemented the <code>KHR_debug</code>
+extension) allow access to a <a href="https://www.khronos.org/opengl/wiki/Debug_Output">debug context</a>. To activate and enable it (in
+SDL/GLFW):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">prototype for callback</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">void</span> <span class="org-variable-name">GLAPIENTRY</span> my_callback(<span class="org-type">GLenum</span> <span class="org-variable-name">source</span>, <span class="org-type">GLenum</span> <span class="org-variable-name">type</span>, <span class="org-type">GLuint</span> <span class="org-variable-name">id</span>,
+                            <span class="org-type">GLenum</span> <span class="org-variable-name">severity</span>, <span class="org-type">GLsizei</span> <span class="org-variable-name">length</span>,
+                            <span class="org-keyword">const</span> <span class="org-type">GLchar</span>* <span class="org-variable-name">message</span>, <span class="org-keyword">const</span> <span class="org-type">void</span>* <span class="org-variable-name">userParam</span>);
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">Set config flag with SDL/GLFW/...</span><span class="org-comment-delimiter"> */</span>
+<span class="org-function-name">SDL_GL_SetAttribute</span>(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG);
+<span class="org-function-name">glfwWindowHint</span>(GLFW_OPENGL_DEBUG_CONTEXT,1);
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">add debug callback</span><span class="org-comment-delimiter"> */</span>
+<span class="org-function-name">glEnable</span>(GL_DEBUG_OUTPUT); <span class="org-comment-delimiter">// </span><span class="org-comment">or GL_DEBUG_OUTPUT_SYNCHRONOUS to avoid race conditions</span>
+<span class="org-function-name">glDebugMessageCallback</span>(my_callback, userdata);
+</pre>
+</div>
+
+<p>
+More extensive debugging capabilities can be achieved by using a graphics
+debugger such as <a href="renderdoc.html#ID-265a85b1-4eec-4d8f-9bd7-5c2373a13d61">RenderDoc</a>.
+</p>
+</div>
+</div>
+<div id="outline-container-org0f5bd9f" class="outline-2">
+<h2 id="org0f5bd9f"><a href="#org0f5bd9f">A Better Way of Writing OpenGL Code</a></h2>
+<div class="outline-text-2" id="text-org0f5bd9f">
+<p>
+To better manage the state-machine of OpenGL, we can define macros that open up
+scopes that push/pop specific states. Note that this might come with performance
+costs, as some of these macros need to query the current state of the OpenGL
+context from the GPU.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">helper macros</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">TOKEN_PASTE</span>(<span class="org-variable-name">a</span>, <span class="org-variable-name">b</span>) a##b
+<span class="org-preprocessor">#define</span> <span class="org-function-name">CONCAT</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">b</span>) TOKEN_PASTE(a,b)
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UQ</span>(<span class="org-variable-name">name</span>) CONCAT(name, __LINE__) <span class="org-comment-delimiter">/* </span><span class="org-comment">unique identifier</span><span class="org-comment-delimiter"> */</span>
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_begin_end_var</span>(<span class="org-variable-name">begin</span>, <span class="org-variable-name">end</span>, <span class="org-variable-name">var</span>) \
+    <span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-function-name">UQ</span>(var) = (begin, 0); (UQ(var) == 0); (UQ(var) += 1), end)
+
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">NOTE: these do not restore the previous state</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_use_program</span>(<span class="org-variable-name">id</span>) \
+    scope_begin_end_var(glUseProgram(id), glUseProgram(0), prog)
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_bind_array_buffer</span>(<span class="org-variable-name">vbo</span>) \
+    scope_begin_end_var(glBindBuffer(GL_ARRAY_BUFFER, vbo), glBindBuffer(GL_ARRAY_BUFFER, 0), arrbuf)
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">TODO probably doesn't compile because of the comma (?)</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_bind_ssbo</span>(<span class="org-variable-name">ssbo</span>, <span class="org-variable-name">binding</span>) \
+    scope_begin_end_var((glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo), glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo)), (glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, 0), glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0)), ssbo)
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_bind_vertex_array</span>(<span class="org-variable-name">vao</span>) \
+    scope_begin_end_var(glBindVertexArray(vao), glBindVertexArray(vao), vertarr)
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_bind_texture2d</span>(<span class="org-variable-name">tex_id</span>) \
+    scope_begin_end_var(glBindTexture(GL_TEXTURE_2D, tex_id), glBindTexture(GL_TEXTURE_2D), texbind)
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">GL_DEPTH_TEST, GL_BLEND, ...</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_enable</span>(<span class="org-variable-name">enumval</span>) \
+    scope_begin_end_var(glEnable(enumval), glDisable(enumval), glenable)
+
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">NOTE: these do restore previous state (by querying, which could be slow)</span><span class="org-comment-delimiter"> */</span>
+<span class="org-comment-delimiter">/* </span><span class="org-comment">following ones might be less needed...</span><span class="org-comment-delimiter">*/</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_viewport</span>(<span class="org-variable-name">x</span>,<span class="org-variable-name">y</span>,<span class="org-variable-name">w</span>,<span class="org-variable-name">h</span>) \
+    <span class="org-keyword">for</span> (<span class="org-type">GLint</span> <span class="org-function-name">UQ</span>(view)[4], <span class="org-function-name">UQ</span>(i) = (glGetIntegerv(GL_VIEWPORT, UQ(view)), glViewport(x, y, w, h), 0); \
+         (UQ(i) == 0); (UQ(i) += 1, glViewport(UQ(view)[0], UQ(view)[1], UQ(view)[2], UQ(view)[3])))
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_clearcolor</span>(<span class="org-variable-name">r</span>,<span class="org-variable-name">g</span>,<span class="org-variable-name">b</span>,<span class="org-variable-name">a</span>) \
+    <span class="org-keyword">for</span> (<span class="org-type">GLfloat</span> <span class="org-function-name">UQ</span>(clear)[4], <span class="org-function-name">UQ</span>(i) = (glGetFloatv(GL_COLOR_CLEAR_VALUE, UQ(clear)), glClearColor(r,g,b,a), 0); \
+         (UQ(i) == 0); (UQ(i) += 1, glClearColor(UQ(clear)[0], UQ(clear)[1], UQ(clear)[2], UQ(clear)[3])))
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_blend_func</span>(<span class="org-variable-name">src</span>,<span class="org-variable-name">dst</span>) \
+    <span class="org-keyword">for</span> (<span class="org-type">GLint</span> <span class="org-function-name">UQ</span>(s), <span class="org-function-name">UQ</span>(d), <span class="org-function-name">UQ</span>(i) = (glGetIntegerv(GL_BLEND_SRC, &amp;UQ(s)), glGetIntegerv(GL_BLEND_DST, &amp;UQ(s), glBlendFunc(src, dst), 0); \
+         (UQ(i) == 0); (UQ(i) += 1, glBlendFunc(UQ(s), UQ(d))))
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_blend_eq</span>(<span class="org-variable-name">eq</span>) \
+    <span class="org-keyword">for</span> (<span class="org-type">GLint</span> <span class="org-function-name">UQ</span>(e), <span class="org-function-name">UQ</span>(i) = (glGetIntegerv(GL_BLEND_EQUATION, &amp;UQ(e)), glBlendEquation(eq), 0); \
+         (UQ(i) == 0); (UQ(i) += 1, glBlendEquation(UQ(e))))
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_cullface_mode</span>(<span class="org-variable-name">mode</span>) \
+    <span class="org-keyword">for</span> (<span class="org-type">GLint</span> <span class="org-function-name">UQ</span>(m), <span class="org-function-name">UQ</span>(i) = (glGetIntegerv(GL_CULL_FACE_MODE, &amp;UQ(m)), glCullFace(mode), 0); \
+         (UQ(i) == 0); (UQ(i) += 1, glCullFace(UQ(m))))
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">scope_gl_frontface_orient</span>(<span class="org-variable-name">orient</span>) \
+    <span class="org-keyword">for</span> (<span class="org-type">GLint</span> <span class="org-function-name">UQ</span>(fo), <span class="org-function-name">UQ</span>(i) = (glGetIntegerv(GL_FRONT_FACE, &amp;UQ(fo)), glFrontFace(orient), 0); \
+         (UQ(i) == 0); (UQ(i) += 1, glFrontFace(UQ(fo))))
+
+<span class="org-comment-delimiter">/*</span>
+<span class="org-comment">  More possible push/pop functions include</span>
+<span class="org-comment">     glEnableVertexAttribArray/glDisableVertexAttribArray</span>
+<span class="org-comment">     glBindFramebuffer</span>
+<span class="org-comment">     glTexParameter : gl_texture2d_param(param,val)</span>
+<span class="org-comment">     glActiveTexture() : glGetIntegerv(GL_ACTIVE_TEXTURE, &amp;activeTextureUnit);</span>
+
+<span class="org-comment">     look at cf push/pop drawing functions for more</span>
+
+<span class="org-comment">     one could also add calls to glError() at the end of every scope</span>
+
+<span class="org-comment">     gl_upload_uniform that wraps glUseProgram, glGetUniformLocation and glUniform{1iv,Matrix4fv,..}</span>
+<span class="org-comment">     maybe gl_upload_uniform(prog,name,type) glUseProgram(prog); glUniform##type(glGet(prog,"name"), ...);</span>
+<span class="org-comment-delimiter">*/</span>
+<span class="org-type">int</span> <span class="org-function-name">main</span>() {
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+
+    <span class="org-comment-delimiter">//</span><span class="org-comment">scope_gl_use_program(prog_id)</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">scope_gl_bind_array_buffer(vbo)</span>
+    <span class="org-comment-delimiter">//  </span><span class="org-comment">scope_gl_bind_vertex_array(vao)</span>
+    <span class="org-comment-delimiter">//</span><span class="org-comment">{</span>
+    <span class="org-comment-delimiter">//    </span><span class="org-comment">// ...</span>
+    <span class="org-comment-delimiter">//    </span><span class="org-comment">glDrawArrays(GL_TRIANGLES, 0, vertex_count);</span>
+    <span class="org-comment-delimiter">//</span><span class="org-comment">}</span>
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf098ce1" class="outline-2">
+<h2 id="orgf098ce1"><a href="#orgf098ce1">Vertex Format Pulling vs Pushing</a></h2>
+<div class="outline-text-2" id="text-orgf098ce1">
+<p>
+The conventional way of specifying vertex formats is to "push" the data as input
+to the shader using VAO with <code>glVertexAttribPointer</code>. This way, we define format
+and stride and the GPU executes the vertex shader vertex by vertex.
+</p>
+
+<p>
+Vertex format pulling on the other hand involves uploading the vertex buffer and
+then using a vertex ID to access it:
+</p>
+
+<p>
+<code>float3 position = buffer[vertexId].pos.xyz;</code>
+</p>
+
+<p>
+Using this approach, VAOs and VBOs are no longer needed (an empty VAO might
+still need to be bound). The VBO containing the vertex data is replaced by an
+SSBO. See <a href="https://ktstephano.github.io/rendering/opengl/prog_vtx_pulling">Programmable Vertex Pulling</a>.
+</p>
+
+<p>
+See:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.yosoygames.com.ar/wp/2018/03/vertex-formats-part-2-fetch-vs-pull/">Vertex Formats Part 2: Fetch vs Pull</a></li>
+<li><a href="https://gist.github.com/d7samurai/e51adec8a440126d028b87406556079b">D3D11 sprite render using vertex format pulling</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2d1eb91" class="outline-2">
+<h2 id="org2d1eb91"><a href="#org2d1eb91">Resources</a></h2>
+<div class="outline-text-2" id="text-org2d1eb91">
+<ul class="org-ul">
+<li><a href="https://learnopengl.com/">https://learnopengl.com/</a></li>
+<li><a href="https://docs.gl/">docs.gl - OpenGL API Documentation</a></li>
+<li><a href="https://www.songho.ca/opengl">Song Ho Ahn - Notes on OpenGL</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLIbUZ3URbL0ESKHrvzXuHjrcLi7gxhBby">Brian Will - OpenGL Playlist</a></li>
+<li><a href="https://people.freedesktop.org/~imirkin/glxinfo/">glxinfo: List of implemented GL Extensions in MESA for different drivers</a></li>
+<li><a href="https://github.com/fendevel/Guide-to-Modern-OpenGL-Functions">Guide to Modern OpenGL Functions</a></li>
+</ul>
+</div>
+</div>
+</main>
+</body>
+</html>

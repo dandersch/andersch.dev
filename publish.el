@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ; caching
 (setq org-publish-timestamp-directory "./.org-timestamps/")
-(org-publish-remove-all-timestamps) ; call to avoid caching
+;(org-publish-remove-all-timestamps) ; call to avoid caching
 
 (print org-id-locations)
 (setq org-id-locations-file "/home/da/org/.orgids")

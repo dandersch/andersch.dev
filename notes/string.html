@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Strings</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">Strings</h1>
+<p>
+In programming, a string describes the data type used to store sequences of
+characters, i.e. human-readable text.
+</p>
+<div id="outline-container-orgc506e36" class="outline-2">
+<h2 id="orgc506e36"><a href="#orgc506e36">String views (String slices)</a></h2>
+<div class="outline-text-2" id="text-orgc506e36">
+<p>
+Conventional strings in <a href="c.html#ID-3a2b1a06-f048-460c-9944-04b11d4fdbcd">C</a> are null-terminated sequences of bytes. Several
+problems arise from this, such as buffer overflow vulnerabilities and
+performance concerns, as the length of a string can only be gotten by traversing
+the entire sequence.
+</p>
+
+<p>
+The approach of string views (or string slices) addresses these issues. Here, a
+string is defined by a pointer and a size.
+</p>
+</div>
+</div>
+<div id="outline-container-org4a0382f" class="outline-2">
+<h2 id="org4a0382f"><a href="#org4a0382f">String API</a></h2>
+<div class="outline-text-2" id="text-org4a0382f">
+<div class="org-src-container">
+<pre class="src src-C" id="string_api"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">string_t</span>
+{
+    <span class="org-type">char</span>*  <span class="org-variable-name">data</span>;
+    <span class="org-type">int</span>    <span class="org-variable-name">size</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">NOTE needs to be signed, so no size_t</span>
+} <span class="org-type">string_t</span>;
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">c_string</span>(<span class="org-variable-name">str</span>) (string_t) { str, <span class="org-keyword">sizeof</span>(str) }
+
+<span class="org-type">int</span>      <span class="org-function-name">string_valid</span>          (<span class="org-type">string_t</span> <span class="org-variable-name">string</span>);                        <span class="org-comment-delimiter">// </span><span class="org-comment">is size &gt; 0?</span>
+<span class="org-type">int</span>      <span class="org-function-name">string_match</span>          (<span class="org-type">string_t</span> <span class="org-variable-name">a</span>, <span class="org-type">string_t</span> <span class="org-variable-name">b</span>, <span class="org-type">int</span> <span class="org-variable-name">flags</span>);      <span class="org-comment-delimiter">// </span><span class="org-comment">flags == case in-/sensitive</span>
+<span class="org-type">int</span>      <span class="org-function-name">string_contains</span>       (<span class="org-type">string_t</span> <span class="org-variable-name">haystack</span>, <span class="org-type">string_t</span> <span class="org-variable-name">needle</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_substring</span>      (<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">size_t</span> <span class="org-variable-name">from</span>, <span class="org-type">size_t</span> <span class="org-variable-name">to</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_find_first</span>     (<span class="org-type">string_t</span> <span class="org-variable-name">haystack</span>, <span class="org-type">string_t</span> <span class="org-variable-name">needle</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_find_last</span>      (<span class="org-type">string_t</span> <span class="org-variable-name">haystack</span>, <span class="org-type">string_t</span> <span class="org-variable-name">needle</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_remove_prefix</span>  (<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">string_t</span> <span class="org-variable-name">prefix</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_remove_suffix</span>  (<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">string_t</span> <span class="org-variable-name">suffix</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_pop_first_split</span>(<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">string_t</span> <span class="org-variable-name">split_delimiter</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">returns e.g. 2020 for ("2020/01", "/")</span>
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">if C11</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">string_pop_first_split_</span>(<span class="org-variable-name">src</span>, <span class="org-variable-name">split_delimiter</span>) \
+    <span class="org-keyword">_Generic</span>(split_delimiter, <span class="org-keyword">const</span> <span class="org-type">char</span>*: string_pop_first_split(src, c_string(split_delimiter) \
+                              string_t:    string_pop_first_split(src, c_string(split_delimiter)))
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">for_str_split</span>(<span class="org-variable-name">iter</span>, <span class="org-variable-name">src</span>, <span class="org-variable-name">split_by</span>)                                    \
+  <span class="org-keyword">for</span> (<span class="org-type">str</span> <span class="org-function-name">macro_var</span>(src_) = src,                                             \
+       <span class="org-variable-name">iter</span> = str_pop_first_split(&amp;macro_var(src_), split_by),                \
+       <span class="org-function-name">macro_var</span>(split_by_) = split_by;                                       \
+       str_valid(macro_var(src_));                                            \
+       iter = str_pop_first_split(&amp;macro_var(src_), macro_var(split_by_)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org739bb56" class="outline-2">
+<h2 id="org739bb56"><a href="#org739bb56">String builder</a></h2>
+<div class="outline-text-2" id="text-org739bb56">
+<p>
+A string builder is used to construct a string. To do this, it is equipped with
+an allocator (e.g. an <a href="arena.html#ID-7629c564-ec09-4a74-be59-32e6bf702e31">arena</a>) and an API that allows operations on the string.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C" id="string_builder"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">string_t</span>
+{
+    <span class="org-type">char</span>*  <span class="org-variable-name">data</span>;
+    <span class="org-type">int</span>    <span class="org-variable-name">size</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">NOTE needs to be signed, so no size_t</span>
+} <span class="org-type">string_t</span>;
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">c_string</span>(<span class="org-variable-name">str</span>) (string_t) { str, <span class="org-keyword">sizeof</span>(str) }
+
+<span class="org-type">int</span>      <span class="org-function-name">string_valid</span>          (<span class="org-type">string_t</span> <span class="org-variable-name">string</span>);                        <span class="org-comment-delimiter">// </span><span class="org-comment">is size &gt; 0?</span>
+<span class="org-type">int</span>      <span class="org-function-name">string_match</span>          (<span class="org-type">string_t</span> <span class="org-variable-name">a</span>, <span class="org-type">string_t</span> <span class="org-variable-name">b</span>, <span class="org-type">int</span> <span class="org-variable-name">flags</span>);      <span class="org-comment-delimiter">// </span><span class="org-comment">flags == case in-/sensitive</span>
+<span class="org-type">int</span>      <span class="org-function-name">string_contains</span>       (<span class="org-type">string_t</span> <span class="org-variable-name">haystack</span>, <span class="org-type">string_t</span> <span class="org-variable-name">needle</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_substring</span>      (<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">size_t</span> <span class="org-variable-name">from</span>, <span class="org-type">size_t</span> <span class="org-variable-name">to</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_find_first</span>     (<span class="org-type">string_t</span> <span class="org-variable-name">haystack</span>, <span class="org-type">string_t</span> <span class="org-variable-name">needle</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_find_last</span>      (<span class="org-type">string_t</span> <span class="org-variable-name">haystack</span>, <span class="org-type">string_t</span> <span class="org-variable-name">needle</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_remove_prefix</span>  (<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">string_t</span> <span class="org-variable-name">prefix</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_remove_suffix</span>  (<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">string_t</span> <span class="org-variable-name">suffix</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_pop_first_split</span>(<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">string_t</span> <span class="org-variable-name">split_delimiter</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">returns e.g. 2020 for ("2020/01", "/")</span>
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">if C11</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">string_pop_first_split_</span>(<span class="org-variable-name">src</span>, <span class="org-variable-name">split_delimiter</span>) \
+    <span class="org-keyword">_Generic</span>(split_delimiter, <span class="org-keyword">const</span> <span class="org-type">char</span>*: string_pop_first_split(src, c_string(split_delimiter) \
+                              string_t:    string_pop_first_split(src, c_string(split_delimiter)))
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">for_str_split</span>(<span class="org-variable-name">iter</span>, <span class="org-variable-name">src</span>, <span class="org-variable-name">split_by</span>)                                    \
+  <span class="org-keyword">for</span> (<span class="org-type">str</span> <span class="org-function-name">macro_var</span>(src_) = src,                                             \
+       <span class="org-variable-name">iter</span> = str_pop_first_split(&amp;macro_var(src_), split_by),                \
+       <span class="org-function-name">macro_var</span>(split_by_) = split_by;                                       \
+       str_valid(macro_var(src_));                                            \
+       iter = str_pop_first_split(&amp;macro_var(src_), macro_var(split_by_)))
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">mem_arena_t</span> <span class="org-type">mem_arena_t</span>;
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">string_builder_t</span>
+{
+    <span class="org-type">char</span>*        <span class="org-variable-name">data</span>;
+    <span class="org-type">size_t</span>       <span class="org-variable-name">size</span>;
+    <span class="org-type">size_t</span>       <span class="org-variable-name">capacity</span>;
+    <span class="org-type">mem_arena_t</span>* <span class="org-variable-name">arena</span>;
+} <span class="org-type">string_builder_t</span>;
+
+<span class="org-type">string_builder_t</span> <span class="org-function-name">string_builder_create</span>(<span class="org-type">size_t</span> <span class="org-variable-name">size</span>, <span class="org-type">mem_arena_t</span>* <span class="org-variable-name">arena</span>);
+<span class="org-type">void</span>             <span class="org-function-name">string_builder_append</span>(<span class="org-type">string_builder_t</span>* <span class="org-variable-name">builder</span>, <span class="org-type">string_t</span> <span class="org-variable-name">string</span>);
+<span class="org-type">void</span>             <span class="org-function-name">string_builder_insert</span>(<span class="org-type">string_builder_t</span>* <span class="org-variable-name">builder</span>, <span class="org-type">string_t</span> <span class="org-variable-name">string</span>, <span class="org-type">size_t</span> <span class="org-variable-name">at</span>);
+<span class="org-type">void</span>             <span class="org-function-name">string_builder_remove</span>(<span class="org-type">string_builder_t</span>* <span class="org-variable-name">builder</span>, <span class="org-type">size_t</span> <span class="org-variable-name">from</span>, <span class="org-type">size_t</span> <span class="org-variable-name">to</span>);
+<span class="org-type">string_t</span>         <span class="org-function-name">string_builder_finish</span>(<span class="org-type">string_builder_t</span>* <span class="org-variable-name">builder</span>);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga182222" class="outline-2">
+<h2 id="orga182222"><a href="#orga182222">String API Usage Code</a></h2>
+<div class="outline-text-2" id="text-orga182222">
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">string_t</span>
+{
+    <span class="org-type">char</span>*  <span class="org-variable-name">data</span>;
+    <span class="org-type">int</span>    <span class="org-variable-name">size</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">NOTE needs to be signed, so no size_t</span>
+} <span class="org-type">string_t</span>;
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">c_string</span>(<span class="org-variable-name">str</span>) (string_t) { str, <span class="org-keyword">sizeof</span>(str) }
+
+<span class="org-type">int</span>      <span class="org-function-name">string_valid</span>          (<span class="org-type">string_t</span> <span class="org-variable-name">string</span>);                        <span class="org-comment-delimiter">// </span><span class="org-comment">is size &gt; 0?</span>
+<span class="org-type">int</span>      <span class="org-function-name">string_match</span>          (<span class="org-type">string_t</span> <span class="org-variable-name">a</span>, <span class="org-type">string_t</span> <span class="org-variable-name">b</span>, <span class="org-type">int</span> <span class="org-variable-name">flags</span>);      <span class="org-comment-delimiter">// </span><span class="org-comment">flags == case in-/sensitive</span>
+<span class="org-type">int</span>      <span class="org-function-name">string_contains</span>       (<span class="org-type">string_t</span> <span class="org-variable-name">haystack</span>, <span class="org-type">string_t</span> <span class="org-variable-name">needle</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_substring</span>      (<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">size_t</span> <span class="org-variable-name">from</span>, <span class="org-type">size_t</span> <span class="org-variable-name">to</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_find_first</span>     (<span class="org-type">string_t</span> <span class="org-variable-name">haystack</span>, <span class="org-type">string_t</span> <span class="org-variable-name">needle</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_find_last</span>      (<span class="org-type">string_t</span> <span class="org-variable-name">haystack</span>, <span class="org-type">string_t</span> <span class="org-variable-name">needle</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_remove_prefix</span>  (<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">string_t</span> <span class="org-variable-name">prefix</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_remove_suffix</span>  (<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">string_t</span> <span class="org-variable-name">suffix</span>);
+<span class="org-type">string_t</span> <span class="org-function-name">string_pop_first_split</span>(<span class="org-type">string_t</span> <span class="org-variable-name">src</span>, <span class="org-type">string_t</span> <span class="org-variable-name">split_delimiter</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">returns e.g. 2020 for ("2020/01", "/")</span>
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">if C11</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">string_pop_first_split_</span>(<span class="org-variable-name">src</span>, <span class="org-variable-name">split_delimiter</span>) \
+    <span class="org-keyword">_Generic</span>(split_delimiter, <span class="org-keyword">const</span> <span class="org-type">char</span>*: string_pop_first_split(src, c_string(split_delimiter) \
+                              string_t:    string_pop_first_split(src, c_string(split_delimiter)))
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">for_str_split</span>(<span class="org-variable-name">iter</span>, <span class="org-variable-name">src</span>, <span class="org-variable-name">split_by</span>)                                    \
+  <span class="org-keyword">for</span> (<span class="org-type">str</span> <span class="org-function-name">macro_var</span>(src_) = src,                                             \
+       <span class="org-variable-name">iter</span> = str_pop_first_split(&amp;macro_var(src_), split_by),                \
+       <span class="org-function-name">macro_var</span>(split_by_) = split_by;                                       \
+       str_valid(macro_var(src_));                                            \
+       iter = str_pop_first_split(&amp;macro_var(src_), macro_var(split_by_)))
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">mem_arena_t</span> <span class="org-type">mem_arena_t</span>;
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">string_builder_t</span>
+{
+    <span class="org-type">char</span>*        <span class="org-variable-name">data</span>;
+    <span class="org-type">size_t</span>       <span class="org-variable-name">size</span>;
+    <span class="org-type">size_t</span>       <span class="org-variable-name">capacity</span>;
+    <span class="org-type">mem_arena_t</span>* <span class="org-variable-name">arena</span>;
+} <span class="org-type">string_builder_t</span>;
+
+<span class="org-type">string_builder_t</span> <span class="org-function-name">string_builder_create</span>(<span class="org-type">size_t</span> <span class="org-variable-name">size</span>, <span class="org-type">mem_arena_t</span>* <span class="org-variable-name">arena</span>);
+<span class="org-type">void</span>             <span class="org-function-name">string_builder_append</span>(<span class="org-type">string_builder_t</span>* <span class="org-variable-name">builder</span>, <span class="org-type">string_t</span> <span class="org-variable-name">string</span>);
+<span class="org-type">void</span>             <span class="org-function-name">string_builder_insert</span>(<span class="org-type">string_builder_t</span>* <span class="org-variable-name">builder</span>, <span class="org-type">string_t</span> <span class="org-variable-name">string</span>, <span class="org-type">size_t</span> <span class="org-variable-name">at</span>);
+<span class="org-type">void</span>             <span class="org-function-name">string_builder_remove</span>(<span class="org-type">string_builder_t</span>* <span class="org-variable-name">builder</span>, <span class="org-type">size_t</span> <span class="org-variable-name">from</span>, <span class="org-type">size_t</span> <span class="org-variable-name">to</span>);
+<span class="org-type">string_t</span>         <span class="org-function-name">string_builder_finish</span>(<span class="org-type">string_builder_t</span>* <span class="org-variable-name">builder</span>);
+<span class="org-type">int</span>      <span class="org-function-name">string_valid</span>          (<span class="org-type">string_t</span> <span class="org-variable-name">string</span>) { <span class="org-keyword">return</span> string.size &gt; 0 ? 1 : 0; }
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>()
+{
+    <span class="org-type">string_t</span> <span class="org-variable-name">hello</span>  = c_string(<span class="org-string">"Hello World"</span>);
+    <span class="org-type">string_t</span> <span class="org-variable-name">test</span>   = c_string(<span class="org-string">""</span>);
+    <span class="org-type">string_t</span> <span class="org-variable-name">test2</span>  = {<span class="org-constant">NULL</span>, 0};
+    <span class="org-keyword">if</span> (string_valid(hello)) { printf(<span class="org-string">"1: %s, size: %i\n"</span>, hello.data, hello.size); }
+    <span class="org-keyword">if</span> (string_valid(test))  { printf(<span class="org-string">"2: %s, size: %i\n"</span>, test.data,  test.size); }
+    <span class="org-keyword">if</span> (string_valid(test2)) { printf(<span class="org-string">"3: %s, size: %i\n"</span>, test2.data, test2.size); }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0765ad0" class="outline-2">
+<h2 id="org0765ad0"><a href="#org0765ad0">Resources</a></h2>
+<div class="outline-text-2" id="text-org0765ad0">
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=QpAhX-gsHMs">Modern C and What We Can Learn From It</a></li>
+<li><a href="https://www.rfleury.com/p/intro-to-the-codebase-part-v-strings">Intro To The Codebase, Part V: Strings</a></li>
+<li><a href="https://github.com/tsoding/sv/blob/master/sv.h">sv.h - String View implementation for C</a></li>
+<li><a href="https://thasso.xyz/2024/12/16/fixing-c-strings.html">Fixing C Strings</a></li>
+</ul>
+</div>
+</div>
+</main>
+</body>
+</html>

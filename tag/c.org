@@ -1,0 +1,6 @@
+#+TITLE: Pages tagged c
+* Notes tagged ~c~
+- [[../notes/x_macro.org][X-Macros (C)]]
+- [[../notes/header_only.org][Header-only Libraries]]
+- [[../notes/gnu_c_ext.org][GNU C Extensions]]
+- [[../notes/c_preprocessor.org][C Preprocessor]]

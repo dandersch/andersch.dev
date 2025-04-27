@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hyperscript</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">Hyperscript</h1>
+<p>
+Hyperscript is a web front-end language for writing interactive <a href="html.html#ID-3eec98f5-2b8b-4466-a778-bdd3112c296c">HTML</a>.
+</p>
+
+<p>
+It can serve as a client-side companion of <a href="htmx.html#ID-3b22908e-c628-42ec-bb2d-9f9b59da2e90">htmx</a>.
+</p>
+<div id="outline-container-orgcbb7682" class="outline-2">
+<h2 id="orgcbb7682"><a href="#orgcbb7682">Example</a></h2>
+<div class="outline-text-2" id="text-orgcbb7682">
+<div class="org-src-container">
+<pre class="src src-html" id="hyperscript-example">&lt;<span class="org-function-name">head</span>&gt;&lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">"https://unpkg.com/hyperscript.org@0.9.14"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;&lt;/<span class="org-function-name">head</span>&gt;
+&lt;<span class="org-function-name">html</span>&gt;
+
+&lt;<span class="org-function-name">h2</span>&gt;<span class="org-underline"><span class="org-bold-italic">Hello World - concat two strings</span></span>&lt;/<span class="org-function-name">h2</span>&gt;
+&lt;<span class="org-function-name">p</span> <span class="org-variable-name">id</span>=<span class="org-string">"first"</span>&gt;Hello&lt;/<span class="org-function-name">p</span>&gt;&lt;<span class="org-function-name">p</span> <span class="org-variable-name">id</span>=<span class="org-string">"second"</span>&gt;World&lt;/<span class="org-function-name">p</span>&gt;
+&lt;<span class="org-function-name">button</span> <span class="org-variable-name">class</span>=<span class="org-string">"btn primary"</span> <span class="org-variable-name">_</span>=<span class="org-string">"on click set my.innerText to #first.innerText + ' ' + #second.innerText"</span>&gt;Concat&lt;/<span class="org-function-name">button</span>&gt;
+
+&lt;<span class="org-function-name">h2</span>&gt;<span class="org-underline"><span class="org-bold-italic">Fade &amp; Remove</span></span>&lt;/<span class="org-function-name">h2</span>&gt;
+&lt;<span class="org-function-name">button</span> <span class="org-variable-name">_</span>=<span class="org-string">"on click transition opacity to 0 then remove me"</span>&gt; Fade &amp; Remove &lt;/<span class="org-function-name">button</span>&gt;
+
+&lt;<span class="org-function-name">h2</span>&gt;Disable a Button During an htmx Request&lt;/<span class="org-function-name">h</span>&gt;&lt;<span class="org-function-name">br</span>&gt;
+&lt;<span class="org-function-name">button</span> <span class="org-variable-name">class</span>=<span class="org-string">"button is-primary"</span> <span class="org-variable-name">hx-get</span>=<span class="org-string">"/example"</span> <span class="org-variable-name">_</span>=<span class="org-string">"on click toggle @disabled until htmx:afterOnLoad"</span>&gt;Do It&lt;/<span class="org-function-name">button</span>&gt;
+
+&lt;<span class="org-function-name">h2</span>&gt;<span class="org-underline"><span class="org-bold-italic">Drag-and-drop elements</span></span>&lt;/<span class="org-function-name">h2</span>&gt;
+&lt;<span class="org-function-name">p</span> <span class="org-variable-name">_</span>=<span class="org-string">"on dragstart call event.dataTransfer.setData('text/plain',target.textContent)"</span>&gt;
+  &lt;<span class="org-function-name">button</span> <span class="org-variable-name">class</span>=<span class="org-string">"btn primary"</span> draggable=true&gt;DRAG ME&lt;/<span class="org-function-name">button</span>&gt;
+  &lt;<span class="org-function-name">button</span> <span class="org-variable-name">class</span>=<span class="org-string">"btn primary"</span> draggable=true&gt;OR ME&lt;/<span class="org-function-name">button</span>&gt;
+&lt;/<span class="org-function-name">p</span>&gt;
+&lt;<span class="org-function-name">pre</span> <span class="org-variable-name">_</span>=<span class="org-string">"</span>
+<span class="org-string">  on dragover or dragenter halt the event</span>
+<span class="org-string">    then set the target's style.background to 'lightgray'</span>
+<span class="org-string">  on dragleave or drop set the target's style.background to ''</span>
+<span class="org-string">  on drop get event.dataTransfer.getData('text/plain')</span>
+<span class="org-string">    then put it into the next &lt;output/&gt;"</span>&gt;Drop Area
+<span class="org-variable-name">&amp;nbsp;</span>
+<span class="org-variable-name">&amp;nbsp;</span>
+Drop Area&lt;/<span class="org-function-name">pre</span>&gt;
+Result: &lt;<span class="org-function-name">output</span>&gt;&lt;/<span class="org-function-name">output</span>&gt;
+
+&lt;<span class="org-function-name">h2</span>&gt;<span class="org-underline"><span class="org-bold-italic">Filter table rows</span></span>&lt;/<span class="org-function-name">h2</span>&gt;
+&lt;<span class="org-function-name">table</span>&gt;
+  &lt;<span class="org-function-name">thead</span>&gt;&lt;<span class="org-function-name">tr</span>&gt;&lt;<span class="org-function-name">th</span>&gt;&lt;<span class="org-function-name">input</span> <span class="org-variable-name">_</span>=<span class="org-string">"on input</span>
+<span class="org-string">   show &lt;tbody&gt;tr/&gt; in closest &lt;table/&gt;</span>
+<span class="org-string">     when its textContent.toLowerCase() contains my value.toLowerCase()</span>
+<span class="org-string">  "</span>/&gt;&lt;/<span class="org-function-name">th</span>&gt;&lt;/<span class="org-function-name">tr</span>&gt;&lt;/<span class="org-function-name">thead</span>&gt;
+  &lt;<span class="org-function-name">tbody</span> <span class="org-variable-name">style</span>=<span class="org-string">"height:10em;display:block;overflow-y:scroll"</span>&gt;
+    &lt;<span class="org-function-name">tr</span>&gt;&lt;<span class="org-function-name">td</span>&gt;Foo Bar&lt;/<span class="org-function-name">td</span>&gt;&lt;<span class="org-function-name">td</span>&gt;Item 1&lt;/<span class="org-function-name">td</span>&gt;&lt;/<span class="org-function-name">tr</span>&gt;
+    &lt;<span class="org-function-name">tr</span>&gt;&lt;<span class="org-function-name">td</span>&gt;Boo Bar&lt;/<span class="org-function-name">td</span>&gt;&lt;<span class="org-function-name">td</span>&gt;Item 2&lt;/<span class="org-function-name">td</span>&gt;&lt;/<span class="org-function-name">tr</span>&gt;
+    &lt;<span class="org-function-name">tr</span>&gt;&lt;<span class="org-function-name">td</span>&gt;Gru Bar&lt;/<span class="org-function-name">td</span>&gt;&lt;<span class="org-function-name">td</span>&gt;Item 3&lt;/<span class="org-function-name">td</span>&gt;&lt;/<span class="org-function-name">tr</span>&gt;
+    &lt;<span class="org-function-name">tr</span>&gt;&lt;<span class="org-function-name">td</span>&gt;Zoo Bar&lt;/<span class="org-function-name">td</span>&gt;&lt;<span class="org-function-name">td</span>&gt;Item 4&lt;/<span class="org-function-name">td</span>&gt;&lt;/<span class="org-function-name">tr</span>&gt;
+    &lt;<span class="org-function-name">tr</span>&gt;&lt;<span class="org-function-name">td</span>&gt;Foo Bar&lt;/<span class="org-function-name">td</span>&gt;&lt;<span class="org-function-name">td</span>&gt;Item 5&lt;/<span class="org-function-name">td</span>&gt;&lt;/<span class="org-function-name">tr</span>&gt;
+  &lt;/<span class="org-function-name">tbody</span>&gt;
+&lt;/<span class="org-function-name">table</span>&gt;
+
+
+&lt;/<span class="org-function-name">html</span>&gt;
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sh">cat &lt;&lt; <span class="org-string">'EOF'</span> &gt; <span class="org-string">"index.html"</span>
+<span class="org-sh-heredoc">&lt;head&gt;&lt;script src="https://unpkg.com/hyperscript.org@0.9.14"&gt;&lt;/script&gt;&lt;/head&gt;</span>
+<span class="org-sh-heredoc">&lt;html&gt;</span>
+
+<span class="org-sh-heredoc">&lt;h2&gt;Hello World - concat two strings&lt;/h2&gt;</span>
+<span class="org-sh-heredoc">&lt;p id="first"&gt;Hello&lt;/p&gt;&lt;p id="second"&gt;World&lt;/p&gt;</span>
+<span class="org-sh-heredoc">&lt;button class="btn primary" _="on click set my.innerText to #first.innerText + ' ' + #second.innerText"&gt;Concat&lt;/button&gt;</span>
+
+<span class="org-sh-heredoc">&lt;h2&gt;Fade &amp; Remove&lt;/h2&gt;</span>
+<span class="org-sh-heredoc">&lt;button _="on click transition opacity to 0 then remove me"&gt; Fade &amp; Remove &lt;/button&gt;</span>
+
+<span class="org-sh-heredoc">&lt;h2&gt;Disable a Button During an htmx Request&lt;/h&gt;&lt;br&gt;</span>
+<span class="org-sh-heredoc">&lt;button class="button is-primary" hx-get="/example" _="on click toggle @disabled until htmx:afterOnLoad"&gt;Do It&lt;/button&gt;</span>
+
+<span class="org-sh-heredoc">&lt;h2&gt;Drag-and-drop elements&lt;/h2&gt;</span>
+<span class="org-sh-heredoc">&lt;p _="on dragstart call event.dataTransfer.setData('text/plain',target.textContent)"&gt;</span>
+<span class="org-sh-heredoc">  &lt;button class="btn primary" draggable=true&gt;DRAG ME&lt;/button&gt;</span>
+<span class="org-sh-heredoc">  &lt;button class="btn primary" draggable=true&gt;OR ME&lt;/button&gt;</span>
+<span class="org-sh-heredoc">&lt;/p&gt;</span>
+<span class="org-sh-heredoc">&lt;pre _="</span>
+<span class="org-sh-heredoc">  on dragover or dragenter halt the event</span>
+<span class="org-sh-heredoc">    then set the target's style.background to 'lightgray'</span>
+<span class="org-sh-heredoc">  on dragleave or drop set the target's style.background to ''</span>
+<span class="org-sh-heredoc">  on drop get event.dataTransfer.getData('text/plain')</span>
+<span class="org-sh-heredoc">    then put it into the next &lt;output/&gt;"&gt;Drop Area</span>
+<span class="org-sh-heredoc">&amp;nbsp;</span>
+<span class="org-sh-heredoc">&amp;nbsp;</span>
+<span class="org-sh-heredoc">Drop Area&lt;/pre&gt;</span>
+<span class="org-sh-heredoc">Result: &lt;output&gt;&lt;/output&gt;</span>
+
+<span class="org-sh-heredoc">&lt;h2&gt;Filter table rows&lt;/h2&gt;</span>
+<span class="org-sh-heredoc">&lt;table&gt;</span>
+<span class="org-sh-heredoc">  &lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;input _="on input</span>
+<span class="org-sh-heredoc">   show &lt;tbody&gt;tr/&gt; in closest &lt;table/&gt;</span>
+<span class="org-sh-heredoc">     when its textContent.toLowerCase() contains my value.toLowerCase()</span>
+<span class="org-sh-heredoc">  "/&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;</span>
+<span class="org-sh-heredoc">  &lt;tbody style="height:10em;display:block;overflow-y:scroll"&gt;</span>
+<span class="org-sh-heredoc">    &lt;tr&gt;&lt;td&gt;Foo Bar&lt;/td&gt;&lt;td&gt;Item 1&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="org-sh-heredoc">    &lt;tr&gt;&lt;td&gt;Boo Bar&lt;/td&gt;&lt;td&gt;Item 2&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="org-sh-heredoc">    &lt;tr&gt;&lt;td&gt;Gru Bar&lt;/td&gt;&lt;td&gt;Item 3&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="org-sh-heredoc">    &lt;tr&gt;&lt;td&gt;Zoo Bar&lt;/td&gt;&lt;td&gt;Item 4&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="org-sh-heredoc">    &lt;tr&gt;&lt;td&gt;Foo Bar&lt;/td&gt;&lt;td&gt;Item 5&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="org-sh-heredoc">  &lt;/tbody&gt;</span>
+<span class="org-sh-heredoc">&lt;/table&gt;</span>
+
+
+<span class="org-sh-heredoc">&lt;/html&gt;</span>
+<span class="org-sh-heredoc">EOF</span>
+<span class="org-keyword">trap</span> <span class="org-string">"rm index.html"</span> EXIT
+
+python -m http.server
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">$BROWSER -new-tab localhost:8080</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc7476d1" class="outline-2">
+<h2 id="orgc7476d1"><a href="#orgc7476d1">Resources</a></h2>
+<div class="outline-text-2" id="text-orgc7476d1">
+<ul class="org-ul">
+<li><a href="https://hyperscript.org/">https://hyperscript.org/</a></li>
+</ul>
+</div>
+</div>
+</main>
+</body>
+</html>

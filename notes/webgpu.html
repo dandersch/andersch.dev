@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WebGPU</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">WebGPU</h1>
+<p>
+WebGPU is a web API for GPU computation and graphics rendering. It provides
+low-level access to a GPU similar to modern <a href="rendering_api.html#ID-aaa98db5-f284-4a8a-9b0e-9e650530df6d">graphics APIs</a> like Vulkan, Metal,
+and <a href="directx.html#ID-b99086b2-b138-4863-b51f-32f8912be018">DirectX 12</a>. It uses WGSL (WebGPU Shading Language) as its shading language.
+</p>
+
+<p>
+It offers better performance and more advanced GPU features than <a href="webgl.html#ID-373be267-dc1d-446b-ba77-d1bd26f4da67">WebGL</a>.
+</p>
+<div id="outline-container-org45e6f7d" class="outline-2">
+<h2 id="org45e6f7d"><a href="#org45e6f7d">Code Example</a></h2>
+<div class="outline-text-2" id="text-org45e6f7d">
+<div class="org-src-container">
+<pre class="src src-javascript" id="webgpu-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;WebGPU Triangle&lt;/title&gt;
+  &lt;style&gt; canvas {width: 100%; height: 400px; background-color: #000;} &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id=<span class="org-string">"canvas"</span>&gt;&lt;/canvas&gt;
+  &lt;div id=<span class="org-string">"status"</span>&gt;Checking WebGPU...&lt;/div&gt;
+
+  &lt;script type=<span class="org-string">"module"</span>&gt;
+    <span class="org-keyword">async</span> <span class="org-keyword">function</span> init() {
+      <span class="org-comment-delimiter">// </span><span class="org-comment">1. Check if WebGPU is supported</span>
+      <span class="org-keyword">if</span> (!navigator.gpu) {
+        document.getElementById(<span class="org-string">"status"</span>).textContent = <span class="org-string">"WebGPU not supported!"</span>;
+        <span class="org-keyword">return</span>;
+      }
+
+      <span class="org-comment-delimiter">// </span><span class="org-comment">2. Get the GPU adapter</span>
+      <span class="org-keyword">const</span> <span class="org-variable-name">adapter</span> = <span class="org-keyword">await</span> navigator.gpu.requestAdapter();
+      <span class="org-keyword">if</span> (!adapter) {
+        document.getElementById(<span class="org-string">"status"</span>).textContent = <span class="org-string">"Couldn't request WebGPU adapter!"</span>;
+        <span class="org-keyword">return</span>;
+      }
+
+      <span class="org-comment-delimiter">// </span><span class="org-comment">3. Create the device</span>
+      <span class="org-keyword">const</span> <span class="org-variable-name">device</span> = <span class="org-keyword">await</span> adapter.requestDevice();
+      <span class="org-keyword">if</span> (!device) {
+        document.getElementById(<span class="org-string">"status"</span>).textContent = <span class="org-string">"Couldn't request WebGPU device!"</span>;
+        <span class="org-keyword">return</span>;
+      }
+
+      <span class="org-comment-delimiter">// </span><span class="org-comment">4. Configure canvas</span>
+      <span class="org-keyword">const</span> <span class="org-variable-name">canvas</span>           = document.getElementById(<span class="org-string">"canvas"</span>);
+      <span class="org-keyword">const</span> <span class="org-variable-name">context</span>          = canvas.getContext(<span class="org-string">"webgpu"</span>);
+      <span class="org-keyword">const</span> <span class="org-variable-name">canvasFormat</span>     = navigator.gpu.getPreferredCanvasFormat();
+      <span class="org-keyword">const</span> <span class="org-variable-name">devicePixelRatio</span> = window.devicePixelRatio || 1;
+      canvas.width           = canvas.clientWidth * devicePixelRatio;
+      canvas.height          = canvas.clientHeight * devicePixelRatio;
+
+      context.configure({
+        device: device,
+        format: canvasFormat,
+        alphaMode: <span class="org-string">"premultiplied"</span>
+      });
+
+      <span class="org-comment-delimiter">// </span><span class="org-comment">5. Create the vertex buffer (triangle vertices)</span>
+      <span class="org-keyword">const</span> <span class="org-variable-name">vertices</span> = <span class="org-keyword">new</span> <span class="org-type">Float32Array</span>([
+        0.0,  0.5, 0.0, <span class="org-comment-delimiter">// </span><span class="org-comment">top</span>
+       -0.5, -0.5, 0.0, <span class="org-comment-delimiter">// </span><span class="org-comment">bottom left</span>
+        0.5, -0.5, 0.0  <span class="org-comment-delimiter">// </span><span class="org-comment">bottom right</span>
+      ]);
+
+      <span class="org-keyword">const</span> <span class="org-variable-name">vertexBuffer</span> = device.createBuffer({
+        label: <span class="org-string">"Triangle vertices"</span>,
+        size: vertices.byteLength,
+        usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
+      });
+
+      device.queue.writeBuffer(vertexBuffer, 0, vertices);
+
+      <span class="org-comment-delimiter">// </span><span class="org-comment">6. Define vertex layout</span>
+      <span class="org-keyword">const</span> <span class="org-variable-name">vertexLayout</span> = {
+        arrayStride: 12, <span class="org-comment-delimiter">// </span><span class="org-comment">3 floats, 4 bytes each</span>
+        attributes: [{
+          format: <span class="org-string">"float32x3"</span>,
+          offset: 0,
+          shaderLocation: 0 <span class="org-comment-delimiter">// </span><span class="org-comment">position</span>
+        }]
+      };
+
+      <span class="org-comment-delimiter">// </span><span class="org-comment">7. Create the shader module</span>
+      <span class="org-keyword">const</span> <span class="org-variable-name">shaderModule</span> = device.createShaderModule({
+        label: <span class="org-string">"Triangle shader"</span>,
+        code: <span class="org-string">`</span>
+<span class="org-string">          @vertex</span>
+<span class="org-string">          fn vertexMain(@location(0) position: vec3f) -&gt; @builtin(position) vec4f {</span>
+<span class="org-string">            return vec4f(position, 1.0);</span>
+<span class="org-string">          }</span>
+
+<span class="org-string">          @fragment</span>
+<span class="org-string">          fn fragmentMain() -&gt; @location(0) vec4f {</span>
+<span class="org-string">            return vec4f(1.0, 0.5, 0.2, 1.0); // Orange color</span>
+<span class="org-string">          }</span>
+<span class="org-string">        `</span>
+      });
+
+      <span class="org-comment-delimiter">// </span><span class="org-comment">8. Create render pipeline</span>
+      <span class="org-keyword">const</span> <span class="org-variable-name">pipeline</span> = device.createRenderPipeline({
+        label: <span class="org-string">"Triangle render pipeline"</span>,
+        layout: <span class="org-string">"auto"</span>,
+        vertex: {
+          module: shaderModule,
+          entryPoint: <span class="org-string">"vertexMain"</span>,
+          buffers: [vertexLayout]
+        },
+        fragment: {
+          module: shaderModule,
+          entryPoint: <span class="org-string">"fragmentMain"</span>,
+          targets: [{
+            format: canvasFormat
+          }]
+        }
+      });
+
+      <span class="org-comment-delimiter">// </span><span class="org-comment">9. Draw function</span>
+      <span class="org-keyword">function</span> <span class="org-function-name">draw</span>() {
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Create command encoder</span>
+        <span class="org-keyword">const</span> <span class="org-variable-name">commandEncoder</span> = device.createCommandEncoder();
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Create render pass</span>
+        <span class="org-keyword">const</span> <span class="org-variable-name">renderPassDescriptor</span> = {
+          colorAttachments: [{
+            view: context.getCurrentTexture().createView(),
+            loadOp: <span class="org-string">"clear"</span>,
+            storeOp: <span class="org-string">"store"</span>,
+            clearValue: { r: 0.1, g: 0.1, b: 0.1, a: 1.0 }
+          }]
+        };
+
+        <span class="org-keyword">const</span> <span class="org-variable-name">passEncoder</span> = commandEncoder.beginRenderPass(renderPassDescriptor);
+        passEncoder.setPipeline(pipeline);
+        passEncoder.setVertexBuffer(0, vertexBuffer);
+        passEncoder.draw(3); <span class="org-comment-delimiter">// </span><span class="org-comment">Draw 3 vertices</span>
+        passEncoder.end();
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Submit the commands</span>
+        device.queue.submit([commandEncoder.finish()]);
+      }
+
+      <span class="org-comment-delimiter">// </span><span class="org-comment">Initial draw and set up resize handling</span>
+      draw();
+      window.addEventListener(<span class="org-string">"resize"</span>, () =&gt; {
+        canvas.width = canvas.clientWidth * devicePixelRatio;
+        canvas.height = canvas.clientHeight * devicePixelRatio;
+        draw();
+      });
+
+      document.getElementById(<span class="org-string">"status"</span>).textContent = <span class="org-string">"WebGPU triangle rendered successfully!"</span>;
+    }
+
+    init();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sh">cat &lt;&lt; <span class="org-string">'EOF'</span> &gt; <span class="org-string">"index.html"</span>
+<span class="org-sh-heredoc">&lt;!DOCTYPE html&gt;</span>
+<span class="org-sh-heredoc">&lt;html&gt;</span>
+<span class="org-sh-heredoc">&lt;head&gt;</span>
+<span class="org-sh-heredoc">  &lt;title&gt;WebGPU Triangle&lt;/title&gt;</span>
+<span class="org-sh-heredoc">  &lt;style&gt; canvas {width: 100%; height: 400px; background-color: #000;} &lt;/style&gt;</span>
+<span class="org-sh-heredoc">&lt;/head&gt;</span>
+<span class="org-sh-heredoc">&lt;body&gt;</span>
+<span class="org-sh-heredoc">  &lt;canvas id="canvas"&gt;&lt;/canvas&gt;</span>
+<span class="org-sh-heredoc">  &lt;div id="status"&gt;Checking WebGPU...&lt;/div&gt;</span>
+
+<span class="org-sh-heredoc">  &lt;script type="module"&gt;</span>
+<span class="org-sh-heredoc">    async function init() {</span>
+<span class="org-sh-heredoc">      // 1. Check if WebGPU is supported</span>
+<span class="org-sh-heredoc">      if (!navigator.gpu) {</span>
+<span class="org-sh-heredoc">        document.getElementById("status").textContent = "WebGPU not supported!";</span>
+<span class="org-sh-heredoc">        return;</span>
+<span class="org-sh-heredoc">      }</span>
+
+<span class="org-sh-heredoc">      // 2. Get the GPU adapter</span>
+<span class="org-sh-heredoc">      const adapter = await navigator.gpu.requestAdapter();</span>
+<span class="org-sh-heredoc">      if (!adapter) {</span>
+<span class="org-sh-heredoc">        document.getElementById("status").textContent = "Couldn't request WebGPU adapter!";</span>
+<span class="org-sh-heredoc">        return;</span>
+<span class="org-sh-heredoc">      }</span>
+
+<span class="org-sh-heredoc">      // 3. Create the device</span>
+<span class="org-sh-heredoc">      const device = await adapter.requestDevice();</span>
+<span class="org-sh-heredoc">      if (!device) {</span>
+<span class="org-sh-heredoc">        document.getElementById("status").textContent = "Couldn't request WebGPU device!";</span>
+<span class="org-sh-heredoc">        return;</span>
+<span class="org-sh-heredoc">      }</span>
+
+<span class="org-sh-heredoc">      // 4. Configure canvas</span>
+<span class="org-sh-heredoc">      const canvas           = document.getElementById("canvas");</span>
+<span class="org-sh-heredoc">      const context          = canvas.getContext("webgpu");</span>
+<span class="org-sh-heredoc">      const canvasFormat     = navigator.gpu.getPreferredCanvasFormat();</span>
+<span class="org-sh-heredoc">      const devicePixelRatio = window.devicePixelRatio || 1;</span>
+<span class="org-sh-heredoc">      canvas.width           = canvas.clientWidth * devicePixelRatio;</span>
+<span class="org-sh-heredoc">      canvas.height          = canvas.clientHeight * devicePixelRatio;</span>
+
+<span class="org-sh-heredoc">      context.configure({</span>
+<span class="org-sh-heredoc">        device: device,</span>
+<span class="org-sh-heredoc">        format: canvasFormat,</span>
+<span class="org-sh-heredoc">        alphaMode: "premultiplied"</span>
+<span class="org-sh-heredoc">      });</span>
+
+<span class="org-sh-heredoc">      // 5. Create the vertex buffer (triangle vertices)</span>
+<span class="org-sh-heredoc">      const vertices = new Float32Array([</span>
+<span class="org-sh-heredoc">        0.0,  0.5, 0.0, // top</span>
+<span class="org-sh-heredoc">       -0.5, -0.5, 0.0, // bottom left</span>
+<span class="org-sh-heredoc">        0.5, -0.5, 0.0  // bottom right</span>
+<span class="org-sh-heredoc">      ]);</span>
+
+<span class="org-sh-heredoc">      const vertexBuffer = device.createBuffer({</span>
+<span class="org-sh-heredoc">        label: "Triangle vertices",</span>
+<span class="org-sh-heredoc">        size: vertices.byteLength,</span>
+<span class="org-sh-heredoc">        usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,</span>
+<span class="org-sh-heredoc">      });</span>
+
+<span class="org-sh-heredoc">      device.queue.writeBuffer(vertexBuffer, 0, vertices);</span>
+
+<span class="org-sh-heredoc">      // 6. Define vertex layout</span>
+<span class="org-sh-heredoc">      const vertexLayout = {</span>
+<span class="org-sh-heredoc">        arrayStride: 12, // 3 floats, 4 bytes each</span>
+<span class="org-sh-heredoc">        attributes: [{</span>
+<span class="org-sh-heredoc">          format: "float32x3",</span>
+<span class="org-sh-heredoc">          offset: 0,</span>
+<span class="org-sh-heredoc">          shaderLocation: 0 // position</span>
+<span class="org-sh-heredoc">        }]</span>
+<span class="org-sh-heredoc">      };</span>
+
+<span class="org-sh-heredoc">      // 7. Create the shader module</span>
+<span class="org-sh-heredoc">      const shaderModule = device.createShaderModule({</span>
+<span class="org-sh-heredoc">        label: "Triangle shader",</span>
+<span class="org-sh-heredoc">        code: `</span>
+<span class="org-sh-heredoc">          @vertex</span>
+<span class="org-sh-heredoc">          fn vertexMain(@location(0) position: vec3f) -&gt; @builtin(position) vec4f {</span>
+<span class="org-sh-heredoc">            return vec4f(position, 1.0);</span>
+<span class="org-sh-heredoc">          }</span>
+
+<span class="org-sh-heredoc">          @fragment</span>
+<span class="org-sh-heredoc">          fn fragmentMain() -&gt; @location(0) vec4f {</span>
+<span class="org-sh-heredoc">            return vec4f(1.0, 0.5, 0.2, 1.0); // Orange color</span>
+<span class="org-sh-heredoc">          }</span>
+<span class="org-sh-heredoc">        `</span>
+<span class="org-sh-heredoc">      });</span>
+
+<span class="org-sh-heredoc">      // 8. Create render pipeline</span>
+<span class="org-sh-heredoc">      const pipeline = device.createRenderPipeline({</span>
+<span class="org-sh-heredoc">        label: "Triangle render pipeline",</span>
+<span class="org-sh-heredoc">        layout: "auto",</span>
+<span class="org-sh-heredoc">        vertex: {</span>
+<span class="org-sh-heredoc">          module: shaderModule,</span>
+<span class="org-sh-heredoc">          entryPoint: "vertexMain",</span>
+<span class="org-sh-heredoc">          buffers: [vertexLayout]</span>
+<span class="org-sh-heredoc">        },</span>
+<span class="org-sh-heredoc">        fragment: {</span>
+<span class="org-sh-heredoc">          module: shaderModule,</span>
+<span class="org-sh-heredoc">          entryPoint: "fragmentMain",</span>
+<span class="org-sh-heredoc">          targets: [{</span>
+<span class="org-sh-heredoc">            format: canvasFormat</span>
+<span class="org-sh-heredoc">          }]</span>
+<span class="org-sh-heredoc">        }</span>
+<span class="org-sh-heredoc">      });</span>
+
+<span class="org-sh-heredoc">      // 9. Draw function</span>
+<span class="org-sh-heredoc">      function draw() {</span>
+<span class="org-sh-heredoc">        // Create command encoder</span>
+<span class="org-sh-heredoc">        const commandEncoder = device.createCommandEncoder();</span>
+
+<span class="org-sh-heredoc">        // Create render pass</span>
+<span class="org-sh-heredoc">        const renderPassDescriptor = {</span>
+<span class="org-sh-heredoc">          colorAttachments: [{</span>
+<span class="org-sh-heredoc">            view: context.getCurrentTexture().createView(),</span>
+<span class="org-sh-heredoc">            loadOp: "clear",</span>
+<span class="org-sh-heredoc">            storeOp: "store",</span>
+<span class="org-sh-heredoc">            clearValue: { r: 0.1, g: 0.1, b: 0.1, a: 1.0 }</span>
+<span class="org-sh-heredoc">          }]</span>
+<span class="org-sh-heredoc">        };</span>
+
+<span class="org-sh-heredoc">        const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);</span>
+<span class="org-sh-heredoc">        passEncoder.setPipeline(pipeline);</span>
+<span class="org-sh-heredoc">        passEncoder.setVertexBuffer(0, vertexBuffer);</span>
+<span class="org-sh-heredoc">        passEncoder.draw(3); // Draw 3 vertices</span>
+<span class="org-sh-heredoc">        passEncoder.end();</span>
+
+<span class="org-sh-heredoc">        // Submit the commands</span>
+<span class="org-sh-heredoc">        device.queue.submit([commandEncoder.finish()]);</span>
+<span class="org-sh-heredoc">      }</span>
+
+<span class="org-sh-heredoc">      // Initial draw and set up resize handling</span>
+<span class="org-sh-heredoc">      draw();</span>
+<span class="org-sh-heredoc">      window.addEventListener("resize", () =&gt; {</span>
+<span class="org-sh-heredoc">        canvas.width = canvas.clientWidth * devicePixelRatio;</span>
+<span class="org-sh-heredoc">        canvas.height = canvas.clientHeight * devicePixelRatio;</span>
+<span class="org-sh-heredoc">        draw();</span>
+<span class="org-sh-heredoc">      });</span>
+
+<span class="org-sh-heredoc">      document.getElementById("status").textContent = "WebGPU triangle rendered successfully!";</span>
+<span class="org-sh-heredoc">    }</span>
+
+<span class="org-sh-heredoc">    init();</span>
+<span class="org-sh-heredoc">  &lt;/script&gt;</span>
+<span class="org-sh-heredoc">&lt;/body&gt;</span>
+<span class="org-sh-heredoc">&lt;/html&gt;</span>
+<span class="org-sh-heredoc">EOF</span>
+<span class="org-keyword">trap</span> <span class="org-string">"rm index.html"</span> EXIT
+
+python -m http.server
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">$BROWSER -new-tab localhost:8080</span>
+</pre>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

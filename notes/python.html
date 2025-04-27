@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Python</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">Python</h1>
+<p>
+Python is a dynamically-typed, interpreted <a href="programming_language.html#ID-f0f41ee0-9623-4704-a4b8-7e6ea6eb108a">programming language</a>. It has gained
+widespread use due to its resemblance to pseudo-code and numerous libraries.
+</p>
+<div id="outline-container-org24a66f4" class="outline-2">
+<h2 id="org24a66f4"><a href="#org24a66f4">Python Package Manager</a></h2>
+<div class="outline-text-2" id="text-org24a66f4">
+<p>
+Pip Installs Packages (<b>pip</b>):
+</p>
+<ul class="org-ul">
+<li><code>pip</code> is the most widely used package manager for Python.</li>
+<li>Comes pre-installed with Python &gt;3.4</li>
+<li>Installs packages from the <a href="https://pypi.org/">Python Package Index (PyPI)</a></li>
+<li>Usage
+<ul class="org-ul">
+<li><code>pip install package_name</code></li>
+<li><code>pip uninstall package_name</code></li>
+<li><code>pip list</code></li>
+<li><code>pip install --upgrade package_name</code></li>
+</ul></li>
+</ul>
+
+<p>
+<b>virtualenv</b>:
+</p>
+<ul class="org-ul">
+<li><code>virtualenv</code> is a tool for creating isolated Python environments.</li>
+<li>Allows managing of dependencies for projects separately</li>
+<li>Usage:
+<ul class="org-ul">
+<li><code>virtualenv env_name</code></li>
+<li><code>source env_name/bin/activate</code> (Activate virtual environment)</li>
+</ul></li>
+</ul>
+
+<p>
+<b>pipenv</b>:
+</p>
+<ul class="org-ul">
+<li><code>pipenv</code> combines <code>pip</code> and <code>virtualenv</code></li>
+<li>Uses a Pipfile to specify dependencies and a Pipfile.lock for version locking.</li>
+<li>Usage:
+<ul class="org-ul">
+<li><code>pipenv install</code></li>
+<li><code>pipenv install package_name</code></li>
+<li><code>pipenv uninstall package_name</code></li>
+<li><code>pipenv shell</code> (Activate virtual environment)</li>
+</ul></li>
+</ul>
+
+<p>
+<b>uv</b>:
+</p>
+<ul class="org-ul">
+<li>Fast Python package manager and resolver</li>
+<li>Drop-in replacement for <code>pip</code>, <code>pip-tools</code>, <code>virtualenv</code></li>
+<li>handles virtual environments natively</li>
+<li>Single binary written in Rust</li>
+<li>unified CLI for tasks like <code>uv pip install</code>, <code>uv venv</code>, or <code>uv python</code></li>
+<li>Manages projects with a <code>pyproject.toml</code> file</li>
+<li><code>uvx</code> (alias for <code>uv tool run</code>) for executing scripts in isolated environment</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org21a56fd" class="outline-2">
+<h2 id="org21a56fd"><a href="#org21a56fd">Compiling Python</a></h2>
+<div class="outline-text-2" id="text-org21a56fd">
+<p>
+Python by default is not compiled to an executable nor JIT-compiled to machine
+code. Instead, the standard interpreter <i>CPython</i> compiles a given python script
+to bytecode that can be run line-by-line by the Python Virtual Machine (PVM).
+</p>
+
+<p>
+To compile Python to bytecode:
+    <code>python -m py_compile source.py</code>
+</p>
+
+<p>
+The compiled bytecode will be in the <code>__pycache__</code> directory. To execute it from
+the command line:
+    <code>python -m source</code>
+</p>
+
+<p>
+However, there are tools to compile python code.
+</p>
+
+<p>
+<b>Cython</b>:
+</p>
+<ul class="org-ul">
+<li>translates Python code to C/C++ code</li>
+<li>supports calling C functions and declaring C types</li>
+</ul>
+
+<p>
+<b>PyPy</b>
+</p>
+<ul class="org-ul">
+<li>Python implementation with a JIT compiler.</li>
+<li>Runtime optimisations, fully language compliant</li>
+<li>Can run most Python code, except for CPython extensions</li>
+<li>PyPy's meta-tracing toolchain is called <b>RPython</b>.</li>
+<li>Uses meta-tracing: takes interpreter as input and produces a tracing
+just-in-time compiler as output.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd1cb769" class="outline-2">
+<h2 id="orgd1cb769"><a href="#orgd1cb769">Type Checking in Python</a></h2>
+<div class="outline-text-2" id="text-orgd1cb769">
+<p>
+Python supports type hinting since version 3.5:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">import</span> typing
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">primitive type hints</span>
+<span class="org-keyword">def</span> <span class="org-function-name">add</span>(a: <span class="org-builtin">int</span>, b: <span class="org-builtin">int</span>) <span class="org-operator">-&gt;</span> <span class="org-builtin">int</span>:
+    <span class="org-keyword">return</span> a <span class="org-operator">+</span> b
+<span class="org-variable-name">x</span> : <span class="org-builtin">int</span> <span class="org-operator">=</span> add(4,5)
+<span class="org-builtin">print</span>(x)
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">type hints for lists (or tuples, dicts)</span>
+<span class="org-keyword">def</span> <span class="org-function-name">get_floats</span>(<span class="org-builtin">input</span> : <span class="org-builtin">list</span>[<span class="org-builtin">float</span>]) <span class="org-operator">-&gt;</span> <span class="org-builtin">list</span>[<span class="org-builtin">float</span>]:
+    <span class="org-variable-name">floats</span> : <span class="org-builtin">list</span>[<span class="org-builtin">float</span>] <span class="org-operator">=</span> [3.4, 2.8, 2.5, 3.9]
+    <span class="org-variable-name">result</span> <span class="org-operator">=</span> [<span class="org-builtin">input</span>[i] <span class="org-operator">+</span> floats[i] <span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span>(<span class="org-builtin">len</span>(<span class="org-builtin">input</span>))]
+    <span class="org-keyword">return</span> result
+<span class="org-builtin">print</span>(get_floats([3.5,2.8,3.1]))
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">union type hints (allow more than one type)</span>
+<span class="org-keyword">def</span> <span class="org-function-name">sum_ab</span>(a: <span class="org-builtin">int</span> <span class="org-operator">|</span> <span class="org-builtin">float</span>, b: <span class="org-builtin">int</span> <span class="org-operator">|</span> <span class="org-builtin">float</span>) <span class="org-operator">-&gt;</span> <span class="org-builtin">int</span> <span class="org-operator">|</span> <span class="org-builtin">float</span>:
+    <span class="org-keyword">return</span> a <span class="org-operator">+</span> b
+</pre>
+</div>
+
+<p>
+Python will not check the types by default. Instead, the types can be statically
+checked before running the program by a tool like <code>mypy</code>:
+</p>
+
+<p>
+<code>mypy source.py</code>
+</p>
+</div>
+</div>
+<div id="outline-container-org27fd9cb" class="outline-2">
+<h2 id="org27fd9cb"><a href="#org27fd9cb">Fundamentals</a></h2>
+<div class="outline-text-2" id="text-org27fd9cb">
+<p>
+Object:
+</p>
+<ul class="org-ul">
+<li>Everything in Python is an object</li>
+<li>Including integers, strings, lists, functions, classes and class instances</li>
+</ul>
+
+<p>
+Attributes:
+</p>
+<ul class="org-ul">
+<li>An attribute is a value associated with an object</li>
+<li>Instance Attributes are specific to an instance of a class.</li>
+<li>Class Attributes are shared among all instances (static variables)</li>
+<li>Module Attributes are defined at the top level</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9108439" class="outline-2">
+<h2 id="org9108439"><a href="#org9108439">Syntax</a></h2>
+<div class="outline-text-2" id="text-org9108439">
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-variable-name">my_list</span> <span class="org-operator">=</span> [1, 2, 3]         <span class="org-comment-delimiter"># </span><span class="org-comment">declaring list syntax</span>
+<span class="org-variable-name">my_dict</span> <span class="org-operator">=</span> {<span class="org-string">'key'</span>: <span class="org-string">'value'</span>}  <span class="org-comment-delimiter"># </span><span class="org-comment">declaring dict syntax</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">unpack/unwrap operator</span>
+<span class="org-keyword">def</span> <span class="org-function-name">add</span>(a, b, c):
+    <span class="org-keyword">return</span> a <span class="org-operator">+</span> b <span class="org-operator">+</span> c
+<span class="org-variable-name">iterables</span> <span class="org-operator">=</span> [1,2,3]
+<span class="org-builtin">print</span>(add(<span class="org-operator">*</span>iterables)) <span class="org-comment-delimiter"># </span><span class="org-comment">same as add(1,2,3)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">list comprehensions</span>
+<span class="org-variable-name">squares</span> <span class="org-operator">=</span> [x<span class="org-operator">**</span>2 <span class="org-keyword">for</span> x <span class="org-keyword">in</span> <span class="org-builtin">range</span>(4)] <span class="org-comment-delimiter"># </span><span class="org-comment">= [0,1,4,9]</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">slicing</span>
+<span class="org-variable-name">sub_list</span> <span class="org-operator">=</span> squares[1:3]  <span class="org-comment-delimiter"># </span><span class="org-comment">= [1,4]</span>
+
+<span class="org-variable-name">add</span> <span class="org-operator">=</span> <span class="org-keyword">lambda</span> x, y: x <span class="org-operator">+</span> y  <span class="org-comment-delimiter"># </span><span class="org-comment">lambda functions</span>
+
+<span class="org-variable-name">name</span> <span class="org-operator">=</span> <span class="org-string">"Alice"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">normal string</span>
+<span class="org-variable-name">greeting</span> <span class="org-operator">=</span> f<span class="org-string">"Hello, </span>{name}<span class="org-string">!"</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">formatted string (f-string)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2bb4f67" class="outline-2">
+<h2 id="org2bb4f67"><a href="#org2bb4f67">Decorators</a></h2>
+<div class="outline-text-2" id="text-org2bb4f67">
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">my_decorator</span>(func):
+    <span class="org-keyword">def</span> <span class="org-function-name">wrapper</span>():
+        <span class="org-builtin">print</span>(<span class="org-string">"Decorator start."</span>)
+        func()
+        <span class="org-builtin">print</span>(<span class="org-string">"Decorator end."</span>)
+    <span class="org-keyword">return</span> wrapper
+
+<span class="org-type">@my_decorator</span>
+<span class="org-keyword">def</span> <span class="org-function-name">say_hello</span>():
+    <span class="org-builtin">print</span>(<span class="org-string">"Decorated Function"</span>)
+say_hello()
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org16d9dd3" class="outline-2">
+<h2 id="org16d9dd3"><a href="#org16d9dd3">Statements</a></h2>
+<div class="outline-text-2" id="text-org16d9dd3">
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-comment-delimiter"># </span><span class="org-comment">imports</span>
+<span class="org-keyword">import</span> math                    <span class="org-comment-delimiter"># </span><span class="org-comment">import module</span>
+<span class="org-keyword">from</span> datetime <span class="org-keyword">import</span> datetime  <span class="org-comment-delimiter"># </span><span class="org-comment">import specific function/class</span>
+<span class="org-keyword">import</span> module <span class="org-keyword">as</span> alias         <span class="org-comment-delimiter"># </span><span class="org-comment">import module with alias</span>
+<span class="org-keyword">from</span> module <span class="org-keyword">import</span> <span class="org-operator">*</span>           <span class="org-comment-delimiter"># </span><span class="org-comment">import all names from a module</span>
+
+<span class="org-variable-name">x</span>  <span class="org-operator">=</span> 5       <span class="org-comment-delimiter"># </span><span class="org-comment">assignment</span>
+<span class="org-variable-name">x</span> <span class="org-operator">-=</span> 1       <span class="org-comment-delimiter"># </span><span class="org-comment">decrement</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">if else</span>
+<span class="org-keyword">if</span> x <span class="org-operator">&gt;</span> 0:    <span class="org-comment-delimiter"># </span><span class="org-comment">conditional</span>
+<span class="org-keyword">elif</span> x <span class="org-operator">&lt;</span> 0:  <span class="org-comment-delimiter"># </span><span class="org-comment">else if condition</span>
+<span class="org-keyword">else</span>:        <span class="org-comment-delimiter"># </span><span class="org-comment">else statement</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">loops</span>
+<span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span>(5):  <span class="org-comment-delimiter"># </span><span class="org-comment">for loop</span>
+<span class="org-keyword">for</span> _ <span class="org-keyword">in</span> <span class="org-builtin">range</span>(n):  <span class="org-comment-delimiter"># </span><span class="org-comment">for loop with unused n</span>
+<span class="org-keyword">while</span> x <span class="org-operator">&gt;</span> 0:        <span class="org-comment-delimiter"># </span><span class="org-comment">while loop</span>
+<span class="org-keyword">break</span>               <span class="org-comment-delimiter"># </span><span class="org-comment">exit loop</span>
+<span class="org-keyword">continue</span>            <span class="org-comment-delimiter"># </span><span class="org-comment">skip to next iteration</span>
+
+<span class="org-keyword">def</span> <span class="org-function-name">my_function</span>():  <span class="org-comment-delimiter"># </span><span class="org-comment">function definition</span>
+    <span class="org-keyword">return</span> 42       <span class="org-comment-delimiter"># </span><span class="org-comment">return value</span>
+    <span class="org-keyword">pass</span>            <span class="org-comment-delimiter"># </span><span class="org-comment">null operation (placeholder)</span>
+
+<span class="org-keyword">class</span> <span class="org-type">MyClass</span>:      <span class="org-comment-delimiter"># </span><span class="org-comment">class definition</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">exceptions</span>
+<span class="org-keyword">try</span>:                       <span class="org-comment-delimiter"># </span><span class="org-comment">Start of try block</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">...</span>
+<span class="org-keyword">except</span> <span class="org-type">ZeroDivisionError</span>:  <span class="org-comment-delimiter"># </span><span class="org-comment">Handle specific exception</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">...</span>
+<span class="org-keyword">finally</span>:                   <span class="org-comment-delimiter"># </span><span class="org-comment">runs no matter what</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">...</span>
+<span class="org-keyword">raise</span> <span class="org-type">Exception</span>(<span class="org-string">"Err"</span>)     <span class="org-comment-delimiter"># </span><span class="org-comment">raise exception</span>
+
+<span class="org-keyword">with</span> <span class="org-builtin">open</span>(<span class="org-string">'file.txt'</span>, <span class="org-string">'r'</span>) <span class="org-keyword">as</span> <span class="org-builtin">file</span>:  <span class="org-comment-delimiter"># </span><span class="org-comment">scoped resource management</span>
+
+<span class="org-keyword">global</span> x    <span class="org-comment-delimiter"># </span><span class="org-comment">declare global variable</span>
+<span class="org-keyword">nonlocal</span> y  <span class="org-comment-delimiter"># </span><span class="org-comment">declare non-local variable in nested function</span>
+
+<span class="org-keyword">assert</span> x <span class="org-operator">==</span> 4  <span class="org-comment-delimiter"># </span><span class="org-comment">assert statement</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">async</span>
+<span class="org-keyword">async def</span> <span class="org-function-name">my_coroutine</span>():               <span class="org-comment-delimiter"># </span><span class="org-comment">define asynchronous function</span>
+    <span class="org-keyword">await</span> some_async_function()         <span class="org-comment-delimiter"># </span><span class="org-comment">await asynchronous call</span>
+<span class="org-keyword">async with</span> some_async_context_manager:  <span class="org-comment-delimiter"># </span><span class="org-comment">async scoped resource manager</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">...</span>
+
+<span class="org-keyword">del</span> x  <span class="org-comment-delimiter"># </span><span class="org-comment">Delete a variable or object</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">generators</span>
+<span class="org-keyword">yield</span> value                     <span class="org-comment-delimiter"># </span><span class="org-comment">yield value from generator function</span>
+<span class="org-keyword">yield</span> <span class="org-keyword">from</span> another_generator()  <span class="org-comment-delimiter"># </span><span class="org-comment">Yield all values from another generator</span>
+
+<span class="org-keyword">if</span> <span class="org-builtin">__name__</span> <span class="org-operator">==</span> <span class="org-string">"__main__"</span>:      <span class="org-comment-delimiter"># </span><span class="org-comment">check if script is run directly</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc220f32" class="outline-2">
+<h2 id="orgc220f32"><a href="#orgc220f32">Built-In Functions</a></h2>
+<div class="outline-text-2" id="text-orgc220f32">
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-comment-delimiter"># </span><span class="org-comment">I/O</span>
+<span class="org-builtin">print</span>()     <span class="org-comment-delimiter"># </span><span class="org-comment">Output data to console</span>
+<span class="org-builtin">input</span>()     <span class="org-comment-delimiter"># </span><span class="org-comment">Reads a line of input from the user.</span>
+<span class="org-builtin">help</span>()      <span class="org-comment-delimiter"># </span><span class="org-comment">Invoke help system</span>
+<span class="org-constant">__debug__</span>   <span class="org-comment-delimiter"># </span><span class="org-comment">variable set to False if python is run with -O</span>
+
+<span class="org-builtin">len</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Returns length (number of items) of object</span>
+<span class="org-builtin">type</span>()      <span class="org-comment-delimiter"># </span><span class="org-comment">Returns type of object.</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">casts</span>
+<span class="org-builtin">int</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Convert value to integer</span>
+<span class="org-builtin">float</span>()     <span class="org-comment-delimiter"># </span><span class="org-comment">Convert value to float</span>
+<span class="org-builtin">str</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Convert value to string</span>
+<span class="org-builtin">bool</span>()      <span class="org-comment-delimiter"># </span><span class="org-comment">Convert value to boolean</span>
+
+<span class="org-builtin">list</span>()      <span class="org-comment-delimiter"># </span><span class="org-comment">Create list from an iterable</span>
+<span class="org-builtin">tuple</span>()     <span class="org-comment-delimiter"># </span><span class="org-comment">Create tuple from an iterable</span>
+<span class="org-builtin">set</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Create set from an iterable</span>
+<span class="org-builtin">dict</span>()      <span class="org-comment-delimiter"># </span><span class="org-comment">Create associative array</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">math</span>
+<span class="org-builtin">max</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Return largest item (in iterable)</span>
+<span class="org-builtin">min</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Return smallest item (in iterable)</span>
+<span class="org-builtin">sum</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Return sum of numbers</span>
+<span class="org-builtin">abs</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Return absolute value</span>
+<span class="org-builtin">round</span>()     <span class="org-comment-delimiter"># </span><span class="org-comment">Round number to specified decimal places</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">sorting</span>
+<span class="org-builtin">sorted</span>()    <span class="org-comment-delimiter"># </span><span class="org-comment">Returns a new sorted list from the elements of any iterable.</span>
+<span class="org-builtin">reversed</span>()  <span class="org-comment-delimiter"># </span><span class="org-comment">Returns a reversed iterator of a sequence.</span>
+<span class="org-builtin">enumerate</span>() <span class="org-comment-delimiter"># </span><span class="org-comment">Adds a counter to an iterable and returns it as an enumerate object.</span>
+
+<span class="org-builtin">zip</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Combines elements from multiple iterables into tuples.</span>
+<span class="org-builtin">map</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Apply function to iterable and return map</span>
+<span class="org-builtin">filter</span>()    <span class="org-comment-delimiter"># </span><span class="org-comment">Construct iterator from elements of an iterable for which a function returns true.</span>
+<span class="org-builtin">all</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Return True if all elements of an iterable are true</span>
+<span class="org-builtin">any</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">Returns True if any element of an iterable is true. If the iterable is empty, returns False.</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-comment-delimiter"># </span><span class="org-comment">special attributes</span>
+<span class="org-builtin">__doc__</span>         <span class="org-comment-delimiter"># </span><span class="org-comment">attribute that stores a docstring</span>
+__loader__      <span class="org-comment-delimiter"># </span><span class="org-comment">attribute for the module loader object</span>
+ule loader <span class="org-builtin">object</span>
+<span class="org-builtin">__name__</span>        <span class="org-comment-delimiter"># </span><span class="org-comment">attribute that stores name of module</span>
+<span class="org-builtin">__package__</span>     <span class="org-comment-delimiter"># </span><span class="org-comment">attribute that stores package name of module</span>
+__spec__        <span class="org-comment-delimiter"># </span><span class="org-comment">attribute that stores module's import specification</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">internals</span>
+__build_class__ <span class="org-comment-delimiter"># </span><span class="org-comment">called internally by class statement</span>
+<span class="org-builtin">__import__</span>      <span class="org-comment-delimiter"># </span><span class="org-comment">called internally by import statement</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-comment-delimiter"># </span><span class="org-comment">async</span>
+aiter(iterable) <span class="org-comment-delimiter"># </span><span class="org-comment">return asynchronous iterator</span>
+anext(iterator) <span class="org-comment-delimiter"># </span><span class="org-comment">retrieve</span>
+anext(iterator) <span class="org-comment-delimiter"># </span><span class="org-comment">retrieve the next item from async iterator</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">binary</span>
+<span class="org-builtin">bin</span>(x)          <span class="org-comment-delimiter"># </span><span class="org-comment">convert integer to binary string</span>
+<span class="org-builtin">hex</span>(x)          <span class="org-comment-delimiter"># </span><span class="org-comment">convert integer to hexadecimal string</span>
+<span class="org-builtin">oct</span>(x)          <span class="org-comment-delimiter"># </span><span class="org-comment">convert integer to octal string</span>
+
+<span class="org-builtin">breakpoint</span>()    <span class="org-comment-delimiter"># </span><span class="org-comment">drop into the debugger at the call site</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">math</span>
+<span class="org-builtin">complex</span>(real, imag) <span class="org-comment-delimiter"># </span><span class="org-comment">create complex number</span>
+<span class="org-builtin">divmod</span>(a, b)        <span class="org-comment-delimiter"># </span><span class="org-comment">return quotient and remainder of dividing by b</span>
+<span class="org-builtin">pow</span>(base, exp)      <span class="org-comment-delimiter"># </span><span class="org-comment">return base raised to the power of exp</span>
+
+<span class="org-builtin">bytearray</span>()       <span class="org-comment-delimiter"># </span><span class="org-comment">create mutable byte array</span>
+<span class="org-builtin">bytes</span>()           <span class="org-comment-delimiter"># </span><span class="org-comment">create immutable bytes object</span>
+
+<span class="org-builtin">callable</span>(obj)     <span class="org-comment-delimiter"># </span><span class="org-comment">check if object is callable</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">interpreter</span>
+<span class="org-builtin">compile</span>(src, <span class="org-builtin">file</span>, mode) <span class="org-comment-delimiter"># </span><span class="org-comment">compile source code into code object</span>
+<span class="org-builtin">eval</span>(expr)               <span class="org-comment-delimiter"># </span><span class="org-comment">evaluate python expression from string</span>
+<span class="org-builtin">exec</span>(<span class="org-builtin">object</span>)             <span class="org-comment-delimiter"># </span><span class="org-comment">execute python code dynamically</span>
+<span class="org-constant">exit</span>()                   <span class="org-comment-delimiter"># </span><span class="org-comment">exit interpreter</span>
+<span class="org-constant">quit</span>()                   <span class="org-comment-delimiter"># </span><span class="org-comment">exit interpreter</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">program metadata</span>
+<span class="org-constant">copyright</span>()      <span class="org-comment-delimiter"># </span><span class="org-comment">display copyright information</span>
+<span class="org-constant">credits</span>()        <span class="org-comment-delimiter"># </span><span class="org-comment">display credits information</span>
+<span class="org-constant">license</span>()        <span class="org-comment-delimiter"># </span><span class="org-comment">display license information</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">attributes</span>
+<span class="org-builtin">getattr</span>(obj, name)       <span class="org-comment-delimiter"># </span><span class="org-comment">retrieve attribute from object</span>
+<span class="org-builtin">hasattr</span>(obj, name)       <span class="org-comment-delimiter"># </span><span class="org-comment">check if object has specified attribute</span>
+<span class="org-builtin">delattr</span>(obj, name)       <span class="org-comment-delimiter"># </span><span class="org-comment">delete attribute from object</span>
+<span class="org-builtin">setattr</span>(obj, name, val)  <span class="org-comment-delimiter"># </span><span class="org-comment">set attribute on object</span>
+<span class="org-builtin">property</span>()               <span class="org-comment-delimiter"># </span><span class="org-comment">create property attribute</span>
+
+<span class="org-builtin">dir</span>(<span class="org-builtin">object</span>)      <span class="org-comment-delimiter"># </span><span class="org-comment">return list of attributes and methods of object</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">data structures</span>
+<span class="org-builtin">frozenset</span>()      <span class="org-comment-delimiter"># </span><span class="org-comment">create immutable set</span>
+
+<span class="org-builtin">format</span>(value)    <span class="org-comment-delimiter"># </span><span class="org-comment">format value using specified format</span>
+
+<span class="org-builtin">hash</span>(<span class="org-builtin">object</span>)     <span class="org-comment-delimiter"># </span><span class="org-comment">return hash value of object</span>
+<span class="org-builtin">id</span>(<span class="org-builtin">object</span>)       <span class="org-comment-delimiter"># </span><span class="org-comment">return the identity of object</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">classes</span>
+<span class="org-builtin">isinstance</span>(<span class="org-builtin">object</span>, classinfo) <span class="org-comment-delimiter"># </span><span class="org-comment">check if object is instance of class</span>
+<span class="org-builtin">issubclass</span>(<span class="org-keyword">class</span>, classinfo)  <span class="org-comment-delimiter"># </span><span class="org-comment">check if class is subclass of another</span>
+<span class="org-builtin">staticmethod</span>(func)            <span class="org-comment-delimiter"># </span><span class="org-comment">transform method into static method</span>
+<span class="org-builtin">super</span>()                       <span class="org-comment-delimiter"># </span><span class="org-comment">return proxy object to access parent class methods</span>
+<span class="org-builtin">classmethod</span>(func)             <span class="org-comment-delimiter"># </span><span class="org-comment">transform method into class method</span>
+
+<span class="org-builtin">globals</span>()        <span class="org-comment-delimiter"># </span><span class="org-comment">return dict of current global symbol table</span>
+<span class="org-builtin">locals</span>()         <span class="org-comment-delimiter"># </span><span class="org-comment">return dict of current local symbol table</span>
+
+<span class="org-builtin">next</span>(iterator)            <span class="org-comment-delimiter"># </span><span class="org-comment">retrieve the next item from iterator</span>
+<span class="org-builtin">memoryview</span>(obj)           <span class="org-comment-delimiter"># </span><span class="org-comment">create memory view of object</span>
+<span class="org-builtin">object</span>()                  <span class="org-comment-delimiter"># </span><span class="org-comment">create new featureless object</span>
+<span class="org-builtin">open</span>(<span class="org-builtin">file</span>, mode)          <span class="org-comment-delimiter"># </span><span class="org-comment">open file and return file object</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">iterables</span>
+<span class="org-builtin">iter</span>(iterable)            <span class="org-comment-delimiter"># </span><span class="org-comment">return iterator for iterable</span>
+<span class="org-builtin">range</span>(start, stop)        <span class="org-comment-delimiter"># </span><span class="org-comment">generate sequence of numbers</span>
+<span class="org-builtin">slice</span>(start, stop, step)  <span class="org-comment-delimiter"># </span><span class="org-comment">create slice object</span>
+<span class="org-builtin">zip</span>(<span class="org-operator">*</span>iterables)           <span class="org-comment-delimiter"># </span><span class="org-comment">combine multiple iterables into tuples</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">plaintext</span>
+<span class="org-builtin">ord</span>(char)        <span class="org-comment-delimiter"># </span><span class="org-comment">return the unicode code point for given character</span>
+<span class="org-builtin">repr</span>(<span class="org-builtin">object</span>)     <span class="org-comment-delimiter"># </span><span class="org-comment">return string representation of object</span>
+<span class="org-builtin">ascii</span>(<span class="org-builtin">object</span>)    <span class="org-comment-delimiter"># </span><span class="org-comment">return printable representation of object</span>
+<span class="org-builtin">chr</span>(i)           <span class="org-comment-delimiter"># </span><span class="org-comment">return character string for unicode code point</span>
+
+<span class="org-builtin">vars</span>(<span class="org-builtin">object</span>)      <span class="org-comment-delimiter"># </span><span class="org-comment">return the __dict__ attribute of object</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6628a2b" class="outline-2">
+<h2 id="org6628a2b"><a href="#org6628a2b">Code Examples</a></h2>
+<div class="outline-text-2" id="text-org6628a2b">
+</div>
+<div id="outline-container-org7003e3a" class="outline-3">
+<h3 id="org7003e3a"><a href="#org7003e3a">Generators</a></h3>
+<div class="outline-text-3" id="text-org7003e3a">
+<p>
+A generator is a special type of iterator that allows iteration through a
+sequence of values. Each time the <code>yield</code> statement of a generator is executed,
+the function's state is saved, and it can be resumed later.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">fibonacci</span>(n):
+    <span class="org-variable-name">a</span>, <span class="org-variable-name">b</span> <span class="org-operator">=</span> 0, 1
+    <span class="org-keyword">for</span> _ <span class="org-keyword">in</span> <span class="org-builtin">range</span>(n):
+        <span class="org-keyword">yield</span> a
+        <span class="org-variable-name">a</span>, <span class="org-variable-name">b</span> <span class="org-operator">=</span> b, a <span class="org-operator">+</span> b
+
+<span class="org-variable-name">fib_gen</span> <span class="org-operator">=</span> fibonacci(4) <span class="org-comment-delimiter"># </span><span class="org-comment">get generator object</span>
+
+<span class="org-keyword">for</span> number <span class="org-keyword">in</span> fib_gen: <span class="org-comment-delimiter"># </span><span class="org-comment">using the generator</span>
+    <span class="org-builtin">print</span>(number)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd752dfc" class="outline-3">
+<h3 id="orgd752dfc"><a href="#orgd752dfc">Exceptions</a></h3>
+<div class="outline-text-3" id="text-orgd752dfc">
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">try</span>:
+    <span class="org-variable-name">numerator</span> <span class="org-operator">=</span> 10
+    <span class="org-variable-name">denominator</span> <span class="org-operator">=</span> 0
+    <span class="org-variable-name">result</span> <span class="org-operator">=</span> numerator <span class="org-operator">/</span> denominator
+<span class="org-keyword">except</span> <span class="org-type">ZeroDivisionError</span>:
+    <span class="org-builtin">print</span>(<span class="org-string">"Error: Cannot divide by zero."</span>)
+<span class="org-keyword">else</span>:
+    <span class="org-builtin">print</span>(<span class="org-string">"Result:"</span>, result)
+<span class="org-keyword">finally</span>:
+    <span class="org-builtin">print</span>(<span class="org-string">"Execution completed."</span>) <span class="org-comment-delimiter"># </span><span class="org-comment">runs no matter what</span>
+</pre>
+</div>
+
+<p>
+Built-in Exceptions:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-type">ArithmeticError</span>
+<span class="org-type">AssertionError</span>
+<span class="org-type">AttributeError</span>
+<span class="org-type">BaseException</span>
+BaseExceptionGroup
+<span class="org-type">BlockingIOError</span>
+<span class="org-type">BrokenPipeError</span>
+<span class="org-type">BufferError</span>
+<span class="org-type">BytesWarning</span>
+<span class="org-type">ChildProcessError</span>
+<span class="org-type">ConnectionAbortedError</span>
+<span class="org-type">ConnectionError</span>
+<span class="org-type">ConnectionRefusedError</span>
+<span class="org-type">ConnectionResetError</span>
+<span class="org-type">DeprecationWarning</span>
+<span class="org-type">EOFError</span>
+<span class="org-constant">Ellipsis</span>
+EncodingWarning
+<span class="org-type">EnvironmentError</span>
+<span class="org-type">Exception</span>
+<span class="org-type">ExceptionGroup</span>
+<span class="org-type">FileExistsError</span>
+<span class="org-type">FileNotFoundError</span>
+<span class="org-type">FloatingPointError</span>
+<span class="org-type">FutureWarning</span>
+<span class="org-type">GeneratorExit</span>
+<span class="org-type">IOError</span>
+<span class="org-type">ImportError</span>
+<span class="org-type">ImportWarning</span>
+<span class="org-type">IndentationError</span>
+<span class="org-type">IndexError</span>
+<span class="org-type">InterruptedError</span>
+<span class="org-type">IsADirectoryError</span>
+<span class="org-type">KeyError</span>
+<span class="org-type">KeyboardInterrupt</span>
+<span class="org-type">LookupError</span>
+<span class="org-type">MemoryError</span>
+ModuleNotFoundError
+<span class="org-type">NameError</span>
+<span class="org-constant">None</span>
+<span class="org-type">NotADirectoryError</span>
+<span class="org-constant">NotImplemented</span>
+<span class="org-type">NotImplementedError</span>
+<span class="org-type">OSError</span>
+<span class="org-type">OverflowError</span>
+<span class="org-type">PendingDeprecationWarning</span>
+<span class="org-type">PermissionError</span>
+<span class="org-type">ProcessLookupError</span>
+<span class="org-type">RecursionError</span>
+<span class="org-type">ReferenceError</span>
+<span class="org-type">ResourceWarning</span>
+<span class="org-type">RuntimeError</span>
+<span class="org-type">RuntimeWarning</span>
+<span class="org-type">StopAsyncIteration</span>
+<span class="org-type">StopIteration</span>
+<span class="org-type">SyntaxError</span>
+<span class="org-type">SyntaxWarning</span>
+<span class="org-type">SystemError</span>
+<span class="org-type">SystemExit</span>
+<span class="org-type">TabError</span>
+<span class="org-type">TimeoutError</span>
+<span class="org-constant">True</span>
+<span class="org-type">TypeError</span>
+<span class="org-type">UnboundLocalError</span>
+<span class="org-type">UnicodeDecodeError</span>
+<span class="org-type">UnicodeEncodeError</span>
+<span class="org-type">UnicodeError</span>
+<span class="org-type">UnicodeTranslateError</span>
+<span class="org-type">UnicodeWarning</span>
+<span class="org-type">UserWarning</span>
+<span class="org-type">ValueError</span>
+<span class="org-type">Warning</span>
+<span class="org-type">ZeroDivisionError</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

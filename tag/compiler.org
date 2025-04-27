@@ -1,0 +1,12 @@
+#+TITLE: Pages tagged compiler
+* Notes tagged ~compiler~
+- [[../notes/tree_sitter.org][Tree-sitter]]
+- [[../notes/tcc.org][tcc (Tiny C Compiler)]]
+- [[../notes/parser.org][Parser]]
+- [[../notes/msvc.org][Microsoft Visual C++ (MSVC)]]
+- [[../notes/lr_parser.org][LR parser]]
+- [[../notes/gnu_c_ext.org][GNU C Extensions]]
+- [[../notes/compiler.org][Compiler]]
+- [[../notes/clang.org][Clang]]
+- [[../notes/address_sanitization.org][Address Sanitization (ASan)]]
+- [[../notes/abstract_syntax_tree.org][Abstract Syntax Tree (AST)]]

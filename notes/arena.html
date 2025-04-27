@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Memory Arena</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">Memory Arena</h1>
+<p>
+A memory arena (or linear allocator, or bump allocator, or region-based
+allocator) is a memory allocator that grows linearly.
+</p>
+
+<p>
+Data structures and more complicated allocators can be built on top of or
+composed with a memory arena. Examples include dynamic arrays, linked lists or
+pools. See <a href="https://nullprogram.com/blog/2023/10/05/">A simple, arena-backed, generic dynamic array for C</a> and <a href="https://www.rfleury.com/i/70173682/composition-with-more-complex-allocators">Composition
+With More Complex Allocators</a>.
+</p>
+
+<p>
+Growing strategies:
+</p>
+<ul class="org-ul">
+<li>Fixed Size Arenas that reallocate (can't take pointers)</li>
+<li>Leveraging Virtual Memory</li>
+<li>Chaining arenas in a linked list</li>
+</ul>
+
+<p>
+Types of arenas:
+</p>
+<ul class="org-ul">
+<li><b>Scratch arena</b>: Arena for intermediate computations that don't persist</li>
+<li><b>Frame arena</b>: Resets every frame, can be back-buffered to remember last frame</li>
+</ul>
+<div id="outline-container-org7ff28c7" class="outline-2">
+<h2 id="org7ff28c7"><a href="#org7ff28c7">API</a></h2>
+<div class="outline-text-2" id="text-org7ff28c7">
+</div>
+<div id="outline-container-org868ff2e" class="outline-3">
+<h3 id="org868ff2e"><a href="#org868ff2e">nullprogram</a></h3>
+<div class="outline-text-3" id="text-org868ff2e">
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> {
+    <span class="org-type">char</span> *<span class="org-variable-name">beg</span>;
+    <span class="org-type">char</span> *<span class="org-variable-name">end</span>;
+} <span class="org-type">arena</span>;
+
+<span class="org-type">arena</span> <span class="org-function-name">newarena</span>(<span class="org-type">ptrdiff_t</span> <span class="org-variable-name">cap</span>)
+{
+    <span class="org-type">arena</span> <span class="org-variable-name">a</span> = {0};
+    a.beg = malloc(cap);
+    a.end = a.beg ? a.beg+cap : 0;
+    <span class="org-keyword">return</span> a;
+}
+
+<span class="org-type">void</span> *<span class="org-function-name">alloc</span>(<span class="org-type">arena</span> *<span class="org-variable-name">a</span>, <span class="org-type">ptrdiff_t</span> <span class="org-variable-name">size</span>, <span class="org-type">ptrdiff_t</span> <span class="org-variable-name">align</span>, <span class="org-type">ptrdiff_t</span> <span class="org-variable-name">count</span>)
+{
+    <span class="org-type">ptrdiff_t</span> <span class="org-variable-name">avail</span> = a-&gt;end - a-&gt;beg;
+    <span class="org-type">ptrdiff_t</span> <span class="org-variable-name">padding</span> = -(<span class="org-type">uintptr_t</span>)a-&gt;beg &amp; (align - 1);
+    <span class="org-keyword">if</span> (count &gt; (avail - padding)/size) {
+        abort();  <span class="org-comment-delimiter">// </span><span class="org-comment">one possible out-of-memory policy</span>
+    }
+    <span class="org-type">ptrdiff_t</span> <span class="org-variable-name">total</span> = size * count;
+    <span class="org-type">char</span> *<span class="org-variable-name">p</span> = a-&gt;beg + padding;
+    a-&gt;beg += padding + total;
+    <span class="org-keyword">return</span> memset(p, 0, total);
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgde2aa93" class="outline-3">
+<h3 id="orgde2aa93"><a href="#orgde2aa93">digital grove</a></h3>
+<div class="outline-text-3" id="text-orgde2aa93">
+<p>
+Characteristics:
+</p>
+<ul class="org-ul">
+<li>Arena is part of its own allocated memory block</li>
+<li>Aligned memory</li>
+<li>Temporary arena is own type</li>
+<li>Reserves and commits</li>
+<li>No linked list of arenas as growing strategy</li>
+<li>No out-of-memory fallback strategy</li>
+</ul>
+
+<p>
+API:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-variable-name">ARENA_COMMIT_GRANULARITY</span> Kilobytes(4)
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">ARENA_DECOMMIT_THRESHOLD</span> Megabytes(64)
+
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">Arena</span> <span class="org-type">Arena</span>;
+<span class="org-keyword">struct</span> <span class="org-type">Arena</span>
+{
+    <span class="org-type">U64</span> <span class="org-variable-name">pos</span>;
+    <span class="org-type">U64</span> <span class="org-variable-name">commit_pos</span>;
+    <span class="org-type">U64</span> <span class="org-variable-name">align</span>;
+    <span class="org-type">U64</span> <span class="org-variable-name">size</span>;
+    <span class="org-type">Arena</span> *<span class="org-variable-name">ptr</span>; <span class="org-comment-delimiter">/* </span><span class="org-comment">unused</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-type">U64</span> <span class="org-variable-name">_unused_</span>[3];
+};
+
+<span class="org-type">Arena</span>* <span class="org-function-name">ArenaAlloc</span>(<span class="org-type">U64</span> <span class="org-variable-name">size</span>);              <span class="org-comment-delimiter">/* </span><span class="org-comment">create</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">void</span>*  <span class="org-function-name">ArenaPush</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">U64</span> <span class="org-variable-name">size</span>); <span class="org-comment-delimiter">/* </span><span class="org-comment">alloc</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">void</span>   <span class="org-function-name">ArenaClear</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>);          <span class="org-comment-delimiter">/* </span><span class="org-comment">reset</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">void</span>   <span class="org-function-name">ArenaRelease</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>);        <span class="org-comment-delimiter">/* </span><span class="org-comment">destroy</span><span class="org-comment-delimiter"> */</span>
+
+<span class="org-type">void</span>   <span class="org-function-name">ArenaPopTo</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">U64</span> <span class="org-variable-name">pos</span>); <span class="org-comment-delimiter">/* </span><span class="org-comment">used for temp arena</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">void</span>   <span class="org-function-name">ArenaPop</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">U64</span> <span class="org-variable-name">size</span>);  <span class="org-comment-delimiter">/* </span><span class="org-comment">used primarily for strings</span><span class="org-comment-delimiter"> */</span>
+
+<span class="org-type">Arena</span>* <span class="org-function-name">ArenaAllocDefault</span>(<span class="org-type">void</span>); <span class="org-comment-delimiter">/* </span><span class="org-comment">helper</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">U64</span>    <span class="org-function-name">ArenaPos</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>);  <span class="org-comment-delimiter">/* </span><span class="org-comment">helper</span><span class="org-comment-delimiter"> */</span>
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">helper macros</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">PushArrayNoZero</span>(<span class="org-variable-name">arena</span>, <span class="org-variable-name">type</span>, <span class="org-variable-name">count</span>) (<span class="org-type">type</span> *)ArenaPushNoZero((arena), <span class="org-keyword">sizeof</span>(type)*(count))
+<span class="org-preprocessor">#define</span> <span class="org-function-name">PushArray</span>(<span class="org-variable-name">arena</span>, <span class="org-variable-name">type</span>, <span class="org-variable-name">count</span>)       (<span class="org-type">type</span> *)ArenaPush((arena), <span class="org-keyword">sizeof</span>(type)*(count))
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">temporary arenas</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">Temp</span> {
+    <span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>;
+    <span class="org-type">U64</span> <span class="org-variable-name">pos</span>;
+} <span class="org-type">Temp</span>;
+<span class="org-type">Temp</span> <span class="org-function-name">TempBegin</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>) { <span class="org-type">Temp</span> <span class="org-variable-name">temp</span> = {0}; temp.arena = arena; temp.pos = arena-&gt;pos; <span class="org-keyword">return</span> temp; }
+<span class="org-type">void</span> <span class="org-function-name">TempEnd</span>(<span class="org-type">Temp</span> <span class="org-variable-name">temp</span>) { ArenaPopTo(temp.arena, temp.pos); }
+<span class="org-preprocessor">#define</span> <span class="org-function-name">ArenaTempBlock</span>(<span class="org-variable-name">arena</span>, <span class="org-variable-name">name</span>) <span class="org-type">Temp</span> <span class="org-variable-name">name</span> = {0}; DeferLoop(name = TempBegin(arena), TempEnd(name))
+</pre>
+</div>
+
+<p>
+Implementation:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">Arena</span>* <span class="org-function-name">ArenaAlloc</span>(<span class="org-type">U64</span> <span class="org-variable-name">size</span>)
+{
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">arena is always a multiple of 64MB</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-type">U64</span> <span class="org-variable-name">size_roundup_granularity</span> = Megabytes(64);
+    size += size_roundup_granularity-1;
+    size -= size%size_roundup_granularity;
+
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">allocate from os</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-type">void</span> *<span class="org-variable-name">block</span> = ArenaImpl_Reserve(size);
+
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">commit in 4KB chunks</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-type">U64</span> <span class="org-variable-name">initial_commit_size</span> = ARENA_COMMIT_GRANULARITY;
+    Assert(initial_commit_size &gt;= <span class="org-keyword">sizeof</span>(Arena));
+    ArenaImpl_Commit(block, initial_commit_size);
+
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">init arena</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-type">Arena</span> *<span class="org-variable-name">arena</span> = (<span class="org-type">Arena</span> *)block;
+    arena-&gt;pos = <span class="org-keyword">sizeof</span>(Arena);
+    arena-&gt;commit_pos = initial_commit_size;
+    arena-&gt;align = 8;
+    arena-&gt;size = size;
+
+    <span class="org-keyword">return</span> arena;
+}
+
+<span class="org-type">void</span>* <span class="org-function-name">ArenaPush</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">U64</span> <span class="org-variable-name">size</span>)
+{
+    <span class="org-type">void</span> *<span class="org-variable-name">result</span> = 0;
+
+    <span class="org-keyword">if</span> (arena-&gt;pos + size &lt;= arena-&gt;size) {
+
+        <span class="org-type">U8</span> *<span class="org-variable-name">base</span> = (<span class="org-type">U8</span> *)arena;
+
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">align the pushed size</span><span class="org-comment-delimiter"> */</span>
+        <span class="org-type">U64</span> <span class="org-variable-name">post_align_pos</span> = (arena-&gt;pos + (arena-&gt;align-1));
+        post_align_pos -= post_align_pos%arena-&gt;align;
+        <span class="org-type">U64</span> <span class="org-variable-name">align</span> = post_align_pos - arena-&gt;pos;
+        result = base + arena-&gt;pos + align;
+        arena-&gt;pos += size + align;
+
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">commit if necessary</span><span class="org-comment-delimiter"> */</span>
+        <span class="org-keyword">if</span> (arena-&gt;commit_pos &lt; arena-&gt;pos) {
+            <span class="org-type">U64</span> <span class="org-variable-name">size_to_commit</span> = arena-&gt;pos - arena-&gt;commit_pos;
+            size_to_commit += ARENA_COMMIT_GRANULARITY - 1;
+            size_to_commit -= size_to_commit%ARENA_COMMIT_GRANULARITY;
+            ArenaImpl_Commit(base + arena-&gt;commit_pos, size_to_commit);
+            arena-&gt;commit_pos += size_to_commit;
+        }
+    } <span class="org-keyword">else</span> { <span class="org-comment-delimiter">/* </span><span class="org-comment">fallback strategy: fail for now</span><span class="org-comment-delimiter"> */</span> }
+
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">zero out memory by default</span><span class="org-comment-delimiter"> */</span>
+    MemoryZero(result, size);
+
+    <span class="org-keyword">return</span> result;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4d8c6e7" class="outline-3">
+<h3 id="org4d8c6e7"><a href="#org4d8c6e7">raddebugger</a></h3>
+<div class="outline-text-3" id="text-org4d8c6e7">
+<ul class="org-ul">
+<li>Utilizes <a href="address_sanitization.html#ID-3013e026-c87a-4e6e-b5f0-e427eb8b92dd">ASan</a> for poisoned memory inside the arena</li>
+</ul>
+
+<p>
+API:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-variable-name">ARENA_HEADER_SIZE</span>              128
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">ARENA_RESERVE_SIZE</span>             MB(64)
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">ARENA_COMMIT_SIZE</span>              KB(64)
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">ARENA_RESERVE_SIZE_LARGE_PAGES</span> MB(8)
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">ARENA_COMMIT_SIZE_LARGE_PAGES</span>  MB(2)
+
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">Arena</span> <span class="org-type">Arena</span>;
+<span class="org-keyword">struct</span> <span class="org-type">Arena</span>
+{
+    <span class="org-keyword">struct</span> <span class="org-type">Arena</span> *<span class="org-variable-name">prev</span>;
+    <span class="org-keyword">struct</span> <span class="org-type">Arena</span> *<span class="org-variable-name">current</span>;
+    <span class="org-type">U64</span> <span class="org-variable-name">base_pos</span>;
+    <span class="org-type">U64</span> <span class="org-variable-name">pos</span>;
+    <span class="org-type">U64</span> <span class="org-variable-name">cmt</span>;
+    <span class="org-type">U64</span> <span class="org-variable-name">res</span>;
+    <span class="org-type">U64</span> <span class="org-variable-name">align</span>;
+    <span class="org-type">B8</span> <span class="org-variable-name">grow</span>;
+    <span class="org-type">B8</span> <span class="org-variable-name">large_pages</span>;
+};
+
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">Temp</span> <span class="org-type">Temp</span>;
+<span class="org-keyword">struct</span> <span class="org-type">Temp</span>
+{
+    <span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>;
+    <span class="org-type">U64</span> <span class="org-variable-name">pos</span>;
+};
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">implementation</span><span class="org-comment-delimiter"> */</span>
+internal <span class="org-type">Arena</span>* <span class="org-function-name">arena_alloc__sized</span>(<span class="org-type">U64</span> <span class="org-variable-name">init_res</span>, <span class="org-type">U64</span> <span class="org-variable-name">init_cmt</span>);
+internal <span class="org-type">Arena</span>* <span class="org-function-name">arena_alloc</span>(<span class="org-type">void</span>);
+internal <span class="org-type">void</span>   <span class="org-function-name">arena_release</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>);
+internal <span class="org-type">void</span>*  <span class="org-function-name">arena_push__impl</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">U64</span> <span class="org-variable-name">size</span>);
+internal <span class="org-type">U64</span>    <span class="org-function-name">arena_pos</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>);
+internal <span class="org-type">void</span>   <span class="org-function-name">arena_pop_to</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">U64</span> <span class="org-variable-name">pos</span>);
+internal <span class="org-type">void</span>   <span class="org-function-name">arena_absorb</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">Arena</span> *<span class="org-variable-name">sub</span>);
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">wrappers</span><span class="org-comment-delimiter"> */</span>
+internal <span class="org-type">void</span>* <span class="org-function-name">arena_push</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">U64</span> <span class="org-variable-name">size</span>);
+internal <span class="org-type">void</span>* <span class="org-function-name">arena_push_contiguous</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">U64</span> <span class="org-variable-name">size</span>);
+internal <span class="org-type">void</span>  <span class="org-function-name">arena_clear</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>);
+internal <span class="org-type">void</span>  <span class="org-function-name">arena_push_align</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">U64</span> <span class="org-variable-name">align</span>);
+internal <span class="org-type">void</span>  <span class="org-function-name">arena_put_back</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>, <span class="org-type">U64</span> <span class="org-variable-name">amt</span>);
+
+internal <span class="org-type">Temp</span>  <span class="org-function-name">temp_begin</span>(<span class="org-type">Arena</span> *<span class="org-variable-name">arena</span>);
+internal <span class="org-type">void</span>  <span class="org-function-name">temp_end</span>(<span class="org-type">Temp</span> <span class="org-variable-name">temp</span>);
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">mini-arena helper</span><span class="org-comment-delimiter"> */</span>
+internal <span class="org-type">B32</span> <span class="org-function-name">ensure_commit</span>(<span class="org-type">void</span> **<span class="org-variable-name">cmt</span>, <span class="org-type">void</span> *<span class="org-variable-name">pos</span>, <span class="org-type">U64</span> <span class="org-variable-name">cmt_block_size</span>);
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">helper macros</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">push_array_no_zero</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">T</span>,<span class="org-variable-name">c</span>) (<span class="org-type">T</span>*)arena_push((a), <span class="org-keyword">sizeof</span>(T)*(c))
+<span class="org-preprocessor">#define</span> <span class="org-function-name">push_array</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">T</span>,<span class="org-variable-name">c</span>) (<span class="org-type">T</span>*)MemoryZero(push_array_no_zero(a,T,c), <span class="org-keyword">sizeof</span>(T)*(c))
+</pre>
+</div>
+
+<p>
+Implementation:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">Arena</span>* <span class="org-function-name">arena_alloc__sized</span>(<span class="org-type">U64</span> <span class="org-variable-name">init_res</span>, <span class="org-type">U64</span> <span class="org-variable-name">init_cmt</span>)
+{
+  ProfBeginFunction();
+  Assert(ARENA_HEADER_SIZE &lt; init_cmt &amp;&amp; init_cmt &lt;= init_res);
+
+  <span class="org-type">void</span> *<span class="org-variable-name">memory</span> = 0;
+  <span class="org-type">U64</span> <span class="org-variable-name">res</span> = 0;
+  <span class="org-type">U64</span> <span class="org-variable-name">cmt</span> = 0;
+  <span class="org-type">B32</span> <span class="org-variable-name">large_pages</span> = os_large_pages_enabled();
+  <span class="org-keyword">if</span>(large_pages)
+  {
+    <span class="org-type">U64</span> <span class="org-variable-name">page_size</span> = os_large_page_size();
+    res = AlignPow2(init_res, page_size);
+<span class="org-preprocessor">#if</span> OS_WINDOWS
+    cmt = res;
+<span class="org-preprocessor">#else</span>
+    cmt = AlignPow2(init_cmt, page_size);
+<span class="org-preprocessor">#endif</span>
+    memory = os_reserve_large(res);
+    <span class="org-keyword">if</span>(<span class="org-negation-char">!</span>os_commit_large(memory, cmt))
+    {
+      memory = 0;
+      os_release(memory, res);
+    }
+  }
+  <span class="org-keyword">else</span>
+  {
+    <span class="org-type">U64</span> <span class="org-variable-name">page_size</span> = os_page_size();
+    res = AlignPow2(init_res, page_size);
+    cmt = AlignPow2(init_cmt, page_size);
+    memory = os_reserve(res);
+    <span class="org-keyword">if</span>(<span class="org-negation-char">!</span>os_commit(memory, cmt))
+    {
+      memory = 0;
+      os_release(memory, res);
+    }
+  }
+
+  <span class="org-type">Arena</span> *<span class="org-variable-name">arena</span> = (<span class="org-type">Arena</span>*)memory;
+  <span class="org-keyword">if</span>(arena)
+  {
+      <span class="org-comment-delimiter">/* </span><span class="org-comment">ASan support</span><span class="org-comment-delimiter"> */</span>
+      AsanPoisonMemoryRegion(memory, cmt);
+      AsanUnpoisonMemoryRegion(memory, ARENA_HEADER_SIZE);
+
+      <span class="org-comment-delimiter">/* </span><span class="org-comment">init arena</span><span class="org-comment-delimiter"> */</span>
+      arena-&gt;prev        = 0;
+      arena-&gt;current     = arena;
+      arena-&gt;base_pos    = 0;
+      arena-&gt;pos         = ARENA_HEADER_SIZE;
+      arena-&gt;cmt         = cmt;
+      arena-&gt;res         = res;
+      arena-&gt;align       = 8;
+      arena-&gt;grow        = 1;
+      arena-&gt;large_pages = large_pages;
+  }
+
+  ProfEnd();
+  <span class="org-keyword">return</span> arena;
+}
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org8af552d" class="outline-2">
+<h2 id="org8af552d"><a href="#org8af552d">Scratch Arena (Temporary/Transient Arena)</a></h2>
+<div class="outline-text-2" id="text-org8af552d">
+</div>
+<div id="outline-container-orge02c750" class="outline-3">
+<h3 id="orge02c750"><a href="#orge02c750">API designs</a></h3>
+<div class="outline-text-3" id="text-orge02c750">
+<p>
+Two options to design APIs using scratch arenas:
+</p>
+
+<p>
+Option 1: Make caller pass in scratch arena when the function needs it
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">caller</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">mem_arena_t</span> <span class="org-variable-name">scratch</span> = mem_arena_scratch(0);
+compute_number(3.5f, scratch);
+
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">callee</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">int</span> <span class="org-function-name">compute_number</span>(<span class="org-type">float</span> <span class="org-variable-name">value</span>, <span class="org-type">mem_arena_t</span> <span class="org-variable-name">scratch</span>)
+{
+    <span class="org-type">void</span>* <span class="org-variable-name">data</span> = mem_arena_alloc(&amp;scratch, <span class="org-keyword">sizeof</span>(<span class="org-type">float</span>) * 5);
+    <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+}
+</pre>
+</div>
+
+<p>
+Option 2: Pass normal arena and let function create scratch arena
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">caller</span><span class="org-comment-delimiter"> */</span>
+compute_number(3.5f, arena);
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">callee</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">int</span> <span class="org-function-name">compute_number</span>(<span class="org-type">float</span> <span class="org-variable-name">value</span>, <span class="org-type">mem_arena_t</span>* <span class="org-variable-name">arena</span>)
+{
+    <span class="org-type">mem_arena_t</span> <span class="org-variable-name">scratch</span> = mem_arena_scratch(arena);
+    <span class="org-type">void</span>* <span class="org-variable-name">scratch</span> = mem_arena_alloc(&amp;scratch, <span class="org-keyword">sizeof</span>(<span class="org-type">float</span>) * 5);
+    <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+    mem_arena_unscratch(&amp;scratch);
+}
+</pre>
+</div>
+
+<p>
+But how do we use a scratch arena for a throwaway computation and then push the
+result onto the arena without overlapping with the scratch arena?
+a) Push onto the arena before using the scratch
+b) Have fixed scratch arenas that get reused
+</p>
+</div>
+</div>
+<div id="outline-container-orgaaf7515" class="outline-3">
+<h3 id="orgaaf7515"><a href="#orgaaf7515">Passed-by-value Arenas</a></h3>
+<div class="outline-text-3" id="text-orgaaf7515">
+<p>
+Take following arena with its implied memory layout:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">struct</span> <span class="org-type">arena_t</span> {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">arena bounds, will get reset implicitly when passed by value</span>
+    <span class="org-type">u8</span>* <span class="org-variable-name">beg</span>;
+    <span class="org-type">u8</span>* <span class="org-variable-name">end</span>;
+};
+
+<span class="org-comment-delimiter">/*</span>
+<span class="org-comment">    Memory layout (if arena is allocated in-place):</span>
+
+<span class="org-comment">           +-------------+</span>
+<span class="org-comment">           |     +-------|------------------------</span>
+<span class="org-comment">           |     |       |                       |</span>
+<span class="org-comment">        |-----|-----|----v-----------------------v</span>
+<span class="org-comment">        | beg | end |xxxxx                       |</span>
+<span class="org-comment">        |-----------|----------------------------|</span>
+<span class="org-comment">           arena_t      memory</span>
+<span class="org-comment-delimiter">*/</span>
+</pre>
+</div>
+
+<p>
+If the arena is passed-by-reference, allocations from it persists after the
+call. If the arena is passed-by-value, allocations are "forgotten" after the
+call (i.e. it acts as a scratch arena);
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">void</span> <span class="org-function-name">do_stuff</span>(<span class="org-type">int</span> <span class="org-variable-name">param1</span>, <span class="org-type">arena_t</span>* <span class="org-variable-name">arena</span>, <span class="org-type">arena_t</span> <span class="org-variable-name">scratch</span>)
+{
+    <span class="org-type">void</span>* <span class="org-variable-name">scratch_data</span> = arena_alloc(&amp;scratch, 1024);
+
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">compute intermediate result using scratch</span><span class="org-comment-delimiter"> */</span>
+
+    <span class="org-type">void</span>* <span class="org-variable-name">persist_data</span> = arena_alloc(arena, <span class="org-keyword">sizeof</span>(<span class="org-type">float</span>));
+
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">write result into persistent arena</span><span class="org-comment-delimiter"> */</span>
+
+    <span class="org-keyword">return</span>;
+}
+</pre>
+</div>
+
+<p>
+We can upgrade the arena structure to support keeping track of its commit
+position when it's passed by value:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">struct</span> <span class="org-type">arena_t</span> {
+    <span class="org-type">u8</span>*   <span class="org-variable-name">beg</span>;
+    <span class="org-type">u8</span>*   <span class="org-variable-name">end</span>;
+    <span class="org-type">u8</span>**  <span class="org-variable-name">commit</span> <span class="org-comment-delimiter">// </span><span class="org-comment">commit bound, data is located elsewhere stable</span>
+};
+</pre>
+</div>
+
+<p>
+The memory layout would look something like this (i.e. there would be an
+additional header for the arena):
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">                +-----------------------+
+                |     +-----------------|----------------------+
+                |     |                 |                      |
+|------------|--------|-----------|-----v----------------------v
+| commit_pos | beg | end | commit |xxxxx_____________          |
+|-----^------|---------------|----|------------------^---------|
+      |        arena_t       |           memory      |
+      +----------------------+                   commit_pos
+</pre>
+</div>
+
+<p>
+This can be further generalized by adding the concept of a persistent
+<code>arena_header_t</code> that never gets passed (by value or otherwise). Instead, <code>arena_t</code>
+keeps a pointer to it:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">struct</span> <span class="org-type">arena_t</span> {
+    <span class="org-type">arena_header_t</span>* <span class="org-variable-name">header</span>;
+    <span class="org-type">u8</span>*   <span class="org-variable-name">beg</span>;
+    <span class="org-type">u8</span>*   <span class="org-variable-name">end</span>;
+};
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-nil">                +-----------------------+
+                |     +-----------------|----------------------+
+                |     |                 |                      |
+|------------|--------|-----------|-----v----------------------v
+|    ...     | beg | end | header |xxxxx_____________          |
+|-----^------|---------------|----|----------------------------|
+      |        arena_t       |           memory
+      +----------------------+
+</pre>
+</div>
+
+<p>
+The header can contain information about chained arenas, commit positions,
+alignment and so on, i.e. everything that should not get reset when returning
+from a function using the arena as scratch.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">struct</span> <span class="org-type">arena_header_t</span> {
+    <span class="org-type">u8</span>* <span class="org-variable-name">commit</span>;
+    <span class="org-type">arena_header_t</span>* <span class="org-variable-name">next</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">chained arenas</span>
+};
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgec6d821" class="outline-2">
+<h2 id="orgec6d821"><a href="#orgec6d821">Handling Cleanup of Resources</a></h2>
+<div class="outline-text-2" id="text-orgec6d821">
+<p>
+Problem arises when we need to clean up resources like file handles, network
+sockets, thread locks, etc. For this, we need a mechanism to keep track of these
+resources and call their destructors.
+</p>
+
+<p>
+One possibility is to maintain a linked list of these resources and their
+cleanup functions inside the arena via a new arena API call.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">struct</span> <span class="org-type">mem_arena_t</span> {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">arena fields</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+    <span class="org-type">cleanup_node_t</span>* <span class="org-variable-name">head</span>;
+};
+<span class="org-keyword">struct</span> <span class="org-type">cleanup_node_t</span>  {
+    <span class="org-type">cleanup_node_t</span>* <span class="org-variable-name">next</span>;
+    <span class="org-type">void</span> (*<span class="org-function-name">func</span>)(<span class="org-type">void</span>*);
+    <span class="org-type">void</span>* <span class="org-variable-name">args</span>;
+};
+
+<span class="org-function-name">mem_arena_add_cleanup</span>(<span class="org-type">void</span> (*<span class="org-function-name">cleanup</span>)(<span class="org-type">void</span>*), <span class="org-type">void</span>* <span class="org-variable-name">args</span>)
+
+<span class="org-function-name">mem_arena_release</span>() {
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">traverse linked list of cleanup nodes</span><span class="org-comment-delimiter"> */</span>
+    for_each(node)  {
+        node-&gt;func(node-&gt;args);
+    }
+}
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">usage</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">resource_t</span>* <span class="org-variable-name">res</span> = mem_arena_alloc(...);
+mem_arena_add_cleanup(&amp;res_release, &amp;res);
+</pre>
+</div>
+
+<p>
+See <a href="https://www.ea.com/frostbite/news/scope-stack-allocation">Scope Stack Allocation</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org842a989" class="outline-2">
+<h2 id="org842a989"><a href="#org842a989">Resources</a></h2>
+<div class="outline-text-2" id="text-org842a989">
+<ul class="org-ul">
+<li><a href="https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator">Untangling Lifetimes - The Arena Allocator</a></li>
+<li><a href="https://nullprogram.com/blog/2023/09/27/">Arena allocator tips and tricks</a></li>
+<li><a href="https://nullprogram.com/blog/2023/09/30/">An easy-to-implement, arena-friendly hash map</a></li>
+<li><a href="https://www.gingerbill.org/article/2019/02/08/memory-allocation-strategies-002/">Memory Allocation Strategies - Linear/Arena Allocators</a></li>
+<li><a href="https://www.youtube.com/watch?v=L79vSP8yV2g">Base [4]: Memory Management - Arenas</a></li>
+<li><a href="https://github.com/tsoding/arena/blob/master/arena.h">https://github.com/tsoding/arena/blob/master/arena.h</a></li>
+<li><a href="https://nullprogram.com/blog/2024/04/14/">Speculations on arenas and custom strings in C++</a></li>
+<li><a href="https://nullprogram.com/blog/2024/05/25/">Arenas and the almighty concatenation operator</a></li>
+</ul>
+</div>
+</div>
+</main>
+</body>
+</html>

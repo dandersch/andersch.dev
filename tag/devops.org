@@ -1,0 +1,9 @@
+#+TITLE: Pages tagged devops
+* Notes tagged ~devops~
+- [[../notes/oci.org][OCI (Open Containers Initiative)]]
+- [[../notes/kubernetes.org][Kubernetes]]
+- [[../notes/jenkins.org][Jenkins]]
+- [[../notes/infrastructure_as_code.org][Infrastructure as Code (IaC)]]
+- [[../notes/devops.org][DevOps]]
+- [[../notes/ci_cd.org][CI/CD (Continuous Integration, Continuous Delivery)]]
+- [[../notes/ansible.org][Ansible]]

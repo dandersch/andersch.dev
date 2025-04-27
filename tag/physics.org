@@ -1,0 +1,3 @@
+#+TITLE: Pages tagged physics
+* Notes tagged ~physics~
+- [[../notes/energy.org][Energy]]

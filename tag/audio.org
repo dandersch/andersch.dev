@@ -1,0 +1,8 @@
+#+TITLE: Pages tagged audio
+* Notes tagged ~audio~
+- [[../notes/wave.org][WAVE (File format)]]
+- [[../notes/vst.org][Virtual Studio Technology (VST)]]
+- [[../notes/synth.org][Synthesizer]]
+- [[../notes/sfx.org][Sound Effects (SFX)]]
+- [[../notes/daw.org][Digital Audio Workstation (DAW)]]
+- [[../notes/audio_programming.org][Audio Programming]]

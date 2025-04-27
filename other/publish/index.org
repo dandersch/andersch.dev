@@ -566,7 +566,7 @@ Wiki portion of the site as a separate project.
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 ; caching
 (setq org-publish-timestamp-directory "./.org-timestamps/")
-(org-publish-remove-all-timestamps) ; call to avoid caching
+;(org-publish-remove-all-timestamps) ; call to avoid caching
 
 (print org-id-locations)
 (setq org-id-locations-file "/home/da/org/.orgids")

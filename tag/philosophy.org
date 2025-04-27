@@ -1,0 +1,3 @@
+#+TITLE: Pages tagged philosophy
+* Notes tagged ~philosophy~
+- [[../notes/philosophy.org][Philosophy]]

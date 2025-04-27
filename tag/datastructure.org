@@ -1,0 +1,8 @@
+#+TITLE: Pages tagged datastructure
+* Notes tagged ~datastructure~
+- [[../notes/tree.org][Tree]]
+- [[../notes/stack.org][Stack]]
+- [[../notes/linked_list.org][Linked List]]
+- [[../notes/hashtable.org][Hashtable]]
+- [[../notes/dht.org][Distributed Hash Table (DHT)]]
+- [[../notes/data_structure.org][Data structure]]

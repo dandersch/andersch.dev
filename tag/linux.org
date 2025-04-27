@@ -1,0 +1,6 @@
+#+TITLE: Pages tagged linux
+* Notes tagged ~linux~
+- [[../notes/wine.org][WINE]]
+- [[../notes/pkgbuild.org][PKGBUILD]]
+- [[../notes/linux.org][Linux]]
+- [[../notes/epoll.org][epoll]]

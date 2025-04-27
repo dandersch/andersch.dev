@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Go (Golang)</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">Go (Golang)</h1>
+<p>
+Go (Golang) is a statically-typed, compiled <a href="programming_language.html#ID-f0f41ee0-9623-4704-a4b8-7e6ea6eb108a">programming language</a> by Google that
+has strong support for concurrent programming. Its standard library (with
+features such as built-in HTTP server and JSON support) makes it a suitable
+<a href="frontend_backend.html#ID-424d54cd-71b1-4a5a-9a4e-5facc9b8c692">backend</a> language for scalable and high-performance applications.
+</p>
+
+<p>
+Go's concurrency model (using Goroutines and Channels) can handle multiple tasks
+simultaneously with minimal complexity.
+</p>
+<div id="outline-container-orgb75e4ed" class="outline-2">
+<h2 id="orgb75e4ed"><a href="#orgb75e4ed">Keywords</a></h2>
+<div class="outline-text-2" id="text-orgb75e4ed">
+</div>
+<div id="outline-container-org65541a0" class="outline-3">
+<h3 id="org65541a0"><a href="#org65541a0"><code>package</code> / <code>import</code></a></h3>
+<div class="outline-text-3" id="text-org65541a0">
+<p>
+The first line of every <code>.go</code> file specifies the package name.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">package main // declare main package (must contain main() function)
+
+/* packages can be imported */
+import "package"
+import (
+    "fmt"
+    "time"
+    _ "embed" // mark package as unused
+    myname "github.com/path/to/library"
+)
+
+// private/public identifiers via capitalization
+var foo := 3 // private to package
+var Bar := 3 // will be exported
+func DoThing() { /* ... */ } // can be called outside package
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc2172dc" class="outline-3">
+<h3 id="orgc2172dc"><a href="#orgc2172dc"><code>for</code>, <code>switch</code>, <code>range</code> (Control flow)</a></h3>
+<div class="outline-text-3" id="text-orgc2172dc">
+<div class="org-src-container">
+<pre class="src src-go">/* switch */
+switch state {
+    case 1:
+        /* ... */
+        goto label;// jump to label
+    case 2:
+        /* ... */
+        fallthrough
+    case 3:
+        label:  // goto label declaration
+        /* ... */
+        break // always implicitly there
+    default:
+}
+
+/* loops */
+for count &lt; 5 {
+    if count == 3 {
+        continue
+    }
+}
+for { /* ... */ } // like a while(true) loop
+
+/* ranges */
+scores := map[string]int{"Alice": 90, "Bob":   85}
+for name, score := range scores {
+    /* ... */
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2da54de" class="outline-3">
+<h3 id="org2da54de"><a href="#org2da54de">Types</a></h3>
+<div class="outline-text-3" id="text-org2da54de">
+<div class="org-src-container">
+<pre class="src src-go">/* types */
+var         // declare a variable
+const       // declare a constant
+map[string] // declare map type (hashtable/dictionary)
+type Person struct {  // define struct type
+    name string
+    age  int
+}
+
+interface{} // any type
+any         // alias for interface{}
+
+/* enums in go: use "iota" to declare constants */
+type Weekday int
+const (
+    _                 = iota   // ignore first value (iota == 0)
+    MONDAY    Weekday = iota   // == 1
+    TUESDAY                    // == 2
+    WEDNESDAY
+    THURSDAY
+    FRIDAY
+    SATURDAY
+    SUNDAY
+)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org93c28d1" class="outline-3">
+<h3 id="org93c28d1"><a href="#org93c28d1">Functions/Interfaces</a></h3>
+<div class="outline-text-3" id="text-org93c28d1">
+<div class="org-src-container">
+<pre class="src src-go">// functions
+func example(var a int) (int, error) {
+    defer fmt.Printf("Finished\n") // defer function call to end of function
+    return a, nil
+}
+
+/* interfaces */
+type Shape interface  { // define interface named Shape
+    Area() float64
+}
+type Circle struct {
+    radius float64
+}
+func (c Circle) Area() float64 { // implement interface for Circle
+    return 3.14 * c.radius * c.radius
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org83469cc" class="outline-3">
+<h3 id="org83469cc"><a href="#org83469cc"><code>go</code>, <code>chan</code>, <code>select</code> (Concurrency)</a></h3>
+<div class="outline-text-3" id="text-org83469cc">
+<div class="org-src-container">
+<pre class="src src-go">/* goroutines/channels */
+go      // start a goroutine
+chan    // declare channel type
+select  // wait on multiple channel operations
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org977df47" class="outline-2">
+<h2 id="org977df47"><a href="#org977df47">Concepts</a></h2>
+<div class="outline-text-2" id="text-org977df47">
+</div>
+<div id="outline-container-org985e7a5" class="outline-3">
+<h3 id="org985e7a5"><a href="#org985e7a5"><code>goroutine</code></a></h3>
+<div class="outline-text-3" id="text-org985e7a5">
+<p>
+A <code>goroutine</code> is a lightweight thread managed by the Go runtime.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func greet(name string) {
+    fmt.Printf("Hello, %s!\n", name)
+}
+
+func main() {
+    go greet("Alice")           // start goroutine
+    go greet("Bob")             // start another
+    time.Sleep(1 * time.Second) // wait for goroutines to finish
+    fmt.Println("Finished.")
+}
+</pre>
+</div>
+
+<p>
+Using <code>WaitGroup</code> to wait for <code>goroutine</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-go">package main
+
+import (
+    "fmt"
+    "sync"
+    "time"
+)
+
+func worker(id int, wg *sync.WaitGroup) {
+    defer wg.Done() // notify that the goroutine is done
+    fmt.Printf("Worker %d starting\n", id)
+    time.Sleep(2 * time.Second) // simulate work
+    fmt.Printf("Worker %d done\n", id)
+}
+
+func main() {
+    var wg sync.WaitGroup
+
+    for i := 1; i &lt;= 3; i++ {
+        wg.Add(1)         // increment WaitGroup counter
+        go worker(i, &amp;wg) // start goroutine
+    }
+
+    wg.Wait() // wait for all goroutines to finish
+    fmt.Println("All workers completed.")
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4bd7396" class="outline-3">
+<h3 id="org4bd7396"><a href="#org4bd7396"><code>chan</code> (Channels)</a></h3>
+<div class="outline-text-3" id="text-org4bd7396">
+<p>
+Channels enable communication between goroutines.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">package main
+import "fmt"
+
+func calculateSquare(num int, ch chan int) {
+    ch &lt;- num * num // send result to channel
+}
+
+func main() {
+    ch := make(chan int) // create channel
+
+    for i := 1; i &lt;= 5; i++ {
+        go calculateSquare(i, ch) // start goroutine
+    }
+
+    for i := 1; i &lt;= 5; i++ {
+        fmt.Println("Square:", &lt;-ch) // receive result from the channel
+    }
+}
+</pre>
+</div>
+
+<p>
+Channels can be directional:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">var ch chan int       // bidirectional (send &amp; receive)
+var sendCh chan&lt;- int // send-only channel
+var recvCh &lt;-chan int // receive-only channel
+</pre>
+</div>
+
+<p>
+Channels can be buffered or unbuffered:
+</p>
+<ul class="org-ul">
+<li>Buffered for synchronous, blocking communication</li>
+<li>Unbuffered for asynchronous, non-blocking communication</li>
+<li>Unbuffered better for coordination, buffered better for throughput</li>
+<li>Buffered can mask <a href="deadlock.html#ID-791d3bb9-f468-4120-96c8-1c59e16cb5c7">deadlocks</a> that unbuffered would reveal</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-go">// Unbuffered channel
+ch1 := make(chan int)
+// - Synchronous communication
+// - Sender blocks until receiver takes value
+// - Receiver blocks until sender provides value
+// - Provides guaranteed delivery and synchronization point
+
+// Buffered channel
+ch2 := make(chan int, 5) // Buffered with capacity 5
+// - Asynchronous until buffer fills
+// - Sender only blocks when buffer is full
+// - Receiver blocks only when buffer is empty
+// - Decouples sender and receiver timing
+</pre>
+</div>
+
+
+<p>
+If no more messages need to be sent over the channel, it can be closed:
+</p>
+<div class="org-src-container">
+<pre class="src src-go">// sending side
+close(ch) // close channel
+
+val, ok := &lt;-ch
+if !ok {
+        // channel has closed (buffered channels stay open until emptied)
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4d3918f" class="outline-3">
+<h3 id="org4d3918f"><a href="#org4d3918f"><code>select</code></a></h3>
+<div class="outline-text-3" id="text-org4d3918f">
+<p>
+The <code>select</code> statement enables concurrent operations on channels.
+</p>
+
+<p>
+Characteristics:
+</p>
+<ul class="org-ul">
+<li>Blocks until a channel operation can proceed</li>
+<li>Randomly selects if multiple cases are ready</li>
+<li>Can include non-blocking <code>default</code> case</li>
+<li>Often used in goroutines for concurrent operations</li>
+<li>Can be combined with timeouts using <code>time.After()</code></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-go">select {
+case &lt;-ch1:
+    // Execute if data received from ch1
+case x := &lt;-ch2:
+    // Execute if data received from ch2, store in x
+case ch3 &lt;- value:
+    // Execute if data can be sent to ch3
+case &lt;-time.After(1 * time.Second):
+    fmt.Println("Timed out")
+default:
+    // Execute if no other case is ready (optional)
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org66d77aa" class="outline-3">
+<h3 id="org66d77aa"><a href="#org66d77aa">Module System</a></h3>
+<div class="outline-text-3" id="text-org66d77aa">
+<p>
+<code>go.mod</code>:
+The <code>go.mod</code> is the config file for a Go module.
+</p>
+<ul class="org-ul">
+<li>Declares module path (<code>module mymodule</code>).</li>
+<li>Declares required <code>go</code> version (<code>go 1.21.1</code>)</li>
+<li>Lists module's dependencies (and versions) with <code>require (...)</code></li>
+<li>Can include replace directives (useful for testing)</li>
+<li>Can also exclude modules</li>
+</ul>
+
+<p>
+<code>go.sum</code>:
+</p>
+<ul class="org-ul">
+<li>The <code>go.sum</code> file is used to manage dependencies.</li>
+<li>It contains the url for the module, its version and a cryptographic checksum.</li>
+<li>It is generated and updated when running <code>go get</code>, <code>go mod tidy</code>, or <code>go build</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbbb035b" class="outline-2">
+<h2 id="orgbbb035b"><a href="#orgbbb035b">Libraries</a></h2>
+<div class="outline-text-2" id="text-orgbbb035b">
+</div>
+<div id="outline-container-org5358a08" class="outline-3">
+<h3 id="org5358a08"><a href="#org5358a08"><code>net/http</code></a></h3>
+<div class="outline-text-3" id="text-org5358a08">
+<p>
+The standard library <code>net/http</code> provides HTTP client/server implementations. It
+can be used to build web apps, APIs, and handling HTTP requests/responses.
+</p>
+
+<p>
+Hello World Server example
+</p>
+<div class="org-src-container">
+<pre class="src src-go">package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, World!")
+}
+
+func main() {
+    //http.Handle(pattern string, handler Handler)
+
+    //http.HandleFunc(pattern string, handler func(ResponseWriter, *Request))
+    http.HandleFunc("/", handler)
+
+    //http.ListenAndServe(addr string, handler Handler) error
+    http.ListenAndServe(":8080", nil)
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org76fca1e" class="outline-3">
+<h3 id="org76fca1e"><a href="#org76fca1e"><code>html/template</code></a></h3>
+<div class="outline-text-3" id="text-org76fca1e">
+<p>
+Go provides templating utilities for text with <code>text/template</code>. For templating
+HTML, <code>html/template</code> should be used to ensure special characters are rendered as
+plaintext (preventing Cross-Site Scripting (XSS) attacks).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">package main
+
+import (
+    "html/template"
+    "net/http"
+)
+
+// Data structure to hold the template data
+type Data struct {
+    Name  string
+    Count int
+}
+
+// HTML template string
+const htmlTmplStr = `&lt;h1&gt;Hello, {{.Name}}!&lt;/h1&gt;&lt;p&gt;You have {{.Count}} new messages.&lt;/p&gt;`
+
+// HTTP handler function
+func handler(w http.ResponseWriter, r *http.Request) {
+    tmpl, err := template.New("greeting").Parse(htmlTmplStr)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    data := Data{Name: "Alice", Count: 5}
+    err = tmpl.Execute(w, data)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    http.ListenAndServe(":8080", nil)
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf791fd8" class="outline-3">
+<h3 id="orgf791fd8"><a href="#orgf791fd8"><code>database/sql</code></a></h3>
+<div class="outline-text-3" id="text-orgf791fd8">
+<div class="org-src-container">
+<pre class="src src-go">package main
+
+import (
+        "database/sql"
+        "fmt"
+        "log"
+        "time"
+
+        _ "github.com/lib/pq" // PostgreSQL driver
+)
+
+type User struct {
+        ID        int
+        Email     string
+        CreatedAt time.Time
+}
+
+func main() {
+        // Connect to database
+        connStr := "postgres://user:password@localhost/dbname?sslmode=disable"
+        db, _ := sql.Open("postgres", connStr)
+        defer db.Close()
+
+        // create table
+        db.Exec(`
+                CREATE TABLE IF NOT EXISTS users (
+                        id SERIAL PRIMARY KEY,
+                        email TEXT NOT NULL UNIQUE,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+        `)
+
+        // inserting data
+        email := "test@example.com"; var id int
+        err = db.QueryRow("INSERT INTO users (email) VALUES ($1) RETURNING id", email,).Scan(&amp;id)
+        fmt.Printf("Inserted user with ID: %d\n", id)
+
+        // Query single row
+        var user User
+        err = db.QueryRow("SELECT id, email, created_at FROM users WHERE id = $1", id).Scan(&amp;user.ID, &amp;user.Email, &amp;user.CreatedAt)
+        fmt.Printf("User: %+v\n", user)
+
+        // Query multiple rows
+        rows, err := db.Query("SELECT id, email, created_at FROM users")
+        defer rows.Close()
+
+        fmt.Println("\nAll users:")
+        for rows.Next() {
+                var u User
+                if err := rows.Scan(&amp;u.ID, &amp;u.Email, &amp;u.CreatedAt); err != nil {
+                        log.Fatal(err)
+                }
+                fmt.Printf("%+v\n", u)
+        }
+
+        // use prepared statement
+        stmt, _ := db.Prepare("UPDATE users SET email = $1 WHERE id = $2")
+        defer stmt.Close()
+
+        res, _ := stmt.Exec("updated@example.com", id)
+        rowsAffected, _ := res.RowsAffected()
+        fmt.Printf("\nUpdated %d rows\n", rowsAffected)
+
+        // Transaction example
+        tx, err := db.Begin()
+
+        _, err = tx.Exec("INSERT INTO users (email) VALUES ($1)", "transaction@example.com")
+        if err != nil { tx.Rollback() }
+
+        err = tx.Commit()
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc3ba5ca" class="outline-2">
+<h2 id="orgc3ba5ca"><a href="#orgc3ba5ca">Idioms</a></h2>
+<div class="outline-text-2" id="text-orgc3ba5ca">
+</div>
+<div id="outline-container-orge6abc66" class="outline-3">
+<h3 id="orge6abc66"><a href="#orge6abc66">Struct Embedding</a></h3>
+<div class="outline-text-3" id="text-orge6abc66">
+<p>
+Add types without a name to a struct to embed all of its members directly. The
+type can then call methods of that embedded type directly.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">import "sync"
+
+type Message struct {
+    sync.RWMutex
+    text string
+}
+
+func main() {
+        msg := Message{}
+        msg.Lock(); defer msg.Unlock();
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org94a4d19" class="outline-3">
+<h3 id="org94a4d19"><a href="#org94a4d19">Shorthand for Error Handling</a></h3>
+<div class="outline-text-3" id="text-org94a4d19">
+<div class="org-src-container">
+<pre class="src src-go">if err := writer.Close(); err != nil {
+        panic(err)
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org258a51d" class="outline-3">
+<h3 id="org258a51d"><a href="#org258a51d">Interface Satisfaction Check</a></h3>
+<div class="outline-text-3" id="text-org258a51d">
+<p>
+Ensure a type implements interfaces at compile time:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">var _ io.Reader = (*MyType)(nil)
+</pre>
+</div>
+
+<p>
+If MyType doesn't implement <code>Read(p []byte) (n int, err error)</code>, the compiler will
+throw an error.
+</p>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

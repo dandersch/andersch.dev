@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Immediate Mode (API)</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">Immediate Mode (API)</h1>
+<p>
+Immediate mode is an API design approach, where the handling of state by the
+client is minimized. Instead, calls to the API encode both state changes and
+functionality or control flow.
+</p>
+
+<p>
+On the other side of the spectrum is the retained mode approach, where state
+such as layout, hierarchies or styles typically need to be specified and
+initialized beforehand in another part of the codebase.
+</p>
+
+<p>
+Immediate mode APIs most commonly come in the form of <a href="imgui.html#ID-bee7a125-cf0b-4fde-ba14-a1396af3e7d5">immediate mode GUIs</a>.
+</p>
+<div id="outline-container-org812c9fe" class="outline-2">
+<h2 id="org812c9fe"><a href="#org812c9fe">Immediate Mode vs Retained Mode (UI Example)</a></h2>
+<div class="outline-text-2" id="text-org812c9fe">
+<p>
+A (mostly) pure immediate mode approach to a UI in C:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">int</span> <span class="org-function-name">main</span>() {
+    <span class="org-keyword">while</span> (app_running) <span class="org-comment-delimiter">/* </span><span class="org-comment">application loop</span><span class="org-comment-delimiter"> */</span>
+    {
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">update</span><span class="org-comment-delimiter"> */</span>
+        {
+            <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+            gui_update(); <span class="org-comment-delimiter">// </span><span class="org-comment">collect input</span>
+        }
+
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">runs every frame</span><span class="org-comment-delimiter"> */</span>
+        label(<span class="org-string">"Would you like to save your changes?"</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">pushes rendering of text to command buffer</span>
+        <span class="org-keyword">if</span> (button(<span class="org-string">"Yes"</span>)) <span class="org-comment-delimiter">// </span><span class="org-comment">pushes rendering of button to cmd_buf, returns true when pushed</span>
+        {
+            app-&gt;save();
+            app_running = 0;
+        }
+        <span class="org-keyword">if</span> (button(<span class="org-string">"No"</span>))
+        {
+            app_running = 0;
+        }
+
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">render</span><span class="org-comment-delimiter"> */</span>
+        {
+            <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+            gui_render(); <span class="org-comment-delimiter">// </span><span class="org-comment">render from command buffer</span>
+        }
+    }
+}
+</pre>
+</div>
+
+<p>
+What a retained mode approach could look like in C++:
+</p>
+<div class="org-src-container">
+<pre class="src src-cpp"><span class="org-comment-delimiter">/* </span><span class="org-comment">in ui.cpp</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">class</span> <span class="org-type">UI</span> {
+    <span class="org-keyword">public</span>:
+    <span class="org-type">UI</span>(...) {
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">construct buttons, labels, etc.</span><span class="org-comment-delimiter"> */</span>
+        save_prompt = UILabel(<span class="org-string">"Would you like to save your changes?"</span>);
+
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">NOTE: since retained mode often works via callbacks, these now</span>
+<span class="org-comment">           somehow need access to state (e.g. by passing it to the UI</span>
+<span class="org-comment">           constructor, making the state global, etc.). In the imgui, this state</span>
+<span class="org-comment">           was directly available just from being in the same scope</span><span class="org-comment-delimiter">  */</span>
+        yes_button  = UIButton(<span class="org-string">"Yes"</span>, []() { app-&gt;save(); app_running = <span class="org-constant">false</span>; } );
+        no_button   = UIButton(<span class="org-string">"No"</span>, []() { app_running = <span class="org-constant">false</span>; });
+    }
+    <span class="org-type">void</span> <span class="org-function-name">UpdateUI</span>();
+    <span class="org-type">void</span> <span class="org-function-name">RenderUI</span>();
+
+    <span class="org-keyword">private</span>:
+    <span class="org-type">UILabel</span>  <span class="org-variable-name">save_prompt</span>;
+    <span class="org-type">UIButton</span> <span class="org-variable-name">yes_button</span>;
+    <span class="org-type">UIButton</span> <span class="org-variable-name">no_button</span>;
+}
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">in main.cpp</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">int</span> <span class="org-function-name">main</span>() {
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">construct on start up</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-type">UI</span> <span class="org-type">ui</span>(...);
+
+    <span class="org-keyword">while</span> (app_running) <span class="org-comment-delimiter">/* </span><span class="org-comment">application loop</span><span class="org-comment-delimiter"> */</span>
+    {
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">update</span><span class="org-comment-delimiter"> */</span>
+        {
+            ui.UpdateUI();
+        }
+
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">render</span><span class="org-comment-delimiter"> */</span>
+        {
+            ui.RenderUI();
+        }
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9961b1f" class="outline-2">
+<h2 id="org9961b1f"><a href="#org9961b1f">Implicitly Building Data Structures</a></h2>
+<div class="outline-text-2" id="text-org9961b1f">
+<p>
+Following datastructures can be build implicitly in an immediate mode API:
+</p>
+<ol class="org-ol">
+<li>Stack</li>
+<li>Linked Lists</li>
+<li>Stacks + Queues (via linked lists)</li>
+<li>Ring buffer (via circular linked lists)</li>
+<li>Trees (via linked lists)</li>
+</ol>
+</div>
+<div id="outline-container-orgd9bcc41" class="outline-3">
+<h3 id="orgd9bcc41"><a href="#orgd9bcc41">Stack</a></h3>
+<div class="outline-text-3" id="text-orgd9bcc41">
+<p>
+Using for-loops, one can push a structure onto a stack with every opening
+for-loop. The top of the stack is available under the same name in every scope.
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">thing_t</span> {
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">state of thing_t</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">used for stack implementation</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-type">int</span> <span class="org-variable-name">i</span> = 0;
+} <span class="org-type">thing_t</span>;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">explicit building of a thing_t stack</span>
+<span class="org-keyword">for</span> (<span class="org-type">thing_t</span> <span class="org-variable-name">thing</span> = {0}; thing.i == 0; thing.i++) {
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">stack: |thing|...</span><span class="org-comment-delimiter"> */</span>
+
+    operate(thing, 4.0f);
+
+    <span class="org-keyword">for</span> (<span class="org-type">thing_t</span> <span class="org-variable-name">thing_old</span> = thing, <span class="org-variable-name">thing_2</span> = {0}; thing_2.i == 0; (thing = thing_old, thing_2.i += 1)) {
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">stack: |thing|thing|...</span><span class="org-comment-delimiter"> */</span>
+        operate(thing, 3.2f);
+        transform(thing, 5.f);
+
+        <span class="org-keyword">for</span> (<span class="org-type">thing_t</span> <span class="org-variable-name">thing_old</span> = thing, <span class="org-variable-name">thing_3</span> = {0}; thing_3.i == 0; (thing = thing_old, thing_3.i += 1)) {
+            <span class="org-comment-delimiter">/* </span><span class="org-comment">stack: |thing|thing|thing|...</span><span class="org-comment-delimiter"> */</span>
+
+            <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+        }
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">stack: |thing|thing|...</span><span class="org-comment-delimiter"> */</span>
+    }
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">stack: |thing|...</span><span class="org-comment-delimiter"> */</span>
+}
+<span class="org-comment-delimiter">/* </span><span class="org-comment">stack: ||</span><span class="org-comment-delimiter"> */</span>
+</pre>
+</div>
+
+<p>
+The implicit immediate mode API could look like this:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">implicit building of a thing_t stack</span>
+scope_begin_thing(...) <span class="org-comment-delimiter">/* </span><span class="org-comment">parameters can be used to construct thing_t</span><span class="org-comment-delimiter"> */</span>
+{
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">stack: |thing|...</span><span class="org-comment-delimiter"> */</span>
+    operate(4.0f); <span class="org-comment-delimiter">// </span><span class="org-comment">implicit passing of thing via macro</span>
+
+    push_thing(...) <span class="org-comment-delimiter">/* </span><span class="org-comment">contains parameters for the new thing_t</span><span class="org-comment-delimiter">  */</span>
+    {
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">stack: |thing|thing|...</span><span class="org-comment-delimiter"> */</span>
+        operate(3.2f);  <span class="org-comment-delimiter">// </span><span class="org-comment">transforms only top of stack called thing</span>
+        transform(5.f);
+
+        push_thing(...)
+        {
+            <span class="org-comment-delimiter">/* </span><span class="org-comment">stack: |thing|thing|thing|</span><span class="org-comment-delimiter"> */</span>
+        }
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf6ab085" class="outline-3">
+<h3 id="orgf6ab085"><a href="#orgf6ab085">Tree</a></h3>
+<div class="outline-text-3" id="text-orgf6ab085">
+<p>
+An n-ary tree can be build in the form of a binary first-child-next-sibling tree:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/*</span>
+<span class="org-comment">   Tree structure:</span>
+
+<span class="org-comment">   child-sibling-sibling</span>
+<span class="org-comment">   |     |</span>
+<span class="org-comment">   |     child-sibling-sibling</span>
+<span class="org-comment">   |</span>
+<span class="org-comment">   child-sibling-sibling</span>
+
+<span class="org-comment-delimiter">*/</span>
+
+<span class="org-function-name">scope_start</span>()  <span class="org-comment-delimiter">// </span><span class="org-comment">child</span>
+{
+    operation(5.5);   <span class="org-comment-delimiter">// </span><span class="org-comment">sibling</span>
+    transformation(); <span class="org-comment-delimiter">// </span><span class="org-comment">sibling</span>
+    scope_child()     <span class="org-comment-delimiter">// </span><span class="org-comment">child</span>
+    {
+        button(); <span class="org-comment-delimiter">// </span><span class="org-comment">sibling</span>
+        button(); <span class="org-comment-delimiter">// </span><span class="org-comment">sibling</span>
+        button(); <span class="org-comment-delimiter">// </span><span class="org-comment">sibling</span>
+        box()     <span class="org-comment-delimiter">// </span><span class="org-comment">sibling</span>
+        {
+            <span class="org-comment-delimiter">/* </span><span class="org-comment">children of box</span><span class="org-comment-delimiter"> */</span>
+            text();
+        }
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org5107bcf" class="outline-2">
+<h2 id="org5107bcf"><a href="#org5107bcf">Use Cases</a></h2>
+<div class="outline-text-2" id="text-org5107bcf">
+<ul class="org-ul">
+<li>UI</li>
+<li>Rendering</li>
+<li><a href="https://github.com/epezent/implot">Plotting</a></li>
+<li>Texture Generation</li>
+<li><a href="https://github.com/tsoding/ImHTTP">HTTP Client</a></li>
+<li><a href="https://github.com/tsoding/jim">JSON Serialization</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org42528a6" class="outline-2">
+<h2 id="org42528a6"><a href="#org42528a6">Examples</a></h2>
+<div class="outline-text-2" id="text-org42528a6">
+</div>
+<div id="outline-container-org31a13b1" class="outline-3">
+<h3 id="org31a13b1"><a href="#org31a13b1">Immediate-mode Dialogue System</a></h3>
+<div class="outline-text-3" id="text-org31a13b1">
+<p>
+Design Idea:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">Usage, runs every frame</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">dialogue_t</span> <span class="org-variable-name">dialogue</span>;
+<span class="org-function-name">dialogue_box</span>(dialogue) {
+    text(<span class="org-string">"Die monster."</span>, bold(), shake(0.3)) {
+        text(<span class="org-string">"You don't belong in this world!"</span>, speed(1.4));
+    }
+    text(<span class="org-string">"It was not by my hand that I am once again given flesh."</span>, font(<span class="org-string">"evil.ttf"</span>)) {
+        linebreak();
+        text(<span class="org-string">"I was called here by humans who wish to pay me tribute."</span>, italic());
+    }
+    text(<span class="org-string">"Tribute!?!"</span>, shake(0.5), bold(), color(RED)) {
+        text(<span class="org-string">"You steal men's souls and make them your slaves!"</span>);
+    }
+    text(<span class="org-string">"Perhaps the same could be said of all religions"</span>, italic(), speed(0.5)) {
+         ellipsis();
+    }
+
+    text(<span class="org-string">"Your words are as empty as your soul! Mankind ill needs a savior such as you!"</span>, glowing());
+
+    text(<span class="org-string">"What is a man?"</span>) {
+        pause(3);
+        text(<span class="org-string">"A miserable little pile of secrets."</span>, shake(1.0));
+    }
+}
+<span class="org-comment-delimiter">// </span><span class="org-comment">dialogue_t filled with all relevant data at this point, either...</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">- all relevant data to render the text that should be currently rendered (position, style, color, ...)</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">- or a fully rendered texture that is transparent besides the text</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org969a558" class="outline-3">
+<h3 id="org969a558"><a href="#org969a558">Encapsulating Operations</a></h3>
+<div class="outline-text-3" id="text-org969a558">
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">TextureOp</span> <span class="org-variable-name">ops</span>[] =
+{
+  {TextureOpKind_Fill, .color = 0x340f},
+  {TextureOpKind_Grunge},
+  {TextureOpKind_Noise, .color = 0x100a, .value = 2.5f},
+};
+<span class="org-type">Texture</span> <span class="org-variable-name">tex</span> = MakeTexture(ops, ArrayCount(ops));
+
+<span class="org-type">TextureOp</span> <span class="org-variable-name">ops</span>[] =
+{
+  Fill(0x340f),
+  Grunge(),
+  Noise(0x100a, 2.5f),
+};
+<span class="org-type">Texture</span> <span class="org-variable-name">tex</span> = MakeTexture(ops, ArrayCount(ops));
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">MakeTexture</span>(...) MakeTexture_((TextureOp[]){__VA_ARGS__}, ArrayCount((TextureOp[]){__VA_ARGS__}))
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">usage code</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">Texture</span> <span class="org-variable-name">tex</span> = MakeTexture(Fill(0x340f), Grunge(), Noise(0x100a, 2.5f));
+</pre>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

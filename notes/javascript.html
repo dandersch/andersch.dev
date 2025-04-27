@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JavaScript</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">JavaScript</h1>
+<p>
+JavaScript (JS), is an interpreted, weakly typed <a href="programming_language.html#ID-f0f41ee0-9623-4704-a4b8-7e6ea6eb108a">programming language</a>, that grew
+to one of the core technologies of the <a href="world_wide_web.html#ID-ce772f45-e356-4d64-9207-4da2b4b392a5">World Wide Web</a>, even though it did not
+exist as one of its original cornerstones.
+</p>
+
+<p>
+JS has no support for (conventional) <a href="multithreading.html#ID-08c89846-0c43-460d-931a-9c824b3980ad">multithreading</a>. <a href="concurrency.html#ID-ae158974-7fdb-4d57-a098-3c00200a2320">Concurrency</a> is instead
+achieved using Promises, <code>async/await</code> and callbacks, which are used for blocking
+tasks such as network requests, file I/O and timeouts.
+</p>
+
+<p>
+For true parallelism, modern JS offers <i>Web Workers</i> (which operate in separate
+threads). They communicate with the main thread through message passing (instead
+of shared memory).
+</p>
+<div id="outline-container-org1e9dde0" class="outline-2">
+<h2 id="org1e9dde0"><a href="#org1e9dde0">Package Manager</a></h2>
+<div class="outline-text-2" id="text-org1e9dde0">
+<ul class="org-ul">
+<li>Examples: npm, yarn, <a href="bun.html#ID-68b078fd-c307-4804-9ee5-a5f0a8f68bf9">bun</a></li>
+<li>Keep track of dependencies in <code>package.json</code></li>
+<li>Differentiate between user and dev dependencies (<code>npm install --save-dev pkg</code>)</li>
+<li><code>node_modules</code> folder contains direct and indirect dependencies</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org77660ac" class="outline-2">
+<h2 id="org77660ac"><a href="#org77660ac">Built-in functions</a></h2>
+<div class="outline-text-2" id="text-org77660ac">
+<div class="org-src-container">
+<pre class="src src-js">setTimeout(callback, delay)                     <span class="org-comment-delimiter">// </span><span class="org-comment">schedule a function to run after a specified delay</span>
+clearTimeout(timerId)                           <span class="org-comment-delimiter">// </span><span class="org-comment">clear a timer set with setTimeout.</span>
+setInterval(callbackFunction, interval)         <span class="org-comment-delimiter">// </span><span class="org-comment">schedule a function to run repeatedly at specified intervals</span>
+clearInterval(intervalId)                       <span class="org-comment-delimiter">// </span><span class="org-comment">clear a timer set with setInterval.</span>
+
+fetch(url, options = {})                        <span class="org-comment-delimiter">// </span><span class="org-comment">perform an asynchronous HTTP request.</span>
+addEventListener(event, listener, options = {}) <span class="org-comment-delimiter">// </span><span class="org-comment">attach an event listener to an HTML element.</span>
+
+Object.keys(obj)                                <span class="org-comment-delimiter">// </span><span class="org-comment">return an array of an object's enumerable property names</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb5dc438" class="outline-2">
+<h2 id="orgb5dc438"><a href="#orgb5dc438">Code Examples</a></h2>
+<div class="outline-text-2" id="text-orgb5dc438">
+</div>
+<div id="outline-container-orga5cf24c" class="outline-3">
+<h3 id="orga5cf24c"><a href="#orga5cf24c">Declaring a variable</a></h3>
+<div class="outline-text-3" id="text-orga5cf24c">
+<p>
+Keywords for declaring a variable:  <code>var</code>, <code>const</code>, <code>let</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">b</span> = 1; <span class="org-comment-delimiter">// </span><span class="org-comment">globally-scoped</span>
+<span class="org-keyword">function</span> <span class="org-function-name">exampleVar</span>() {
+    <span class="org-keyword">var</span> <span class="org-variable-name">a</span> = 0; <span class="org-comment-delimiter">// </span><span class="org-comment">function-scoped (or globally-scoped)</span>
+    <span class="org-keyword">if</span> (<span class="org-constant">true</span>) {
+        <span class="org-keyword">var</span> <span class="org-variable-name">a</span> = 1; <span class="org-comment-delimiter">// </span><span class="org-comment">reassigns outer x because of hoisting</span>
+        <span class="org-keyword">var</span> <span class="org-variable-name">b</span> = 3; <span class="org-comment-delimiter">// </span><span class="org-comment">reassigns outer y (gets "hoisted" to the top of scope)</span>
+        c = 3;     <span class="org-comment-delimiter">// </span><span class="org-comment">implicitly globally scoped</span>
+        <span class="org-keyword">let</span> <span class="org-variable-name">d</span> = 7; <span class="org-comment-delimiter">// </span><span class="org-comment">block-scoped</span>
+        console.log(a, b, c, d); <span class="org-comment-delimiter">// </span><span class="org-comment">Output: 1, 3, 3, 7</span>
+    }
+    console.log(a, b, c); <span class="org-comment-delimiter">// </span><span class="org-comment">Output: 13, 3 (no access to z)</span>
+}
+
+exampleVar()
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga72d404" class="outline-3">
+<h3 id="orga72d404"><a href="#orga72d404">Destructuring (Pulling member variables out of an object)</a></h3>
+<div class="outline-text-3" id="text-orga72d404">
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">defining an object literal</span>
+<span class="org-keyword">const</span> <span class="org-variable-name">person</span> = {
+        first_name: <span class="org-string">'Max'</span>,
+        last_name: <span class="org-string">'Powers'</span>,
+        age: 30,
+        <span class="org-comment-delimiter">// </span><span class="org-comment">embedded object</span>
+        address: {
+                street: <span class="org-string">'Main Street'</span>,
+                city:   <span class="org-string">'London'</span>
+        }
+}
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">pull out first_name, age, city</span>
+<span class="org-keyword">const</span> { first_name, age, address: { city } } = person
+
+console.log(first_name) <span class="org-comment-delimiter">// </span><span class="org-comment">outputs: Max</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1bd8c55" class="outline-3">
+<h3 id="org1bd8c55"><a href="#org1bd8c55">JS object &lt;-&gt; JSON string</a></h3>
+<div class="outline-text-3" id="text-org1bd8c55">
+<ul class="org-ul">
+<li>Turn JS object into valid JSON string: <code>JSON.stringify(person)</code></li>
+<li>Turn JSON into JS object: <code>JSON.parse(json)</code></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org24fcb01" class="outline-3">
+<h3 id="org24fcb01"><a href="#org24fcb01">for-each</a></h3>
+<div class="outline-text-3" id="text-org24fcb01">
+<p>
+for-each loop in JS:
+</p>
+<ul class="org-ul">
+<li><code>for (let thing of things) { ... }</code></li>
+<li><code>things.forEach(function(todo) { })</code></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org72a7ecc" class="outline-3">
+<h3 id="org72a7ecc"><a href="#org72a7ecc"><code>==</code> vs <code>===</code></a></h3>
+<div class="outline-text-3" id="text-org72a7ecc">
+<ul class="org-ul">
+<li><code>10 == '10'</code> equals true</li>
+<li><code>===</code> also matches datatypes</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb611fc8" class="outline-2">
+<h2 id="orgb611fc8"><a href="#orgb611fc8">Promises, <code>async</code>, <code>await</code></a></h2>
+<div class="outline-text-2" id="text-orgb611fc8">
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">Simulating an asynchronous task that resolves after a delay</span>
+<span class="org-keyword">function</span> <span class="org-function-name">asyncTask</span>() {
+  <span class="org-comment-delimiter">// </span><span class="org-comment">Promise is a built-in object that takes in an "executor function"</span>
+  <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Promise</span>((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve(<span class="org-string">"Task completed!"</span>);
+    }, 4000);
+  });
+}
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">Using async/await to handle asynchronous code</span>
+<span class="org-keyword">async</span> <span class="org-keyword">function</span> runAsyncTask() {
+  <span class="org-keyword">try</span> {
+    <span class="org-keyword">const</span> <span class="org-variable-name">promise</span> = asyncTask(); <span class="org-comment-delimiter">// </span><span class="org-comment">start the async task and keep track of the promise</span>
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">do other stuff while the task is running</span>
+    console.log(<span class="org-string">"Doing other stuff until the async task is done.."</span>);
+    <span class="org-keyword">await</span> <span class="org-keyword">new</span> <span class="org-type">Promise</span>(r =&gt; setTimeout(r, 1000));
+    console.log(<span class="org-string">"."</span>);
+    <span class="org-keyword">await</span> <span class="org-keyword">new</span> <span class="org-type">Promise</span>(r =&gt; setTimeout(r, 1000));
+    console.log(<span class="org-string">".."</span>);
+    <span class="org-keyword">await</span> <span class="org-keyword">new</span> <span class="org-type">Promise</span>(r =&gt; setTimeout(r, 1000));
+    console.log(<span class="org-string">"..."</span>);
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">wait for the async task to finish, now that we are done with everything else</span>
+    <span class="org-keyword">const</span> <span class="org-variable-name">result</span> = <span class="org-keyword">await</span> promise;
+    console.log(result);
+  } <span class="org-keyword">catch</span> (error) {
+    console.error(error);
+  }
+}
+runAsyncTask();
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org48c3913" class="outline-2">
+<h2 id="org48c3913"><a href="#org48c3913"><code>fetch</code> example</a></h2>
+<div class="outline-text-2" id="text-org48c3913">
+<p>
+The <code>fetch</code> API is implemented using Javascript Promises.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">async</span> <span class="org-keyword">function</span> testFetch()
+{
+    <span class="org-keyword">let</span> <span class="org-variable-name">response</span> = {}
+    <span class="org-keyword">let</span> <span class="org-variable-name">request</span>  = fetch(<span class="org-string">'https://google.com'</span>).then(data =&gt; { response = data; })
+    console.log(<span class="org-string">'Code execution continues while fetch request is in progress'</span>);
+    console.log(<span class="org-string">'.'</span>);
+    console.log(<span class="org-string">'..'</span>);
+    console.log(<span class="org-string">'...'</span>);
+    <span class="org-keyword">await</span> request
+    console.log(<span class="org-string">"Return status is: "</span> + response.statusText)
+}
+testFetch()
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org38c2eef" class="outline-2">
+<h2 id="org38c2eef"><a href="#org38c2eef">Concurrency using callbacks</a></h2>
+<div class="outline-text-2" id="text-org38c2eef">
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">Asynchronous function simulating I/O operation</span>
+<span class="org-keyword">function</span> <span class="org-function-name">fetchData</span>(<span class="org-variable-name">callback</span>) {
+  setTimeout(() =&gt; {  <span class="org-comment-delimiter">// </span><span class="org-comment">simulate fetching data from a database or external API</span>
+    <span class="org-keyword">const</span> <span class="org-variable-name">data</span> = { id: 1, name: <span class="org-string">'John'</span> };
+    callback(<span class="org-constant">null</span>, data);
+  }, 1000);
+}
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">Callback function to handle the fetched data</span>
+<span class="org-keyword">function</span> <span class="org-function-name">handleData</span>(<span class="org-variable-name">error</span>, <span class="org-variable-name">data</span>) {
+  <span class="org-keyword">if</span> (error) {
+    console.error(<span class="org-string">'Error fetching data:'</span>, error);
+  } <span class="org-keyword">else</span> {
+    console.log(<span class="org-string">'Fetched data:'</span>, data);
+  }
+}
+
+console.log(<span class="org-string">'Start fetching data...'</span>);
+fetchData(handleData); <span class="org-comment-delimiter">// </span><span class="org-comment">Initiate the asynchronous operation and provide a callback function</span>
+console.log(<span class="org-string">'Fetching data operation initiated.'</span>);
+</pre>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

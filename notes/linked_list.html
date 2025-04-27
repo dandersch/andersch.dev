@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Linked List</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">Linked List</h1>
+<p>
+A linked list is a <a href="data_structure.html#ID-c2e9cf1b-7487-4758-8163-2e8b6285d3d9">data structure</a> where each node contains the relevant data and
+a pointer to the next node.
+</p>
+<div id="outline-container-orgaeaea1e" class="outline-2">
+<h2 id="orgaeaea1e"><a href="#orgaeaea1e">Generic Linked Lists in C</a></h2>
+<div class="outline-text-2" id="text-orgaeaea1e">
+<p>
+Two approaches:
+</p>
+<ul class="org-ul">
+<li>Macro-based with hardcoded member names (<code>next</code>, <code>prev</code>)</li>
+<li>Intrusive linked list node type as struct member (Linux kernel approach)</li>
+</ul>
+</div>
+<div id="outline-container-orgff115b4" class="outline-3">
+<h3 id="orgff115b4"><a href="#orgff115b4">Macro-based Linked List API</a></h3>
+<div class="outline-text-3" id="text-orgff115b4">
+<p>
+For doubly-linked lists, hardcode the structure member names (i.e the nodes to
+link) to "prev" and "next".
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">item_t</span> <span class="org-type">item_t</span>;
+<span class="org-keyword">struct</span> <span class="org-type">item_t</span> {
+    <span class="org-type">int</span> <span class="org-variable-name">foo</span>;
+    <span class="org-type">float</span> <span class="org-variable-name">bar</span>;
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-type">item_t</span>* <span class="org-variable-name">prev</span>;
+    <span class="org-type">item_t</span>* <span class="org-variable-name">next</span>;
+};
+</pre>
+</div>
+
+<p>
+The macro-based API then can look like this:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">DL_FOREACH</span>(<span class="org-variable-name">head</span>,<span class="org-variable-name">el</span>) \
+    <span class="org-keyword">for</span> ((el) = (head); el; (el) = (el)-&gt;next)
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">DL_APPEND</span>(<span class="org-variable-name">head</span>,<span class="org-variable-name">add</span>)          \
+<span class="org-keyword">do</span> {                                 \
+  <span class="org-keyword">if</span> (head) {                        \
+      (add)-&gt;prev = (head)-&gt;prev;    \
+      (head)-&gt;prev-&gt;next = (add);    \
+      (head)-&gt;prev = (add);          \
+      (add)-&gt;next = <span class="org-constant">NULL</span>;            \
+  } <span class="org-keyword">else</span> {                           \
+      (head)=(add);                  \
+      (head)-&gt;prev = (head);         \
+      (head)-&gt;next = <span class="org-constant">NULL</span>;           \
+  }                                  \
+} <span class="org-keyword">while</span> (0)
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">DL_DELETE</span>(<span class="org-variable-name">head</span>,<span class="org-variable-name">del</span>)                \
+<span class="org-keyword">do</span> {                                       \
+  assert((head) != <span class="org-constant">NULL</span>);                  \
+  assert((del)-&gt;prev != <span class="org-constant">NULL</span>);             \
+  <span class="org-keyword">if</span> ((del)-&gt;prev == (del)) {              \
+      (head)=<span class="org-constant">NULL</span>;                         \
+  } <span class="org-keyword">else</span> <span class="org-keyword">if</span> ((del) == (head)) {            \
+      assert((del)-&gt;next != <span class="org-constant">NULL</span>);         \
+      (del)-&gt;next-&gt;prev = (del)-&gt;prev;     \
+      (head) = (del)-&gt;next;                \
+  } <span class="org-keyword">else</span> {                                 \
+      (del)-&gt;prev-&gt;next = (del)-&gt;next;     \
+      <span class="org-keyword">if</span> ((del)-&gt;next) {                   \
+          (del)-&gt;next-&gt;prev = (del)-&gt;prev; \
+      } <span class="org-keyword">else</span> {                             \
+          (head)-&gt;prev = (del)-&gt;prev;      \
+      }                                    \
+  }                                        \
+} <span class="org-keyword">while</span> (0)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org30bea26" class="outline-3">
+<h3 id="org30bea26"><a href="#org30bea26">Intrusive linked list - <code>list_head</code></a></h3>
+<div class="outline-text-3" id="text-org30bea26">
+<p>
+The Linux kernel approach to having linked lists is a type of intrusive linked
+list where the links are embedded in the struct that is being linked:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">struct</span> <span class="org-type">list_head</span> {
+    <span class="org-keyword">struct</span> <span class="org-type">list_head</span> *<span class="org-variable-name">next</span>, *<span class="org-variable-name">prev</span>;
+};
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">LIST_HEAD_INIT</span>(<span class="org-variable-name">name</span>) { &amp;(name), &amp;(name) }
+<span class="org-preprocessor">#define</span> <span class="org-function-name">LIST_HEAD</span>(<span class="org-variable-name">name</span>)      <span class="org-keyword">struct</span> <span class="org-type">list_head</span> <span class="org-variable-name">name</span> = LIST_HEAD_INIT(name)
+<span class="org-type">void</span> <span class="org-function-name">INIT_LIST_HEAD</span>(<span class="org-keyword">struct</span> <span class="org-type">list_head</span> *<span class="org-variable-name">list</span>) { list-&gt;next = list; list-&gt;prev = list; }
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">api</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">void</span> <span class="org-function-name">list_add</span>(<span class="org-keyword">struct</span> <span class="org-type">list_head</span> *<span class="org-variable-name">new</span>, <span class="org-keyword">struct</span> <span class="org-type">list_head</span> *<span class="org-variable-name">head</span>);
+<span class="org-type">void</span> <span class="org-function-name">list_add_tail</span>(<span class="org-keyword">struct</span> <span class="org-type">list_head</span> *<span class="org-variable-name">new</span>, <span class="org-keyword">struct</span> <span class="org-type">list_head</span> *<span class="org-variable-name">head</span>);
+<span class="org-type">void</span> <span class="org-function-name">list_del</span>(<span class="org-keyword">struct</span> <span class="org-type">list_head</span> *<span class="org-variable-name">entry</span>);
+<span class="org-type">int</span>  <span class="org-function-name">list_is_head</span>(<span class="org-keyword">const</span> <span class="org-keyword">struct</span> <span class="org-type">list_head</span> *<span class="org-variable-name">list</span>, <span class="org-keyword">const</span> <span class="org-keyword">struct</span> <span class="org-type">list_head</span> *<span class="org-variable-name">head</span>);
+<span class="org-type">int</span>  <span class="org-function-name">list_empty</span>(<span class="org-keyword">const</span> <span class="org-keyword">struct</span> <span class="org-type">list_head</span> *<span class="org-variable-name">head</span>);
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">list_entry</span>(<span class="org-variable-name">ptr</span>, <span class="org-variable-name">type</span>, <span class="org-variable-name">member</span>)          container_of(ptr, type, member)                        <span class="org-comment-delimiter">// </span><span class="org-comment">get struct of the entry</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">list_first_entry</span>(<span class="org-variable-name">ptr</span>, <span class="org-variable-name">type</span>, <span class="org-variable-name">member</span>)    list_entry((ptr)-&gt;next, type, member)                  <span class="org-comment-delimiter">// </span><span class="org-comment">get first element from list</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">list_next_entry</span>(<span class="org-variable-name">pos</span>, <span class="org-variable-name">member</span>)           list_entry((pos)-&gt;member.next, <span class="org-keyword">typeof</span>(*(pos)), member) <span class="org-comment-delimiter">// </span><span class="org-comment">get next element in list</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">list_entry_is_head</span>(<span class="org-variable-name">pos</span>, <span class="org-variable-name">head</span>, <span class="org-variable-name">member</span>)  (&amp;pos-&gt;member == (head))                               <span class="org-comment-delimiter">// </span><span class="org-comment">test if entry is head of list</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">list_for_each_entry</span>(<span class="org-variable-name">pos</span>, <span class="org-variable-name">head</span>, <span class="org-variable-name">member</span>)                    \   <span class="org-comment-delimiter">// </span><span class="org-comment">iterate over list of given type</span>
+        <span class="org-keyword">for</span> (pos = list_first_entry(head, <span class="org-keyword">typeof</span>(*pos), member);  \
+             <span class="org-negation-char">!</span>list_entry_is_head(pos, head, member);              \
+             pos = list_next_entry(pos, member))
+<span class="org-preprocessor">#define</span> <span class="org-function-name">list_for_each_entry_safe</span>(<span class="org-variable-name">pos</span>, <span class="org-variable-name">n</span>, <span class="org-variable-name">head</span>, <span class="org-variable-name">member</span>)           \
+        <span class="org-keyword">for</span> (pos = list_first_entry(head, <span class="org-keyword">typeof</span>(*pos), member), \
+             n = list_next_entry(pos, member);                   \
+             <span class="org-negation-char">!</span>list_entry_is_head(pos, head, member);             \
+             pos = n, n = list_next_entry(n, member))
+
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">usage code</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">struct</span> <span class="org-type">mdev_state</span> {
+    <span class="org-keyword">struct</span> <span class="org-type">vfio_device</span> <span class="org-variable-name">vdev</span>;
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-keyword">struct</span> <span class="org-type">list_head</span> <span class="org-variable-name">dmabufs</span>; <span class="org-comment-delimiter">/* </span><span class="org-comment">intrusive linked list</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-type">u32</span> <span class="org-variable-name">active_id</span>;
+    <span class="org-type">u32</span> <span class="org-variable-name">next_id</span>;
+};
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">init list</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">static</span> <span class="org-type">int</span> <span class="org-function-name">mbochs_init_dev</span>(<span class="org-keyword">struct</span> <span class="org-type">vfio_device</span> *<span class="org-variable-name">vdev</span>)
+{
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span>
+    INIT_LIST_HEAD(&amp;mdev_state-&gt;dmabufs);
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span>
+}
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">add to list</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">static</span> <span class="org-keyword">struct</span> <span class="org-type">mbochs_dmabuf</span> *<span class="org-function-name">mbochs_dmabuf_alloc</span>(<span class="org-keyword">struct</span> <span class="org-type">mdev_state</span> *<span class="org-variable-name">mdev_state</span>, <span class="org-keyword">struct</span> <span class="org-type">mbochs_mode</span> *<span class="org-variable-name">mode</span>)
+{
+    dmabuf = kzalloc(<span class="org-keyword">sizeof</span>(<span class="org-keyword">struct</span> <span class="org-type">mbochs_dmabuf</span>), GFP_KERNEL);
+    dmabuf-&gt;mode = *mode;
+    dmabuf-&gt;id = mdev_state-&gt;next_id++;
+    dmabuf-&gt;pagecount = DIV_ROUND_UP(mode-&gt;size, PAGE_SIZE);
+    dmabuf-&gt;pages = kcalloc(dmabuf-&gt;pagecount, <span class="org-keyword">sizeof</span>(<span class="org-keyword">struct</span> <span class="org-type">page</span> *), GFP_KERNEL);
+    dmabuf-&gt;mdev_state = mdev_state;
+    list_add(&amp;dmabuf-&gt;next, &amp;mdev_state-&gt;dmabufs);
+    <span class="org-keyword">return</span> dmabuf;
+}
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">iterate through list</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">static</span> <span class="org-keyword">struct</span> <span class="org-type">mbochs_dmabuf</span>* <span class="org-function-name">mbochs_dmabuf_find_by_mode</span>(<span class="org-keyword">struct</span> <span class="org-type">mdev_state</span> *<span class="org-variable-name">mdev_state</span>, <span class="org-keyword">struct</span> <span class="org-type">mbochs_mode</span> *<span class="org-variable-name">mode</span>)
+{
+    <span class="org-keyword">struct</span> <span class="org-type">mbochs_dmabuf</span> *<span class="org-variable-name">dmabuf</span>;
+
+    list_for_each_entry(dmabuf, &amp;mdev_state-&gt;dmabufs, next) {
+      <span class="org-keyword">if</span> (mbochs_modes_equal(&amp;dmabuf-&gt;mode, mode)) { <span class="org-keyword">return</span> dmabuf; }
+    }
+
+    <span class="org-keyword">return</span> <span class="org-constant">NULL</span>;
+}
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">use of container_of, safely iterate and delete</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">mbochs_close_device</span>(<span class="org-keyword">struct</span> <span class="org-type">vfio_device</span> *<span class="org-variable-name">vdev</span>)
+{
+    <span class="org-keyword">struct</span> <span class="org-type">mdev_state</span> *<span class="org-variable-name">mdev_state</span> = container_of(vdev, <span class="org-keyword">struct</span> <span class="org-type">mdev_state</span>, vdev);
+    <span class="org-keyword">struct</span> <span class="org-type">mbochs_dmabuf</span> *<span class="org-variable-name">dmabuf</span>, *<span class="org-variable-name">tmp</span>;
+
+    list_for_each_entry_safe(dmabuf, tmp, &amp;mdev_state-&gt;dmabufs, next) {
+        list_del(&amp;dmabuf-&gt;next);
+        <span class="org-keyword">if</span> (dmabuf-&gt;buf) {
+            <span class="org-comment-delimiter">/* </span><span class="org-comment">free in mbochs_release_dmabuf()</span><span class="org-comment-delimiter"> */</span>
+            dmabuf-&gt;unlinked = <span class="org-constant">true</span>;
+        } <span class="org-keyword">else</span> {
+            kfree(dmabuf);
+        }
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org61f0a88" class="outline-2">
+<h2 id="org61f0a88"><a href="#org61f0a88">Resources</a></h2>
+<div class="outline-text-2" id="text-org61f0a88">
+<ul class="org-ul">
+<li><a href="https://www.rfleury.com/p/in-defense-of-linked-lists">In Defense of Linked Lists</a></li>
+<li><a href="https://troydhanson.github.io/uthash/utlist.html">utlist: linked list macros for C structures</a></li>
+<li><a href="https://0xax.gitbooks.io/linux-insides/content/DataStructures/linux-datastructures-1.html">Data Structures in the Linux Kernel - Doubly linked list</a></li>
+<li><a href="https://github.com/codr7/hacktical-c/tree/main/list">Intrusive Doubly Linked Lists in C</a></li>
+<li><a href="https://github.com/mkirchner/linked-list-good-taste">Linked lists, pointer tricks and good taste</a></li>
+</ul>
+</div>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,3 @@
+#+TITLE: Pages tagged psychology
+* Notes tagged ~psychology~
+- [[../notes/executive_function.org][Executive Function]]

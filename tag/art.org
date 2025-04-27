@@ -1,0 +1,3 @@
+#+TITLE: Pages tagged art
+* Notes tagged ~art~
+- [[../notes/pixel_art.org][Pixel Art]]

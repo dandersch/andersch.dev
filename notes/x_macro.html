@@ -1,0 +1,1287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>X-Macros (C)</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">X-Macros (C)</h1>
+<p>
+X-Macros are a <a href="c_preprocessor.html#ID-8f405305-c7e4-4371-abca-04079a5031f1">C preprocessor</a> idiom that can be used to generate code for any
+data that resembles a plain table. It can be considered a form of table-driven
+<a href="metaprogramming.html#ID-6c88dda7-d440-48d0-ad7b-9910400eab90">metaprogramming</a>.
+</p>
+<div id="outline-container-org12d66d4" class="outline-2">
+<h2 id="org12d66d4"><a href="#org12d66d4">Example for an Entity Table</a></h2>
+<div class="outline-text-2" id="text-org12d66d4">
+<p>
+The table structure can be defined in its own header file called <code>entity_table.h</code>.
+Note that the header should not have an include guard or <code>#pragma once</code> directive,
+since it might be included more than once in the same file. Every passed
+argument to the macro can be conceptually understood as an entry to a table
+column.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C" id="entity_table.h"><span class="org-comment-delimiter">//     </span><span class="org-comment">Type      Name         HP    texture_file     tex_coords  animations</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UV</span>(<span class="org-variable-name">u</span>,<span class="org-variable-name">v</span>) {u, v}
+<span class="org-preprocessor">#define</span> <span class="org-function-name">ANIMS</span>(...) {__VA_ARGS__}
+<span class="org-function-name">ENTITY</span>(HERO,     <span class="org-string">"Hero"</span>,     100,   <span class="org-string">"hero.png"</span>,      UV(0,0) ,    <span class="org-type">ANIMS</span>(<span class="org-variable-name">UV</span>(16,0))  )
+<span class="org-function-name">ENTITY</span>(MONSTER,  <span class="org-string">"Monster"</span>,   40,   <span class="org-string">"enemies.png"</span>,   UV(16,32) ,  <span class="org-type">ANIMS</span>(<span class="org-variable-name">UV</span>(0,0))      )
+<span class="org-function-name">ENTITY</span>(PEASANT,  <span class="org-string">"Peasant"</span>,   60,   <span class="org-string">"npcs.png"</span>,      UV(16,16) ,  <span class="org-type">ANIMS</span>(<span class="org-variable-name">UV</span>(0,0))      )
+<span class="org-function-name">ENTITY</span>(PRINCESS, <span class="org-string">"Princess"</span>,  80,   <span class="org-string">"npcs.png"</span>,      UV(64,16) ,  <span class="org-type">ANIMS</span>(<span class="org-variable-name">UV</span>(0,0))      )
+<span class="org-function-name">ENTITY</span>(GOBLIN,   <span class="org-string">"Goblin"</span>,    30,   <span class="org-string">"enemies.png"</span>,   UV(32,32) ,  <span class="org-type">ANIMS</span>(<span class="org-variable-name">UV</span>(0,0))      )
+</pre>
+</div>
+
+<p>
+In the C source code, the <code>ENTITY</code> macro can be defined, upon which the table in
+its entirety is <code>#include</code>'d and then the <code>ENTITY</code> macro gets undefined.
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">ENTITY</span>(<span class="org-variable-name">type</span>, <span class="org-variable-name">name</span>, <span class="org-variable-name">hp</span>, <span class="org-variable-name">tex_file</span>, <span class="org-variable-name">tex_coords</span>, <span class="org-variable-name">animations</span>) ENTITY_TYPE_##type,
+<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span>
+{
+    <span class="org-comment-delimiter">//</span><span class="org-comment">#include "entity_table.h"</span>
+    <span class="org-comment-delimiter">//     </span><span class="org-comment">Type      Name         HP    texture_file     tex_coords  animations</span>
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">UV</span>(<span class="org-variable-name">u</span>,<span class="org-variable-name">v</span>) {u, v}
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">ANIMS</span>(...) {__VA_ARGS__}
+    <span class="org-function-name">ENTITY</span>(HERO,     <span class="org-string">"Hero"</span>,     100,   <span class="org-string">"hero.png"</span>,      UV(0,0) ,    <span class="org-type">ANIMS</span>(<span class="org-variable-name">UV</span>(16,0))  )
+    ENTITY(MONSTER,  <span class="org-string">"Monster"</span>,   40,   <span class="org-string">"enemies.png"</span>,   UV(16,32) ,  <span class="org-type">ANIMS</span>(<span class="org-variable-name">UV</span>(0,0))      )
+    ENTITY(PEASANT,  <span class="org-string">"Peasant"</span>,   60,   <span class="org-string">"npcs.png"</span>,      UV(16,16) ,  <span class="org-type">ANIMS</span>(<span class="org-variable-name">UV</span>(0,0))      )
+    ENTITY(PRINCESS, <span class="org-string">"Princess"</span>,  80,   <span class="org-string">"npcs.png"</span>,      UV(64,16) ,  <span class="org-type">ANIMS</span>(<span class="org-variable-name">UV</span>(0,0))      )
+    ENTITY(GOBLIN,   <span class="org-string">"Goblin"</span>,    30,   <span class="org-string">"enemies.png"</span>,   UV(32,32) ,  <span class="org-type">ANIMS</span>(<span class="org-variable-name">UV</span>(0,0))      )
+    ENTITY_TYPE_COUNT
+};
+<span class="org-preprocessor">#undef</span> ENTITY
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">ENTITY</span>(<span class="org-variable-name">type</span>, <span class="org-variable-name">name</span>, <span class="org-variable-name">hp</span>, <span class="org-variable-name">tex_file</span>, <span class="org-variable-name">tex_coords</span>, <span class="org-variable-name">animations</span>) #name ,
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">entity_names</span>[] =
+{
+    <span class="org-comment-delimiter">//</span><span class="org-comment">#include "entity_table.h"</span>
+    <span class="org-comment-delimiter">//     </span><span class="org-comment">Type      Name         HP    texture_file     tex_coords  animations</span>
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">UV</span>(<span class="org-variable-name">u</span>,<span class="org-variable-name">v</span>) {u, v}
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">ANIMS</span>(...) {__VA_ARGS__}
+    ENTITY(HERO,     <span class="org-string">"Hero"</span>,     100,   <span class="org-string">"hero.png"</span>,      UV(0,0) ,    ANIMS(UV(16,0))  )
+    ENTITY(MONSTER,  <span class="org-string">"Monster"</span>,   40,   <span class="org-string">"enemies.png"</span>,   UV(16,32) ,  ANIMS(UV(0,0))      )
+    ENTITY(PEASANT,  <span class="org-string">"Peasant"</span>,   60,   <span class="org-string">"npcs.png"</span>,      UV(16,16) ,  ANIMS(UV(0,0))      )
+    ENTITY(PRINCESS, <span class="org-string">"Princess"</span>,  80,   <span class="org-string">"npcs.png"</span>,      UV(64,16) ,  ANIMS(UV(0,0))      )
+    ENTITY(GOBLIN,   <span class="org-string">"Goblin"</span>,    30,   <span class="org-string">"enemies.png"</span>,   UV(32,32) ,  ANIMS(UV(0,0))      )
+    <span class="org-string">"entity_count"</span>
+};
+<span class="org-preprocessor">#undef</span> ENTITY
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">ENTITY</span>(<span class="org-variable-name">type</span>, <span class="org-variable-name">name</span>, <span class="org-variable-name">hp</span>, <span class="org-variable-name">tex_file</span>, <span class="org-variable-name">tex_coords</span>, <span class="org-variable-name">animations</span>) hp ,
+<span class="org-type">int</span> <span class="org-variable-name">entity_hp_table</span>[] =
+{
+    <span class="org-comment-delimiter">//</span><span class="org-comment">#include "entity_table.h"</span>
+    <span class="org-comment-delimiter">//     </span><span class="org-comment">Type      Name         HP    texture_file     tex_coords  animations</span>
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">UV</span>(<span class="org-variable-name">u</span>,<span class="org-variable-name">v</span>) {u, v}
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">ANIMS</span>(...) {__VA_ARGS__}
+    ENTITY(HERO,     <span class="org-string">"Hero"</span>,     100,   <span class="org-string">"hero.png"</span>,      UV(0,0) ,    ANIMS(UV(16,0))  )
+    ENTITY(MONSTER,  <span class="org-string">"Monster"</span>,   40,   <span class="org-string">"enemies.png"</span>,   UV(16,32) ,  ANIMS(UV(0,0))      )
+    ENTITY(PEASANT,  <span class="org-string">"Peasant"</span>,   60,   <span class="org-string">"npcs.png"</span>,      UV(16,16) ,  ANIMS(UV(0,0))      )
+    ENTITY(PRINCESS, <span class="org-string">"Princess"</span>,  80,   <span class="org-string">"npcs.png"</span>,      UV(64,16) ,  ANIMS(UV(0,0))      )
+    ENTITY(GOBLIN,   <span class="org-string">"Goblin"</span>,    30,   <span class="org-string">"enemies.png"</span>,   UV(32,32) ,  ANIMS(UV(0,0))      )
+};
+<span class="org-preprocessor">#undef</span> ENTITY
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">ENTITY</span>(<span class="org-variable-name">type</span>, <span class="org-variable-name">name</span>, <span class="org-variable-name">hp</span>, <span class="org-variable-name">tex_file</span>, <span class="org-variable-name">tex_coords</span>, <span class="org-variable-name">animations</span>) tex_coords ,
+<span class="org-type">int</span> <span class="org-variable-name">entity_tex_coords</span>[][2] =
+{
+    <span class="org-comment-delimiter">//</span><span class="org-comment">#include "entity_table.h"</span>
+    <span class="org-comment-delimiter">//     </span><span class="org-comment">Type      Name         HP    texture_file     tex_coords  animations</span>
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">UV</span>(<span class="org-variable-name">u</span>,<span class="org-variable-name">v</span>) {u, v}
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">ANIMS</span>(...) {__VA_ARGS__}
+    ENTITY(HERO,     <span class="org-string">"Hero"</span>,     100,   <span class="org-string">"hero.png"</span>,      UV(0,0) ,    ANIMS(UV(16,0))  )
+    ENTITY(MONSTER,  <span class="org-string">"Monster"</span>,   40,   <span class="org-string">"enemies.png"</span>,   UV(16,32) ,  ANIMS(UV(0,0))      )
+    ENTITY(PEASANT,  <span class="org-string">"Peasant"</span>,   60,   <span class="org-string">"npcs.png"</span>,      UV(16,16) ,  ANIMS(UV(0,0))      )
+    ENTITY(PRINCESS, <span class="org-string">"Princess"</span>,  80,   <span class="org-string">"npcs.png"</span>,      UV(64,16) ,  ANIMS(UV(0,0))      )
+    ENTITY(GOBLIN,   <span class="org-string">"Goblin"</span>,    30,   <span class="org-string">"enemies.png"</span>,   UV(32,32) ,  ANIMS(UV(0,0))      )
+};
+<span class="org-preprocessor">#undef</span> ENTITY
+
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">animation_t</span> { <span class="org-type">int</span> <span class="org-variable-name">uv</span>[2][4]; } <span class="org-type">animation_t</span>;
+<span class="org-preprocessor">#define</span> <span class="org-function-name">ENTITY</span>(<span class="org-variable-name">type</span>, <span class="org-variable-name">name</span>, <span class="org-variable-name">hp</span>, <span class="org-variable-name">tex_file</span>, <span class="org-variable-name">tex_coords</span>, <span class="org-variable-name">animations</span>) animations ,
+<span class="org-type">animation_t</span> <span class="org-variable-name">entity_animation_table</span>[5][1] =
+{
+    <span class="org-comment-delimiter">//</span><span class="org-comment">#include "entity_table.h"</span>
+    <span class="org-comment-delimiter">////     </span><span class="org-comment">Type      Name         HP    texture_file     tex_coords  animations</span>
+    <span class="org-comment-delimiter">//</span><span class="org-comment">#define UV(u,v) {u, v}</span>
+    <span class="org-comment-delimiter">//</span><span class="org-comment">#define ANIMS(...) {__VA_ARGS__}</span>
+    <span class="org-comment-delimiter">//</span><span class="org-comment">ENTITY(HERO,     "Hero",     100,   "hero.png",      UV(0,0) ,    ANIMS(UV(16,0))  )</span>
+    <span class="org-comment-delimiter">//</span><span class="org-comment">ENTITY(MONSTER,  "Monster",   40,   "enemies.png",   UV(16,32) ,  ANIMS(UV(0,0))      )</span>
+    <span class="org-comment-delimiter">//</span><span class="org-comment">ENTITY(PEASANT,  "Peasant",   60,   "npcs.png",      UV(16,16) ,  ANIMS(UV(0,0))      )</span>
+    <span class="org-comment-delimiter">//</span><span class="org-comment">ENTITY(PRINCESS, "Princess",  80,   "npcs.png",      UV(64,16) ,  ANIMS(UV(0,0))      )</span>
+    <span class="org-comment-delimiter">//</span><span class="org-comment">ENTITY(GOBLIN,   "Goblin",    30,   "enemies.png",   UV(32,32) ,  ANIMS(UV(0,0))      )</span>
+    {{16,0}}, {{0,0}}, {{0,0}}, {{0,0}}, {{0,0}}
+};
+<span class="org-preprocessor">#undef</span> ENTITY
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>()
+{
+    <span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; ENTITY_TYPE_COUNT; i++)
+    {
+        printf(<span class="org-string">"%i: %s has %i HP and it's UVs at (%i,%i).\n"</span>, i, entity_names[i], entity_hp_table[i], entity_tex_coords[i][0], entity_tex_coords[i][1]);
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">for (int j = 0; j &lt; sizeof(entity_animation_table[i]); j++)</span><span class="org-comment-delimiter"> */</span>
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">{</span><span class="org-comment-delimiter"> */</span>
+        <span class="org-comment-delimiter">/*     </span><span class="org-comment">//printf("    Animation data:", entity_animation_table[i][j] );</span><span class="org-comment-delimiter"> */</span>
+        <span class="org-comment-delimiter">/*     </span><span class="org-comment">int* uv = entity_animation_table[i][j].uv[0];</span><span class="org-comment-delimiter"> */</span>
+        <span class="org-comment-delimiter">/*     </span><span class="org-comment">printf("%i %i", uv[0], uv[1]);</span><span class="org-comment-delimiter"> */</span>
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">}</span><span class="org-comment-delimiter"> */</span>
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">printf("\n");</span><span class="org-comment-delimiter"> */</span>
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org856688d" class="outline-2">
+<h2 id="org856688d"><a href="#org856688d">DLL Function Loading Example</a></h2>
+<div class="outline-text-2" id="text-org856688d">
+<p>
+Load functions from a DLL without repeating yourself
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">declare all functions to be loaded from dll</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">DLL_FUNCTION_TABLE</span>(<span class="org-variable-name">X</span>)              \
+    X(<span class="org-type">int</span>,  on_load,   <span class="org-type">state_t</span>**)          \
+    X(<span class="org-type">int</span>,  on_reload, <span class="org-type">state_t</span>*)           \
+    X(<span class="org-type">void</span>, on_update, <span class="org-type">state_t</span>*, <span class="org-type">float</span> <span class="org-variable-name">dt</span>)
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">declare function prototypes</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">dll_t</span> {
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">DLL_FUNCTIONS</span>(<span class="org-variable-name">ret</span>,<span class="org-variable-name">func</span>,...) ret (*func)(__VA_ARGS__);
+    <span class="org-function-name">DLL_TABLE</span>(DLL_FUNCTIONS)
+
+    <span class="org-type">void</span>* <span class="org-variable-name">handle</span>;
+    <span class="org-type">time_t</span> <span class="org-variable-name">last_mod</span>;
+    <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">file</span>;
+} <span class="org-type">dll_t</span>;
+
+<span class="org-type">int</span> <span class="org-function-name">platform_load_code</span>(<span class="org-type">dll_t</span>* <span class="org-variable-name">dll</span>) {
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">unload old dll</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-keyword">if</span> (dll-&gt;handle) {
+        <span class="org-comment-delimiter">/* </span><span class="org-comment">reset all to null</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">        #define</span> <span class="org-function-name">SET_TO_NULL</span>(<span class="org-variable-name">ret</span>, <span class="org-variable-name">func</span>, ...) dll-&gt;func = <span class="org-constant">NULL</span>;
+        DLL_TABLE(SET_TO_NULL)
+        dll_unload(dll-&gt;handle);
+        dll-&gt;handle = <span class="org-constant">NULL</span>;
+    }
+
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">load dll functions (and print out any not found)</span><span class="org-comment-delimiter"> */</span>
+    dll-&gt;handle = dll_load(dll-&gt;file);
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">LOAD_FUNCTION</span>(<span class="org-variable-name">ret</span>, <span class="org-variable-name">func</span>, ...)                                        \
+        dll-&gt;func = (<span class="org-type">ret</span> (*)(__VA_ARGS__)) SDL_LoadFunction(dll-&gt;handle, #func); \
+        <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>dll-&gt;func) { printf(<span class="org-string">"Error finding function: %s\n"</span>, #func); }
+    DLL_TABLE(LOAD_FUNCTION)
+
+    <span class="org-keyword">return</span> 1;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org089f8ec" class="outline-2">
+<h2 id="org089f8ec"><a href="#org089f8ec">Localization Example</a></h2>
+<div class="outline-text-2" id="text-org089f8ec">
+<p>
+Idea: Write out a valid C file containing language definitions and localized
+strings that can masquerade as a <code>.csv</code> file:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C" id="loc.csv"><span class="org-preprocessor">#define</span> <span class="org-function-name">LOCALIZATION</span>(<span class="org-variable-name">X</span>) <span class="org-comment-delimiter">/* </span><span class="org-comment">string_id ,</span><span class="org-comment-delimiter">*/</span> LANGUAGE(EN)           <span class="org-comment-delimiter">/*</span><span class="org-comment">,</span><span class="org-comment-delimiter">*/</span>   LANGUAGE(DE)       <span class="org-comment-delimiter">/*</span><span class="org-comment">,</span><span class="org-comment-delimiter">*/</span>  LANGUAGE(FR)  <span class="org-comment-delimiter">/*</span><span class="org-comment">,</span><span class="org-comment-delimiter">*/</span> LANGUAGE(CH) <span class="org-comment-delimiter">/*</span><span class="org-comment">,</span><span class="org-comment-delimiter">*/</span> LANGUAGE(COUNT)\
+X(STRING_HELLO,                          <span class="org-string">"Hello there"</span>            ,     <span class="org-string">"Hey du"</span>             ,    <span class="org-string">"Bonjour"</span>       ,   <span class="org-string">""</span>             ,                 )\
+X(STRING_BYE,                            <span class="org-string">"Goodbye"</span>                ,     <span class="org-string">"Tschau"</span>             ,    <span class="org-string">"Au revoir"</span>     ,   <span class="org-string">""</span>             ,                 )\
+X(STRING_TEST,                           <span class="org-string">"This is a test string"</span>  ,     <span class="org-string">"Dies ist ein Test"</span>  ,    <span class="org-string">"C&#8217;est un test"</span> ,   <span class="org-string">""</span>             ,                 )\
+X(STRING_HERE,                           <span class="org-string">"here"</span>                   ,     <span class="org-string">"Hier"</span>               ,    <span class="org-string">"ici"</span>           ,   <span class="org-string">"&#20351;&#29992;&#30340;&#37117;&#26159;"</span>   ,    <span class="org-string">"..."</span>        , )\
+X(STRING_END,                            <span class="org-string">"End"</span>                    ,     <span class="org-string">"Ende"</span>               ,    <span class="org-string">"Fin"</span>           ,   <span class="org-string">""</span>             ,    <span class="org-string">"???"</span>        , )
+</pre>
+</div>
+
+<p>
+Usage code looks like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">//</span><span class="org-comment">#include "loc.csv"</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">LOCALIZATION</span>(<span class="org-variable-name">X</span>) <span class="org-comment-delimiter">/* </span><span class="org-comment">string_id ,</span><span class="org-comment-delimiter">*/</span> LANGUAGE(EN)           <span class="org-comment-delimiter">/*</span><span class="org-comment">,</span><span class="org-comment-delimiter">*/</span>   LANGUAGE(DE)       <span class="org-comment-delimiter">/*</span><span class="org-comment">,</span><span class="org-comment-delimiter">*/</span>  LANGUAGE(FR)  <span class="org-comment-delimiter">/*</span><span class="org-comment">,</span><span class="org-comment-delimiter">*/</span> LANGUAGE(CH) <span class="org-comment-delimiter">/*</span><span class="org-comment">,</span><span class="org-comment-delimiter">*/</span> LANGUAGE(COUNT)\
+X(STRING_HELLO,                          <span class="org-string">"Hello there"</span>            ,     <span class="org-string">"Hey du"</span>             ,    <span class="org-string">"Bonjour"</span>       ,   <span class="org-string">""</span>             ,                 )\
+X(STRING_BYE,                            <span class="org-string">"Goodbye"</span>                ,     <span class="org-string">"Tschau"</span>             ,    <span class="org-string">"Au revoir"</span>     ,   <span class="org-string">""</span>             ,                 )\
+X(STRING_TEST,                           <span class="org-string">"This is a test string"</span>  ,     <span class="org-string">"Dies ist ein Test"</span>  ,    <span class="org-string">"C&#8217;est un test"</span> ,   <span class="org-string">""</span>             ,                 )\
+X(STRING_HERE,                           <span class="org-string">"here"</span>                   ,     <span class="org-string">"Hier"</span>               ,    <span class="org-string">"ici"</span>           ,   <span class="org-string">"&#20351;&#29992;&#30340;&#37117;&#26159;"</span>   ,    <span class="org-string">"..."</span>        , )\
+X(STRING_END,                            <span class="org-string">"End"</span>                    ,     <span class="org-string">"Ende"</span>               ,    <span class="org-string">"Fin"</span>           ,   <span class="org-string">""</span>             ,    <span class="org-string">"???"</span>        , )
+
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">PLAYER_NAME</span> <span class="org-string">"Thomas"</span>
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">LANGUAGE</span>(<span class="org-variable-name">lang</span>) LANGUAGE_##lang,
+<span class="org-preprocessor">#define</span> <span class="org-function-name">EXPAND_TO_NOTHING</span>(...)
+<span class="org-keyword">enum</span> {
+  <span class="org-function-name">LOCALIZATION</span>(EXPAND_TO_NOTHING)
+};
+<span class="org-preprocessor">#undef</span> LANGUAGE
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">LANGUAGE</span>(<span class="org-variable-name">lang</span>) <span class="org-keyword">case</span> LANGUAGE_##lang : <span class="org-keyword">return</span> #lang ;
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-function-name">language_to_string</span>(<span class="org-type">int</span> <span class="org-variable-name">language_id</span>)
+{
+    <span class="org-keyword">switch</span>(language_id)
+    {
+        LOCALIZATION(EXPAND_TO_NOTHING)
+        <span class="org-keyword">default</span>: <span class="org-keyword">return</span> <span class="org-string">"Unknown Language"</span>;
+    }
+}
+<span class="org-preprocessor">#undef</span> LANGUAGE
+<span class="org-preprocessor">#define</span> <span class="org-function-name">LANGUAGE</span>(<span class="org-variable-name">lang</span>) <span class="org-comment-delimiter">// </span><span class="org-comment">NOTE: define to nothing needed</span>
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">EXPAND_ID</span>(<span class="org-variable-name">id</span>, <span class="org-variable-name">en</span>, <span class="org-variable-name">de</span>, <span class="org-variable-name">fr</span>, ...) id,
+<span class="org-keyword">enum</span> {
+  <span class="org-function-name">LOCALIZATION</span>(EXPAND_ID)
+  STRING_ID_COUNT
+};
+
+<span class="org-keyword">extern</span> <span class="org-type">int</span> <span class="org-variable-name">language</span>;
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">NOTE: update this macro when adding new languages</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">EXPAND_STRING</span>(<span class="org-variable-name">id</span>, <span class="org-variable-name">en</span>, <span class="org-variable-name">de</span>, <span class="org-variable-name">fr</span>, <span class="org-variable-name">ch</span>, ...) <span class="org-keyword">case</span> id : <span class="org-keyword">switch</span> (language) { <span class="org-keyword">case</span> (LANGUAGE_EN) : <span class="org-keyword">return</span> en; <span class="org-keyword">case</span> (LANGUAGE_DE) : <span class="org-keyword">return</span> de; <span class="org-keyword">case</span> (LANGUAGE_FR) : <span class="org-keyword">return</span> fr; <span class="org-keyword">case</span> (LANGUAGE_CH) : <span class="org-keyword">return</span> ch; };
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-function-name">loc_str</span>(<span class="org-type">int</span> <span class="org-variable-name">string_id</span>)
+{
+    <span class="org-keyword">switch</span>(string_id)
+    {
+        LOCALIZATION(EXPAND_STRING);
+        <span class="org-keyword">default</span> : <span class="org-keyword">return</span> <span class="org-string">"Unknown string id!\n"</span>;
+    }
+}
+
+<span class="org-comment-delimiter">//</span><span class="org-comment">#define S(s) #s</span>
+<span class="org-comment-delimiter">//</span><span class="org-comment">const char* str = S("Hello there");</span>
+
+<span class="org-type">int</span> <span class="org-variable-name">language</span>;
+
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+<span class="org-type">int</span> <span class="org-function-name">main</span> ()
+{
+  <span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; STRING_ID_COUNT; i++)
+  {
+      <span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">j</span> = 0; j &lt; LANGUAGE_COUNT; j++)
+      {
+          language = j;
+          printf(<span class="org-string">"%s: "</span>, language_to_string(language));
+          printf(<span class="org-string">"%s "</span>, loc_str(i));
+          printf(<span class="org-string">"\n"</span>);
+      }
+      printf(<span class="org-string">"\n"</span>);
+  }
+}
+</pre>
+</div>
+
+<p>
+Translators can open <code>loc.csv</code> in a spreadsheet editor (or normal text editor) and
+translate the string for every row into their language - without having to know
+any C syntax. They can even add new languages (meaning new columns) to the csv
+without breaking things - this might, however, require some knowledge about the
+syntax to not break things.
+</p>
+
+<p>
+N.B.: Even though we bake the pseudo-CSV into the executable, this supports
+changing the language at runtime.
+</p>
+
+<p>
+Drawbacks:
+</p>
+<ul class="org-ul">
+<li>They can't see their translations in-game without being able to recompile</li>
+<li>The file doesn't look as pretty in a spreadsheet editor as in a text editor.</li>
+<li>Conversely, if you make it look in the spreadsheet editor, it will look bad as
+C code.</li>
+<li>Newly added languages require manual changes to the <code>EXPAND_STRING</code> macro.
+However, you could just add a column for every language of interest once and
+avoid this drawback completely.</li>
+<li>Every string they add needs to be in valid double quotes</li>
+<li>Some options need to be set/changed for their spreadsheet editor (e.g., the
+editor might use curly quotes <code>“</code> when typing in <code>"</code> by default)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge25cf02" class="outline-2">
+<h2 id="orge25cf02"><a href="#orge25cf02">Introspection Example</a></h2>
+<div class="outline-text-2" id="text-orge25cf02">
+<p>
+Idea: format a struct definition as an X-Macro table and use its fields to
+generate a type info array and a printing function for the struct.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#if</span> <span class="org-negation-char">!</span><span class="org-preprocessor">defined</span>(_MSC_VER)
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">OFFSET_OF</span>(<span class="org-variable-name">type</span>, <span class="org-variable-name">member</span>) __builtin_offsetof(type, member)
+<span class="org-preprocessor">#else</span>
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">OFFSET_OF</span>(<span class="org-variable-name">s</span>,<span class="org-variable-name">m</span>) ((<span class="org-type">size_t</span>)&amp;(((<span class="org-type">s</span>*)0)-&gt;m))
+<span class="org-preprocessor">#endif</span>
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">struct definitions using X-macros</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">FILL_FIELDS</span>(<span class="org-variable-name">b</span>,<span class="org-variable-name">c</span>,<span class="org-variable-name">d</span>, ...) b <span class="org-type">c</span> <span class="org-variable-name">d</span>;
+<span class="org-preprocessor">#define</span> <span class="org-function-name">STRUCT_NAME_START</span>(<span class="org-variable-name">name</span>) <span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">name</span> {
+<span class="org-preprocessor">#define</span> <span class="org-function-name">STRUCT_NAME_END</span>(<span class="org-variable-name">name</span>)   } name
+<span class="org-preprocessor">#define</span> <span class="org-function-name">STRUCT</span>(<span class="org-variable-name">name</span>) STRUCT_NAME_START(name) name(FILL_FIELDS) STRUCT_NAME_END(name)
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">array containing serializing data using X-macros</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">meta_struct_t</span> {
+    <span class="org-type">size_t</span> <span class="org-variable-name">offset</span>;
+    <span class="org-type">size_t</span> <span class="org-variable-name">size</span>;
+    <span class="org-keyword">const</span> <span class="org-type">char</span>*  <span class="org-variable-name">name</span>;
+    <span class="org-keyword">const</span> <span class="org-type">char</span>*  <span class="org-variable-name">type</span>;
+} <span class="org-type">meta_struct_t</span>;
+<span class="org-preprocessor">#define</span> <span class="org-function-name">create_print_function</span>(<span class="org-variable-name">struct_name</span>)                                                   \
+  <span class="org-type">void</span> <span class="org-variable-name">struct_name</span>##_print_info( struct_name foo) {                                          \
+    <span class="org-type">int</span> <span class="org-variable-name">member_count</span> = (<span class="org-keyword">sizeof</span>(struct_name##_type_info)/<span class="org-keyword">sizeof</span>(struct_name##_type_info[0])); \
+    printf(<span class="org-string">"member count of %s: %i \n"</span>, #struct_name, member_count);                         \
+    <span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; member_count; i++) {                                                 \
+        printf(<span class="org-string">"   member %s:\n"</span>,        struct_name##_type_info[i].name);                     \
+        printf(<span class="org-string">"      offset: %zu  \n"</span>,  struct_name##_type_info[i].offset );                  \
+        printf(<span class="org-string">"      size:   %zu  \n"</span>,  struct_name##_type_info[i].size );                    \
+        printf(<span class="org-string">"      type:   %s   \n"</span>,  struct_name##_type_info[i].type );                    \
+      <span class="org-comment-delimiter">/*</span><span class="org-comment">printf("      value:  %.*s \n",  struct_name##_type_info[i].size,</span><span class="org-comment-delimiter">  */</span>                  \
+                                     <span class="org-comment-delimiter">/*</span><span class="org-comment">((char*) &amp;foo) + struct_name##_type_info[i].offset);</span><span class="org-comment-delimiter">*/</span>  \
+    }                                                                                          \
+  }
+<span class="org-preprocessor">#define</span> <span class="org-function-name">META_MEMBER</span>(<span class="org-variable-name">b</span>,<span class="org-variable-name">c</span>,<span class="org-variable-name">d</span>,...) { OFFSET_OF(__VA_ARGS__, c) , <span class="org-keyword">sizeof</span>(b), #c, #b#d },  <span class="org-comment-delimiter">// </span><span class="org-comment">NOTE workaround</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">META</span>(<span class="org-variable-name">name</span>) meta_struct_t name##_type_info[] =  { name(META_MEMBER, name) }; create_print_function(name)
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">usage code</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">entity_t</span>(<span class="org-variable-name">X</span>, ...)          \
+  X(<span class="org-type">char</span>*, name,   , __VA_ARGS__) \
+  X(<span class="org-type">int</span>,   hp,     , __VA_ARGS__) \
+  X(<span class="org-type">float</span>, x_pos,  , __VA_ARGS__)
+<span class="org-function-name">STRUCT</span>(<span class="org-type">entity_t</span>);
+<span class="org-function-name">META</span>(<span class="org-type">entity_t</span>);
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">thing_t</span>(<span class="org-variable-name">X</span>, ...)                 \
+  X(<span class="org-type">int</span>,        foo ,    , __VA_ARGS__) \
+  X(<span class="org-type">float</span>,      bar ,    , __VA_ARGS__) \
+  X(<span class="org-type">char</span>,       baz , [4], __VA_ARGS__) \
+  X(entity_t,   ent ,    , __VA_ARGS__)
+<span class="org-function-name">STRUCT</span>(<span class="org-type">thing_t</span>);
+<span class="org-function-name">META</span>(<span class="org-type">thing_t</span>);
+
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+<span class="org-type">int</span> <span class="org-function-name">main</span>() {
+    <span class="org-type">thing_t</span> <span class="org-variable-name">thing</span> = { 1, 5, <span class="org-string">"ab\0"</span> };
+    printf(<span class="org-string">"%i %f %s\n"</span>, thing.foo, thing.bar, thing.baz);
+
+    <span class="org-type">entity_t</span> <span class="org-variable-name">entity</span> = {<span class="org-string">"monster"</span>, 100, 2.4f};
+
+    thing_t_print_info(thing);
+    entity_t_print_info(entity);
+}
+</pre>
+</div>
+
+<p>
+Drawbacks:
+</p>
+<ul class="org-ul">
+<li>You now have to write out or change every struct definition to an X-Macro
+table if you wish to introspect it.</li>
+<li>Surprisingly, some editor features such as jump-to-definition should still
+work, since <code>struct_name_t</code> is the identifier for both the macro and structure.
+So the editor jumps to where we defined our structure table.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9a3d89c" class="outline-2">
+<h2 id="org9a3d89c"><a href="#org9a3d89c">Serialization/Printing Example</a></h2>
+<div class="outline-text-2" id="text-org9a3d89c">
+<p>
+See
+</p>
+<ul class="org-ul">
+<li><a href="https://en.wikibooks.org/wiki/C_Programming/Serialization">https://en.wikibooks.org/wiki/C_Programming/Serialization</a></li>
+<li><a href="https://en.wikibooks.org/wiki/C_Programming/Preprocessor_directives_and_macros">https://en.wikibooks.org/wiki/C_Programming/Preprocessor_directives_and_macros</a></li>
+<li><a href="https://natecraun.net/articles/struct-iteration-through-abuse-of-the-c-preprocessor.html">https://natecraun.net/articles/struct-iteration-through-abuse-of-the-c-preprocessor.html</a></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">FILL_FIELDS</span>(<span class="org-variable-name">type</span>,<span class="org-variable-name">name</span>, ...) <span class="org-type">type</span> <span class="org-variable-name">name</span>;
+<span class="org-preprocessor">#define</span> <span class="org-function-name">STRUCT_NAME_START</span>(<span class="org-variable-name">name</span>) <span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">name</span> {
+<span class="org-preprocessor">#define</span> <span class="org-function-name">STRUCT_NAME_END</span>(<span class="org-variable-name">name</span>)   } name
+<span class="org-preprocessor">#define</span> <span class="org-function-name">STRUCT</span>(<span class="org-variable-name">name</span>) STRUCT_NAME_START(name) name(FILL_FIELDS) STRUCT_NAME_END(name)
+
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">entity_t</span> {
+  <span class="org-type">char</span> <span class="org-variable-name">foo</span>;
+  <span class="org-type">float</span> <span class="org-variable-name">bz</span>;
+} <span class="org-type">entity_t</span>;
+<span class="org-preprocessor">#define</span> <span class="org-function-name">entity_t</span>(<span class="org-variable-name">X</span>, ...) \
+  X(<span class="org-type">char</span>,  foo)              \
+  X(<span class="org-type">float</span>, bz)              \
+<span class="org-comment-delimiter">//</span><span class="org-comment">STRUCT(entity_t);</span>
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">state_t</span>(<span class="org-variable-name">X</span>, ...)  \
+  X(<span class="org-type">char</span>, foo)           \
+  X(entity_t, bz)            \
+  X(<span class="org-type">int</span>, baz)            \
+  X(<span class="org-type">char</span>, bar )
+<span class="org-function-name">STRUCT</span>(<span class="org-type">state_t</span>);
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">primitive_types</span>(<span class="org-variable-name">X</span>, ...)  \
+  X(<span class="org-type">char</span>,    )     \
+  X(<span class="org-type">float</span>,   )     \
+  X(<span class="org-type">int</span>,     )     \
+  X(<span class="org-type">char</span>,    )
+
+<span class="org-type">void</span> <span class="org-function-name">serialize_char</span>(<span class="org-type">char</span> <span class="org-variable-name">c</span>) {  printf(<span class="org-string">"%c "</span>, c); }
+<span class="org-type">void</span> <span class="org-function-name">serialize_float</span>(<span class="org-type">float</span> <span class="org-variable-name">f</span>) { printf(<span class="org-string">"%f "</span>, f); }
+<span class="org-type">void</span> <span class="org-function-name">serialize_int</span>(<span class="org-type">int</span> <span class="org-variable-name">i</span>) { printf(<span class="org-string">"%i "</span>, i); }
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">SERIALIZE</span>(<span class="org-variable-name">type</span>, <span class="org-variable-name">name</span>) serialize_##type(t.name);
+<span class="org-preprocessor">#define</span> <span class="org-function-name">GENERATE_SERIALIZE_FUNCTION</span>(<span class="org-variable-name">member</span>) \
+    <span class="org-type">void</span> <span class="org-variable-name">serialize_</span>##member(member t) \
+    {                                 \
+         member(SERIALIZE)            \
+    }
+
+<span class="org-function-name">GENERATE_SERIALIZE_FUNCTION</span>(<span class="org-type">entity_t</span>)
+<span class="org-function-name">GENERATE_SERIALIZE_FUNCTION</span>(<span class="org-type">state_t</span>)
+
+<span class="org-type">state_t</span> <span class="org-variable-name">test</span> = {<span class="org-string">'c'</span>, {<span class="org-string">'a'</span>, 4.2f}, 1337, <span class="org-string">'b'</span>};
+<span class="org-type">serialize_state_t</span>(<span class="org-variable-name">test</span>);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3472289" class="outline-2">
+<h2 id="org3472289"><a href="#org3472289">Expose variables for tweaking in UI or similar</a></h2>
+<div class="outline-text-2" id="text-org3472289">
+<p>
+Suppose you want to have a boolean variable that controls some functionality
+exposed via a UI, console, etc. so you can control it's value at runtime:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">code that uses the boolean for functionality</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">int</span> <span class="org-variable-name">kill_at_0_health</span> = 1;
+<span class="org-keyword">if</span>(kill_at_0_health)
+{
+   <span class="org-keyword">if</span>(entity-&gt;health &lt;= 0) { <span class="org-comment-delimiter">/* </span><span class="org-comment">kill entity</span><span class="org-comment-delimiter"> */</span> }
+}
+
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">code that wants to tweak the boolean (e.g. UI) will need access and a string and a default value for every boolean</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">extern</span> <span class="org-type">int</span> <span class="org-variable-name">kill_at_0_health</span>;
+<span class="org-type">int</span> <span class="org-variable-name">kill_at_0_health_default_value</span> = 1;
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">kill_at_0_health_string</span> = <span class="org-string">"kill_at_0_health_string"</span>;
+</pre>
+</div>
+
+<p>
+Instead of duplicating this code everywhere, consider defining an X-macro table
+that generates a global table that can be accessed via macros for both the usage
+code and UI code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">TWEAKABLE_BOOLS</span>(<span class="org-variable-name">X</span>) \
+    X(KILL_ENTITIES_AT_0_HEALTH,   <span class="org-string">"Kill entities at 0 health?"</span>,               1) \
+    X(UNLIMITED_AMMO,              <span class="org-string">"Unlimited ammo?"</span>,                          0)
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">enum value                  description string              default value</span><span class="org-comment-delimiter">*/</span>
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">FILL_ENUM</span>(<span class="org-variable-name">enum</span>,...) TWEAKABLE_BOOL_##<span class="org-keyword">enum</span>,
+<span class="org-keyword">enum</span>
+{
+    <span class="org-function-name">TWEAKABLE_BOOLS</span>(FILL_ENUM)
+    TWEAKABLE_BOOLS_COUNT
+};
+
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">tweakable_bool_t</span> { <span class="org-type">int</span> <span class="org-variable-name">bool</span>; <span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">description</span>; <span class="org-type">int</span> <span class="org-variable-name">default_value</span>; } <span class="org-type">tweakable_bool_t</span>;
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">FILL_TABLE</span>(<span class="org-variable-name">enum</span>,<span class="org-variable-name">description</span>,<span class="org-variable-name">default</span>) {<span class="org-keyword">default</span>, description},
+<span class="org-keyword">static</span> <span class="org-type">tweakable_bool_t</span> <span class="org-variable-name">g_tweakable_bool_table</span>[TWEAKABLE_BOOLS_COUNT] = {
+    TWEAKABLE_BOOLS(FILL_TABLE)
+};
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">tweakable_bool</span>(<span class="org-variable-name">name</span>) (g_tweakable_bool_table[TWEAKABLE_BOOL_##name].bool)
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">code that uses the boolean for functionality</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">if</span> (tweakable_bool(KILL_ENTITIES_AT_0_HEALTH)) { printf(<span class="org-string">"killed\n"</span>); }
+<span class="org-keyword">if</span> (tweakable_bool(UNLIMITED_AMMO)) { printf(<span class="org-string">"no\n"</span>); }
+</pre>
+</div>
+
+<p>
+Same thing could be done for tweakable floats:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">TWEAKABLE_FLOATS</span>(<span class="org-variable-name">X</span>) \  <span class="org-comment-delimiter">/* </span><span class="org-comment">description                     default    min    max</span><span class="org-comment-delimiter"> */</span>
+    <span class="org-function-name">X</span>(MAX_PLAYER_ATTACK_RANGE, <span class="org-string">"Max attack range for the player"</span>,   1.5f,    0.f,   3.f  )
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org46c0c48" class="outline-2">
+<h2 id="org46c0c48"><a href="#org46c0c48"><span class="todo TODO">TODO</span> Generating Stacks</a></h2>
+<div class="outline-text-2" id="text-org46c0c48">
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">define stack table</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_STACK_TABLE</span>(<span class="org-variable-name">X</span>) \
+ X(Parent,      <span class="org-type">UI_Box</span>*,     &amp;ui_g_nil_box ) \
+ X(Flags,       UI_BoxFlags,             0 ) \
+ X(FixedX,      <span class="org-type">float</span>,                   0 ) \
+ X(FixedY,      <span class="org-type">float</span>,                   0 )
+ <span class="org-comment-delimiter">/* </span><span class="org-comment">name       type          default</span><span class="org-comment-delimiter">     */</span>
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">declare stack node types</span><span class="org-comment-delimiter"> */</span>
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">UI_ParentNode</span> <span class="org-type">UI_ParentNode</span>; <span class="org-keyword">struct</span> <span class="org-type">UI_ParentNode</span>{<span class="org-type">UI_ParentNode</span> *<span class="org-variable-name">next</span>; <span class="org-type">UI_Box</span> * <span class="org-variable-name">v</span>;};
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">UI_FlagsNode</span> <span class="org-type">UI_FlagsNode</span>; <span class="org-keyword">struct</span> <span class="org-type">UI_FlagsNode</span>{<span class="org-type">UI_FlagsNode</span> *<span class="org-variable-name">next</span>; <span class="org-type">UI_BoxFlags</span> <span class="org-variable-name">v</span>;};
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">UI_FixedXNode</span> <span class="org-type">UI_FixedXNode</span>; <span class="org-keyword">struct</span> <span class="org-type">UI_FixedXNode</span>{<span class="org-type">UI_FixedXNode</span> *<span class="org-variable-name">next</span>; <span class="org-type">F32</span> <span class="org-variable-name">v</span>;};
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">UI_FixedYNode</span> <span class="org-type">UI_FixedYNode</span>; <span class="org-keyword">struct</span> <span class="org-type">UI_FixedYNode</span>{<span class="org-type">UI_FixedYNode</span> *<span class="org-variable-name">next</span>; <span class="org-type">F32</span> <span class="org-variable-name">v</span>;};
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">macro to declare all default stack tops</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">UI_DeclStackNils</span> \
+  <span class="org-keyword">struct</span> { \
+    <span class="org-type">UI_ParentNode</span> <span class="org-variable-name">parent_nil_stack_top</span>;\
+    <span class="org-type">UI_FlagsNode</span> <span class="org-variable-name">flags_nil_stack_top</span>;\
+    <span class="org-type">UI_FixedXNode</span> <span class="org-variable-name">fixed_x_nil_stack_top</span>;\
+    <span class="org-type">UI_FixedYNode</span> <span class="org-variable-name">fixed_y_nil_stack_top</span>;\
+  }
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">macro to initialize all stack tops to their default values</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_InitStackNils</span>(<span class="org-variable-name">state</span>) \
+    state-&gt;parent_nil_stack_top.v = &amp;ui_g_nil_box;\
+    state-&gt;flags_nil_stack_top.v = 0;\
+    state-&gt;fixed_x_nil_stack_top.v = 0;\
+    state-&gt;fixed_y_nil_stack_top.v = 0;
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">macro to declare all stack nodes &amp; free lists</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">UI_DeclStacks</span> \
+  <span class="org-keyword">struct</span> {\
+    <span class="org-keyword">struct</span> { <span class="org-type">UI_ParentNode</span> *<span class="org-variable-name">top</span>; <span class="org-type">UI_ParentNode</span> *<span class="org-variable-name">free</span>; <span class="org-type">B32</span> <span class="org-variable-name">auto_pop</span>; } <span class="org-variable-name">parent_stack</span>;\
+    <span class="org-keyword">struct</span> { <span class="org-type">UI_FlagsNode</span> *<span class="org-variable-name">top</span>; <span class="org-type">UI_FlagsNode</span> *<span class="org-variable-name">free</span>; <span class="org-type">B32</span> <span class="org-variable-name">auto_pop</span>; } <span class="org-variable-name">flags_stack</span>;\
+    <span class="org-keyword">struct</span> { <span class="org-type">UI_FixedXNode</span> *<span class="org-variable-name">top</span>; <span class="org-type">UI_FixedXNode</span> *<span class="org-variable-name">free</span>; <span class="org-type">B32</span> <span class="org-variable-name">auto_pop</span>; } <span class="org-variable-name">fixed_x_stack</span>;\
+    <span class="org-keyword">struct</span> { <span class="org-type">UI_FixedYNode</span> *<span class="org-variable-name">top</span>; <span class="org-type">UI_FixedYNode</span> *<span class="org-variable-name">free</span>; <span class="org-type">B32</span> <span class="org-variable-name">auto_pop</span>; } <span class="org-variable-name">fixed_y_stack</span>;\
+  }
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">macro to init all stack nodes</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_InitStacks</span>(<span class="org-variable-name">state</span>) \
+  state-&gt;parent_stack.top = &amp;state-&gt;parent_nil_stack_top; state-&gt;parent_stack.free = 0; state-&gt;parent_stack.auto_pop = 0;\
+  state-&gt;flags_stack.top = &amp;state-&gt;flags_nil_stack_top; state-&gt;flags_stack.free = 0; state-&gt;flags_stack.auto_pop = 0;\
+  state-&gt;fixed_x_stack.top = &amp;state-&gt;fixed_x_nil_stack_top; state-&gt;fixed_x_stack.free = 0; state-&gt;fixed_x_stack.auto_pop = 0;\
+  state-&gt;fixed_y_stack.top = &amp;state-&gt;fixed_y_nil_stack_top; state-&gt;fixed_y_stack.free = 0; state-&gt;fixed_y_stack.auto_pop = 0;
+
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">macro to auto-pop all stacks</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_AutoPopStacks</span>(<span class="org-variable-name">state</span>) \
+  <span class="org-keyword">if</span>(state-&gt;parent_stack.auto_pop) { UI_PopParent(); state-&gt;parent_stack.auto_pop = 0; }\
+  <span class="org-keyword">if</span>(state-&gt;flags_stack.auto_pop) { UI_PopFlags(); state-&gt;flags_stack.auto_pop = 0; }\
+  <span class="org-keyword">if</span>(state-&gt;fixed_x_stack.auto_pop) { UI_PopFixedX(); state-&gt;fixed_x_stack.auto_pop = 0; }\
+  <span class="org-keyword">if</span>(state-&gt;fixed_y_stack.auto_pop) { UI_PopFixedY(); state-&gt;fixed_y_stack.auto_pop = 0; }
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">decls for the stack function operation headers</span><span class="org-comment-delimiter"> */</span>
+<span class="org-type">UI_Box</span> *     <span class="org-function-name">UI_TopParent</span>(<span class="org-type">void</span>);
+<span class="org-type">UI_BoxFlags</span>  <span class="org-function-name">UI_TopFlags</span>(<span class="org-type">void</span>);
+<span class="org-type">F32</span>          <span class="org-function-name">UI_TopFixedX</span>(<span class="org-type">void</span>);
+<span class="org-type">F32</span>          <span class="org-function-name">UI_TopFixedY</span>(<span class="org-type">void</span>);
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">defer-loop helpers TODO can't be done with x-macro</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_Parent</span>(<span class="org-variable-name">v</span>) DeferLoop(UI_PushParent(v), UI_PopParent())
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_Flags</span>(<span class="org-variable-name">v</span>) DeferLoop(UI_PushFlags(v), UI_PopFlags())
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_FixedX</span>(<span class="org-variable-name">v</span>) DeferLoop(UI_PushFixedX(v), UI_PopFixedX())
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_FixedY</span>(<span class="org-variable-name">v</span>) DeferLoop(UI_PushFixedY(v), UI_PopFixedY())
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">generic stack operation definitions before generating functions</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_StackTopImpl</span>(<span class="org-variable-name">state</span>, <span class="org-variable-name">name_upper</span>, <span class="org-variable-name">name_lower</span>) <span class="org-keyword">return</span> state-&gt;name_lower##_stack.top-&gt;v;
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_StackPushImpl</span>(<span class="org-variable-name">state</span>, <span class="org-variable-name">name_upper</span>, <span class="org-variable-name">name_lower</span>, <span class="org-variable-name">type</span>, <span class="org-variable-name">new_value</span>) \
+  UI_##name_upper##Node *node = state-&gt;name_lower##_stack.free;\
+  <span class="org-keyword">if</span>(node != 0) {StackPop(state-&gt;name_lower##_stack.free);}\
+  <span class="org-keyword">else</span> {node = PushArray(UI_FrameArena(), UI_##name_upper##Node, 1);}\
+  <span class="org-type">type</span> <span class="org-variable-name">old_value</span> = state-&gt;name_lower##_stack.top-&gt;v;\
+  node-&gt;v = new_value;\
+  StackPush(state-&gt;name_lower##_stack.top, node);\
+  state-&gt;name_lower##_stack.auto_pop = 0;\
+  <span class="org-keyword">return</span> old_value;
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_StackPopImpl</span>(<span class="org-variable-name">state</span>, <span class="org-variable-name">name_upper</span>, <span class="org-variable-name">name_lower</span>) \
+  UI_##name_upper##Node *popped = state-&gt;name_lower##_stack.top;\
+  <span class="org-keyword">if</span>(popped != &amp;state-&gt;name_lower##_nil_stack_top) {\
+    StackPop(state-&gt;name_lower##_stack.top);\
+    StackPush(state-&gt;name_lower##_stack.free, popped);\
+    state-&gt;name_lower##_stack.auto_pop = 0;\
+  }\
+  <span class="org-keyword">return</span> popped-&gt;v;
+<span class="org-preprocessor">#define</span> <span class="org-function-name">UI_StackSetNextImpl</span>(<span class="org-variable-name">state</span>, <span class="org-variable-name">name_upper</span>, <span class="org-variable-name">name_lower</span>, <span class="org-variable-name">type</span>, <span class="org-variable-name">new_value</span>) \
+  UI_##name_upper##Node *node = state-&gt;name_lower##_stack.free;\
+  <span class="org-keyword">if</span>(node != 0) {StackPop(state-&gt;name_lower##_stack.free);}\
+  <span class="org-keyword">else</span> {node = PushArray(UI_FrameArena(), UI_##name_upper##Node, 1);}\
+  <span class="org-type">type</span> <span class="org-variable-name">old_value</span> = state-&gt;name_lower##_stack.top-&gt;v;\
+  node-&gt;v = new_value;\
+  StackPush(state-&gt;name_lower##_stack.top, node);\
+  state-&gt;name_lower##_stack.auto_pop = 1;\
+  <span class="org-keyword">return</span> old_value;
+
+<span class="org-comment-delimiter">/* </span><span class="org-comment">decls for the stack operation implementations (top,push,pop,setnext)</span><span class="org-comment-delimiter"> */</span>
+root_function <span class="org-type">UI_Box</span> * <span class="org-function-name">UI_TopParent</span>(<span class="org-type">void</span>) { UI_StackTopImpl(ui_state, Parent, parent) }
+root_function <span class="org-type">UI_BoxFlags</span> <span class="org-function-name">UI_TopFlags</span>(<span class="org-type">void</span>) { UI_StackTopImpl(ui_state, Flags, flags) }
+root_function <span class="org-type">F32</span> <span class="org-function-name">UI_TopFixedX</span>(<span class="org-type">void</span>) { UI_StackTopImpl(ui_state, FixedX, fixed_x) }
+root_function <span class="org-type">F32</span> <span class="org-function-name">UI_TopFixedY</span>(<span class="org-type">void</span>) { UI_StackTopImpl(ui_state, FixedY, fixed_y) }
+
+root_function <span class="org-type">UI_Box</span> * <span class="org-function-name">UI_PushParent</span>(<span class="org-type">UI_Box</span> * <span class="org-variable-name">v</span>) { UI_StackPushImpl(ui_state, Parent, parent, <span class="org-type">UI_Box</span> *, v) }
+root_function <span class="org-type">UI_BoxFlags</span> <span class="org-function-name">UI_PushFlags</span>(<span class="org-type">UI_BoxFlags</span> <span class="org-variable-name">v</span>) { UI_StackPushImpl(ui_state, Flags, flags, UI_BoxFlags, v) }
+root_function <span class="org-type">F32</span> <span class="org-function-name">UI_PushFixedX</span>(<span class="org-type">F32</span> <span class="org-variable-name">v</span>) { UI_StackPushImpl(ui_state, FixedX, fixed_x, F32, v) }
+root_function <span class="org-type">F32</span> <span class="org-function-name">UI_PushFixedY</span>(<span class="org-type">F32</span> <span class="org-variable-name">v</span>) { UI_StackPushImpl(ui_state, FixedY, fixed_y, F32, v) }
+
+root_function <span class="org-type">UI_Box</span> * <span class="org-function-name">UI_PopParent</span>(<span class="org-type">void</span>) { UI_StackPopImpl(ui_state, Parent, parent) }
+root_function <span class="org-type">UI_BoxFlags</span> <span class="org-function-name">UI_PopFlags</span>(<span class="org-type">void</span>) { UI_StackPopImpl(ui_state, Flags, flags) }
+root_function <span class="org-type">F32</span> <span class="org-function-name">UI_PopFixedX</span>(<span class="org-type">void</span>) { UI_StackPopImpl(ui_state, FixedX, fixed_x) }
+root_function <span class="org-type">F32</span> <span class="org-function-name">UI_PopFixedY</span>(<span class="org-type">void</span>) { UI_StackPopImpl(ui_state, FixedY, fixed_y) }
+
+root_function <span class="org-type">UI_Box</span> * <span class="org-function-name">UI_SetNextParent</span>(<span class="org-type">UI_Box</span> * <span class="org-variable-name">v</span>) { UI_StackSetNextImpl(ui_state, Parent, parent, <span class="org-type">UI_Box</span> *, v) }
+root_function <span class="org-type">UI_BoxFlags</span> <span class="org-function-name">UI_SetNextFlags</span>(<span class="org-type">UI_BoxFlags</span> <span class="org-variable-name">v</span>) { UI_StackSetNextImpl(ui_state, Flags, flags, UI_BoxFlags, v) }
+root_function <span class="org-type">F32</span> <span class="org-function-name">UI_SetNextFixedX</span>(<span class="org-type">F32</span> <span class="org-variable-name">v</span>) { UI_StackSetNextImpl(ui_state, FixedX, fixed_x, F32, v) }
+root_function <span class="org-type">F32</span> <span class="org-function-name">UI_SetNextFixedY</span>(<span class="org-type">F32</span> <span class="org-variable-name">v</span>) { UI_StackSetNextImpl(ui_state, FixedY, fixed_y, F32, v) }
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-no-undefs" class="outline-2">
+<h2 id="no-undefs"><a href="#no-undefs">Avoiding <code>#undef</code>'s</a></h2>
+<div class="outline-text-2" id="text-no-undefs">
+<p>
+see <a href="https://www.embedded.com/reduce-c-language-coding-errors-with-x-macros-part-1/">https://www.embedded.com/reduce-c-language-coding-errors-with-x-macros-part-1/</a>
+</p>
+
+<p>
+Instead of defining and then undefining the X-Macro everytime you use it, you
+can instead make the table accept an X-Macro as an argument:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">ENTITY_TABLE</span>(<span class="org-variable-name">X</span>) \
+    X(HERO,     <span class="org-string">"Hero"</span>,     100,   <span class="org-string">"hero.png"</span>    ) \
+    X(MONSTER,  <span class="org-string">"Monster"</span>,   40,   <span class="org-string">"enemies.png"</span> ) \
+    X(PEASANT,  <span class="org-string">"Peasant"</span>,   60,   <span class="org-string">"npcs.png"</span>    ) \
+    X(PRINCESS, <span class="org-string">"Princess"</span>,  80,   <span class="org-string">"npcs.png"</span>    ) \
+    X(GOBLIN,   <span class="org-string">"Goblin"</span>,    30,   <span class="org-string">"enemies.png"</span> )
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">ENTITY_ENUM_ENTRY</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">b</span>,<span class="org-variable-name">c</span>,<span class="org-variable-name">d</span>) ENTITY_TYPE_##a ,
+<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span>
+{
+    <span class="org-function-name">ENTITY_TABLE</span>(ENTITY_ENUM_ENTRY)
+    ENTITY_TYPE_COUNT
+};
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">ENTITY_ENUM_STRING_ENTRY</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">b</span>,<span class="org-variable-name">c</span>,<span class="org-variable-name">d</span>) <span class="org-keyword">case</span> ENTITY_TYPE_##a : <span class="org-keyword">return</span> b ;
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-function-name">entity_type_as_string</span>(<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span> <span class="org-variable-name">type</span>)
+{
+    <span class="org-keyword">switch</span> (type) {
+        ENTITY_TABLE(ENTITY_ENUM_STRING_ENTRY)
+        <span class="org-keyword">default</span>: <span class="org-keyword">return</span> <span class="org-string">"invalid type"</span>;
+    }
+};
+
+<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span> <span class="org-variable-name">type1</span> = ENTITY_TYPE_MONSTER;
+<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span> <span class="org-variable-name">type2</span> = ENTITY_TYPE_PRINCESS;
+printf(<span class="org-string">"%s (%i) and %s (%i)\n"</span>, entity_type_as_string(type1), type1, entity_type_as_string(type2), type2);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1952a1e" class="outline-2">
+<h2 id="org1952a1e"><a href="#org1952a1e">Avoiding compilation errors when adding columns</a></h2>
+<div class="outline-text-2" id="text-org1952a1e">
+<p>
+Suppose you have following simple use-case for a X-Macros:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-variable-name">ENTITY_TABLE</span> \
+    X(HERO,     <span class="org-string">"Hero"</span>,     100) \
+    X(MONSTER,  <span class="org-string">"Monster"</span>,   40) \
+    X(GOBLIN,   <span class="org-string">"Goblin"</span>,    30)
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">X</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">b</span>,<span class="org-variable-name">c</span>) ENTITY_TYPE_##a ,
+<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span>
+{
+    <span class="org-variable-name">ENTITY_TABLE</span>
+    ENTITY_TYPE_COUNT
+};
+<span class="org-preprocessor">#undef</span> X
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">X</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">b</span>,<span class="org-variable-name">c</span>) <span class="org-keyword">case</span> ENTITY_TYPE_##a : <span class="org-keyword">return</span> b ;
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-function-name">entity_type_as_string</span>(<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span> <span class="org-variable-name">type</span>)
+{
+    <span class="org-keyword">switch</span> (type) {
+        ENTITY_TABLE
+        <span class="org-keyword">default</span>: <span class="org-keyword">return</span> <span class="org-string">"invalid type"</span>;
+    }
+};
+<span class="org-preprocessor">#undef</span> X
+
+<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span> <span class="org-variable-name">type1</span> = ENTITY_TYPE_MONSTER;
+<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span> <span class="org-variable-name">type2</span> = ENTITY_TYPE_HERO;
+printf(<span class="org-string">"%s (%i) and %s (%i)\n"</span>, entity_type_as_string(type1), type1, entity_type_as_string(type2), type2);
+</pre>
+</div>
+
+<p>
+Now add a column to the table:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-variable-name">ENTITY_TABLE</span> \
+    X(HERO,     <span class="org-string">"Hero"</span>,     100, <span class="org-string">"texture_hero.png"</span>)    \
+    X(MONSTER,  <span class="org-string">"Monster"</span>,   40, <span class="org-string">"texture_monster.png"</span>) \
+    X(GOBLIN,   <span class="org-string">"Goblin"</span>,    30, <span class="org-string">"texture_goblin.png"</span>)
+</pre>
+</div>
+
+<p>
+Which causes compilation errors of the form:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">error: macro "X" passed 4 arguments, but takes just 3
+</pre>
+</div>
+
+<p>
+To avoid having to go in and add the new argument to <b>every single</b> <code>#define</code> of
+your X-Macro, you can use replace all arguments that are not of interest with an
+ellipsis:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">X</span>(<span class="org-variable-name">a</span>,...) ENTITY_TYPE_##a ,
+<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span> { <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span> };
+<span class="org-preprocessor">#undef</span> X
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">X</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">b</span>,...) <span class="org-keyword">case</span> ENTITY_TYPE_##a : <span class="org-keyword">return</span> b ;
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-function-name">entity_type_as_string</span>(<span class="org-keyword">enum</span> <span class="org-type">entity_type_e</span> <span class="org-variable-name">type</span>) { <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span> };
+<span class="org-preprocessor">#undef</span> X
+</pre>
+</div>
+
+<p>
+This will also work with the <a href="#no-undefs">passed in X-Macros from before</a>.
+</p>
+
+<p>
+Do note however, that you can't place <code>...</code> in between arguments. This means you
+should always append new columns to the table instead of inserting them between
+existing columns. Additionally, the removal of columns is now more error-prone.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf3d15dc" class="outline-2">
+<h2 id="orgf3d15dc"><a href="#orgf3d15dc">Possible Operations</a></h2>
+<div class="outline-text-2" id="text-orgf3d15dc">
+</div>
+<div id="outline-container-org6bee546" class="outline-3">
+<h3 id="org6bee546"><a href="#org6bee546">Select rows based on the value of one of their entries</a></h3>
+<div class="outline-text-3" id="text-org6bee546">
+<p>
+If you want to perform a selection on your table that would be akin to an SQL
+query of the form <code>SELECT * FROM table WHERE a = "foo";</code>, you are out of luck.
+To get this functionality, you instead have to break up your table for every
+value that you are interested in. Take following example from <code>log.h:</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">entry   type        name        value   string</span><span class="org-comment-delimiter">  */</span>
+<span class="org-function-name">LOG_ENTRY</span>( SEVERITY,   INFO,      (1&lt;&lt;0),  <span class="org-string">"[INFO ]"</span>)
+<span class="org-function-name">LOG_ENTRY</span>( SEVERITY,   WARN,      (1&lt;&lt;1),  <span class="org-string">"[WARN ]"</span>)
+<span class="org-function-name">LOG_ENTRY</span>( SEVERITY,   ERROR,     (1&lt;&lt;2),  <span class="org-string">"[ERROR]"</span>)
+<span class="org-function-name">LOG_ENTRY</span>( SUBSYSTEM,  PLATFORM,  (1&lt;&lt;3),  <span class="org-string">"[PLATF]"</span>)
+<span class="org-function-name">LOG_ENTRY</span>( SUBSYSTEM,  AUDIO,     (1&lt;&lt;4),  <span class="org-string">"[AUDIO]"</span>)
+<span class="org-function-name">LOG_ENTRY</span>( CATEGORY,   INIT,      (1&lt;&lt;5),  <span class="org-string">"[INIT ]"</span>)
+<span class="org-function-name">LOG_ENTRY</span>( CATEGORY,   SHUTDOWN,  (1&lt;&lt;6),  <span class="org-string">"[SHUTD]"</span>)
+</pre>
+</div>
+
+<p>
+Suppose I want to select all entries based on what their type is. Since the
+preprocessor is one-pass and I can't use the <code>#if</code> in a loop checking for what
+type equals, I instead needed to break the table up into multiple tables:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">entry              name       value    string</span><span class="org-comment-delimiter">  */</span>
+<span class="org-function-name">LOG_ENTRY_SEVERITY</span>(   INFO,      (1&lt;&lt;0),  <span class="org-string">"[INFO ]"</span>)
+<span class="org-function-name">LOG_ENTRY_SEVERITY</span>(   WARN,      (1&lt;&lt;1),  <span class="org-string">"[WARN ]"</span>)
+<span class="org-function-name">LOG_ENTRY_SEVERITY</span>(   ERROR,     (1&lt;&lt;2),  <span class="org-string">"[ERROR]"</span>)
+<span class="org-function-name">LOG_ENTRY_SUBSYSTEM</span>(  PLATFORM,  (1&lt;&lt;3),  <span class="org-string">"[PLATF]"</span>)
+<span class="org-function-name">LOG_ENTRY_SUBSYSTEM</span>(  AUDIO,     (1&lt;&lt;4),  <span class="org-string">"[AUDIO]"</span>)
+<span class="org-function-name">LOG_ENTRY_CATEGORY</span>(   INIT,      (1&lt;&lt;5),  <span class="org-string">"[INIT ]"</span>)
+<span class="org-function-name">LOG_ENTRY_CATEGORY</span>(   SHUTDOWN,  (1&lt;&lt;6),  <span class="org-string">"[SHUTD]"</span>)
+</pre>
+</div>
+
+<p>
+In the codegen, instead of checking for the value of type, I <code>#undef</code> all the
+tables I am not interested in:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">enum</span> {
+<span class="org-preprocessor">  #define</span> <span class="org-function-name">LOG_ENTRY_SEVERITY</span>(<span class="org-variable-name">name</span>, <span class="org-variable-name">value</span>, <span class="org-variable-name">string</span>)  LOG_SEVERITY_##name = value,
+<span class="org-preprocessor">  #define</span> <span class="org-function-name">LOG_ENTRY_SUBSYSTEM</span>(<span class="org-variable-name">name</span>, <span class="org-variable-name">value</span>, <span class="org-variable-name">string</span>)
+<span class="org-preprocessor">  #define</span> <span class="org-function-name">LOG_ENTRY_CATEGORY</span>(<span class="org-variable-name">name</span>, <span class="org-variable-name">value</span>, <span class="org-variable-name">string</span>)
+<span class="org-preprocessor">    #include</span> LOG_ENTRY_FILE
+<span class="org-preprocessor">  #undef</span> LOG_ENTRY_SEVERITY
+
+  <span class="org-comment-delimiter">/* </span><span class="org-comment">selectively sum up severity values</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">  #define</span> <span class="org-function-name">LOG_ENTRY_SEVERITY</span>(<span class="org-variable-name">name</span>, <span class="org-variable-name">value</span>, <span class="org-variable-name">string</span>) value |
+    <span class="org-variable-name">LOG_SEVERITY_MASK</span> =
+<span class="org-preprocessor">      #include</span> LOG_ENTRY_FILE
+    0,
+<span class="org-preprocessor">  #undef</span> LOG_ENTRY_SEVERITY
+
+  <span class="org-comment-delimiter">/* </span><span class="org-comment">repeat for SUBSYSTEM table and CATEGORY table</span><span class="org-comment-delimiter"> */</span>
+}
+</pre>
+</div>
+
+<p>
+It's ugly and requires changes all around, but it can get the job done in a
+pinch.
+</p>
+</div>
+</div>
+<div id="outline-container-org7604e43" class="outline-3">
+<h3 id="org7604e43"><a href="#org7604e43">Sum up all values of a column</a></h3>
+<div class="outline-text-3" id="text-org7604e43">
+<p>
+If you want to sum up all entries in a column (e.g. <code>table_value1 +
+table_value2 + ... + table_valueN</code>), simply append a <code>+ 0;</code> after expanding the
+X-Macros:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">X</span>(<span class="org-variable-name">name</span>, <span class="org-variable-name">value</span>) value +
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">ENEMY_XP_TABLE</span> \
+  X(SPIDER,  20) \
+  X(GOBLIN,  30) \
+  X(DRAGON, 150)
+
+<span class="org-type">int</span> <span class="org-variable-name">value_sum</span> = ENEMY_XP_TABLE + 0;
+
+printf(<span class="org-string">"%i\n"</span>, value_sum);
+</pre>
+</div>
+
+<p>
+Any binary operator can be chained using this idiom, such as concatenating
+strings or performing a bitwise-or on a bunch of bitfields to compute a mask:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">enum</span> {
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">LOG_ENTRY_SEVERITY</span>(<span class="org-variable-name">name</span>, <span class="org-variable-name">value</span>, <span class="org-variable-name">string</span>, <span class="org-variable-name">color</span>) value |
+    <span class="org-variable-name">LOG_SEVERITY_MASK</span> =
+<span class="org-preprocessor">      #include</span> LOG_ENTRY_FILE
+    0,
+};
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4a76b87" class="outline-3">
+<h3 id="org4a76b87"><a href="#org4a76b87">Compute number of rows</a></h3>
+<div class="outline-text-3" id="text-org4a76b87">
+<p>
+For a table with an unknown number of rows (i.e. the entry count), define a
+struct with just 1-byte sized members:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">ENTRY</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">b</span>,<span class="org-variable-name">c</span>) <span class="org-type">uint8_t</span> <span class="org-variable-name">b</span>;
+<span class="org-keyword">typedef</span> <span class="org-keyword">struct</span>
+{
+    MY_TABLE
+} <span class="org-type">number_of_entries_t</span>;
+<span class="org-preprocessor">#undef</span> ENTRY
+
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">NUMBER_OF_ENTRIES</span> <span class="org-keyword">sizeof</span>(number_of_entries_t)
+</pre>
+</div>
+
+<p>
+Or use an enum (beware of polluting the global namespace):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">ENTRY</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">b</span>,<span class="org-variable-name">c</span>) ___##a,
+<span class="org-keyword">enum</span>
+{
+    <span class="org-variable-name">MY_TABLE</span>
+    NUMBER_OF_ENTRIES
+} <span class="org-variable-name">number_of_entries_t</span>;
+<span class="org-preprocessor">#undef</span> ENTRY
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgeb3f5ad" class="outline-3">
+<h3 id="orgeb3f5ad"><a href="#orgeb3f5ad">Compute <code>Max(...)</code> of a column of integers</a></h3>
+<div class="outline-text-3" id="text-orgeb3f5ad">
+<p>
+Suppose your table looks like the following:
+</p>
+<div class="org-src-container">
+<pre class="src src-C" id="max_table"><span class="org-preprocessor">#define</span> <span class="org-variable-name">MY_TABLE</span> \
+    ENTRY(foo, 100, <span class="org-string">"Foo"</span>)\
+    ENTRY(bar,  80, <span class="org-string">"Bar"</span>)\
+    ENTRY(baz, 120, <span class="org-string">"Baz"</span>)
+</pre>
+</div>
+
+<p>
+If you wish to know the value of the biggest integer in the second column, write
+out a <code>union</code> like so:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">sizeof a union is the size of its largest member</span><span class="org-comment-delimiter"> */</span>
+<span class="org-preprocessor">#define</span> <span class="org-function-name">ENTRY</span>(<span class="org-variable-name">a</span>,<span class="org-variable-name">b</span>,<span class="org-variable-name">c</span>) uint8_t __buf_##b[b];
+<span class="org-keyword">typedef</span> <span class="org-keyword">union</span> {
+    MY_TABLE
+} <span class="org-type">max_b_union</span>;
+<span class="org-preprocessor">#undef</span> ENTRY
+</pre>
+</div>
+
+<p>
+In your code, simply use the <code>sizeof()</code> operator to get the biggest integer at
+compile-time (without needing to instantiate the union):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">int</span> <span class="org-variable-name">max_b</span> = <span class="org-keyword">sizeof</span>(max_b_union); <span class="org-comment-delimiter">// </span><span class="org-comment">== 120</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc969e33" class="outline-3">
+<h3 id="orgc969e33"><a href="#orgc969e33">Count number of columns for every row</a></h3>
+<div class="outline-text-3" id="text-orgc969e33">
+<p>
+There is a trick to count the number of arguments (up to a limit) given to a
+(variadic) macro by displacing an integer depending on the number of arguments
+passed:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C" id="num_args"><span class="org-preprocessor">#define</span> <span class="org-function-name">_NUM_ARGS</span>(<span class="org-variable-name">X100</span>, <span class="org-variable-name">X99</span>, <span class="org-variable-name">X98</span>, <span class="org-variable-name">X97</span>, <span class="org-variable-name">X96</span>, <span class="org-variable-name">X95</span>, <span class="org-variable-name">X94</span>, <span class="org-variable-name">X93</span>, <span class="org-variable-name">X92</span>, <span class="org-variable-name">X91</span>, <span class="org-variable-name">X90</span>, <span class="org-variable-name">X89</span>, <span class="org-variable-name">X88</span>, <span class="org-variable-name">X87</span>, <span class="org-variable-name">X86</span>, <span class="org-variable-name">X85</span>, <span class="org-variable-name">X84</span>, <span class="org-variable-name">X83</span>, <span class="org-variable-name">X82</span>, <span class="org-variable-name">X81</span>, <span class="org-variable-name">X80</span>, <span class="org-variable-name">X79</span>, <span class="org-variable-name">X78</span>, <span class="org-variable-name">X77</span>, <span class="org-variable-name">X76</span>, <span class="org-variable-name">X75</span>, <span class="org-variable-name">X74</span>, <span class="org-variable-name">X73</span>, <span class="org-variable-name">X72</span>, <span class="org-variable-name">X71</span>, <span class="org-variable-name">X70</span>, <span class="org-variable-name">X69</span>, <span class="org-variable-name">X68</span>, <span class="org-variable-name">X67</span>, <span class="org-variable-name">X66</span>, <span class="org-variable-name">X65</span>, <span class="org-variable-name">X64</span>, <span class="org-variable-name">X63</span>, <span class="org-variable-name">X62</span>, <span class="org-variable-name">X61</span>, <span class="org-variable-name">X60</span>, <span class="org-variable-name">X59</span>, <span class="org-variable-name">X58</span>, <span class="org-variable-name">X57</span>, <span class="org-variable-name">X56</span>, <span class="org-variable-name">X55</span>, <span class="org-variable-name">X54</span>, <span class="org-variable-name">X53</span>, <span class="org-variable-name">X52</span>, <span class="org-variable-name">X51</span>, <span class="org-variable-name">X50</span>, <span class="org-variable-name">X49</span>, <span class="org-variable-name">X48</span>, <span class="org-variable-name">X47</span>, <span class="org-variable-name">X46</span>, <span class="org-variable-name">X45</span>, <span class="org-variable-name">X44</span>, <span class="org-variable-name">X43</span>, <span class="org-variable-name">X42</span>, <span class="org-variable-name">X41</span>, <span class="org-variable-name">X40</span>, <span class="org-variable-name">X39</span>, <span class="org-variable-name">X38</span>, <span class="org-variable-name">X37</span>, <span class="org-variable-name">X36</span>, <span class="org-variable-name">X35</span>, <span class="org-variable-name">X34</span>, <span class="org-variable-name">X33</span>, <span class="org-variable-name">X32</span>, <span class="org-variable-name">X31</span>, <span class="org-variable-name">X30</span>, <span class="org-variable-name">X29</span>, <span class="org-variable-name">X28</span>, <span class="org-variable-name">X27</span>, <span class="org-variable-name">X26</span>, <span class="org-variable-name">X25</span>, <span class="org-variable-name">X24</span>, <span class="org-variable-name">X23</span>, <span class="org-variable-name">X22</span>, <span class="org-variable-name">X21</span>, <span class="org-variable-name">X20</span>, <span class="org-variable-name">X19</span>, <span class="org-variable-name">X18</span>, <span class="org-variable-name">X17</span>, <span class="org-variable-name">X16</span>, <span class="org-variable-name">X15</span>, <span class="org-variable-name">X14</span>, <span class="org-variable-name">X13</span>, <span class="org-variable-name">X12</span>, <span class="org-variable-name">X11</span>, <span class="org-variable-name">X10</span>, <span class="org-variable-name">X9</span>, <span class="org-variable-name">X8</span>, <span class="org-variable-name">X7</span>, <span class="org-variable-name">X6</span>, <span class="org-variable-name">X5</span>, <span class="org-variable-name">X4</span>, <span class="org-variable-name">X3</span>, <span class="org-variable-name">X2</span>, <span class="org-variable-name">X1</span>, <span class="org-variable-name">N</span>, ...)   N
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">NUM_ARGS</span>(...) _NUM_ARGS(__VA_ARGS__, 100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+</pre>
+</div>
+
+<p>
+With that, the number of arguments of a single table entry can be computed:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">_NUM_ARGS</span>(<span class="org-variable-name">X100</span>, <span class="org-variable-name">X99</span>, <span class="org-variable-name">X98</span>, <span class="org-variable-name">X97</span>, <span class="org-variable-name">X96</span>, <span class="org-variable-name">X95</span>, <span class="org-variable-name">X94</span>, <span class="org-variable-name">X93</span>, <span class="org-variable-name">X92</span>, <span class="org-variable-name">X91</span>, <span class="org-variable-name">X90</span>, <span class="org-variable-name">X89</span>, <span class="org-variable-name">X88</span>, <span class="org-variable-name">X87</span>, <span class="org-variable-name">X86</span>, <span class="org-variable-name">X85</span>, <span class="org-variable-name">X84</span>, <span class="org-variable-name">X83</span>, <span class="org-variable-name">X82</span>, <span class="org-variable-name">X81</span>, <span class="org-variable-name">X80</span>, <span class="org-variable-name">X79</span>, <span class="org-variable-name">X78</span>, <span class="org-variable-name">X77</span>, <span class="org-variable-name">X76</span>, <span class="org-variable-name">X75</span>, <span class="org-variable-name">X74</span>, <span class="org-variable-name">X73</span>, <span class="org-variable-name">X72</span>, <span class="org-variable-name">X71</span>, <span class="org-variable-name">X70</span>, <span class="org-variable-name">X69</span>, <span class="org-variable-name">X68</span>, <span class="org-variable-name">X67</span>, <span class="org-variable-name">X66</span>, <span class="org-variable-name">X65</span>, <span class="org-variable-name">X64</span>, <span class="org-variable-name">X63</span>, <span class="org-variable-name">X62</span>, <span class="org-variable-name">X61</span>, <span class="org-variable-name">X60</span>, <span class="org-variable-name">X59</span>, <span class="org-variable-name">X58</span>, <span class="org-variable-name">X57</span>, <span class="org-variable-name">X56</span>, <span class="org-variable-name">X55</span>, <span class="org-variable-name">X54</span>, <span class="org-variable-name">X53</span>, <span class="org-variable-name">X52</span>, <span class="org-variable-name">X51</span>, <span class="org-variable-name">X50</span>, <span class="org-variable-name">X49</span>, <span class="org-variable-name">X48</span>, <span class="org-variable-name">X47</span>, <span class="org-variable-name">X46</span>, <span class="org-variable-name">X45</span>, <span class="org-variable-name">X44</span>, <span class="org-variable-name">X43</span>, <span class="org-variable-name">X42</span>, <span class="org-variable-name">X41</span>, <span class="org-variable-name">X40</span>, <span class="org-variable-name">X39</span>, <span class="org-variable-name">X38</span>, <span class="org-variable-name">X37</span>, <span class="org-variable-name">X36</span>, <span class="org-variable-name">X35</span>, <span class="org-variable-name">X34</span>, <span class="org-variable-name">X33</span>, <span class="org-variable-name">X32</span>, <span class="org-variable-name">X31</span>, <span class="org-variable-name">X30</span>, <span class="org-variable-name">X29</span>, <span class="org-variable-name">X28</span>, <span class="org-variable-name">X27</span>, <span class="org-variable-name">X26</span>, <span class="org-variable-name">X25</span>, <span class="org-variable-name">X24</span>, <span class="org-variable-name">X23</span>, <span class="org-variable-name">X22</span>, <span class="org-variable-name">X21</span>, <span class="org-variable-name">X20</span>, <span class="org-variable-name">X19</span>, <span class="org-variable-name">X18</span>, <span class="org-variable-name">X17</span>, <span class="org-variable-name">X16</span>, <span class="org-variable-name">X15</span>, <span class="org-variable-name">X14</span>, <span class="org-variable-name">X13</span>, <span class="org-variable-name">X12</span>, <span class="org-variable-name">X11</span>, <span class="org-variable-name">X10</span>, <span class="org-variable-name">X9</span>, <span class="org-variable-name">X8</span>, <span class="org-variable-name">X7</span>, <span class="org-variable-name">X6</span>, <span class="org-variable-name">X5</span>, <span class="org-variable-name">X4</span>, <span class="org-variable-name">X3</span>, <span class="org-variable-name">X2</span>, <span class="org-variable-name">X1</span>, <span class="org-variable-name">N</span>, ...)   N
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">NUM_ARGS</span>(...) _NUM_ARGS(__VA_ARGS__, 100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+<span class="org-preprocessor">#define</span> <span class="org-function-name">TABLE</span>(<span class="org-variable-name">X</span>) \
+        X(FIRST,  2.0f, <span class="org-string">'3'</span>, FOURTH, 5, <span class="org-string">"6"</span>)
+
+printf(<span class="org-string">"Has %i arguments\n"</span>, <span class="org-type">TABLE</span>(<span class="org-variable-name">NUM_ARGS</span>));
+</pre>
+</div>
+
+<p>
+Using a modified version of the <code>NUM_ARGS</code> macro that appends a comma to each
+integer, you can have a table that contains the number of arguments (i.e.
+columns) for every row:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">_NUM_ARGS_COMMA</span>(<span class="org-variable-name">X100</span>, <span class="org-variable-name">X99</span>, <span class="org-variable-name">X98</span>, <span class="org-variable-name">X97</span>, <span class="org-variable-name">X96</span>, <span class="org-variable-name">X95</span>, <span class="org-variable-name">X94</span>, <span class="org-variable-name">X93</span>, <span class="org-variable-name">X92</span>, <span class="org-variable-name">X91</span>, <span class="org-variable-name">X90</span>, <span class="org-variable-name">X89</span>, <span class="org-variable-name">X88</span>, <span class="org-variable-name">X87</span>, <span class="org-variable-name">X86</span>, <span class="org-variable-name">X85</span>, <span class="org-variable-name">X84</span>, <span class="org-variable-name">X83</span>, <span class="org-variable-name">X82</span>, <span class="org-variable-name">X81</span>, <span class="org-variable-name">X80</span>, <span class="org-variable-name">X79</span>, <span class="org-variable-name">X78</span>, <span class="org-variable-name">X77</span>, <span class="org-variable-name">X76</span>, <span class="org-variable-name">X75</span>, <span class="org-variable-name">X74</span>, <span class="org-variable-name">X73</span>, <span class="org-variable-name">X72</span>, <span class="org-variable-name">X71</span>, <span class="org-variable-name">X70</span>, <span class="org-variable-name">X69</span>, <span class="org-variable-name">X68</span>, <span class="org-variable-name">X67</span>, <span class="org-variable-name">X66</span>, <span class="org-variable-name">X65</span>, <span class="org-variable-name">X64</span>, <span class="org-variable-name">X63</span>, <span class="org-variable-name">X62</span>, <span class="org-variable-name">X61</span>, <span class="org-variable-name">X60</span>, <span class="org-variable-name">X59</span>, <span class="org-variable-name">X58</span>, <span class="org-variable-name">X57</span>, <span class="org-variable-name">X56</span>, <span class="org-variable-name">X55</span>, <span class="org-variable-name">X54</span>, <span class="org-variable-name">X53</span>, <span class="org-variable-name">X52</span>, <span class="org-variable-name">X51</span>, <span class="org-variable-name">X50</span>, <span class="org-variable-name">X49</span>, <span class="org-variable-name">X48</span>, <span class="org-variable-name">X47</span>, <span class="org-variable-name">X46</span>, <span class="org-variable-name">X45</span>, <span class="org-variable-name">X44</span>, <span class="org-variable-name">X43</span>, <span class="org-variable-name">X42</span>, <span class="org-variable-name">X41</span>, <span class="org-variable-name">X40</span>, <span class="org-variable-name">X39</span>, <span class="org-variable-name">X38</span>, <span class="org-variable-name">X37</span>, <span class="org-variable-name">X36</span>, <span class="org-variable-name">X35</span>, <span class="org-variable-name">X34</span>, <span class="org-variable-name">X33</span>, <span class="org-variable-name">X32</span>, <span class="org-variable-name">X31</span>, <span class="org-variable-name">X30</span>, <span class="org-variable-name">X29</span>, <span class="org-variable-name">X28</span>, <span class="org-variable-name">X27</span>, <span class="org-variable-name">X26</span>, <span class="org-variable-name">X25</span>, <span class="org-variable-name">X24</span>, <span class="org-variable-name">X23</span>, <span class="org-variable-name">X22</span>, <span class="org-variable-name">X21</span>, <span class="org-variable-name">X20</span>, <span class="org-variable-name">X19</span>, <span class="org-variable-name">X18</span>, <span class="org-variable-name">X17</span>, <span class="org-variable-name">X16</span>, <span class="org-variable-name">X15</span>, <span class="org-variable-name">X14</span>, <span class="org-variable-name">X13</span>, <span class="org-variable-name">X12</span>, <span class="org-variable-name">X11</span>, <span class="org-variable-name">X10</span>, <span class="org-variable-name">X9</span>, <span class="org-variable-name">X8</span>, <span class="org-variable-name">X7</span>, <span class="org-variable-name">X6</span>, <span class="org-variable-name">X5</span>, <span class="org-variable-name">X4</span>, <span class="org-variable-name">X3</span>, <span class="org-variable-name">X2</span>, <span class="org-variable-name">X1</span>, <span class="org-variable-name">N</span>, ...)   N,
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">NUM_ARGS_COMMA</span>(...) _NUM_ARGS_COMMA(__VA_ARGS__, 100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+
+<span class="org-preprocessor">#define</span> <span class="org-function-name">GAME_STATE_TRANSITION_TABLE</span>(<span class="org-variable-name">X</span>) \
+        X(FIRST,  <span class="org-string">"2.0f"</span>, three,         <span class="org-string">"four"</span>, FIVE) \
+        X(SECOND,    <span class="org-string">'2'</span>,     3                      ) \
+        X(THIRD,     2nd,   0x3, <span class="org-comment-delimiter">/*</span><span class="org-comment">empty four</span><span class="org-comment-delimiter">*/</span>      )
+
+<span class="org-keyword">typedef</span> <span class="org-keyword">enum</span> <span class="org-type">game_state_e</span> {
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">STATE_ENUM</span>(<span class="org-variable-name">state</span>, ...) state,
+    <span class="org-function-name">GAME_STATE_TRANSITION_TABLE</span>(STATE_ENUM)
+    GAME_STATE_COUNT
+} <span class="org-type">game_state_e</span>;
+<span class="org-keyword">const</span> <span class="org-type">char</span>* <span class="org-variable-name">game_state_strings</span>[GAME_STATE_COUNT] = {
+<span class="org-preprocessor">    #define</span> <span class="org-function-name">STATE_ENUM_STRING</span>(<span class="org-variable-name">state</span>, ...) #state,
+    GAME_STATE_TRANSITION_TABLE(STATE_ENUM_STRING)
+};
+
+<span class="org-keyword">const</span> <span class="org-type">int</span> <span class="org-variable-name">column_count</span>[GAME_STATE_COUNT] = {
+    GAME_STATE_TRANSITION_TABLE(NUM_ARGS_COMMA)
+};
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>()
+{
+    <span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; GAME_STATE_COUNT; i++)
+    {
+        printf(<span class="org-string">"Row \"%s\" has %i columns\n"</span>, game_state_strings[i], column_count[i]);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org7494528" class="outline-3">
+<h3 id="org7494528"><a href="#org7494528">Stringify each argument of a variadic macro</a></h3>
+<div class="outline-text-3" id="text-org7494528">
+<p>
+See <a href="https://stackoverflow.com/questions/5957679/is-there-a-way-to-use-c-preprocessor-stringification-on-variadic-macro-argumen">https://stackoverflow.com/questions/5957679/is-there-a-way-to-use-c-preprocessor-stringification-on-variadic-macro-argumen</a>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org5b7e23d" class="outline-2">
+<h2 id="org5b7e23d"><a href="#org5b7e23d">Drawbacks</a></h2>
+<div class="outline-text-2" id="text-org5b7e23d">
+<ul class="org-ul">
+<li>The autocomplete feature of an editor or IDE might not know about the fields
+of e.g. an enum, since they only exist after the preprocessor has run.</li>
+
+<li>Every <code>#define</code> of the X-macro needs to be updated for every additional column
+in the table, although <a href="#org1952a1e">this can be mitigated</a></li>
+
+<li>Restrictions due to C syntax</li>
+
+<li>Potentially atrocious compile error messages when you have an error in your
+X-Macro code</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge458f82" class="outline-2">
+<h2 id="orge458f82"><a href="#orge458f82">Resources</a></h2>
+<div class="outline-text-2" id="text-orge458f82">
+<ul class="org-ul">
+<li><a href="https://en.wikipedia.org/wiki/X_Macro">https://en.wikipedia.org/wiki/X_Macro</a></li>
+<li><a href="https://www.rfleury.com/p/table-driven-code-generation">https://www.rfleury.com/p/table-driven-code-generation</a></li>
+<li><a href="https://en.wikibooks.org/wiki/C_Programming/Preprocessor_directives_and_macros#X-Macros">https://en.wikibooks.org/wiki/C_Programming/Preprocessor_directives_and_macros#X-Macros</a></li>
+<li><a href="https://www.embedded.com/reduce-c-language-coding-errors-with-x-macros-part-1/">https://www.embedded.com/reduce-c-language-coding-errors-with-x-macros-part-1/</a></li>
+<li><a href="https://stackoverflow.com/questions/6635851/real-world-use-of-x-macrosd">https://stackoverflow.com/questions/6635851/real-world-use-of-x-macrosd</a></li>
+<li><a href="https://quuxplusone.github.io/blog/2021/02/01/x-macros/">https://quuxplusone.github.io/blog/2021/02/01/x-macros/</a></li>
+<li><a href="https://github.com/NetHack/NetHack/blob/0c3b964/include/artilist.h">https://github.com/NetHack/NetHack/blob/0c3b964/include/artilist.h</a></li>
+<li><a href="https://github.com/zenorogue/hyperrogue/blob/f95ef39/content.cpp">https://github.com/zenorogue/hyperrogue/blob/f95ef39/content.cpp</a></li>
+<li><a href="https://ph3at.github.io/posts/X-Macros/">https://ph3at.github.io/posts/X-Macros/</a></li>
+<li><a href="https://github.com/whunmr/DataEx">X-Macros Serialization Example</a></li>
+</ul>
+</div>
+</div>
+</main>
+</body>
+</html>

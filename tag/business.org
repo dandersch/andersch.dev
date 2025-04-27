@@ -1,0 +1,3 @@
+#+TITLE: Pages tagged business
+* Notes tagged ~business~
+- [[../notes/startup.org][Startup]]

@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HTMX</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<h1 class="title">HTMX</h1>
+<p>
+HTMX is a <a href="html_over_the_wire.html#ID-58fb8b14-9d55-4d3a-91cd-d04917d58428">HTML-over-the-wire</a> <a href="javascript.html#ID-a0222a34-b3ec-4ed1-906c-195c89bf9b4c">JavaScript</a> library that extends HTML with
+attributes to facilitate <a href="ajax.html#ID-ab164c58-00fe-416f-aad1-e2b41367edb8">AJAX</a> requests, WebSocket connections, <a href="css.html#ID-4229f1fd-d234-4290-9e50-5ff51459622a">CSS</a> Transitions,
+and server-sent events directly in HTML.
+</p>
+<div id="outline-container-org02e0e8c" class="outline-2">
+<h2 id="org02e0e8c"><a href="#org02e0e8c">Core Attributes</a></h2>
+<div class="outline-text-2" id="text-org02e0e8c">
+<p>
+<code>hx-get</code>        issues a GET to the specified URL
+<code>hx-post</code>       issues a POST to the specified URL
+<code>hx-on*</code>        handle events with inline scripts on elements
+<code>hx-push-url</code>   push a URL into the browser location bar to create history
+<code>hx-select</code>     select content to swap in from a response
+<code>hx-select-oob</code> select content to swap in from a response, somewhere other than the target (out of band)
+<code>hx-swap</code>       controls how content will swap in (<code>outerHTML</code>, <code>beforeend</code>, <code>afterend</code>, &#x2026;)
+<code>hx-swap-oob</code>   mark element to swap in from a response (out of band)
+<code>hx-target</code>     specifies the target element to be swapped
+<code>hx-trigger</code>    specifies the event that triggers the request
+<code>hx-vals</code>       add values to submit with the request (JSON format)
+</p>
+
+<p>
+Swapping with <code>hx-swap=...</code>
+</p>
+<ul class="org-ul">
+<li><code>innerHTML:</code>   puts the content inside target element (default)</li>
+<li><code>outerHTML</code>:   replaces entire target element with returned content</li>
+<li><code>afterbegin</code>:  prepends content before first child inside the target</li>
+<li><code>beforebegin:</code> prepends content before target in target's parent element</li>
+<li><code>beforeend</code>:   appends content after last child inside target</li>
+<li><code>afterend</code>:    appends content after target in target's parent element</li>
+<li><code>delete</code>:      deletes target element regardless of response</li>
+<li><code>none</code>:        does nothing (oob-swaps and Response Headers are still processed)</li>
+</ul>
+
+<p>
+Swap Options (e.g. <code>hx-swap="outerHTML ignoreTitle:true"</code>):
+</p>
+<ul class="org-ul">
+<li><code>transition</code>:  true/false, whether to use view transition API for this swap</li>
+<li><code>swap</code>:        swap delay (e.g. 100ms) between clearing old and inserting new</li>
+<li><code>settle</code>:      settle delay (e.g. 100ms) between inserting new and settling</li>
+<li><code>ignoreTitle</code>: if true, titles in new content will be ignored</li>
+<li><code>scroll</code>:      top/bottom, will scroll the target element to its top or bottom</li>
+<li><code>show</code>:        top/bottom, will scroll target element's top or bottom into view</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org856a0c2" class="outline-2">
+<h2 id="org856a0c2"><a href="#org856a0c2">HTMX and <a href="go.html#ID-80271fb3-7b1f-4cff-8576-0b7940b75a34">Go</a></a></h2>
+<div class="outline-text-2" id="text-org856a0c2">
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-keyword">!DOCTYPE</span> html&gt;
+&lt;<span class="org-function-name">html</span>&gt;
+&lt;<span class="org-function-name">head</span>&gt;
+    &lt;<span class="org-function-name">title</span>&gt;<span class="org-underline"><span class="org-bold">htmx example</span></span>&lt;/<span class="org-function-name">title</span>&gt;
+    &lt;<span class="org-function-name">link</span> <span class="org-variable-name">href</span>=<span class="org-string">"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"</span> <span class="org-variable-name">rel</span>=<span class="org-string">"stylesheet"</span> <span class="org-variable-name">crossorigin</span>=<span class="org-string">"anonymous"</span>&gt;
+    &lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">"https://unpkg.com/htmx.org@1.9.2"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;
+&lt;/<span class="org-function-name">head</span>&gt;
+&lt;<span class="org-function-name">body</span> <span class="org-variable-name">data-bs-theme</span>=<span class="org-string">"dark"</span>&gt;
+    &lt;<span class="org-function-name">ul</span> <span class="org-variable-name">class</span>=<span class="org-string">"list-group"</span> <span class="org-variable-name">id</span>=<span class="org-string">"film-list"</span>&gt;
+        {{ range . }}
+            {{ block "film-list-element" . }}
+                &lt;<span class="org-function-name">li</span> <span class="org-variable-name">class</span>=<span class="org-string">"list-group-item"</span>&gt; {{ .Title }} - {{ .Director }} &lt;/<span class="org-function-name">li</span>&gt;
+            {{ end }}
+        {{ end }}
+    &lt;/<span class="org-function-name">ul</span>&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">form to add a film to existing list</span><span class="org-comment-delimiter">  --&gt;</span>
+    &lt;<span class="org-function-name">form</span> <span class="org-variable-name">hx-post</span>=<span class="org-string">"/add"</span> <span class="org-variable-name">hx-target</span>=<span class="org-string">"#film-list"</span> <span class="org-variable-name">hx-swap</span>=<span class="org-string">"beforeend"</span>&gt;
+        &lt;<span class="org-function-name">div</span> <span class="org-variable-name">class</span>=<span class="org-string">"mb-2"</span>&gt;
+            &lt;<span class="org-function-name">label</span> <span class="org-variable-name">for</span>=<span class="org-string">"title"</span>&gt;Title&lt;/<span class="org-function-name">label</span>&gt;
+            &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"text"</span> <span class="org-variable-name">class</span>=<span class="org-string">"form-control"</span> <span class="org-variable-name">id</span>=<span class="org-string">"title"</span> <span class="org-variable-name">name</span>=<span class="org-string">"title"</span>&gt;
+        &lt;/<span class="org-function-name">div</span>&gt;
+        &lt;<span class="org-function-name">div</span> <span class="org-variable-name">class</span>=<span class="org-string">"mb-3"</span>&gt;
+            &lt;<span class="org-function-name">label</span> <span class="org-variable-name">for</span>=<span class="org-string">"director"</span>&gt;Director&lt;/<span class="org-function-name">label</span>&gt;
+            &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"text"</span> <span class="org-variable-name">class</span>=<span class="org-string">"form-control"</span> <span class="org-variable-name">id</span>=<span class="org-string">"director"</span> <span class="org-variable-name">name</span>=<span class="org-string">"director"</span>&gt;
+        &lt;/<span class="org-function-name">div</span>&gt;
+        &lt;<span class="org-function-name">button</span> <span class="org-variable-name">type</span>=<span class="org-string">"submit"</span> <span class="org-variable-name">class</span>=<span class="org-string">"btn btn-primary"</span>&gt;Add Film&lt;/<span class="org-function-name">button</span>&gt;
+    &lt;/<span class="org-function-name">form</span>&gt;
+&lt;/<span class="org-function-name">body</span>&gt;
+&lt;/<span class="org-function-name">html</span>&gt;
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-go">package main
+
+import (
+    "log"
+    "net/http"
+    "html/template"
+)
+
+type Film struct {
+    Title    string
+    Director string
+}
+
+func main() {
+    log.Println("Server started on: http://localhost:8000")
+    tmpl := template.Must(template.ParseFiles("index.html"))
+
+    films := map[string] Film {
+        "The Shawshank Redemption": {"The Shawshank Redemption", "Frank Darabont"},
+        "The Godfather": {"The Godfather", "Francis Ford Coppola"},
+    }
+
+    http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
+        tmpl.Execute(w, films)
+    })
+
+    http.HandleFunc("/add", func (w http.ResponseWriter, r *http.Request) {
+        log.Println("htmx Add request received")
+        log.Println(r.Header.Get("HX-Request"))
+        if r.Method == "POST" {
+            title    := r.PostFormValue("title")
+            director := r.PostFormValue("director")
+            tmpl.ExecuteTemplate(w, "film-list-element", Film{title, director})
+        }
+    })
+
+    log.Fatal(http.ListenAndServe(":8000", nil))
+}
+</pre>
+</div>
+
+<p>
+Libraries:
+</p>
+<ul class="org-ul">
+<li><a href="https://github.com/chasefleming/elem-go">elem-go</a> - create/manipulate HTML elements with htmx helpers</li>
+<li><a href="https://templ.guide/server-side-rendering/htmx/">templ</a> - write components compiled to go template code</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga7d48c6" class="outline-2">
+<h2 id="orga7d48c6"><a href="#orga7d48c6">Web Security Guidelines</a></h2>
+<div class="outline-text-2" id="text-orga7d48c6">
+<p>
+Only call routes you control
+</p>
+<ul class="org-ul">
+<li>Uncontrolled routes could insert malicious <code>&lt;script&gt;</code> tags</li>
+<li>Only use relative URLs: <code>hx-get="/events"</code></li>
+</ul>
+
+<p>
+Always use an auto-escaping template engine
+</p>
+<ul class="org-ul">
+<li>Replaces &amp;, &lt;, &gt;, ", &#x2026; with "&amp;amp;", "&amp;lt", etc.</li>
+<li>Prevents Cross-Site Scripting (XSS) attacks</li>
+</ul>
+
+<p>
+Only serve user-generated content inside HTML tags
+</p>
+<ul class="org-ul">
+<li>No user-defined data in scripts, CSS, or as HTML attributes</li>
+</ul>
+
+<p>
+Set authentication cookies with <code>Secure</code>, <code>HttpOnly</code>, and <code>SameSite=Lax</code>
+</p>
+<ul class="org-ul">
+<li><code>Secure</code>: only send the cookie via HTTPS</li>
+<li><code>HttpOnly</code>: don't make the cookie available to JS via <code>document.cookie</code></li>
+<li><code>SameSite=Lax</code>: mitigate Cross-Site Request Forgery (CSRF)</li>
+</ul>
+
+<p>
+See <a href="https://htmx.org/essays/web-security-basics-with-htmx/">Web Security Basics (with htmx)</a>.
+</p>
+</div>
+</div>
+<div id="outline-container-orgce63828" class="outline-2">
+<h2 id="orgce63828"><a href="#orgce63828">Resources</a></h2>
+<div class="outline-text-2" id="text-orgce63828">
+<ul class="org-ul">
+<li><a href="https://htmx.org/docs/">htmx Documentation</a></li>
+<li><a href="https://unplannedobsolescence.com/blog/less-htmx-is-more/">Less htmx is More</a></li>
+<li><a href="https://lassebomh.github.io/htmx-playground/">HTMX playground &amp; examples</a></li>
+</ul>
+</div>
+</div>
+</main>
+</body>
+</html>
