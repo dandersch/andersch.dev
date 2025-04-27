@@ -385,9 +385,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 (setq org-roam-directory "~/org/roam") ; NOTE not part of the repo
 
+(setq roam-andersch-dev-images
+      (list "roam.andersch.dev-images"
+             :base-directory org-roam-directory
+             :base-extension "jpg\\|gif\\|png\\|svg"
+             :publishing-directory "./notes/"
+             :publishing-function 'org-publish-attachment))
+
 (setq roam-andersch-dev
       (list "roam.andersch.dev"
-             :recursive            t ; NOTE: does not need to be recursive...
+             :recursive            nil
              :base-directory       org-roam-directory
              :publishing-directory "./notes/"
              :publishing-function  'org-html-publish-to-html-noexport
@@ -425,7 +432,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ;; TODO roam-andersch-dev-attachment
 
-(setq org-publish-project-alist (list andersch-dev roam-andersch-dev))
+(setq org-publish-project-alist (list andersch-dev roam-andersch-dev-images roam-andersch-dev))
 
 ; NOTE workaround to not get a "Symbol’s function definition is void" error when publishing
 (defun get-article-keyword-list () article-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
@@ -444,6 +451,8 @@ document.addEventListener('DOMContentLoaded', function() {
 (org-publish-initialize-cache "roam.andersch.dev")
 (setq org-publish-use-timestamps-flag t)
 (setq org-export-with-broken-links nil) ; TODO fix broken roam ID links...
+
+(org-publish "roam.andersch.dev-images" nil)
 
 (org-publish "roam.andersch.dev" nil)
 (message "Build complete: roam.andersch.dev")

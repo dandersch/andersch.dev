@@ -76,7 +76,9 @@ h4 a:link, h4 a:visited { text-decoration: none; color: inherit; }
 h4 a:hover, h4 a:focus, h4 a:active { text-decoration: underline; }
 h5 { text-align: center; }
 
-
+/* tables: centered, borders */
+table  { margin: auto; border: 1px solid white; margin-top: 20px; margin-bottom: 20px;}
+th, td { background-color: #1a1a1a; border: 1px solid white; padding: 8px; text-align: center; }
 
 /* better lists */
 ul { list-style-type: circle; }

@@ -5,7 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Org-mode</title>
+<title>The Mighty X-Macro</title>
+<meta name="description" content="Table-Driven Metaprogramming using the C Preprocessor" />
 <meta name="generator" content="Org Mode" />
 <style type="text/css">
   #content { max-width: 60em; margin: auto; }
@@ -195,38 +196,6 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="stylesheet" href="/style.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
-
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
 </head>
 <body>
 <header id="top" class="status">
@@ -249,199 +218,38 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Org-mode</h1>
+<div class="tags-date-box">
+<div class="tags"><code>[ <a href="/tag/noexport.html">noexport</a> <a href="/tag/cpp.html">cpp</a> ]</code></div>
+<div class="date"><span class="timestamp"><0000-01-01 Mon></span></div>
+</div>
+<h1>The Mighty X-Macro</h1><h2 class="subtitle">Table-Driven Metaprogramming using the C Preprocessor</h1><div class="figure"><img src="/article/the-mighty-x-macro/preview.png" alt=""></div>
 <p>
-Org-mode describes a <a href="markup_language.html#ID-25a92a14-f838-4333-8004-c721a66bbdf6">markup language</a> and an associated ecosystem that lives
-inside of <a href="emacs.html#ID-8a74e92a-0356-408d-bba7-ddbc92230eeb">emacs</a>.
+X-Macros
 </p>
-<div id="outline-container-orgab232c2" class="outline-2">
-<h2 id="orgab232c2"><a href="#orgab232c2">Use cases</a></h2>
-<div class="outline-text-2" id="text-orgab232c2">
-<p>
-<a href="markup_language.html#ID-25a92a14-f838-4333-8004-c721a66bbdf6">Markup Language</a>
-</p>
-<ul class="org-ul">
-<li><b>Bold</b>, <span class="underline">underlined</span>, <i>cursive</i>, etc. and <a href="http://www.example.com">hyperlinks</a></li>
-<li><code>[1/2]</code> Checklists
-<ul class="org-ul">
-<li class="on"><code>[X]</code> do 1</li>
-<li class="off"><code>[&#xa0;]</code> do 2</li>
-</ul></li>
-<li>Inline images</li>
-<li>Inline latex \(f(x) = x^2 + 3\)</li>
-</ul>
 
-<p>
-Task management
-</p>
-<ul class="org-ul">
-<li>TODOs</li>
-<li>Appointments</li>
-<li>Scheduled events</li>
-<li>Deadlines</li>
-</ul>
-
-<p>
-Websites
-</p>
-<ul class="org-ul">
-<li>Static website generation using <code>org-publish</code></li>
-<li>Dynamic websites using embedded html blocks (?)</li>
-</ul>
-
-<p>
-Documents
-</p>
-<ul class="org-ul">
-<li>Thesis, Papers, Articles</li>
-<li>Export to PDF, HTML, <a href="markdown.html#ID-97c4a5fb-70ac-4450-b207-e62752a44166">Markdown</a></li>
-<li>Presentations using <code>org-beamer</code></li>
-<li>HTML mails using <code>org-mime-org-htmlize</code></li>
-</ul>
-
-<p>
-<a href="pkm.html#ID-324586c0-1281-48d1-baf6-e535f335a562">PKM</a>/Zettelkasten/Digital Garden
-</p>
-<ul class="org-ul">
-<li><a href="roam_research.html#ID-751fb4ed-efea-4854-86e8-3cd1d2473fc8">Roam</a> clone with <a href="org_roam.html#ID-cb90595b-7c68-4d6a-87d1-adbb92dfaa6c">org-roam</a></li>
-<li>Concept mapping with <code>org-brain</code></li>
-</ul>
-
-<p>
-Programming
-</p>
-<ul class="org-ul">
-<li>Literate programming using <code>org-babel-tangle</code></li>
-<li><a href="jupyter.html#ID-118ec2d6-0767-43fb-9f2a-4fb83383fda9">Jupyter</a>-like notebooks using <code>org-babel</code></li>
-<li><code>README.org</code> (supported by GitHub, &#x2026;)</li>
-<li>TODOs tracking with filelinks</li>
-</ul>
-
-<p>
-Tables
-</p>
-<ul class="org-ul">
-<li>Plaintext table generation</li>
-<li>Spreadsheets w/ formulas</li>
-<li>Plotting using <code>gnuplot</code></li>
-<li>ASCII bar plots w/ <code>orgtbl-ascii-draw</code></li>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgb3683e7">Operations on X-Macro Tables</a></li>
+<li><a href="#org9179b9d">Examples</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd6e5617" class="outline-2">
-<h2 id="orgd6e5617"><a href="#orgd6e5617">Attachments</a></h2>
-<div class="outline-text-2" id="text-orgd6e5617">
+<div id="outline-container-orgb3683e7" class="outline-2">
+<h2 id="orgb3683e7"><a href="#orgb3683e7">Operations on X-Macro Tables</a></h2>
+<div class="outline-text-2" id="text-orgb3683e7">
 <p>
-File links in org-mode are manually managed, remain in their original locations
-and are pointed to with absolute/relative paths. This means the links are
-invalid if files are moved or reorganized.
+&#x2026;
 </p>
-
+</div>
+</div>
+<div id="outline-container-org9179b9d" class="outline-2">
+<h2 id="org9179b9d"><a href="#org9179b9d">Examples</a></h2>
+<div class="outline-text-2" id="text-org9179b9d">
 <p>
-Attachments on the other hand are managed by Org-mode with auto-moving when
-files are refiled. Files are stored in a dedicated directory and belong to an
-outline.
+Typical Example
 </p>
-
-<p>
-Use attachments for files that belong with the note; use file links for
-referencing external resources.
-</p>
-</div>
-</div>
-<div id="outline-container-org3096b0d" class="outline-2">
-<h2 id="org3096b0d"><a href="#org3096b0d">Org-plot example</a></h2>
-<div class="outline-text-2" id="text-org3096b0d">
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 1:</span> Org table as data source for a plot</caption>
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-right" />
-
-<col  class="org-right" />
-
-<col  class="org-right" />
-
-<col  class="org-right" />
-
-<col  class="org-right" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Format</th>
-<th scope="col" class="org-right">control</th>
-<th scope="col" class="org-right">effort</th>
-<th scope="col" class="org-right">syntax</th>
-<th scope="col" class="org-right">support</th>
-<th scope="col" class="org-right">integration</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left">Word</td>
-<td class="org-right">2</td>
-<td class="org-right">4</td>
-<td class="org-right">4</td>
-<td class="org-right">2</td>
-<td class="org-right">3</td>
-</tr>
-
-<tr>
-<td class="org-left">LaTeX</td>
-<td class="org-right">4</td>
-<td class="org-right">1</td>
-<td class="org-right">1</td>
-<td class="org-right">3</td>
-<td class="org-right">2</td>
-</tr>
-
-<tr>
-<td class="org-left">Org Mode</td>
-<td class="org-right">4</td>
-<td class="org-right">2</td>
-<td class="org-right">3.5</td>
-<td class="org-right">1</td>
-<td class="org-right">4</td>
-</tr>
-
-<tr>
-<td class="org-left">Markdown</td>
-<td class="org-right">1</td>
-<td class="org-right">3</td>
-<td class="org-right">3</td>
-<td class="org-right">4</td>
-<td class="org-right">3</td>
-</tr>
-
-<tr>
-<td class="org-left">Markdown + Pandoc</td>
-<td class="org-right">2.5</td>
-<td class="org-right">2.5</td>
-<td class="org-right">2.5</td>
-<td class="org-right">3</td>
-<td class="org-right">3</td>
-</tr>
-</tbody>
-</table>
-
-
-
-<div id="org-mode-gnuplot-example" class="figure">
-<p><img src="./org-mode-gnuplot-example.png" alt="org-mode-gnuplot-example.png" />
-</p>
-<p><span class="figure-number">Figure 1: </span>Example of generating a plot from an org table</p>
-</div>
-</div>
-</div>
-<div id="outline-container-org9d27acf" class="outline-2">
-<h2 id="org9d27acf"><a href="#org9d27acf">Resources</a></h2>
-<div class="outline-text-2" id="text-org9d27acf">
-<ul class="org-ul">
-<li><a href="https://orgmode.org/manual/">The Org Manual</a></li>
-<li><a href="https://github.com/awesome-orgmode/org-mode-doc/blob/master/org-mode.org">org-mode-doc</a>: Org-mode as your personal information manager</li>
-</ul>
 </div>
 </div>
 </main>

@@ -238,7 +238,7 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 <li><a href="#orgb0fd36e">1. Package Archives</a></li>
 <li><a href="#org4f1f6ee">2. Dependencies</a></li>
 <li><a href="#org961eb19">3. Configuration</a></li>
-<li><a href="#org1024c3b">4. Helper functions</a></li>
+<li><a href="#org186e6b5">4. Helper functions</a></li>
 <li><a href="#orgacbb0a2">5. Filter out links to <code>index.html</code></a></li>
 <li><a href="#org7c5b283">6. Comment Section</a>
 <ul>
@@ -264,7 +264,7 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 <li><a href="#orgc4031f7">15. org-publish</a></li>
 <li><a href="#org1da74c1">16. Code snippets</a>
 <ul>
-<li><a href="#orgdf9e7ae">16.1. Helper functions</a></li>
+<li><a href="#org241f815">16.1. Helper functions</a></li>
 <li><a href="#org7dfbcb9">16.2. <span class="todo TODO">TODO</span> Generate "Latest Articles/Projects" View</a></li>
 <li><a href="#org387176f">16.3. Generate Tags</a></li>
 <li><a href="#org3e9f367">16.4. Generate Article Header &amp; Subtitle</a></li>
@@ -339,8 +339,8 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 </div>
 </div>
 </div>
-<div id="outline-container-org1024c3b" class="outline-2">
-<h2 id="org1024c3b"><span class="section-number-2">4.</span> <a href="#org1024c3b">Helper functions</a></h2>
+<div id="outline-container-org186e6b5" class="outline-2">
+<h2 id="org186e6b5"><span class="section-number-2">4.</span> <a href="#org186e6b5">Helper functions</a></h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">get-org-files</span> (directory)
@@ -830,9 +830,16 @@ Wiki portion of the site as a separate project.
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> org-roam-directory <span class="org-string">"~/org/roam"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE not part of the repo</span>
 
+(<span class="org-keyword">setq</span> roam-andersch-dev-images
+      (list <span class="org-string">"roam.andersch.dev-images"</span>
+             <span class="org-builtin">:base-directory</span> org-roam-directory
+             <span class="org-builtin">:base-extension</span> <span class="org-string">"jpg</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">gif</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">png</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">svg"</span>
+             <span class="org-builtin">:publishing-directory</span> <span class="org-string">"./notes/"</span>
+             <span class="org-builtin">:publishing-function</span> 'org-publish-attachment))
+
 (<span class="org-keyword">setq</span> roam-andersch-dev
       (list <span class="org-string">"roam.andersch.dev"</span>
-             <span class="org-builtin">:recursive</span>            t <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE: does not need to be recursive...</span>
+             <span class="org-builtin">:recursive</span>            nil
              <span class="org-builtin">:base-directory</span>       org-roam-directory
              <span class="org-builtin">:publishing-directory</span> <span class="org-string">"./notes/"</span>
              <span class="org-builtin">:publishing-function</span>  'org-html-publish-to-html-noexport
@@ -877,7 +884,7 @@ Wiki portion of the site as a separate project.
 <h3 id="org6c8cba7"><span class="section-number-3">13.3.</span> <a href="#org6c8cba7">Add projects to <code>org-publish-project-alist</code></a></h3>
 <div class="outline-text-3" id="text-13-3">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> org-publish-project-alist (list andersch-dev roam-andersch-dev))
+<pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> org-publish-project-alist (list andersch-dev roam-andersch-dev-images roam-andersch-dev))
 </pre>
 </div>
 </div>
@@ -912,6 +919,8 @@ Wiki portion of the site as a separate project.
 (<span class="org-keyword">setq</span> org-publish-use-timestamps-flag t)
 (<span class="org-keyword">setq</span> org-export-with-broken-links nil) <span class="org-comment-delimiter">; </span><span class="org-comment">TODO fix broken roam ID links...</span>
 
+(org-publish <span class="org-string">"roam.andersch.dev-images"</span> nil)
+
 (org-publish <span class="org-string">"roam.andersch.dev"</span> nil)
 (message <span class="org-string">"Build complete: roam.andersch.dev"</span>)
 
@@ -928,8 +937,8 @@ Wiki portion of the site as a separate project.
 <h2 id="org1da74c1"><span class="section-number-2">16.</span> <a href="#org1da74c1">Code snippets</a></h2>
 <div class="outline-text-2" id="text-16">
 </div>
-<div id="outline-container-orgdf9e7ae" class="outline-3">
-<h3 id="orgdf9e7ae"><span class="section-number-3">16.1.</span> <a href="#orgdf9e7ae">Helper functions</a></h3>
+<div id="outline-container-org241f815" class="outline-3">
+<h3 id="org241f815"><span class="section-number-3">16.1.</span> <a href="#org241f815">Helper functions</a></h3>
 <div class="outline-text-3" id="text-16-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp" id="format-entry-as-image-link">(<span class="org-keyword">defun</span> <span class="org-function-name">format-entry-as-image-link</span> (entry type) <span class="org-comment-delimiter">; </span><span class="org-comment">of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))</span>
