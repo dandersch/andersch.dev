@@ -27,11 +27,15 @@
 
 (require 'ob-emacs-lisp)
 
+; NOTE: not needed for exporting roam notes (?)
+;(package-install 'org-roam)
+;(require 'org-roam)
+
 (add-to-list 'load-path "~/dev/org-slide")
 (require 'org-slide)
 
 (setq
-      keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]") ; keywords to parse from .org files
+      keywords '("TITLE" "DATE" "DESCRIPTION" "IMAGE" "TAGS[]" "FILETAGS") ; keywords to parse from .org files
       org-html-htmlize-output-type 'css
       org-export-allow-bind-keywords t ; Allows #+BIND: in a buffer
       org-confirm-babel-evaluate nil   ; needed to enable org-babel src-block execution from a script
@@ -64,6 +68,9 @@
 
 (defun article-marked-for-noexport-p (article)
   (string-match-p (regexp-quote "noexport") (cadr (assoc "TAGS[]" (cadr article)))))
+
+(defun roam-note-marked-for-noexport-p (article)
+  (string-match-p (regexp-quote "noexport") (cadr (assoc "FILETAGS" (cadr article)))))
 
 (defun filter-out-index-html (transcoded-data-string backend communication-channel-plist)
   (when (org-export-derived-backend-p backend 'html)
@@ -128,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 (setq article-keyword-list '())
 (setq project-keyword-list '())
 (setq other-keyword-list   '())
+(setq notes-keyword-list   '())
 
 ;(setq keyword-list
 ;  '(
@@ -137,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ; (cadr (assoc "TITLE" (cadr (assoc "article" article)))
 ;                  (print
 
-; FILL & SORT KEYWORD-LISTS FOR PROJECT/, ARTICLE/, OTHER/
+; fill & sort keyword-lists for project/, article/, other/
 (defun fill-keyword-lists ()
   (dolist (article (get-org-files "article"))
     (let ((article-keywords (get-org-file-keywords article)))
@@ -158,7 +166,27 @@ document.addEventListener('DOMContentLoaded', function() {
   (setq other-keyword-list (sort-keyword-list-by-date other-keyword-list t))
 
   ; article-keyword-list == (cdr (assoc "article" keyword-list))
-  (setq keyword-list `(,(cons "article" article-keyword-list) ,(cons "project" project-keyword-list) ,(cons "other" other-keyword-list))))
+  ;(setq keyword-list `(,(cons "article" article-keyword-list)
+  ;                     ,(cons "project" project-keyword-list)
+  ;                     ,(cons "other"   other-keyword-list))))
+  ; TODO append
+  (setq keyword-list '())
+  (setq keyword-list (append keyword-list
+                           `(("article" . ,article-keyword-list)
+                             ("project" . ,project-keyword-list)
+                             ("other"   . ,other-keyword-list)))))
+
+; fill & sort keyword-lists for notes/ (called by roam project)
+(defun roam-fill-keyword-lists ()
+  (dolist (note (get-org-files org-roam-directory))
+    (let ((notes-keywords (get-org-file-keywords note)))
+      (unless (roam-note-marked-for-noexport-p notes-keywords)
+        (push (get-org-file-keywords note) notes-keyword-list))))
+  ;(setq notes-keyword-list (sort-keyword-list-by-date notes-keyword-list t)) ; NOTE: no date prop...
+
+  ; article-keyword-list == (cdr (assoc "article" keyword-list))
+  (setq keyword-list `(,(cons "notes" notes-keyword-list)))
+  )
 
 (defun generate-main-rss-feed ()
   ; rss header, check with  https://validator.w3.org/feed/
@@ -215,11 +243,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   (setq other-tags '())
   (dolist (other other-keyword-list)
+     ;(print other) ; ("other/publish/index.org" (("TITLE" "The Script ") ("DESCRIPTION" "...") ("DATE" "<..>") ("IMAGE" "preview.png") ("TAGS[]" "lisp org web")))
      (setq other-tags (append (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +") other-tags)))
   (delete-dups other-tags)
 
+  (setq notes-tags '())
+  (dolist (notes notes-keyword-list)
+     (setq notes-tags (cl-remove-if #'string-empty-p (append (split-string (cadr (assoc "FILETAGS" (cadr notes)))  ":") notes-tags))))
+  (delete-dups notes-tags)
+
   (setq all-tags '())
-  (setq all-tags (cl-concatenate 'list article-tags project-tags other-tags))
+  (setq all-tags (cl-concatenate 'list article-tags project-tags other-tags notes-tags))
   (delete-dups all-tags)
 
   ; generate .org files for all tags
@@ -248,16 +282,44 @@ document.addEventListener('DOMContentLoaded', function() {
   ; append "* Other" headline
   (dolist (tag other-tags)
     (write-region (format "* Other tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
-  ; add entry of a project to its tag.org's
+  ; add entry of other to its tag.org's
   (dolist (other other-keyword-list)
     (dolist (tag (split-string (cadr (assoc "TAGS[]" (cadr other)))  " +"))
       (write-region (format "- [[../%s][%s]]\n" (car other) (cadr (assoc "TITLE" (cadr other))))
-                    nil (format "tag/%s.org" tag) 'append))))
+                    nil (format "tag/%s.org" tag) 'append)))
 
-(defun prepare-publishing (project-properties)
+  ; append "* Notes" headline
+  (dolist (tag notes-tags)
+    (write-region (format "* Notes tagged ~%s~\n" tag) nil (format "tag/%s.org" tag) 'append))
+  ; add entry of notes to its tag.org's
+  (dolist (notes notes-keyword-list)
+    (dolist (tag (cl-remove-if #'string-empty-p (split-string (cadr (assoc "FILETAGS" (cadr notes)))  ":")))
+      ; TODO hardcoded string-replace
+      (write-region (format "- [[../%s][%s]]\n" (string-replace "~/org/roam" "notes" (car notes)) (cadr (assoc "TITLE" (cadr notes))))
+                    nil (format "tag/%s.org" tag) 'append)))
+  )
+
+(defun  prepare-publishing (project-properties)
   (fill-keyword-lists)
   (generate-main-rss-feed)
   (generate-tag-files))
+
+(defun  roam-prepare-publishing (project-properties)
+  (roam-fill-keyword-lists))
+
+(defun org-html-publish-to-html-noexport (plist filename pub-dir)
+  "Publish an org file to HTML except one's that are tagged noexport"
+
+  ; FILENAME is the filename of the Org file to be published
+  ; PLIST is the property list for the given project
+  ; PUB-DIR is the publishing directory.
+  ; Return output file name
+
+  (let ((notes-keywords (get-org-file-keywords filename)))
+    (if (roam-note-marked-for-noexport-p notes-keywords)
+        nil
+      (org-html-publish-to-html plist filename pub-dir)))
+)
 
 (setq andersch-dev
       (list "andersch.dev"
@@ -328,8 +390,8 @@ document.addEventListener('DOMContentLoaded', function() {
              :recursive            t ; NOTE: does not need to be recursive...
              :base-directory       org-roam-directory
              :publishing-directory "./notes/"
-             :publishing-function  'org-html-publish-to-html    ;; may be a list of functions
-           ; :preparation-function 'prepare-publishing
+             :publishing-function  'org-html-publish-to-html-noexport
+             :preparation-function 'roam-prepare-publishing
              :html-divs            '((preamble "header" "top")
                                      (content "main" "content")
                                      (postamble "footer" "postamble"))
@@ -342,6 +404,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                            "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin\">"
                                            "<script type=\"text/javascript\" src=\"/script.js\" defer></script>"
                                            )
+
+             :exclude-tags             org-export-exclude-tags
+             :html-self-link-headlines t   ;; headings contain hyperlinks to themselves
+             :html-prefer-user-labels  t   ;; prefer CUSTOM_ID over auto-generated id's
+
              :html-preamble        t
              :html-preamble-format `(("en" ,(with-temp-buffer (insert-file-contents "header.html") (buffer-string))))
              :html-postamble       nil                       ;; don't insert a footer with a date etc.
@@ -360,23 +427,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 (setq org-publish-project-alist (list andersch-dev roam-andersch-dev))
 
-; NOTE caching causes problems with updating titles etc., so we reset the cache before publishing
-(setq org-publish-use-timestamps-flag nil)
-(setq org-publish-timestamp-directory "./.org-timestamps/")
-;(org-publish-remove-all-timestamps)
-
 ; NOTE workaround to not get a "Symbol’s function definition is void" error when publishing
 (defun get-article-keyword-list () article-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
 (defun get-project-keyword-list () project-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
 (defun get-other-keyword-list   () other-keyword-list)   ; NOTE workaround to pass keyword-list to a source-block in an org file
+(defun get-notes-keyword-list   () notes-keyword-list)
 
-(org-publish "andersch.dev" t)
-(message "Build complete: andersch.dev")
+; caching
+(setq org-publish-timestamp-directory "./.org-timestamps/")
+(org-publish-remove-all-timestamps) ; call to avoid caching
+
+(print org-id-locations)
+(setq org-id-locations-file "/home/da/org/.orgids")
 
 ; enable caching for roam.andersch.dev
 (org-publish-initialize-cache "roam.andersch.dev")
 (setq org-publish-use-timestamps-flag t)
-(setq org-export-with-broken-links t) ; TODO fix broken roam ID links...
+(setq org-export-with-broken-links nil) ; TODO fix broken roam ID links...
 
 (org-publish "roam.andersch.dev" nil)
 (message "Build complete: roam.andersch.dev")
+
+(setq org-export-with-broken-links nil) ; TODO unset because of roam...
+; NOTE caching causes problems with updating titles etc., so we reset the cache before publishing
+(setq org-publish-use-timestamps-flag nil)
+(org-publish "andersch.dev" t)
+(message "Build complete: andersch.dev")

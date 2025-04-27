@@ -13,16 +13,15 @@ TODO -*- mode: org -*-
 - [ ] use [[https://orgmode.org/manual/Publishing-options.html][publishing options]]
   + [ ] :html-head-include-scripts (t/non-nil) & org-html-scripts
 
-- [ ] use #+filetags over #+tags[]
-  + [ ] migrate articles over to #+filetags
+- [ ] use #+filetags over #+tags[] or vice versa
 
 - [ ] phase out code.org
+  + [ ] use custom :DRAWERS: to replace #+calls
 
-- [ ] add wiki
-  + [ ] publishing script in org/roam
-  + [ ] fix broken ID links
-  + [ ] add noexport notes
-  + [ ] wiki with tags
-    * [ ] output cached tags file for roam
-    * [ ] read in cached version and use that
-    * [ ] OR combine both publishing scripts
+- [4/6] add wiki
+  + [X] combine both publishing scripts
+  + [X] read in tags of org-roam
+  + [X] add noexport
+  + [X] fix broken ID links
+  + [ ] fix broken image links
+  + [ ] display tags above title

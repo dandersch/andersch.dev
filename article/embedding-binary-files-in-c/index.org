@@ -6,38 +6,9 @@
 #+COMMENTS:    t
 #+OPTIONS:     toc:nil num:1
 
-# #+FILETAGS:    noexport
-#+filetags: :programming:things:graphics:
-
-#+MACRO: tag-date :TAG-DATE-BOX:"\n"{{{TITLE}}} :END:
-#+MACRO: tags-date (eval (concat ":TAG-DATE-BOX:" "\n" "{{{TITLE}}}" ":END:"))
-#+MACRO: tags {{{keyword(FILETAGS)}}}
-#+MACRO: test (eval "Hello here is\norg-mode macro"")
-
-#+MACRO: multiline (eval (concat "new..." (eval "\n") "line\n"))
-
-#+MACRO: line (eval "\n")
-#+MACRO: newline    src_emacs-lisp[:results raw]{"\n"}
-#+MACRO: macroname line 1 of macro {{{newline}}}line 2 of macro
-
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
 
 * Introduction                                                       :ignore:
-{{{tag-date}}}
-
-{{{tags-date}}}
-
-{{{tags}}}
-{{{line}}}
-{{{line}}}
-{{{line}}}
-{{{line}}}
-{{{test}}}
-
-{{{multiline}}}
-
-{{{macroname}}}
-
 When programming, it can be desirable to embed the data of arbitrary binary
 files directly in the final executable of your application. This is great to:
 - /Provide fallbacks/ for fonts/textures/... in case files can't be accessed
