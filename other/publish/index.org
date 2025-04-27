@@ -543,7 +543,7 @@ Wiki portion of the site as a separate project.
              :html-postamble       nil                       ;; don't insert a footer with a date etc.
              :auto-sitemap         nil
              :makeindex            nil                       ;; https://orgmode.org/manual/Generating-an-index.html
-             :with-title           t                         ;; we include our own header
+             :with-title           t
              :with-author          nil
              :with-creator         nil                       ;; don't include emacs and org versions in footer
              :with-toc             nil                       ;; no table of contents
