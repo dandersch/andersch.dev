@@ -9,6 +9,8 @@ TODO -*- mode: org -*-
   + [ ] add latest notes
   + [ ] preserve layout after collapsing
 
+- [ ] fix warning: 'org-element-at-point' cannot be used in non-org buffer
+
 - [1/2] css+js
   + [X] don't collapse when clicking heading text
   + [ ] collapse arrow on right side of headings
@@ -39,3 +41,11 @@ TODO -*- mode: org -*-
   + [X] fix broken image links
   + [X] display tags above title
   + [ ] allow missing #+filetags in roam notes
+
+- [ ] better html
+  + [ ] check w/ https://validator.w3.org/nu/?doc=https%3A%2F%2Fandersch.dev%2F
+  + [ ] generate ~og:description~, ~og:image~ meta properties from DESCRIPTION+IMAGE
+  + [ ] DESCRIPTION to ~<meta name="description" >~
+
+- [ ] see similar projects
+  + [ ] https://github.com/bastibe/org-static-blog/
