@@ -1,3 +1,7 @@
+# TODO fix title not appearing on startpage
+#+OPTIONS: title:nil
+# #+HTML_HEAD: <title>andersch.dev</title>
+
 #+NAME: latest-article
 #+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='() folder="" :noweb yes
 (defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
