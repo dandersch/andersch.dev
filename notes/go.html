@@ -229,13 +229,13 @@ features such as built-in HTTP server and JSON support) makes it a suitable
 Go's concurrency model (using Goroutines and Channels) can handle multiple tasks
 simultaneously with minimal complexity.
 </p>
-<div id="outline-container-orga35012c" class="outline-2">
-<h2 id="orga35012c"><a href="#orga35012c">Keywords</a></h2>
-<div class="outline-text-2" id="text-orga35012c">
+<div id="outline-container-org255890d" class="outline-2">
+<h2 id="org255890d"><a href="#org255890d">Keywords</a></h2>
+<div class="outline-text-2" id="text-org255890d">
 </div>
-<div id="outline-container-org7409f41" class="outline-3">
-<h3 id="org7409f41"><a href="#org7409f41"><code>package</code> / <code>import</code></a></h3>
-<div class="outline-text-3" id="text-org7409f41">
+<div id="outline-container-orgdab8d18" class="outline-3">
+<h3 id="orgdab8d18"><a href="#orgdab8d18"><code>package</code> / <code>import</code></a></h3>
+<div class="outline-text-3" id="text-orgdab8d18">
 <p>
 The first line of every <code>.go</code> file specifies the package name.
 </p>
@@ -260,9 +260,9 @@ func DoThing() { /* ... */ } // can be called outside package
 </div>
 </div>
 </div>
-<div id="outline-container-org7ff863a" class="outline-3">
-<h3 id="org7ff863a"><a href="#org7ff863a"><code>for</code>, <code>switch</code>, <code>range</code> (Control flow)</a></h3>
-<div class="outline-text-3" id="text-org7ff863a">
+<div id="outline-container-orgd683e40" class="outline-3">
+<h3 id="orgd683e40"><a href="#orgd683e40"><code>for</code>, <code>switch</code>, <code>range</code> (Control flow)</a></h3>
+<div class="outline-text-3" id="text-orgd683e40">
 <div class="org-src-container">
 <pre class="src src-go">/* switch */
 switch state {
@@ -296,9 +296,9 @@ for name, score := range scores {
 </div>
 </div>
 </div>
-<div id="outline-container-orgddb5480" class="outline-3">
-<h3 id="orgddb5480"><a href="#orgddb5480">Types</a></h3>
-<div class="outline-text-3" id="text-orgddb5480">
+<div id="outline-container-org2f08f20" class="outline-3">
+<h3 id="org2f08f20"><a href="#org2f08f20">Types</a></h3>
+<div class="outline-text-3" id="text-org2f08f20">
 <div class="org-src-container">
 <pre class="src src-go">/* types */
 var         // declare a variable
@@ -328,9 +328,9 @@ const (
 </div>
 </div>
 </div>
-<div id="outline-container-org10ab766" class="outline-3">
-<h3 id="org10ab766"><a href="#org10ab766">Functions/Interfaces</a></h3>
-<div class="outline-text-3" id="text-org10ab766">
+<div id="outline-container-org8e03e0f" class="outline-3">
+<h3 id="org8e03e0f"><a href="#org8e03e0f">Functions/Interfaces</a></h3>
+<div class="outline-text-3" id="text-org8e03e0f">
 <div class="org-src-container">
 <pre class="src src-go">// functions
 func example(var a int) (int, error) {
@@ -352,9 +352,9 @@ func (c Circle) Area() float64 { // implement interface for Circle
 </div>
 </div>
 </div>
-<div id="outline-container-orgdfbb0b0" class="outline-3">
-<h3 id="orgdfbb0b0"><a href="#orgdfbb0b0"><code>go</code>, <code>chan</code>, <code>select</code> (Concurrency)</a></h3>
-<div class="outline-text-3" id="text-orgdfbb0b0">
+<div id="outline-container-org13d3aca" class="outline-3">
+<h3 id="org13d3aca"><a href="#org13d3aca"><code>go</code>, <code>chan</code>, <code>select</code> (Concurrency)</a></h3>
+<div class="outline-text-3" id="text-org13d3aca">
 <div class="org-src-container">
 <pre class="src src-go">/* goroutines/channels */
 go      // start a goroutine
@@ -365,13 +365,13 @@ select  // wait on multiple channel operations
 </div>
 </div>
 </div>
-<div id="outline-container-org375268b" class="outline-2">
-<h2 id="org375268b"><a href="#org375268b">Concepts</a></h2>
-<div class="outline-text-2" id="text-org375268b">
+<div id="outline-container-org5d77202" class="outline-2">
+<h2 id="org5d77202"><a href="#org5d77202">Concepts</a></h2>
+<div class="outline-text-2" id="text-org5d77202">
 </div>
-<div id="outline-container-org4381083" class="outline-3">
-<h3 id="org4381083"><a href="#org4381083"><code>goroutine</code></a></h3>
-<div class="outline-text-3" id="text-org4381083">
+<div id="outline-container-org8638504" class="outline-3">
+<h3 id="org8638504"><a href="#org8638504"><code>goroutine</code></a></h3>
+<div class="outline-text-3" id="text-org8638504">
 <p>
 A <code>goroutine</code> is a lightweight thread managed by the Go runtime.
 </p>
@@ -431,9 +431,9 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-org57d0649" class="outline-3">
-<h3 id="org57d0649"><a href="#org57d0649"><code>chan</code> (Channels)</a></h3>
-<div class="outline-text-3" id="text-org57d0649">
+<div id="outline-container-org3636e64" class="outline-3">
+<h3 id="org3636e64"><a href="#org3636e64"><code>chan</code> (Channels)</a></h3>
+<div class="outline-text-3" id="text-org3636e64">
 <p>
 Channels enable communication between goroutines.
 </p>
@@ -514,9 +514,9 @@ if !ok {
 </div>
 </div>
 </div>
-<div id="outline-container-org9aac365" class="outline-3">
-<h3 id="org9aac365"><a href="#org9aac365"><code>select</code></a></h3>
-<div class="outline-text-3" id="text-org9aac365">
+<div id="outline-container-org11aead5" class="outline-3">
+<h3 id="org11aead5"><a href="#org11aead5"><code>select</code></a></h3>
+<div class="outline-text-3" id="text-org11aead5">
 <p>
 The <code>select</code> statement enables concurrent operations on channels.
 </p>
@@ -549,9 +549,9 @@ default:
 </div>
 </div>
 </div>
-<div id="outline-container-org347408c" class="outline-3">
-<h3 id="org347408c"><a href="#org347408c">Module System</a></h3>
-<div class="outline-text-3" id="text-org347408c">
+<div id="outline-container-orge0800a8" class="outline-3">
+<h3 id="orge0800a8"><a href="#orge0800a8">Module System</a></h3>
+<div class="outline-text-3" id="text-orge0800a8">
 <p>
 <code>go.mod</code>:
 The <code>go.mod</code> is the config file for a Go module.
@@ -575,13 +575,13 @@ The <code>go.mod</code> is the config file for a Go module.
 </div>
 </div>
 </div>
-<div id="outline-container-org2d381bf" class="outline-2">
-<h2 id="org2d381bf"><a href="#org2d381bf">Libraries</a></h2>
-<div class="outline-text-2" id="text-org2d381bf">
+<div id="outline-container-org0e99d48" class="outline-2">
+<h2 id="org0e99d48"><a href="#org0e99d48">Libraries</a></h2>
+<div class="outline-text-2" id="text-org0e99d48">
 </div>
-<div id="outline-container-org4244a29" class="outline-3">
-<h3 id="org4244a29"><a href="#org4244a29"><code>net/http</code></a></h3>
-<div class="outline-text-3" id="text-org4244a29">
+<div id="outline-container-org3cbc051" class="outline-3">
+<h3 id="org3cbc051"><a href="#org3cbc051"><code>net/http</code></a></h3>
+<div class="outline-text-3" id="text-org3cbc051">
 <p>
 The standard library <code>net/http</code> provides HTTP client/server implementations. It
 can be used to build web apps, APIs, and handling HTTP requests/responses.
@@ -615,9 +615,9 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-orgf2b35c9" class="outline-3">
-<h3 id="orgf2b35c9"><a href="#orgf2b35c9"><code>html/template</code></a></h3>
-<div class="outline-text-3" id="text-orgf2b35c9">
+<div id="outline-container-org8d764d3" class="outline-3">
+<h3 id="org8d764d3"><a href="#org8d764d3"><code>html/template</code></a></h3>
+<div class="outline-text-3" id="text-org8d764d3">
 <p>
 Go provides templating utilities for text with <code>text/template</code>. For templating
 HTML, <code>html/template</code> should be used to ensure special characters are rendered as
@@ -664,9 +664,9 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-org7cda267" class="outline-3">
-<h3 id="org7cda267"><a href="#org7cda267"><code>database/sql</code></a></h3>
-<div class="outline-text-3" id="text-org7cda267">
+<div id="outline-container-org05a5126" class="outline-3">
+<h3 id="org05a5126"><a href="#org05a5126"><code>database/sql</code></a></h3>
+<div class="outline-text-3" id="text-org05a5126">
 <div class="org-src-container">
 <pre class="src src-go">package main
 
@@ -744,13 +744,13 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-org387fcb7" class="outline-2">
-<h2 id="org387fcb7"><a href="#org387fcb7">Idioms</a></h2>
-<div class="outline-text-2" id="text-org387fcb7">
+<div id="outline-container-orgeae929f" class="outline-2">
+<h2 id="orgeae929f"><a href="#orgeae929f">Idioms</a></h2>
+<div class="outline-text-2" id="text-orgeae929f">
 </div>
-<div id="outline-container-org1b8a402" class="outline-3">
-<h3 id="org1b8a402"><a href="#org1b8a402">Struct Embedding</a></h3>
-<div class="outline-text-3" id="text-org1b8a402">
+<div id="outline-container-org61d1179" class="outline-3">
+<h3 id="org61d1179"><a href="#org61d1179">Struct Embedding</a></h3>
+<div class="outline-text-3" id="text-org61d1179">
 <p>
 Add types without a name to a struct to embed all of its members directly. The
 type can then call methods of that embedded type directly.
@@ -772,9 +772,9 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-orgf07dc91" class="outline-3">
-<h3 id="orgf07dc91"><a href="#orgf07dc91">Shorthand for Error Handling</a></h3>
-<div class="outline-text-3" id="text-orgf07dc91">
+<div id="outline-container-org101d59a" class="outline-3">
+<h3 id="org101d59a"><a href="#org101d59a">Shorthand for Error Handling</a></h3>
+<div class="outline-text-3" id="text-org101d59a">
 <div class="org-src-container">
 <pre class="src src-go">if err := writer.Close(); err != nil {
         panic(err)
@@ -783,9 +783,9 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-org2dea676" class="outline-3">
-<h3 id="org2dea676"><a href="#org2dea676">Interface Satisfaction Check</a></h3>
-<div class="outline-text-3" id="text-org2dea676">
+<div id="outline-container-org67bf0d1" class="outline-3">
+<h3 id="org67bf0d1"><a href="#org67bf0d1">Interface Satisfaction Check</a></h3>
+<div class="outline-text-3" id="text-org67bf0d1">
 <p>
 Ensure a type implements interfaces at compile time:
 </p>

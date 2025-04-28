@@ -1,1 +1,1 @@
-#+CALL: ../code.org:generate-article-snippets[:eval yes](list=(get-other-keyword-list))
+#+CALL: ../publish.org:generate-article-snippets[:eval yes](list=(get-other-keyword-list))

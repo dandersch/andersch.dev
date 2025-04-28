@@ -6,7 +6,7 @@
 #+FILETAGS:    :cpp:gamedev:
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ../../code.org:generate-article-header[:eval yes]()
+#+CALL: ../../publish.org:generate-article-header[:eval yes]()
 
 * Introduction                                                       :ignore:
 You can find the source code [[https://github.com/dandersch/game2d][here]].

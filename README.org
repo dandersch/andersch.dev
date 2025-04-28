@@ -1,1 +1,1 @@
-other/publish/index.org
+publish.org

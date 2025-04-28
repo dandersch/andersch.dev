@@ -6,7 +6,7 @@
 #+FILETAGS:    :gamedev:cpp:
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ../../code.org:generate-article-header[:eval yes]()
+#+CALL: ../../publish.org:generate-article-header[:eval yes]()
 * Introduction                                                       :ignore:
 /CHECKBOX/ is a simple puzzle platformer I wrote in C++ using SFML as a framework.
 It uses Box2D for physics and Dear Imgui for a debug menu (opens with ~F1~).

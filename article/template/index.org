@@ -7,7 +7,7 @@
 #+OPTIONS:     toc:nil num:nil
 
 # generates subtitle & image
-#+CALL: ../../code.org:generate-article-header[:eval yes]()
+#+CALL: ../../publish.org:generate-article-header[:eval yes]()
 
 * Introduction                                                       :ignore:
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod

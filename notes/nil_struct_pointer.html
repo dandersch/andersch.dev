@@ -234,9 +234,9 @@ Returning a nil struct pointer indicates an error, but the receiving code cannot
 overwrite the empty defaults of the pointer. This way, the error will propagate
 through the same codepaths as valid data, and can be handled later on.
 </p>
-<div id="outline-container-org3d0b720" class="outline-2">
-<h2 id="org3d0b720"><a href="#org3d0b720">Example</a></h2>
-<div class="outline-text-2" id="text-org3d0b720">
+<div id="outline-container-org28faeb6" class="outline-2">
+<h2 id="org28faeb6"><a href="#org28faeb6">Example</a></h2>
+<div class="outline-text-2" id="text-org28faeb6">
 <div class="org-src-container">
 <pre class="src src-cpp"><span class="org-keyword">struct</span> <span class="org-type">Node</span>
 {
@@ -296,9 +296,9 @@ With the nil struct approach, the code shrinks in complexity:
 </div>
 </div>
 </div>
-<div id="outline-container-orgd9e0f31" class="outline-2">
-<h2 id="orgd9e0f31"><a href="#orgd9e0f31">Motivation</a></h2>
-<div class="outline-text-2" id="text-orgd9e0f31">
+<div id="outline-container-org511c33c" class="outline-2">
+<h2 id="org511c33c"><a href="#org511c33c">Motivation</a></h2>
+<div class="outline-text-2" id="text-org511c33c">
 <p>
 The conventional approach to avoid access violations is by catching invalid
 pointers with the help of <code>if</code> and <code>assert</code>:
@@ -329,9 +329,9 @@ allocation error, returning a nil struct pointer can reduce complexity.
 </p>
 </div>
 </div>
-<div id="outline-container-org93b26c6" class="outline-2">
-<h2 id="org93b26c6"><a href="#org93b26c6">Resources</a></h2>
-<div class="outline-text-2" id="text-org93b26c6">
+<div id="outline-container-org2118028" class="outline-2">
+<h2 id="org2118028"><a href="#org2118028">Resources</a></h2>
+<div class="outline-text-2" id="text-org2118028">
 <ul class="org-ul">
 <li><a href="https://www.rfleury.com/i/137840302/guarantee-valid-reads-nil-pointers">Guarantee Valid Reads (Nil Pointers)</a></li>
 </ul>

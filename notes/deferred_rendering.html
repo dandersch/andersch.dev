@@ -230,9 +230,9 @@ pixel is first computed and stored in offscreen buffers, which are called
 Geometry Buffers, or G-Buffers for short. In a subsequent pass, these G-Buffers
 are used to perform the actual lighting calculations.
 </p>
-<div id="outline-container-org2455260" class="outline-2">
-<h2 id="org2455260"><a href="#org2455260">Types of G-Buffers</a></h2>
-<div class="outline-text-2" id="text-org2455260">
+<div id="outline-container-orgff275c6" class="outline-2">
+<h2 id="orgff275c6"><a href="#orgff275c6">Types of G-Buffers</a></h2>
+<div class="outline-text-2" id="text-orgff275c6">
 <ul class="org-ul">
 <li>Albedo</li>
 <li>Normals</li>
@@ -246,9 +246,9 @@ are used to perform the actual lighting calculations.
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb5c9d56" class="outline-2">
-<h2 id="orgb5c9d56"><a href="#orgb5c9d56"><a href="render_pass.html#ID-3854f976-cf4d-48a2-8cf6-1bbdec8a4e95">Render Passes</a> for deferred rendering:</a></h2>
-<div class="outline-text-2" id="text-orgb5c9d56">
+<div id="outline-container-org6a3e841" class="outline-2">
+<h2 id="org6a3e841"><a href="#org6a3e841"><a href="render_pass.html#ID-3854f976-cf4d-48a2-8cf6-1bbdec8a4e95">Render Passes</a> for deferred rendering:</a></h2>
+<div class="outline-text-2" id="text-org6a3e841">
 <ol class="org-ol">
 <li>Geometry pass</li>
 <li>Lighting pass</li>
@@ -256,9 +256,9 @@ are used to perform the actual lighting calculations.
 </ol>
 </div>
 </div>
-<div id="outline-container-org031a5c8" class="outline-2">
-<h2 id="org031a5c8"><a href="#org031a5c8">Possible speed-ups</a></h2>
-<div class="outline-text-2" id="text-org031a5c8">
+<div id="outline-container-orga2d9e02" class="outline-2">
+<h2 id="orga2d9e02"><a href="#orga2d9e02">Possible speed-ups</a></h2>
+<div class="outline-text-2" id="text-orga2d9e02">
 <p>
 Lighting calculations can be cut down by setting a radius for every light. Every
 fragment that is beyond that radius (according to the positions framebuffer),
@@ -267,18 +267,18 @@ will not be affected by that light. This however requires an if-statement in the
 </p>
 </div>
 </div>
-<div id="outline-container-orgc165880" class="outline-2">
-<h2 id="orgc165880"><a href="#orgc165880">Advantages</a></h2>
-<div class="outline-text-2" id="text-orgc165880">
+<div id="outline-container-org5d78d39" class="outline-2">
+<h2 id="org5d78d39"><a href="#org5d78d39">Advantages</a></h2>
+<div class="outline-text-2" id="text-org5d78d39">
 <ul class="org-ul">
 <li>Rendering dozens of dynamic light sources is now possible even on lower-end
 machines without the need of things such as pre-baked lightmaps.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgab1eaa6" class="outline-2">
-<h2 id="orgab1eaa6"><a href="#orgab1eaa6">Problems</a></h2>
-<div class="outline-text-2" id="text-orgab1eaa6">
+<div id="outline-container-orgd4ed154" class="outline-2">
+<h2 id="orgd4ed154"><a href="#orgd4ed154">Problems</a></h2>
+<div class="outline-text-2" id="text-orgd4ed154">
 <ul class="org-ul">
 <li>Significant costs in terms of memory usage and bandwidth</li>
 <li>Drawing of transparent surfaces is now harder, because it requires drawing
@@ -289,9 +289,9 @@ rendering</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgca9c1a6" class="outline-2">
-<h2 id="orgca9c1a6"><a href="#orgca9c1a6">Results</a></h2>
-<div class="outline-text-2" id="text-orgca9c1a6">
+<div id="outline-container-org4f59fad" class="outline-2">
+<h2 id="org4f59fad"><a href="#org4f59fad">Results</a></h2>
+<div class="outline-text-2" id="text-org4f59fad">
 <p>
 Since MSAA is costlier to realize with deferred rendering, post-processing based
 anti-aliasing techinques such as FXAA and TAA became more popular. These methods

@@ -8,7 +8,7 @@
 #+FILETAGS:    :opengl:graphics:cpp:c:
 #+OPTIONS:     toc:nil num:2 H:2
 
-#+CALL: ../../code.org:generate-article-header[:eval yes]()
+#+CALL: ../../publish.org:generate-article-header[:eval yes]()
 * Introduction                                                       :ignore:
 OpenGL tutorials usually skip over any file I/O code by telling you to write out
 your very first shader as a string literal like this:

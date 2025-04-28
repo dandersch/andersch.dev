@@ -1,13 +1,53 @@
+#+NAME: latest-article
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='(get-article-keyword-list) folder="" :noweb yes
+(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
+  (format
+   (concat
+     "<div class=\"image-container\">\n"
+        "<a href=\"./%s\">\n"
+            "<div class=\"overlay\">\n"
+                "<div class=\"title\">%s</div>\n"
+                "<div class=\"description\">%s</div>\n"
+            "</div>\n"
+            "<img src=\"./%s/%s\" alt=\"\">\n"
+        "</a>\n"
+     "</div>\n")
+     (string-replace "/index.org" "" (car entry))
+     (cadr (assoc "TITLE" (cadr entry)))
+     (cadr (assoc "DESCRIPTION" (cadr entry)))
+     ;type
+     (string-replace "/index.org" "" (car entry))
+     (cadr (assoc "IMAGE" (cadr entry)))))
+
+(setq latest (car list))
+
+(setq articles-as-images "")
+(dolist (article list)
+  (setq articles-as-images (concat articles-as-images (format-entry-as-image-link article folder))))
+
+(if (eq org-export-current-backend 'html)
+  (concat "#+BEGIN_EXPORT html\n"
+          articles-as-images
+          "#+END_EXPORT\n")
+  (format "Latest %s: [[./%s][%s]]\n#+attr_html: :width 700px\n[[./%s/%s]]\n"
+          folder
+          (car latest)
+          (cadr (assoc "TITLE" (cadr latest)))
+          folder
+          (cadr (assoc "IMAGE" (cadr latest)))))
+#+END_SRC
+
+
 * Latest [[./article/index.org][articles]]
 :PROPERTIES:
 :CUSTOM_ID: latest-articles
 :END:
-#+CALL: code.org:latest-article[:eval yes](list=(get-article-keyword-list))
+#+CALL: latest-article[:eval yes](list=(get-article-keyword-list) folder="article")
 #+RESULTS: latest-article
 
 * Latest [[./project/index.org][projects]]
 :PROPERTIES:
 :CUSTOM_ID: latest-projects
 :END:
-#+CALL: code.org:latest-project[:eval yes](list=(get-project-keyword-list))
+#+CALL: latest-article[:eval yes](list=(get-project-keyword-list) folder="project")
 #+RESULTS: latest-project

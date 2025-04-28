@@ -7,7 +7,7 @@
 #+FILETAGS:    :noexport:lisp:org:web:
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ../../code.org:generate-article-header[:eval yes]()
+#+CALL: ../../publish.org:generate-article-header[:eval yes]()
 
 * Publishing
 Both the ~.org~ and ~.html~ files are part of the same repository. This means that

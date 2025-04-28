@@ -6,7 +6,7 @@
 #+FILETAGS:    :opengl:graphics:cpp:
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ../../code.org:generate-article-header[:eval yes]()
+#+CALL: ../../publish.org:generate-article-header[:eval yes]()
 * Introduction                                                        :ignore:
 This is a university project I have worked on in a team for an application that
 mimics a planetarium experience. It was developed using an existing 3D OpenGL

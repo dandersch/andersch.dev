@@ -230,9 +230,9 @@ It introduces challenges like thread synchronization, <a href="race_condition.ht
 <a href="deadlock.html#ID-791d3bb9-f468-4120-96c8-1c59e16cb5c7">deadlocks</a>. Coordination mechanisms such as <a href="mutex.html#ID-2fcbf4a7-b7d9-4264-8959-eadf8ce1b5f6">mutexes</a>, <a href="semaphore.html#ID-ac3b04df-a9df-400a-b9f6-3761d6f2bbc7">semaphores</a>, and atomic
 operations can be used to combat these problems.
 </p>
-<div id="outline-container-org1bdd864" class="outline-2">
-<h2 id="org1bdd864"><a href="#org1bdd864">Basic Thread API</a></h2>
-<div class="outline-text-2" id="text-org1bdd864">
+<div id="outline-container-orgec0deac" class="outline-2">
+<h2 id="orgec0deac"><a href="#orgec0deac">Basic Thread API</a></h2>
+<div class="outline-text-2" id="text-orgec0deac">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">int</span>       <span class="org-function-name">thread_create</span>(<span class="org-type">thread_t</span> **<span class="org-variable-name">thread</span>, <span class="org-type">void</span> *(*<span class="org-function-name">start_routine</span>)(<span class="org-type">void</span> *), <span class="org-type">void</span> *<span class="org-variable-name">arg</span>);
 <span class="org-type">int</span>       <span class="org-function-name">thread_join</span>(<span class="org-type">thread_t</span> *<span class="org-variable-name">thread</span>, <span class="org-type">void</span> **<span class="org-variable-name">retval</span>);
@@ -243,9 +243,9 @@ operations can be used to combat these problems.
 </div>
 </div>
 </div>
-<div id="outline-container-org2fff8e3" class="outline-2">
-<h2 id="org2fff8e3"><a href="#org2fff8e3">Resources</a></h2>
-<div class="outline-text-2" id="text-org2fff8e3">
+<div id="outline-container-org33d6e5d" class="outline-2">
+<h2 id="org33d6e5d"><a href="#org33d6e5d">Resources</a></h2>
+<div class="outline-text-2" id="text-org33d6e5d">
 <ul class="org-ul">
 <li><a href="https://www.rfleury.com/p/multi-threading-and-mutation">Multi-Threading &amp; Mutation</a></li>
 <li><a href="https://guide.handmadehero.org/code/day122">Handmade Hero Day 026 - Introduction to Multithreading</a></li>

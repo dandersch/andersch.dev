@@ -218,8 +218,8 @@
 </header>
 </header>
 <main id="content" class="content">
-<div class="tags-date-box"><div class="date"><span class="timestamp"><2024-05-31></span></div><div class="tags"><code>[ <a href="/tag/cpp.html">cpp</a> <a href="/tag/c.html">c</a> ]</code></div></div><h1>Embedding Binaries in C(++)</h1>
-<h2 class="subtitle">Five ways to bake any file as a buffer into your executable</h1><div class="figure"><img src="/article/embedding-binary-files-in-c/preview.png" alt=""></div>
+<div class="tags-date-box"><div class="date"><span class="timestamp"><2024-05-31></span></div><div class="tags"><code>[ <a href="/tag/cpp.html">cpp</a> <a href="/tag/c.html">c</a> ]</code></div></div><h1>Embedding Binaries in C(++)</h1><h2 class="subtitle">Five ways to bake any file as a buffer into your executable</h1>
+<div class="figure"><img src="/article/embedding-binary-files-in-c/preview.png" alt=""></div>
 <p>
 When programming, it can be desirable to embed the data of arbitrary binary
 files directly in the final executable of your application. This is great to:
@@ -257,9 +257,9 @@ include the resulting code in the source code. Programs to do this are <code>xxd
 <code>convert</code> or <code>bin2h</code>.
 </p>
 </div>
-<div id="outline-container-orgc2456be" class="outline-3">
-<h3 id="orgc2456be"><a href="#orgc2456be">Example</a></h3>
-<div class="outline-text-3" id="text-orgc2456be">
+<div id="outline-container-orgc0cd5f2" class="outline-3">
+<h3 id="orgc0cd5f2"><a href="#orgc0cd5f2">Example</a></h3>
+<div class="outline-text-3" id="text-orgc0cd5f2">
 <p>
 In the case of <code>xxd</code>, running <code>xxd -i file.ext</code> will output C code:
 </p>
@@ -299,9 +299,9 @@ of glsl shaders in source code</a>:
 </div>
 </div>
 </div>
-<div id="outline-container-org29bf7ef" class="outline-3">
-<h3 id="org29bf7ef"><a href="#org29bf7ef">Pros &amp; Cons</a></h3>
-<div class="outline-text-3" id="text-org29bf7ef">
+<div id="outline-container-orga590919" class="outline-3">
+<h3 id="orga590919"><a href="#orga590919">Pros &amp; Cons</a></h3>
+<div class="outline-text-3" id="text-orga590919">
 <ul class="org-ul">
 <li>✅ Should work everywhere</li>
 <li>✅ Binaries can be included with their original name</li>
@@ -344,9 +344,9 @@ Programs (or linkers) that can do this are <code>ld</code>, <code>objcopy</code>
 Windows.
 </p>
 </div>
-<div id="outline-container-orgd903fb3" class="outline-3">
-<h3 id="orgd903fb3"><a href="#orgd903fb3">Example</a></h3>
-<div class="outline-text-3" id="text-orgd903fb3">
+<div id="outline-container-orgf91f3f9" class="outline-3">
+<h3 id="orgf91f3f9"><a href="#orgf91f3f9">Example</a></h3>
+<div class="outline-text-3" id="text-orgf91f3f9">
 <p>
 The basic usage with <code>ld</code>:
 </p>
@@ -418,9 +418,9 @@ Which makes usage look like this:
 </div>
 </div>
 </div>
-<div id="outline-container-orgda0abb6" class="outline-3">
-<h3 id="orgda0abb6"><a href="#orgda0abb6">Pros &amp; Cons</a></h3>
-<div class="outline-text-3" id="text-orgda0abb6">
+<div id="outline-container-org71f1e12" class="outline-3">
+<h3 id="org71f1e12"><a href="#org71f1e12">Pros &amp; Cons</a></h3>
+<div class="outline-text-3" id="text-org71f1e12">
 <ul class="org-ul">
 <li>✅ No added build dependency (since we already depended on having linker)</li>
 <li>✅ Faster build times than first option</li>
@@ -481,9 +481,9 @@ Usage code becomes:
 </pre>
 </div>
 </div>
-<div id="outline-container-org7dca9a9" class="outline-3">
-<h3 id="org7dca9a9"><a href="#org7dca9a9">Pros &amp; Cons</a></h3>
-<div class="outline-text-3" id="text-org7dca9a9">
+<div id="outline-container-orgc7df2f1" class="outline-3">
+<h3 id="orgc7df2f1"><a href="#orgc7df2f1">Pros &amp; Cons</a></h3>
+<div class="outline-text-3" id="text-orgc7df2f1">
 <p>
 Same as the linker option, except&#x2026;
 </p>
@@ -519,9 +519,9 @@ The usage code looks basically like this:
 </pre>
 </div>
 </div>
-<div id="outline-container-orgaa225fc" class="outline-3">
-<h3 id="orgaa225fc"><a href="#orgaa225fc">Pros &amp; Cons</a></h3>
-<div class="outline-text-3" id="text-orgaa225fc">
+<div id="outline-container-org2d09f36" class="outline-3">
+<h3 id="org2d09f36"><a href="#org2d09f36">Pros &amp; Cons</a></h3>
+<div class="outline-text-3" id="text-org2d09f36">
 <p>
 Same as the <code>.incbin</code> option, except&#x2026;
 </p>
@@ -561,9 +561,9 @@ implementation of <code>#embed</code> in current compilers is not yet wide sprea
 not be an option for you.
 </p>
 </div>
-<div id="outline-container-org4e0f06b" class="outline-3">
-<h3 id="org4e0f06b"><a href="#org4e0f06b">Pros &amp; Cons</a></h3>
-<div class="outline-text-3" id="text-org4e0f06b">
+<div id="outline-container-org8ed4b48" class="outline-3">
+<h3 id="org8ed4b48"><a href="#org8ed4b48">Pros &amp; Cons</a></h3>
+<div class="outline-text-3" id="text-org8ed4b48">
 <ul class="org-ul">
 <li>✅ Fastest &amp; easiest way</li>
 <li>❌ Requires modern compiler support</li>

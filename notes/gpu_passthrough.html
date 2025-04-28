@@ -222,9 +222,9 @@
 GPU passthrough is a way to expose a <a href="gpu.html#ID-fcea5c8d-2b6c-43d5-ad80-2d7326f492e3">GPU</a> as a device directly to a virtual
 machine. This feature is provided by the I/O Memory Management Unit (IOMMU).
 </p>
-<div id="outline-container-org7713c55" class="outline-2">
-<h2 id="org7713c55"><a href="#org7713c55">Enabling GPU passthrough on Linux</a></h2>
-<div class="outline-text-2" id="text-org7713c55">
+<div id="outline-container-orge9b78a3" class="outline-2">
+<h2 id="orge9b78a3"><a href="#orge9b78a3">Enabling GPU passthrough on Linux</a></h2>
+<div class="outline-text-2" id="text-orge9b78a3">
 <ol class="org-ol">
 <li>Check for virtualization support
 <code>lscpu | grep Virtualization</code></li>
@@ -301,9 +301,9 @@ firmware image
 </ol>
 </div>
 </div>
-<div id="outline-container-orgd09a3c4" class="outline-2">
-<h2 id="orgd09a3c4"><a href="#orgd09a3c4">Windows on QEMU</a></h2>
-<div class="outline-text-2" id="text-orgd09a3c4">
+<div id="outline-container-org567648c" class="outline-2">
+<h2 id="org567648c"><a href="#org567648c">Windows on QEMU</a></h2>
+<div class="outline-text-2" id="text-org567648c">
 <p>
 For hang up on boot before disk decryption, see
 <a href="https://bbs.archlinux.org/viewtopic.php?pid=2070655#p2070655">https://bbs.archlinux.org/viewtopic.php?pid=2070655#p2070655</a>
@@ -363,9 +363,9 @@ vncviewer :5900 <span class="org-comment-delimiter"># </span><span class="org-co
 </div>
 </div>
 </div>
-<div id="outline-container-org30af0d9" class="outline-2">
-<h2 id="org30af0d9"><a href="#org30af0d9">GPU Passthrough without restarting</a></h2>
-<div class="outline-text-2" id="text-org30af0d9">
+<div id="outline-container-org6f75f49" class="outline-2">
+<h2 id="org6f75f49"><a href="#org6f75f49">GPU Passthrough without restarting</a></h2>
+<div class="outline-text-2" id="text-org6f75f49">
 <p>
 see <a href="https://github.com/bung69/Dell7710_GPU_Passthrough/blob/main/GPU.sh">https://github.com/bung69/Dell7710_GPU_Passthrough/blob/main/GPU.sh</a>
 </p>
@@ -414,9 +414,9 @@ modprobe -vv vfio-pci
 </div>
 </div>
 </div>
-<div id="outline-container-org5e05af4" class="outline-2">
-<h2 id="org5e05af4"><a href="#org5e05af4">Enable and use hugepages</a></h2>
-<div class="outline-text-2" id="text-org5e05af4">
+<div id="outline-container-org935da6d" class="outline-2">
+<h2 id="org935da6d"><a href="#org935da6d">Enable and use hugepages</a></h2>
+<div class="outline-text-2" id="text-org935da6d">
 <div class="org-src-container">
 <pre class="src src-bash"><span class="org-comment-delimiter"># </span><span class="org-comment">see if hugepages are enabled</span>
 cat /sys/kernel/mm/transparent_hugepage/enabled
@@ -467,9 +467,9 @@ see <a href="https://help.ubuntu.com/community/KVM%20-%20Using%20Hugepages">http
 </div>
 </div>
 </div>
-<div id="outline-container-org4aaa95d" class="outline-2">
-<h2 id="org4aaa95d"><a href="#org4aaa95d">Disable and free hugepages</a></h2>
-<div class="outline-text-2" id="text-org4aaa95d">
+<div id="outline-container-orgbaca8b0" class="outline-2">
+<h2 id="orgbaca8b0"><a href="#orgbaca8b0">Disable and free hugepages</a></h2>
+<div class="outline-text-2" id="text-orgbaca8b0">
 <p>
 See <a href="https://gitlab.com/Karuri/vfio#cpu-pinning">https://gitlab.com/Karuri/vfio#cpu-pinning</a>
 </p>
@@ -481,9 +481,9 @@ See <a href="https://gitlab.com/Karuri/vfio#cpu-pinning">https://gitlab.com/Karu
 </div>
 </div>
 </div>
-<div id="outline-container-org5630755" class="outline-2">
-<h2 id="org5630755"><a href="#org5630755">CPU pinning &amp; isolation</a></h2>
-<div class="outline-text-2" id="text-org5630755">
+<div id="outline-container-org3c181fa" class="outline-2">
+<h2 id="org3c181fa"><a href="#org3c181fa">CPU pinning &amp; isolation</a></h2>
+<div class="outline-text-2" id="text-org3c181fa">
 <p>
 <a href="https://passthroughtools.org/cpupin/">https://passthroughtools.org/cpupin/</a>
 </p>
@@ -534,9 +534,9 @@ systemctl set-property --runtime -- init.scope <span class="org-variable-name">A
 </div>
 </div>
 </div>
-<div id="outline-container-org3812421" class="outline-2">
-<h2 id="org3812421"><a href="#org3812421">Resources</a></h2>
-<div class="outline-text-2" id="text-org3812421">
+<div id="outline-container-org7fa860e" class="outline-2">
+<h2 id="org7fa860e"><a href="#org7fa860e">Resources</a></h2>
+<div class="outline-text-2" id="text-org7fa860e">
 <ul class="org-ul">
 <li><a href="https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF">ArchWiki: PCI passthrough via OVMF</a></li>
 <li><a href="https://wiki.gentoo.org/wiki/GPU_passthrough_with_libvirt_qemu_kvm">GentooWiki: GPU passthrough with libvirt qemu kvm</a></li>

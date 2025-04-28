@@ -1,5 +1,12 @@
 TODO -*- mode: org -*-
 
+- [ ] switch auto-generated org-id's to derived ones
+  + [ ] see [[https://zzamboni.org/post/how-to-easily-create-and-use-human-readable-ids-in-org-mode-and-doom-emacs/][zzamboni.org | How to easily create and use human-readable IDs in Org mode an...]]
+  + [ ] see [[https://github.com/alphapapa/unpackaged.el#export-to-html-with-useful-anchors][GitHub - alphapapa/unpackaged.el: Export to HTML with useful anchors]]
+  + [ ] need to stop using [id^="org"] selector in style.css & script.js
+  + [ ] fix css of roam headlines with own ID
+  + [ ] fix images being "collapsible"
+
 - [ ] use :html-format-drawer-function for custom drawers
   + [ ] parameters: NAME ("DRAWER") & CONTENTS of drawer
   + [ ] return string to be exported
@@ -8,27 +15,22 @@ TODO -*- mode: org -*-
 - [ ] css+js
   + [ ] don't collapse when clicking heading text
 
-- [ ] switch auto-generated org-id's to derived ones
-  + [ ] need to stop using [id^="org"] selector in style.css & script.js
-  + [ ] see [[https://zzamboni.org/post/how-to-easily-create-and-use-human-readable-ids-in-org-mode-and-doom-emacs/][zzamboni.org | How to easily create and use human-readable IDs in Org mode an...]]
-  + [ ] see [[https://github.com/alphapapa/unpackaged.el#export-to-html-with-useful-anchors][GitHub - alphapapa/unpackaged.el: Export to HTML with useful anchors]]
-  + [ ] fix css of roam headlines with own ID
-  + [ ] fix images being "collapsible"
 
 - [ ] use [[https://orgmode.org/manual/Publishing-options.html][publishing options]]
   + [ ] :html-head-include-scripts (t/non-nil) & org-html-scripts
 
 - [ ] use #+filetags over #+tags[] or vice versa
 
-- [ ] allow missing #+filetags in roam notes
+- [2/3] phase out code snippets
+  + [X] +use custom :DRAWERS: to replace #+calls+
+  + [X] use code snippets in publish.org
+  + [ ] stop using calls to code snippet to generate preview image
 
-- [ ] phase out code.org
-  + [ ] use custom :DRAWERS: to replace #+calls
-
-- [5/7] add wiki
+- [6/7] add wiki
   + [X] combine both publishing scripts
   + [X] read in tags of org-roam
   + [X] add noexport
   + [X] fix broken ID links
   + [X] fix broken image links
-  + [ ] display tags above title
+  + [X] display tags above title
+  + [ ] allow missing #+filetags in roam notes

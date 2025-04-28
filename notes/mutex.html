@@ -233,9 +233,9 @@ until the mutex is released
 The use of mutexes can prevent race conditions, but may also introduce
 performance bottlenecks and deadlocks.
 </p>
-<div id="outline-container-org770ac10" class="outline-2">
-<h2 id="org770ac10"><a href="#org770ac10">Basic Mutex API</a></h2>
-<div class="outline-text-2" id="text-org770ac10">
+<div id="outline-container-orgffb4707" class="outline-2">
+<h2 id="orgffb4707"><a href="#orgffb4707">Basic Mutex API</a></h2>
+<div class="outline-text-2" id="text-orgffb4707">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">int</span> <span class="org-function-name">mutex_init</span>(<span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);
 <span class="org-type">int</span> <span class="org-function-name">mutex_lock</span>(<span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);    <span class="org-comment-delimiter">// </span><span class="org-comment">blocking, waits until mutex available</span>

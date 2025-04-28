@@ -4,7 +4,7 @@
 #+IMAGE:       preview.png
 #+TAGS[]:      noexport cpp
 #+OPTIONS:     toc:nil num:nil
-#+CALL: ../../code.org:generate-article-header[:eval yes]()
+#+CALL: ../../publish.org:generate-article-header[:eval yes]()
 
 * Introduction                                                       :ignore:
 X-Macros

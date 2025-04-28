@@ -6,7 +6,7 @@
 #+FILETAGS:    :cpp:embedded:arm:
 #+OPTIONS:     toc:nil num:nil
 
-#+CALL: ../../code.org:generate-article-header[:eval yes]()
+#+CALL: ../../publish.org:generate-article-header[:eval yes]()
 * Introduction                                                       :ignore:
 As part of my bachelor's thesis, I researched the prospect of isolating
 peripherals in embedded devices to a Trusted Execution Environment (TEE), which

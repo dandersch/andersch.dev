@@ -222,9 +222,9 @@
 A linked list is a <a href="data_structure.html#ID-c2e9cf1b-7487-4758-8163-2e8b6285d3d9">data structure</a> where each node contains the relevant data and
 a pointer to the next node.
 </p>
-<div id="outline-container-org9fd05b2" class="outline-2">
-<h2 id="org9fd05b2"><a href="#org9fd05b2">Generic Linked Lists in C</a></h2>
-<div class="outline-text-2" id="text-org9fd05b2">
+<div id="outline-container-org203b89c" class="outline-2">
+<h2 id="org203b89c"><a href="#org203b89c">Generic Linked Lists in C</a></h2>
+<div class="outline-text-2" id="text-org203b89c">
 <p>
 Two approaches:
 </p>
@@ -233,9 +233,9 @@ Two approaches:
 <li>Intrusive linked list node type as struct member (Linux kernel approach)</li>
 </ul>
 </div>
-<div id="outline-container-org7e3df14" class="outline-3">
-<h3 id="org7e3df14"><a href="#org7e3df14">Macro-based Linked List API</a></h3>
-<div class="outline-text-3" id="text-org7e3df14">
+<div id="outline-container-orgecc7ad9" class="outline-3">
+<h3 id="orgecc7ad9"><a href="#orgecc7ad9">Macro-based Linked List API</a></h3>
+<div class="outline-text-3" id="text-orgecc7ad9">
 <p>
 For doubly-linked lists, hardcode the structure member names (i.e the nodes to
 link) to "prev" and "next".
@@ -296,9 +296,9 @@ The macro-based API then can look like this:
 </div>
 </div>
 </div>
-<div id="outline-container-org9c03939" class="outline-3">
-<h3 id="org9c03939"><a href="#org9c03939">Intrusive linked list - <code>list_head</code></a></h3>
-<div class="outline-text-3" id="text-org9c03939">
+<div id="outline-container-org7221892" class="outline-3">
+<h3 id="org7221892"><a href="#org7221892">Intrusive linked list - <code>list_head</code></a></h3>
+<div class="outline-text-3" id="text-org7221892">
 <p>
 The Linux kernel approach to having linked lists is a type of intrusive linked
 list where the links are embedded in the struct that is being linked:
@@ -400,9 +400,9 @@ list where the links are embedded in the struct that is being linked:
 </div>
 </div>
 </div>
-<div id="outline-container-org6e960f3" class="outline-2">
-<h2 id="org6e960f3"><a href="#org6e960f3">Resources</a></h2>
-<div class="outline-text-2" id="text-org6e960f3">
+<div id="outline-container-orgb48c0a3" class="outline-2">
+<h2 id="orgb48c0a3"><a href="#orgb48c0a3">Resources</a></h2>
+<div class="outline-text-2" id="text-orgb48c0a3">
 <ul class="org-ul">
 <li><a href="https://www.rfleury.com/p/in-defense-of-linked-lists">In Defense of Linked Lists</a></li>
 <li><a href="https://troydhanson.github.io/uthash/utlist.html">utlist: linked list macros for C structures</a></li>

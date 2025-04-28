@@ -131,19 +131,26 @@ document.addEventListener('DOMContentLoaded', function() {
   (when (string-match "</main>" contents)
     (replace-match (concat comment-section-html "</main>") t t contents 0)))
 
-; TODO put together
+; TODO put together to a single keyword-list
+;(setq keyword-list
+;  '(
+;     ("article" '("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2"))))
+;     ("project" '("project1.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
+;   )
 (setq article-keyword-list '())
 (setq project-keyword-list '())
 (setq other-keyword-list   '())
 (setq notes-keyword-list   '())
 
-;(setq keyword-list
-;  '(
-;     ("article" '("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2"))))
-;     ("project" '("project1.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2"))))
+; usage:
+;   (cadr (assoc "TITLE" (cadr (assoc "article" article)))
 
-; (cadr (assoc "TITLE" (cadr (assoc "article" article)))
-;                  (print
+; NOTE workaround to pass keyword-list to a source-block in an org file
+;      (else "Symbol’s function definition is void" error when publishing)
+(defun get-article-keyword-list () article-keyword-list)
+(defun get-project-keyword-list () project-keyword-list)
+(defun get-other-keyword-list   () other-keyword-list)
+(defun get-notes-keyword-list   () notes-keyword-list)
 
 ; fill & sort keyword-lists for project/, article/, other/
 (defun fill-keyword-lists ()
@@ -328,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
   (when (eq backend 'html)
     (let* ((tags (if org-file-tags org-file-tags nil))
            (date (cadar (org-collect-keywords '("DATE"))))
+           (description (cadar (org-collect-keywords '("DESCRIPTION"))))
            (title (org-get-title)))
       (insert "\n#+begin_export html\n")
       (when (or tags date)
@@ -338,7 +346,8 @@ document.addEventListener('DOMContentLoaded', function() {
               (dolist (tag tags) (insert (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))
               (insert "]</code></div>"))
         (insert "</div>"))
-      (if title (insert (format "<h1>%s</h1>" title)))
+      (when title (insert (format "<h1>%s</h1>" title)))
+      (when description (insert (format "<h2 class=\"subtitle\">%s</h1>" description)))
       (insert "\n#+end_export\n")
       )
     )
@@ -458,30 +467,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 (setq org-publish-project-alist (list andersch-dev roam-andersch-dev-images roam-andersch-dev))
 
-; NOTE workaround to not get a "Symbol’s function definition is void" error when publishing
-(defun get-article-keyword-list () article-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
-(defun get-project-keyword-list () project-keyword-list) ; NOTE workaround to pass keyword-list to a source-block in an org file
-(defun get-other-keyword-list   () other-keyword-list)   ; NOTE workaround to pass keyword-list to a source-block in an org file
-(defun get-notes-keyword-list   () notes-keyword-list)
-
 ; caching
 (setq org-publish-timestamp-directory "./.org-timestamps/")
 ;(org-publish-remove-all-timestamps) ; call to avoid caching
 
-(print org-id-locations)
-(setq org-id-locations-file "/home/da/org/.orgids")
+(setq org-id-locations-file "/home/da/org/.orgids") ; should fix broken links
+(setq org-export-with-broken-links nil) ; NOTE might be needed for broken roam ID links...
 
 ; enable caching for roam.andersch.dev
 (org-publish-initialize-cache "roam.andersch.dev")
 (setq org-publish-use-timestamps-flag t)
-(setq org-export-with-broken-links nil) ; TODO fix broken roam ID links...
 
-(org-publish "roam.andersch.dev-images" nil)
-
-(org-publish "roam.andersch.dev" nil)
+(org-publish "roam.andersch.dev-images")
+(org-publish "roam.andersch.dev")
 (message "Build complete: roam.andersch.dev")
 
-(setq org-export-with-broken-links nil) ; TODO unset because of roam...
 ; NOTE caching causes problems with updating titles etc., so we reset the cache before publishing
 (setq org-publish-use-timestamps-flag nil)
 (org-publish "andersch.dev" t)

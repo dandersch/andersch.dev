@@ -223,9 +223,9 @@ X-Macros are a <a href="c_preprocessor.html#ID-8f405305-c7e4-4371-abca-04079a503
 data that resembles a plain table. It can be considered a form of table-driven
 <a href="metaprogramming.html#ID-6c88dda7-d440-48d0-ad7b-9910400eab90">metaprogramming</a>.
 </p>
-<div id="outline-container-org769aaa6" class="outline-2">
-<h2 id="org769aaa6"><a href="#org769aaa6">Example for an Entity Table</a></h2>
-<div class="outline-text-2" id="text-org769aaa6">
+<div id="outline-container-org4fe9914" class="outline-2">
+<h2 id="org4fe9914"><a href="#org4fe9914">Example for an Entity Table</a></h2>
+<div class="outline-text-2" id="text-org4fe9914">
 <p>
 The table structure can be defined in its own header file called <code>entity_table.h</code>.
 Note that the header should not have an include guard or <code>#pragma once</code> directive,
@@ -348,9 +348,9 @@ its entirety is <code>#include</code>'d and then the <code>ENTITY</code> macro g
 </div>
 </div>
 </div>
-<div id="outline-container-org382a554" class="outline-2">
-<h2 id="org382a554"><a href="#org382a554">DLL Function Loading Example</a></h2>
-<div class="outline-text-2" id="text-org382a554">
+<div id="outline-container-orgabe1c7f" class="outline-2">
+<h2 id="orgabe1c7f"><a href="#orgabe1c7f">DLL Function Loading Example</a></h2>
+<div class="outline-text-2" id="text-orgabe1c7f">
 <p>
 Load functions from a DLL without repeating yourself
 </p>
@@ -394,9 +394,9 @@ Load functions from a DLL without repeating yourself
 </div>
 </div>
 </div>
-<div id="outline-container-orge5db98a" class="outline-2">
-<h2 id="orge5db98a"><a href="#orge5db98a">Localization Example</a></h2>
-<div class="outline-text-2" id="text-orge5db98a">
+<div id="outline-container-org7f012cd" class="outline-2">
+<h2 id="org7f012cd"><a href="#org7f012cd">Localization Example</a></h2>
+<div class="outline-text-2" id="text-org7f012cd">
 <p>
 Idea: Write out a valid C file containing language definitions and localized
 strings that can masquerade as a <code>.csv</code> file:
@@ -518,9 +518,9 @@ editor might use curly quotes <code>“</code> when typing in <code>"</code> by 
 </ul>
 </div>
 </div>
-<div id="outline-container-org4368a11" class="outline-2">
-<h2 id="org4368a11"><a href="#org4368a11">Introspection Example</a></h2>
-<div class="outline-text-2" id="text-org4368a11">
+<div id="outline-container-org7690a1d" class="outline-2">
+<h2 id="org7690a1d"><a href="#org7690a1d">Introspection Example</a></h2>
+<div class="outline-text-2" id="text-org7690a1d">
 <p>
 Idea: format a struct definition as an X-Macro table and use its fields to
 generate a type info array and a printing function for the struct.
@@ -603,9 +603,9 @@ So the editor jumps to where we defined our structure table.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org0f0948a" class="outline-2">
-<h2 id="org0f0948a"><a href="#org0f0948a">Serialization/Printing Example</a></h2>
-<div class="outline-text-2" id="text-org0f0948a">
+<div id="outline-container-org0293d37" class="outline-2">
+<h2 id="org0293d37"><a href="#org0293d37">Serialization/Printing Example</a></h2>
+<div class="outline-text-2" id="text-org0293d37">
 <p>
 See
 </p>
@@ -663,9 +663,9 @@ See
 </div>
 </div>
 </div>
-<div id="outline-container-org4f5a29a" class="outline-2">
-<h2 id="org4f5a29a"><a href="#org4f5a29a">Expose variables for tweaking in UI or similar</a></h2>
-<div class="outline-text-2" id="text-org4f5a29a">
+<div id="outline-container-orgffcbf12" class="outline-2">
+<h2 id="orgffcbf12"><a href="#orgffcbf12">Expose variables for tweaking in UI or similar</a></h2>
+<div class="outline-text-2" id="text-orgffcbf12">
 <p>
 Suppose you want to have a boolean variable that controls some functionality
 exposed via a UI, console, etc. so you can control it's value at runtime:
@@ -730,9 +730,9 @@ Same thing could be done for tweakable floats:
 </div>
 </div>
 </div>
-<div id="outline-container-orgf210b77" class="outline-2">
-<h2 id="orgf210b77"><a href="#orgf210b77"><span class="todo TODO">TODO</span> Generating Stacks</a></h2>
-<div class="outline-text-2" id="text-orgf210b77">
+<div id="outline-container-org74b3bc7" class="outline-2">
+<h2 id="org74b3bc7"><a href="#org74b3bc7"><span class="todo TODO">TODO</span> Generating Stacks</a></h2>
+<div class="outline-text-2" id="text-org74b3bc7">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">define stack table</span><span class="org-comment-delimiter"> */</span>
 <span class="org-preprocessor">#define</span> <span class="org-function-name">UI_STACK_TABLE</span>(<span class="org-variable-name">X</span>) \
@@ -896,9 +896,9 @@ printf(<span class="org-string">"%s (%i) and %s (%i)\n"</span>, entity_type_as_s
 </div>
 </div>
 </div>
-<div id="outline-container-orga55a123" class="outline-2">
-<h2 id="orga55a123"><a href="#orga55a123">Avoiding compilation errors when adding columns</a></h2>
-<div class="outline-text-2" id="text-orga55a123">
+<div id="outline-container-org6cbd3e4" class="outline-2">
+<h2 id="org6cbd3e4"><a href="#org6cbd3e4">Avoiding compilation errors when adding columns</a></h2>
+<div class="outline-text-2" id="text-org6cbd3e4">
 <p>
 Suppose you have following simple use-case for a X-Macros:
 </p>
@@ -981,13 +981,13 @@ existing columns. Additionally, the removal of columns is now more error-prone.
 </p>
 </div>
 </div>
-<div id="outline-container-orge596996" class="outline-2">
-<h2 id="orge596996"><a href="#orge596996">Possible Operations</a></h2>
-<div class="outline-text-2" id="text-orge596996">
+<div id="outline-container-org720cb55" class="outline-2">
+<h2 id="org720cb55"><a href="#org720cb55">Possible Operations</a></h2>
+<div class="outline-text-2" id="text-org720cb55">
 </div>
-<div id="outline-container-org131fad3" class="outline-3">
-<h3 id="org131fad3"><a href="#org131fad3">Select rows based on the value of one of their entries</a></h3>
-<div class="outline-text-3" id="text-org131fad3">
+<div id="outline-container-orgf1a3576" class="outline-3">
+<h3 id="orgf1a3576"><a href="#orgf1a3576">Select rows based on the value of one of their entries</a></h3>
+<div class="outline-text-3" id="text-orgf1a3576">
 <p>
 If you want to perform a selection on your table that would be akin to an SQL
 query of the form <code>SELECT * FROM table WHERE a = "foo";</code>, you are out of luck.
@@ -1055,9 +1055,9 @@ pinch.
 </p>
 </div>
 </div>
-<div id="outline-container-org593e19e" class="outline-3">
-<h3 id="org593e19e"><a href="#org593e19e">Sum up all values of a column</a></h3>
-<div class="outline-text-3" id="text-org593e19e">
+<div id="outline-container-org0552207" class="outline-3">
+<h3 id="org0552207"><a href="#org0552207">Sum up all values of a column</a></h3>
+<div class="outline-text-3" id="text-org0552207">
 <p>
 If you want to sum up all entries in a column (e.g. <code>table_value1 +
 table_value2 + ... + table_valueN</code>), simply append a <code>+ 0;</code> after expanding the
@@ -1093,9 +1093,9 @@ strings or performing a bitwise-or on a bunch of bitfields to compute a mask:
 </div>
 </div>
 </div>
-<div id="outline-container-orge768c87" class="outline-3">
-<h3 id="orge768c87"><a href="#orge768c87">Compute number of rows</a></h3>
-<div class="outline-text-3" id="text-orge768c87">
+<div id="outline-container-orgba7c4a2" class="outline-3">
+<h3 id="orgba7c4a2"><a href="#orgba7c4a2">Compute number of rows</a></h3>
+<div class="outline-text-3" id="text-orgba7c4a2">
 <p>
 For a table with an unknown number of rows (i.e. the entry count), define a
 struct with just 1-byte sized members:
@@ -1129,9 +1129,9 @@ Or use an enum (beware of polluting the global namespace):
 </div>
 </div>
 </div>
-<div id="outline-container-org085d04c" class="outline-3">
-<h3 id="org085d04c"><a href="#org085d04c">Compute <code>Max(...)</code> of a column of integers</a></h3>
-<div class="outline-text-3" id="text-org085d04c">
+<div id="outline-container-orgaa81f1d" class="outline-3">
+<h3 id="orgaa81f1d"><a href="#orgaa81f1d">Compute <code>Max(...)</code> of a column of integers</a></h3>
+<div class="outline-text-3" id="text-orgaa81f1d">
 <p>
 Suppose your table looks like the following:
 </p>
@@ -1169,9 +1169,9 @@ compile-time (without needing to instantiate the union):
 </div>
 </div>
 </div>
-<div id="outline-container-orgc5d6859" class="outline-3">
-<h3 id="orgc5d6859"><a href="#orgc5d6859">Count number of columns for every row</a></h3>
-<div class="outline-text-3" id="text-orgc5d6859">
+<div id="outline-container-org4d3fcbc" class="outline-3">
+<h3 id="org4d3fcbc"><a href="#org4d3fcbc">Count number of columns for every row</a></h3>
+<div class="outline-text-3" id="text-org4d3fcbc">
 <p>
 There is a trick to count the number of arguments (up to a limit) given to a
 (variadic) macro by displacing an integer depending on the number of arguments
@@ -1239,24 +1239,24 @@ columns) for every row:
 </div>
 </div>
 </div>
-<div id="outline-container-orgbb526ef" class="outline-3">
-<h3 id="orgbb526ef"><a href="#orgbb526ef">Stringify each argument of a variadic macro</a></h3>
-<div class="outline-text-3" id="text-orgbb526ef">
+<div id="outline-container-org790a143" class="outline-3">
+<h3 id="org790a143"><a href="#org790a143">Stringify each argument of a variadic macro</a></h3>
+<div class="outline-text-3" id="text-org790a143">
 <p>
 See <a href="https://stackoverflow.com/questions/5957679/is-there-a-way-to-use-c-preprocessor-stringification-on-variadic-macro-argumen">https://stackoverflow.com/questions/5957679/is-there-a-way-to-use-c-preprocessor-stringification-on-variadic-macro-argumen</a>
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org520e8ba" class="outline-2">
-<h2 id="org520e8ba"><a href="#org520e8ba">Drawbacks</a></h2>
-<div class="outline-text-2" id="text-org520e8ba">
+<div id="outline-container-orgdfb984d" class="outline-2">
+<h2 id="orgdfb984d"><a href="#orgdfb984d">Drawbacks</a></h2>
+<div class="outline-text-2" id="text-orgdfb984d">
 <ul class="org-ul">
 <li>The autocomplete feature of an editor or IDE might not know about the fields
 of e.g. an enum, since they only exist after the preprocessor has run.</li>
 
 <li>Every <code>#define</code> of the X-macro needs to be updated for every additional column
-in the table, although <a href="#orga55a123">this can be mitigated</a></li>
+in the table, although <a href="#org6cbd3e4">this can be mitigated</a></li>
 
 <li>Restrictions due to C syntax</li>
 
@@ -1265,9 +1265,9 @@ X-Macro code</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org0ba99a9" class="outline-2">
-<h2 id="org0ba99a9"><a href="#org0ba99a9">Resources</a></h2>
-<div class="outline-text-2" id="text-org0ba99a9">
+<div id="outline-container-org5db040b" class="outline-2">
+<h2 id="org5db040b"><a href="#org5db040b">Resources</a></h2>
+<div class="outline-text-2" id="text-org5db040b">
 <ul class="org-ul">
 <li><a href="https://en.wikipedia.org/wiki/X_Macro">https://en.wikipedia.org/wiki/X_Macro</a></li>
 <li><a href="https://www.rfleury.com/p/table-driven-code-generation">https://www.rfleury.com/p/table-driven-code-generation</a></li>

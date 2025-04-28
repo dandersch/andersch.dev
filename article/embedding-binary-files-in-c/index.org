@@ -7,7 +7,7 @@
 #+COMMENTS:    t
 #+OPTIONS:     toc:nil num:1
 
-#+CALL: ../../code.org:generate-article-header[:eval yes]()
+#+CALL: ../../publish.org:generate-article-header[:eval yes]()
 
 * Introduction                                                       :ignore:
 When programming, it can be desirable to embed the data of arbitrary binary

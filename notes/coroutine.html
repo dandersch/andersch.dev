@@ -239,9 +239,9 @@ variables), while stackless coroutines share the call stack of the caller.
 They can be used to implement linear <a href="state_machine.html#ID-f6050ba4-2cde-4c10-89a1-dec39c2c20e0">state machines</a> in a straight-forward manner
 (<i>"Co-routines are to state machines what recursion is to stacks"</i><sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>).
 </p>
-<div id="outline-container-org0dc3b4b" class="outline-2">
-<h2 id="org0dc3b4b"><a href="#org0dc3b4b">Stackless Coroutines in C using Macros</a></h2>
-<div class="outline-text-2" id="text-org0dc3b4b">
+<div id="outline-container-org09f1a18" class="outline-2">
+<h2 id="org09f1a18"><a href="#org09f1a18">Stackless Coroutines in C using Macros</a></h2>
+<div class="outline-text-2" id="text-org09f1a18">
 <p>
 A form of Coroutines (more specifically, <a href="https://en.wikipedia.org/wiki/Protothread">Protothreads</a>) can be implemented in <a href="c.html#ID-3a2b1a06-f048-460c-9944-04b11d4fdbcd">C</a>
 using <a href="https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html">Duff's Device</a>. This technique essentially works by saving the state of
@@ -255,9 +255,9 @@ its last line of code (which corresponds to a case label on the same line). This
 integer is often called <code>index</code>, <code>line</code>, or <code>sequence point</code>.
 </p>
 </div>
-<div id="outline-container-org7014249" class="outline-3">
-<h3 id="org7014249"><a href="#org7014249">Minimal Implementation</a></h3>
-<div class="outline-text-3" id="text-org7014249">
+<div id="outline-container-orgad9462a" class="outline-3">
+<h3 id="orgad9462a"><a href="#orgad9462a">Minimal Implementation</a></h3>
+<div class="outline-text-3" id="text-orgad9462a">
 <p>
 <a href="https://github.com/RandyGaul/kk_slides/blob/master/slides/coroutine.h">Minimal macro implementation</a>
 </p>
@@ -314,9 +314,9 @@ some_function(&amp;co);
 </div>
 </div>
 </div>
-<div id="outline-container-orgd373e3e" class="outline-3">
-<h3 id="orgd373e3e"><a href="#orgd373e3e"><span class="todo TODO">TODO</span> Macro Implementation without COROUTINE<sub>END</sub></a></h3>
-<div class="outline-text-3" id="text-orgd373e3e">
+<div id="outline-container-org1449fa1" class="outline-3">
+<h3 id="org1449fa1"><a href="#org1449fa1"><span class="todo TODO">TODO</span> Macro Implementation without COROUTINE<sub>END</sub></a></h3>
+<div class="outline-text-3" id="text-org1449fa1">
 <p>
 Implementation without having to specify COROUTINE<sub>END</sub>.
 </p>
@@ -385,9 +385,9 @@ Implementation without having to specify COROUTINE<sub>END</sub>.
 </div>
 </div>
 </div>
-<div id="outline-container-orgb0f7c71" class="outline-3">
-<h3 id="orgb0f7c71"><a href="#orgb0f7c71">Alternative Macro Implementation</a></h3>
-<div class="outline-text-3" id="text-orgb0f7c71">
+<div id="outline-container-org4ddf361" class="outline-3">
+<h3 id="org4ddf361"><a href="#org4ddf361">Alternative Macro Implementation</a></h3>
+<div class="outline-text-3" id="text-org4ddf361">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">dependency: sokol_time.h</span>
 <span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">Coroutine</span> <span class="org-type">Coroutine</span>;
@@ -425,9 +425,9 @@ coro-&gt;line = 0; }                                   <span class="org-comment-
 </div>
 </div>
 </div>
-<div id="outline-container-org136f288" class="outline-3">
-<h3 id="org136f288"><a href="#org136f288">More Elaborate Macro Implementation</a></h3>
-<div class="outline-text-3" id="text-org136f288">
+<div id="outline-container-orga9cd0cb" class="outline-3">
+<h3 id="orga9cd0cb"><a href="#orga9cd0cb">More Elaborate Macro Implementation</a></h3>
+<div class="outline-text-3" id="text-orga9cd0cb">
 <p>
 <a href="https://github.com/RandyGaul/kk_slides/blob/master/src/cute_coroutine.h">This implementation</a> allows for every coroutine to have its own stack and
 allocate local variables from it and can allow nested coroutine (i.e a function
@@ -491,9 +491,9 @@ using a coroutine passes that coroutine to another function using coroutines).
 </div>
 </div>
 </div>
-<div id="outline-container-org19a2cf4" class="outline-2">
-<h2 id="org19a2cf4"><a href="#org19a2cf4">Coroutines in C using <code>setjmp</code></a></h2>
-<div class="outline-text-2" id="text-org19a2cf4">
+<div id="outline-container-org61bd927" class="outline-2">
+<h2 id="org61bd927"><a href="#org61bd927">Coroutines in C using <code>setjmp</code></a></h2>
+<div class="outline-text-2" id="text-org61bd927">
 <p>
 <a href="https://250bpm.com/blog:48">https://250bpm.com/blog:48</a>
 </p>
@@ -615,9 +615,9 @@ using a coroutine passes that coroutine to another function using coroutines).
 </div>
 </div>
 </div>
-<div id="outline-container-orgb337259" class="outline-2">
-<h2 id="orgb337259"><a href="#orgb337259">Coroutines using Memory Arenas</a></h2>
-<div class="outline-text-2" id="text-orgb337259">
+<div id="outline-container-org561475f" class="outline-2">
+<h2 id="org561475f"><a href="#org561475f">Coroutines using Memory Arenas</a></h2>
+<div class="outline-text-2" id="text-org561475f">
 <p>
 Coroutine stack in back-buffered <a href="arena.html#ID-7629c564-ec09-4a74-be59-32e6bf702e31">frame arena</a>
 </p>
@@ -637,9 +637,9 @@ every coroutine has its own subarena
 </ul>
 </div>
 </div>
-<div id="outline-container-org178474d" class="outline-2">
-<h2 id="org178474d"><a href="#org178474d">Resources</a></h2>
-<div class="outline-text-2" id="text-org178474d">
+<div id="outline-container-org98e942d" class="outline-2">
+<h2 id="org98e942d"><a href="#org98e942d">Resources</a></h2>
+<div class="outline-text-2" id="text-org98e942d">
 <ul class="org-ul">
 <li>Macro-based C Implementations
 <ul class="org-ul">
