@@ -227,9 +227,9 @@ another type by reinterpreting the same memory location.
 Type punning can lead to undefined behavior when performed incorrectly,
 particularly with <a href="aliasing.html#ID-605cc9d1-c77e-4ea6-9ee4-ac5c11e5f089">strict aliasing</a> violations.
 </p>
-<div id="outline-container-org8f9ec26" class="outline-2">
-<h2 id="org8f9ec26"><a href="#org8f9ec26">Union-based punning (valid in C)</a></h2>
-<div class="outline-text-2" id="text-org8f9ec26">
+<div id="outline-container-Union-based%20punning%20%28valid%20in%20C%29" class="outline-2">
+<h2 id="Union-based%20punning%20%28valid%20in%20C%29"><a href="#Union-based%20punning%20%28valid%20in%20C%29">Union-based punning (valid in C)</a></h2>
+<div class="outline-text-2" id="text-Union-based%20punning%20%28valid%20in%20C%29">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-keyword">union</span> <span class="org-type">Punner</span> {
     <span class="org-type">float</span> <span class="org-variable-name">f</span>;
@@ -243,9 +243,9 @@ printf(<span class="org-string">"%x\n"</span>, p.i); <span class="org-comment-de
 </div>
 </div>
 </div>
-<div id="outline-container-orgb93dca0" class="outline-2">
-<h2 id="orgb93dca0"><a href="#orgb93dca0">Pointer casting (violates strict aliasing)</a></h2>
-<div class="outline-text-2" id="text-orgb93dca0">
+<div id="outline-container-Pointer%20casting%20%28violates%20strict%20aliasing%29" class="outline-2">
+<h2 id="Pointer%20casting%20%28violates%20strict%20aliasing%29"><a href="#Pointer%20casting%20%28violates%20strict%20aliasing%29">Pointer casting (violates strict aliasing)</a></h2>
+<div class="outline-text-2" id="text-Pointer%20casting%20%28violates%20strict%20aliasing%29">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">float</span> <span class="org-variable-name">f</span> = 3.14f;
 <span class="org-type">int</span>* <span class="org-variable-name">ip</span> = (<span class="org-type">int</span>*)&amp;f; <span class="org-comment-delimiter">// </span><span class="org-comment">Dangerous: breaks strict aliasing</span>
@@ -253,9 +253,9 @@ printf(<span class="org-string">"%x\n"</span>, p.i); <span class="org-comment-de
 </div>
 </div>
 </div>
-<div id="outline-container-org6066c22" class="outline-2">
-<h2 id="org6066c22"><a href="#org6066c22">memcpy approach (safe, standard-compliant):</a></h2>
-<div class="outline-text-2" id="text-org6066c22">
+<div id="outline-container-memcpy%20approach%20%28safe%2C%20standard-compliant%29%3A" class="outline-2">
+<h2 id="memcpy%20approach%20%28safe%2C%20standard-compliant%29%3A"><a href="#memcpy%20approach%20%28safe%2C%20standard-compliant%29%3A">memcpy approach (safe, standard-compliant):</a></h2>
+<div class="outline-text-2" id="text-memcpy%20approach%20%28safe%2C%20standard-compliant%29%3A">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">float</span> <span class="org-variable-name">f</span> = 3.14f;
 <span class="org-type">int</span> <span class="org-variable-name">i</span>;

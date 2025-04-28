@@ -248,14 +248,14 @@ performance reasons.
 </div>
 <div id="outline-container-ID-92daeeb1-93c7-4dde-840d-82659f92402f" class="outline-2">
 <h2 id="ID-92daeeb1-93c7-4dde-840d-82659f92402f"><a href="#ID-92daeeb1-93c7-4dde-840d-82659f92402f">RectCut - Simple UI Layouts</a></h2>
-<div class="outline-text-2" id="text-orge00fe2a">
+<div class="outline-text-2" id="text-RectCut%20-%20Simple%20UI%20Layouts">
 <p>
 <a href="https://haltaire.substack.com/p/rectcut-for-dead-simple-ui-layouts?r=3lg47x&amp;utm_campaign=post&amp;utm_medium=web&amp;triedRedirect=true">RectCut for dead simple UI layouts</a> (<a href="https://web.archive.org/web/20230331132208/https://halt.software/dead-simple-layouts/">mirror</a>)
 </p>
 </div>
-<div id="outline-container-org3d995cb" class="outline-3">
-<h3 id="org3d995cb"><a href="#org3d995cb">Simple API</a></h3>
-<div class="outline-text-3" id="text-org3d995cb">
+<div id="outline-container-Simple%20API" class="outline-3">
+<h3 id="Simple%20API"><a href="#Simple%20API">Simple API</a></h3>
+<div class="outline-text-3" id="text-Simple%20API">
 <p>
 Define functions that cut a smaller rectangle of an input rectangle and return
 it. They also modify the input rectangle.
@@ -291,9 +291,9 @@ it. They also modify the input rectangle.
 </div>
 </div>
 </div>
-<div id="outline-container-org7afa2cf" class="outline-3">
-<h3 id="org7afa2cf"><a href="#org7afa2cf">Example: Toolbar</a></h3>
-<div class="outline-text-3" id="text-org7afa2cf">
+<div id="outline-container-Example%3A%20Toolbar" class="outline-3">
+<h3 id="Example%3A%20Toolbar"><a href="#Example%3A%20Toolbar">Example: Toolbar</a></h3>
+<div class="outline-text-3" id="text-Example%3A%20Toolbar">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">Rect</span> <span class="org-variable-name">layout</span> = { 0, 0, 180, 16 };
 
@@ -307,9 +307,9 @@ it. They also modify the input rectangle.
 </div>
 </div>
 </div>
-<div id="outline-container-org5ff0247" class="outline-3">
-<h3 id="org5ff0247"><a href="#org5ff0247">Example: Two panel application</a></h3>
-<div class="outline-text-3" id="text-org5ff0247">
+<div id="outline-container-Example%3A%20Two%20panel%20application" class="outline-3">
+<h3 id="Example%3A%20Two%20panel%20application"><a href="#Example%3A%20Two%20panel%20application">Example: Two panel application</a></h3>
+<div class="outline-text-3" id="text-Example%3A%20Two%20panel%20application">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">Top bar with icons and title</span>
 <span class="org-type">Rect</span> <span class="org-variable-name">top</span> = cut_top(&amp;layout, 16);
@@ -328,9 +328,9 @@ it. They also modify the input rectangle.
 </div>
 </div>
 </div>
-<div id="outline-container-orgb059ba7" class="outline-3">
-<h3 id="orgb059ba7"><a href="#orgb059ba7">Example: Button sized by its label</a></h3>
-<div class="outline-text-3" id="text-orgb059ba7">
+<div id="outline-container-Example%3A%20Button%20sized%20by%20its%20label" class="outline-3">
+<h3 id="Example%3A%20Button%20sized%20by%20its%20label"><a href="#Example%3A%20Button%20sized%20by%20its%20label">Example: Button sized by its label</a></h3>
+<div class="outline-text-3" id="text-Example%3A%20Button%20sized%20by%20its%20label">
 <ul class="org-ul">
 <li>If needed, first calculate the size and then cut.</li>
 <li>E.g., a button that sizes by the label</li>
@@ -349,9 +349,9 @@ it. They also modify the input rectangle.
 </div>
 </div>
 </div>
-<div id="outline-container-orgafa2a26" class="outline-3">
-<h3 id="orgafa2a26"><a href="#orgafa2a26">Extended API</a></h3>
-<div class="outline-text-3" id="text-orgafa2a26">
+<div id="outline-container-Extended%20API" class="outline-3">
+<h3 id="Extended%20API"><a href="#Extended%20API">Extended API</a></h3>
+<div class="outline-text-3" id="text-Extended%20API">
 <p>
 To enable control of the cut side from the caller for widgets, specify the side
 inside a new <code>RectCut</code> struct.
@@ -399,13 +399,13 @@ inside a new <code>RectCut</code> struct.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd33653d" class="outline-2">
-<h2 id="orgd33653d"><a href="#orgd33653d">UI Code</a></h2>
-<div class="outline-text-2" id="text-orgd33653d">
+<div id="outline-container-UI%20Code" class="outline-2">
+<h2 id="UI%20Code"><a href="#UI%20Code">UI Code</a></h2>
+<div class="outline-text-2" id="text-UI%20Code">
 </div>
-<div id="outline-container-orgcc73cc8" class="outline-3">
-<h3 id="orgcc73cc8"><a href="#orgcc73cc8">Widgets API</a></h3>
-<div class="outline-text-3" id="text-orgcc73cc8">
+<div id="outline-container-Widgets%20API" class="outline-3">
+<h3 id="Widgets%20API"><a href="#Widgets%20API">Widgets API</a></h3>
+<div class="outline-text-3" id="text-Widgets%20API">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">basic widgets</span><span class="org-comment-delimiter"> */</span>
 <span class="org-type">UI_Signal</span> <span class="org-function-name">UI_Label</span>(<span class="org-type">String8</span> <span class="org-variable-name">string</span>);
@@ -441,9 +441,9 @@ inside a new <code>RectCut</code> struct.
 </div>
 </div>
 </div>
-<div id="outline-container-org026a601" class="outline-2">
-<h2 id="org026a601"><a href="#org026a601">UI Separation</a></h2>
-<div class="outline-text-2" id="text-org026a601">
+<div id="outline-container-UI%20Separation" class="outline-2">
+<h2 id="UI%20Separation"><a href="#UI%20Separation">UI Separation</a></h2>
+<div class="outline-text-2" id="text-UI%20Separation">
 <p>
 UI separation into two main parts:
 </p>
@@ -455,13 +455,13 @@ widgets using <i>"escape hatches".</i></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org30213f7" class="outline-2">
-<h2 id="org30213f7"><a href="#org30213f7">Build It Every Frame (Immediate Mode)</a></h2>
-<div class="outline-text-2" id="text-org30213f7">
+<div id="outline-container-Build%20It%20Every%20Frame%20%28Immediate%20Mode%29" class="outline-2">
+<h2 id="Build%20It%20Every%20Frame%20%28Immediate%20Mode%29"><a href="#Build%20It%20Every%20Frame%20%28Immediate%20Mode%29">Build It Every Frame (Immediate Mode)</a></h2>
+<div class="outline-text-2" id="text-Build%20It%20Every%20Frame%20%28Immediate%20Mode%29">
 </div>
-<div id="outline-container-org9a97c7b" class="outline-3">
-<h3 id="org9a97c7b"><a href="#org9a97c7b">Widget Hierarchy</a></h3>
-<div class="outline-text-3" id="text-org9a97c7b">
+<div id="outline-container-Widget%20Hierarchy" class="outline-3">
+<h3 id="Widget%20Hierarchy"><a href="#Widget%20Hierarchy">Widget Hierarchy</a></h3>
+<div class="outline-text-3" id="text-Widget%20Hierarchy">
 <p>
 In an IMGUI, the widget hierarchy is constructed every frame (instead of coming
 from state that must be managed).
@@ -496,9 +496,9 @@ all encoded in the same location</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf3618fe" class="outline-3">
-<h3 id="orgf3618fe"><a href="#orgf3618fe">Manual Layout management</a></h3>
-<div class="outline-text-3" id="text-orgf3618fe">
+<div id="outline-container-Manual%20Layout%20management" class="outline-3">
+<h3 id="Manual%20Layout%20management"><a href="#Manual%20Layout%20management">Manual Layout management</a></h3>
+<div class="outline-text-3" id="text-Manual%20Layout%20management">
 <ul class="org-ul">
 <li>Specify coordinates and size of every widget manually</li>
 <li>Adding new widgets in the middle now requires adjustments</li>
@@ -512,9 +512,9 @@ all encoded in the same location</li>
 </div>
 </div>
 </div>
-<div id="outline-container-org1c6e3e0" class="outline-3">
-<h3 id="org1c6e3e0"><a href="#org1c6e3e0">Encapsulate layout in a structure</a></h3>
-<div class="outline-text-3" id="text-org1c6e3e0">
+<div id="outline-container-Encapsulate%20layout%20in%20a%20structure" class="outline-3">
+<h3 id="Encapsulate%20layout%20in%20a%20structure"><a href="#Encapsulate%20layout%20in%20a%20structure">Encapsulate layout in a structure</a></h3>
+<div class="outline-text-3" id="text-Encapsulate%20layout%20in%20a%20structure">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">UI_Layout</span> <span class="org-variable-name">layout</span> = UI_MakeLayout(...);
 <span class="org-keyword">if</span>(UI_Button(&amp;layout, <span class="org-string">"Foo"</span>)) { <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span> }
@@ -533,9 +533,9 @@ root layout at the top)
 </p>
 </div>
 </div>
-<div id="outline-container-org385fb08" class="outline-3">
-<h3 id="org385fb08"><a href="#org385fb08">Pushing Layouts on to a Stack</a></h3>
-<div class="outline-text-3" id="text-org385fb08">
+<div id="outline-container-Pushing%20Layouts%20on%20to%20a%20Stack" class="outline-3">
+<h3 id="Pushing%20Layouts%20on%20to%20a%20Stack"><a href="#Pushing%20Layouts%20on%20to%20a%20Stack">Pushing Layouts on to a Stack</a></h3>
+<div class="outline-text-3" id="text-Pushing%20Layouts%20on%20to%20a%20Stack">
 <p>
 A stack can be used to return to a parent layout after building a subtree of
 widgets.
@@ -561,9 +561,9 @@ The hierarchy is not just of layouts:
 </ul>
 </div>
 </div>
-<div id="outline-container-org245ebb8" class="outline-3">
-<h3 id="org245ebb8"><a href="#org245ebb8">General Widget Hierarchy</a></h3>
-<div class="outline-text-3" id="text-org245ebb8">
+<div id="outline-container-General%20Widget%20Hierarchy" class="outline-3">
+<h3 id="General%20Widget%20Hierarchy"><a href="#General%20Widget%20Hierarchy">General Widget Hierarchy</a></h3>
+<div class="outline-text-3" id="text-General%20Widget%20Hierarchy">
 <p>
 Reframe hierarchy to being of widgets (a parent of widgets is not different from
 a button widget).
@@ -603,9 +603,9 @@ The structure of a frame, then, is this:
 </ul>
 </div>
 </div>
-<div id="outline-container-orga62d547" class="outline-3">
-<h3 id="orga62d547"><a href="#orga62d547">Offline Autolayout</a></h3>
-<div class="outline-text-3" id="text-orga62d547">
+<div id="outline-container-Offline%20Autolayout" class="outline-3">
+<h3 id="Offline%20Autolayout"><a href="#Offline%20Autolayout">Offline Autolayout</a></h3>
+<div class="outline-text-3" id="text-Offline%20Autolayout">
 <ul class="org-ul">
 <li>We accept a single frame of delay for the rectangles that we use for consumption of events</li>
 <li>We preserve no-frame-delay for the final rendering of each frame.</li>
@@ -681,9 +681,9 @@ immediate-mode.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgaa0f8a4" class="outline-3">
-<h3 id="orgaa0f8a4"><a href="#orgaa0f8a4">Offline Autolayout Algorithm</a></h3>
-<div class="outline-text-3" id="text-orgaa0f8a4">
+<div id="outline-container-Offline%20Autolayout%20Algorithm" class="outline-3">
+<h3 id="Offline%20Autolayout%20Algorithm"><a href="#Offline%20Autolayout%20Algorithm">Offline Autolayout Algorithm</a></h3>
+<div class="outline-text-3" id="text-Offline%20Autolayout%20Algorithm">
 <p>
 Each stage of the algorithm iterates over the widget hierarchy in a recursive,
 depth-first fashion. Pay careful attention to which stages require pre-order
@@ -722,9 +722,9 @@ screen-coordinates rectangle.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge0586c9" class="outline-3">
-<h3 id="orge0586c9"><a href="#orge0586c9">The Tree hierarchy</a></h3>
-<div class="outline-text-3" id="text-orge0586c9">
+<div id="outline-container-The%20Tree%20hierarchy" class="outline-3">
+<h3 id="The%20Tree%20hierarchy"><a href="#The%20Tree%20hierarchy">The Tree hierarchy</a></h3>
+<div class="outline-text-3" id="text-The%20Tree%20hierarchy">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-keyword">struct</span> <span class="org-type">UI_Widget</span>
 {
@@ -796,9 +796,9 @@ structure every frame.
 </p>
 </div>
 </div>
-<div id="outline-container-org1f347ee" class="outline-3">
-<h3 id="org1f347ee"><a href="#org1f347ee">UI Keys or UI IDs</a></h3>
-<div class="outline-text-3" id="text-org1f347ee">
+<div id="outline-container-UI%20Keys%20or%20UI%20IDs" class="outline-3">
+<h3 id="UI%20Keys%20or%20UI%20IDs"><a href="#UI%20Keys%20or%20UI%20IDs">UI Keys or UI IDs</a></h3>
+<div class="outline-text-3" id="text-UI%20Keys%20or%20UI%20IDs">
 <p>
 A keying strategy needs to solve one problem: correlating one frame's call-site
 with another frame's call-site.
@@ -834,9 +834,9 @@ only anything before it is displayed</li>
 </div>
 </div>
 </div>
-<div id="outline-container-org46a1efa" class="outline-2">
-<h2 id="org46a1efa"><a href="#org46a1efa">Resources</a></h2>
-<div class="outline-text-2" id="text-org46a1efa">
+<div id="outline-container-Resources" class="outline-2">
+<h2 id="Resources"><a href="#Resources">Resources</a></h2>
+<div class="outline-text-2" id="text-Resources">
 <ul class="org-ul">
 <li><a href="https://ryanfleury.substack.com/p/ui-part-2-build-it-every-frame-immediate?s=r">Build it Every Frame</a></li>
 <li><a href="https://ryanfleury.substack.com/p/ui-part-3-the-widget-building-language?s=r">The Widget Building Language</a></li>

@@ -218,7 +218,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<div class="tags-date-box"><div class="date"><span class="timestamp"><2024-06-02></span></div><div class="tags"><code>[ <a href="/tag/lisp.html">lisp</a> <a href="/tag/org.html">org</a> <a href="/tag/web.html">web</a> ]</code></div></div><h1>The Publishing Script of this Website</h1><h2 class="subtitle">Using org-mode to write a publishing script as a literate program</h1>
+<div class="tags-date-box"><div class="date"><span class="timestamp"><2024-06-02></span></div><div class="tags"><code>[ <a href="/tag/lisp.html">lisp</a> <a href="/tag/org.html">org</a> <a href="/tag/web.html">web</a> ]</code></div></div><h1>The Publishing Script of this Website</h1><h1 class="subtitle">Using org-mode to write a publishing script as a literate program</h2>
 <div class="figure">
   <img src="/other/publish/preview.png" alt="">
 </div>
@@ -234,45 +234,46 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgfd9a16d">1. Package Archives</a></li>
-<li><a href="#org7449998">2. Dependencies</a></li>
-<li><a href="#orga4488b9">3. Configuration</a></li>
-<li><a href="#org8825acf">4. Helper functions</a></li>
-<li><a href="#org159c157">5. Filter out links to <code>index.html</code></a></li>
-<li><a href="#org6c46018">6. Comment Section</a>
+<li><a href="#Package%20Archives">1. Package Archives</a></li>
+<li><a href="#Dependencies">2. Dependencies</a></li>
+<li><a href="#Configuration">3. Configuration</a></li>
+<li><a href="#Helper%20functions">4. Helper functions</a></li>
+<li><a href="#Filter%20out%20links%20to%20~index.html~">5. Filter out links to <code>index.html</code></a></li>
+<li><a href="#Replace%20auto-generated%20org-ids">6. Replace auto-generated org-ids</a></li>
+<li><a href="#Comment%20Section">7. Comment Section</a>
 <ul>
-<li><a href="#orga7e17e3">6.1. Loading animation script</a></li>
-<li><a href="#org5112469">6.2. HTML Layout</a></li>
-<li><a href="#org353fa7c">6.3. Elisp variable</a></li>
+<li><a href="#Loading%20animation%20script">7.1. Loading animation script</a></li>
+<li><a href="#HTML%20Layout">7.2. HTML Layout</a></li>
+<li><a href="#Elisp%20variable">7.3. Elisp variable</a></li>
 </ul>
 </li>
-<li><a href="#org01e69ed">7. Footnotes Section workaround</a></li>
-<li><a href="#orgc0e6ae3">8. <span class="todo TODO">TODO</span> Keyword Lists</a></li>
-<li><a href="#org16684f5">9. RSS Feed Generation</a></li>
-<li><a href="#org854cd8b">10. Tagging System</a></li>
-<li><a href="#org72b5bf2">11. Prepare publishing function</a></li>
-<li><a href="#org33cdba5">12. Custom Export Function</a></li>
-<li><a href="#orgf219e9c">13. Filter: Insert Header</a></li>
-<li><a href="#org98d6768">14. Org-publish Customization</a>
+<li><a href="#Footnotes%20Section%20workaround">8. Footnotes Section workaround</a></li>
+<li><a href="#Keyword%20Lists">9. <span class="todo TODO">TODO</span> Keyword Lists</a></li>
+<li><a href="#RSS%20Feed%20Generation">10. RSS Feed Generation</a></li>
+<li><a href="#Tagging%20System">11. Tagging System</a></li>
+<li><a href="#Prepare%20publishing%20function">12. Prepare publishing function</a></li>
+<li><a href="#Custom%20Export%20Function">13. Custom Export Function</a></li>
+<li><a href="#Filter%3A%20Insert%20Header">14. Filter: Insert Header</a></li>
+<li><a href="#Org-publish%20Customization">15. Org-publish Customization</a>
 <ul>
-<li><a href="#org838da9c">14.1. Project: <code>andersch.dev</code></a></li>
-<li><a href="#org76101f0">14.2. Project: <code>roam.andersch.dev</code></a></li>
-<li><a href="#orgfdfe220">14.3. Add projects to <code>org-publish-project-alist</code></a></li>
+<li><a href="#Project%3A%20~andersch.dev~">15.1. Project: <code>andersch.dev</code></a></li>
+<li><a href="#Project%3A%20~roam.andersch.dev~">15.2. Project: <code>roam.andersch.dev</code></a></li>
+<li><a href="#Add%20projects%20to%20~org-publish-project-alist~">15.3. Add projects to <code>org-publish-project-alist</code></a></li>
 </ul>
 </li>
-<li><a href="#orge9c65e4">15. org-publish</a></li>
-<li><a href="#org765334d">16. Code snippets</a>
+<li><a href="#org-publish">16. org-publish</a></li>
+<li><a href="#Code%20snippets">17. Code snippets</a>
 <ul>
-<li><a href="#org64fbf9a">16.1. Generate Article Image Preview</a></li>
-<li><a href="#orgdda29e3">16.2. Generate Article Snippets</a></li>
+<li><a href="#Generate%20Article%20Image%20Preview">17.1. Generate Article Image Preview</a></li>
+<li><a href="#Generate%20Article%20Snippets">17.2. Generate Article Snippets</a></li>
 </ul>
 </li>
-<li><a href="#org316d4b5">17. Resources</a></li>
+<li><a href="#Resources">18. Resources</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfd9a16d" class="outline-2">
-<h2 id="orgfd9a16d"><span class="section-number-2">1.</span> <a href="#orgfd9a16d">Package Archives</a></h2>
+<div id="outline-container-Package%20Archives" class="outline-2">
+<h2 id="Package%20Archives"><span class="section-number-2">1.</span> <a href="#Package%20Archives">Package Archives</a></h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">set package install dir to local directory</span>
@@ -287,18 +288,20 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 </div>
 </div>
 </div>
-<div id="outline-container-org7449998" class="outline-2">
-<h2 id="org7449998"><span class="section-number-2">2.</span> <a href="#org7449998">Dependencies</a></h2>
+<div id="outline-container-Dependencies" class="outline-2">
+<h2 id="Dependencies"><span class="section-number-2">2.</span> <a href="#Dependencies">Dependencies</a></h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(package-install 'htmlize) <span class="org-comment-delimiter">; </span><span class="org-comment">enable export of #+begin_src code blocks</span>
 (package-install 'glsl-mode) <span class="org-comment-delimiter">; </span><span class="org-comment">for coloring glsl src blocks</span>
-(<span class="org-keyword">require</span> '<span class="org-constant">glsl-mode</span>)
 
-(<span class="org-keyword">require</span> '<span class="org-constant">ox-publish</span>)
-(<span class="org-keyword">require</span> '<span class="org-constant">org</span>)
+(package-install 'dash) <span class="org-comment-delimiter">; </span><span class="org-comment">used by org-id solution</span>
 
 (<span class="org-keyword">require</span> '<span class="org-constant">cl-lib</span>)
+
+(<span class="org-keyword">require</span> '<span class="org-constant">glsl-mode</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">syntax highlighting for glsl source blocks</span>
+(<span class="org-keyword">require</span> '<span class="org-constant">ox-publish</span>)
+(<span class="org-keyword">require</span> '<span class="org-constant">org</span>)
 
 <span class="org-comment-delimiter">; </span><span class="org-comment">for :IGNORE: headlines</span>
 (package-install 'org-contrib) <span class="org-comment-delimiter">; </span><span class="org-comment">for ox-extra</span>
@@ -317,8 +320,8 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 </div>
 </div>
 </div>
-<div id="outline-container-orga4488b9" class="outline-2">
-<h2 id="orga4488b9"><span class="section-number-2">3.</span> <a href="#orga4488b9">Configuration</a></h2>
+<div id="outline-container-Configuration" class="outline-2">
+<h2 id="Configuration"><span class="section-number-2">3.</span> <a href="#Configuration">Configuration</a></h2>
 <div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span>
@@ -335,8 +338,8 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 </div>
 </div>
 </div>
-<div id="outline-container-org8825acf" class="outline-2">
-<h2 id="org8825acf"><span class="section-number-2">4.</span> <a href="#org8825acf">Helper functions</a></h2>
+<div id="outline-container-Helper%20functions" class="outline-2">
+<h2 id="Helper%20functions"><span class="section-number-2">4.</span> <a href="#Helper%20functions">Helper functions</a></h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">get-org-files</span> (directory)
@@ -369,8 +372,8 @@ see on this page is <a href="https://orgmode.org/manual/Extracting-Source-Code.h
 </div>
 </div>
 </div>
-<div id="outline-container-org159c157" class="outline-2">
-<h2 id="org159c157"><span class="section-number-2">5.</span> <a href="#org159c157">Filter out links to <code>index.html</code></a></h2>
+<div id="outline-container-Filter%20out%20links%20to%20~index.html~" class="outline-2">
+<h2 id="Filter%20out%20links%20to%20~index.html~"><span class="section-number-2">5.</span> <a href="#Filter%20out%20links%20to%20~index.html~">Filter out links to <code>index.html</code></a></h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"</code>.
@@ -388,17 +391,134 @@ Replace links to e.g. <code>"article/index.html"</code> to just <code>"article"<
 </div>
 </div>
 </div>
-<div id="outline-container-org6c46018" class="outline-2">
-<h2 id="org6c46018"><span class="section-number-2">6.</span> <a href="#org6c46018">Comment Section</a></h2>
+<div id="outline-container-Replace%20auto-generated%20org-ids" class="outline-2">
+<h2 id="Replace%20auto-generated%20org-ids"><span class="section-number-2">6.</span> <a href="#Replace%20auto-generated%20org-ids">Replace auto-generated org-ids</a></h2>
 <div class="outline-text-2" id="text-6">
+<p>
+Normally org-mode randomly generates an org-id for every heading and uses those
+links, which causes a bunch of noise in commits. This filter strips out all
+org-ids from exported html files. We can instead use the <code>:CUSTOM_ID:</code> property
+for a heading that we want to link to.
+</p>
+
+<p>
+NOTE: this seems to break caching using org-timestamps.
+</p>
+
+<p>
+See:
+</p>
+<ul class="org-ul">
+<li><a href="https://zzamboni.org/post/how-to-easily-create-and-use-human-readable-ids-in-org-mode-and-doom-emacs/">zzamboni.org | How to easily create and use human-readable IDs in Org mode an&#x2026;</a></li>
+<li><a href="https://github.com/alphapapa/unpackaged.el#export-to-html-with-useful-anchors">GitHub - alphapapa/unpackaged.el: Export to HTML with useful anchors</a></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span class="org-keyword">require</span> '<span class="org-constant">easy-mmode</span>)
+(<span class="org-keyword">require</span> '<span class="org-constant">dash</span>)
+
+(<span class="org-keyword">define-minor-mode</span> <span class="org-function-name">unpackaged/org-export-html-with-useful-ids-mode</span>
+  <span class="org-doc">"Attempt to export Org as HTML with useful link IDs.</span>
+<span class="org-doc">stead of random IDs like \"#orga1b2c3\", use heading titles,</span>
+<span class="org-doc">de unique when necessary."</span>
+  <span class="org-builtin">:global</span> t
+  (<span class="org-keyword">if</span> unpackaged/org-export-html-with-useful-ids-mode
+      (advice-add #'org-export-get-reference <span class="org-builtin">:override</span> #'unpackaged/org-export-get-reference)
+    (advice-remove #'org-export-get-reference #'unpackaged/org-export-get-reference)))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">unpackaged/org-export-get-reference</span> (datum info)
+  <span class="org-doc">"Like `</span><span class="org-doc"><span class="org-constant">org-export-get-reference</span></span><span class="org-doc">', except uses heading titles instead of random numbers."</span>
+  (<span class="org-keyword">let</span> ((cache (plist-get info <span class="org-builtin">:internal-references</span>)))
+    (<span class="org-keyword">or</span> (car (rassq datum cache))
+        (<span class="org-keyword">let*</span> ((crossrefs (plist-get info <span class="org-builtin">:crossrefs</span>))
+               (cells (org-export-search-cells datum))
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">Preserve any pre-existing association between</span>
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">a search cell and a reference, i.e., when some</span>
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">previously published document referenced a location</span>
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">within current file (see</span>
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">`</span><span class="org-comment"><span class="org-constant">org-publish-resolve-external-link</span></span><span class="org-comment">').</span>
+               <span class="org-comment-delimiter">;;</span>
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">However, there is no guarantee that search cells are</span>
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">unique, e.g., there might be duplicate custom ID or</span>
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">two headings with the same title in the file.</span>
+               <span class="org-comment-delimiter">;;</span>
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">As a consequence, before re-using any reference to</span>
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">an element or object, we check that it doesn't refer</span>
+               <span class="org-comment-delimiter">;; </span><span class="org-comment">to a previous element or object.</span>
+               (new (<span class="org-keyword">or</span> (cl-some
+                         (<span class="org-keyword">lambda</span> (cell)
+                           (<span class="org-keyword">let</span> ((stored (cdr (assoc cell crossrefs))))
+                             (<span class="org-keyword">when</span> stored
+                               (<span class="org-keyword">let</span> ((old (org-export-format-reference stored)))
+                                 (<span class="org-keyword">and</span> (not (assoc old cache)) stored)))))
+                         cells)
+                        (<span class="org-keyword">when</span> (org-element-property <span class="org-builtin">:raw-value</span> datum)
+                          <span class="org-comment-delimiter">;; </span><span class="org-comment">Heading with a title</span>
+                          (unpackaged/org-export-new-title-reference datum cache))
+                        <span class="org-comment-delimiter">;; </span><span class="org-comment">NOTE: This probably breaks some Org Export</span>
+                        <span class="org-comment-delimiter">;; </span><span class="org-comment">feature, but if it does what I need, fine.</span>
+                        (org-export-format-reference
+                         (org-export-new-reference cache))))
+               (reference-string new))
+          <span class="org-comment-delimiter">;; </span><span class="org-comment">Cache contains both data already associated to</span>
+          <span class="org-comment-delimiter">;; </span><span class="org-comment">a reference and in-use internal references, so as to make</span>
+          <span class="org-comment-delimiter">;; </span><span class="org-comment">unique references.</span>
+          (<span class="org-keyword">dolist</span> (cell cells) (<span class="org-keyword">push</span> (cons cell new) cache))
+          <span class="org-comment-delimiter">;; </span><span class="org-comment">Retain a direct association between reference string and</span>
+          <span class="org-comment-delimiter">;; </span><span class="org-comment">DATUM since (1) not every object or element can be given</span>
+          <span class="org-comment-delimiter">;; </span><span class="org-comment">a search cell (2) it permits quick lookup.</span>
+          (<span class="org-keyword">push</span> (cons reference-string datum) cache)
+          (plist-put info <span class="org-builtin">:internal-references</span> cache)
+          reference-string))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">unpackaged/org-export-new-title-reference</span> (datum cache)
+  <span class="org-doc">"Return new reference for DATUM that is unique in CACHE."</span>
+  (<span class="org-keyword">cl-macrolet</span> ((inc-suffixf (place)
+                             `(<span class="org-keyword">progn</span>
+                                (string-match (<span class="org-keyword">rx</span> bos
+                                                  (minimal-match (group (1+ anything)))
+                                                  (optional <span class="org-string">"--"</span> (group (1+ digit)))
+                                                  eos)
+                                              ,place)
+                                <span class="org-comment-delimiter">;; </span><span class="org-comment">HACK: `</span><span class="org-comment"><span class="org-constant">s1</span></span><span class="org-comment">' instead of a gensym.</span>
+                                (<span class="org-keyword">-let*</span> (((s1 suffix) (list (match-string 1 ,place)
+                                                           (match-string 2 ,place)))
+                                        (suffix (<span class="org-keyword">if</span> suffix
+                                                    (string-to-number suffix)
+                                                  0)))
+                                  (<span class="org-keyword">setf</span> ,place (format <span class="org-string">"%s--%s"</span> s1 (<span class="org-keyword">cl-incf</span> suffix)))))))
+    (<span class="org-keyword">let*</span> ((title (org-element-property <span class="org-builtin">:raw-value</span> datum))
+           (ref (url-hexify-string (substring-no-properties title)))
+           (parent (org-element-property <span class="org-builtin">:parent</span> datum)))
+      (<span class="org-keyword">while</span> (<span class="org-keyword">--any</span> (equal ref (car it))
+                    cache)
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">Title not unique: make it so.</span>
+        (<span class="org-keyword">if</span> parent
+            <span class="org-comment-delimiter">;; </span><span class="org-comment">Append ancestor title.</span>
+            (<span class="org-keyword">setf</span> title (concat (org-element-property <span class="org-builtin">:raw-value</span> parent)
+                                <span class="org-string">"--"</span> title)
+                  ref (url-hexify-string (substring-no-properties title))
+                  parent (org-element-property <span class="org-builtin">:parent</span> parent))
+          <span class="org-comment-delimiter">;; </span><span class="org-comment">No more ancestors: add and increment a number.</span>
+          (inc-suffixf ref)))
+      ref)))
+
+(unpackaged/org-export-html-with-useful-ids-mode)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-Comment%20Section" class="outline-2">
+<h2 id="Comment%20Section"><span class="section-number-2">7.</span> <a href="#Comment%20Section">Comment Section</a></h2>
+<div class="outline-text-2" id="text-7">
 <p>
 Adds a GitHub Issues-based comment section using <a href="https://utteranc.es/">utterances</a>. Only applies to
 articles that are marked with the keyword <code>#+COMMENTS: t</code>.
 </p>
 </div>
-<div id="outline-container-orga7e17e3" class="outline-3">
-<h3 id="orga7e17e3"><span class="section-number-3">6.1.</span> <a href="#orga7e17e3">Loading animation script</a></h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-Loading%20animation%20script" class="outline-3">
+<h3 id="Loading%20animation%20script"><span class="section-number-3">7.1.</span> <a href="#Loading%20animation%20script">Loading animation script</a></h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
 Following javascript animates the comment section title until the lazy-loaded
 comment section has loaded in.
@@ -433,9 +553,9 @@ document.addEventListener(<span class="org-string">'DOMContentLoaded'</span>, <s
 </div>
 </div>
 </div>
-<div id="outline-container-org5112469" class="outline-3">
-<h3 id="org5112469"><span class="section-number-3">6.2.</span> <a href="#org5112469">HTML Layout</a></h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-HTML%20Layout" class="outline-3">
+<h3 id="HTML%20Layout"><span class="section-number-3">7.2.</span> <a href="#HTML%20Layout">HTML Layout</a></h3>
+<div class="outline-text-3" id="text-7-2">
 <p>
 Note the usage of single quotes instead of double quotes for attribute values.
 This way we can use noweb to include the html without having to escape strings.
@@ -461,9 +581,9 @@ This way we can use noweb to include the html without having to escape strings.
 </div>
 </div>
 </div>
-<div id="outline-container-org353fa7c" class="outline-3">
-<h3 id="org353fa7c"><span class="section-number-3">6.3.</span> <a href="#org353fa7c">Elisp variable</a></h3>
-<div class="outline-text-3" id="text-6-3">
+<div id="outline-container-Elisp%20variable" class="outline-3">
+<h3 id="Elisp%20variable"><span class="section-number-3">7.3.</span> <a href="#Elisp%20variable">Elisp variable</a></h3>
+<div class="outline-text-3" id="text-7-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> comment-section-html <span class="org-string">"&lt;&lt;comment-section-html&gt;&gt;"</span> )
 </pre>
@@ -471,9 +591,9 @@ This way we can use noweb to include the html without having to escape strings.
 </div>
 </div>
 </div>
-<div id="outline-container-org01e69ed" class="outline-2">
-<h2 id="org01e69ed"><span class="section-number-2">7.</span> <a href="#org01e69ed">Footnotes Section workaround</a></h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-Footnotes%20Section%20workaround" class="outline-2">
+<h2 id="Footnotes%20Section%20workaround"><span class="section-number-2">8.</span> <a href="#Footnotes%20Section%20workaround">Footnotes Section workaround</a></h2>
+<div class="outline-text-2" id="text-8">
 <p>
 If we include above HTML at the very end of an org-file using <code>#+BEGIN_EXPORT
 html</code>, org-mode will still append the footnotes section below that (if the
@@ -490,9 +610,9 @@ function to later add as a filter-hook to insert the HTML at the very end.
 </div>
 </div>
 </div>
-<div id="outline-container-orgc0e6ae3" class="outline-2">
-<h2 id="orgc0e6ae3"><span class="section-number-2">8.</span> <a href="#orgc0e6ae3"><span class="todo TODO">TODO</span> Keyword Lists</a></h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-Keyword%20Lists" class="outline-2">
+<h2 id="Keyword%20Lists"><span class="section-number-2">9.</span> <a href="#Keyword%20Lists"><span class="todo TODO">TODO</span> Keyword Lists</a></h2>
+<div class="outline-text-2" id="text-9">
 <p>
 Fills the primary datastructure of this script of the form:
 </p>
@@ -572,9 +692,9 @@ Fills the primary datastructure of this script of the form:
 </div>
 </div>
 </div>
-<div id="outline-container-org16684f5" class="outline-2">
-<h2 id="org16684f5"><span class="section-number-2">9.</span> <a href="#org16684f5">RSS Feed Generation</a></h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-RSS%20Feed%20Generation" class="outline-2">
+<h2 id="RSS%20Feed%20Generation"><span class="section-number-2">10.</span> <a href="#RSS%20Feed%20Generation">RSS Feed Generation</a></h2>
+<div class="outline-text-2" id="text-10">
 <p>
 Generates a simple rss feed for articles specifically.
 </p>
@@ -623,9 +743,9 @@ Generates a simple rss feed for articles specifically.
 </div>
 </div>
 </div>
-<div id="outline-container-org854cd8b" class="outline-2">
-<h2 id="org854cd8b"><span class="section-number-2">10.</span> <a href="#org854cd8b">Tagging System</a></h2>
-<div class="outline-text-2" id="text-10">
+<div id="outline-container-Tagging%20System" class="outline-2">
+<h2 id="Tagging%20System"><span class="section-number-2">11.</span> <a href="#Tagging%20System">Tagging System</a></h2>
+<div class="outline-text-2" id="text-11">
 <p>
 Generates a <code>tag.org</code> for every unique tag across all articles.
 </p>
@@ -705,9 +825,9 @@ Generates a <code>tag.org</code> for every unique tag across all articles.
 </div>
 </div>
 </div>
-<div id="outline-container-org72b5bf2" class="outline-2">
-<h2 id="org72b5bf2"><span class="section-number-2">11.</span> <a href="#org72b5bf2">Prepare publishing function</a></h2>
-<div class="outline-text-2" id="text-11">
+<div id="outline-container-Prepare%20publishing%20function" class="outline-2">
+<h2 id="Prepare%20publishing%20function"><span class="section-number-2">12.</span> <a href="#Prepare%20publishing%20function">Prepare publishing function</a></h2>
+<div class="outline-text-2" id="text-12">
 <p>
 Gets called by <code>org-publish</code> before the main publishing step.
 </p>
@@ -724,9 +844,9 @@ Gets called by <code>org-publish</code> before the main publishing step.
 </div>
 </div>
 </div>
-<div id="outline-container-org33cdba5" class="outline-2">
-<h2 id="org33cdba5"><span class="section-number-2">12.</span> <a href="#org33cdba5">Custom Export Function</a></h2>
-<div class="outline-text-2" id="text-12">
+<div id="outline-container-Custom%20Export%20Function" class="outline-2">
+<h2 id="Custom%20Export%20Function"><span class="section-number-2">13.</span> <a href="#Custom%20Export%20Function">Custom Export Function</a></h2>
+<div class="outline-text-2" id="text-13">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">org-html-publish-to-html-noexport</span> (plist filename pub-dir)
   <span class="org-doc">"Publish an org file to HTML except one's that are tagged noexport"</span>
@@ -746,9 +866,9 @@ Gets called by <code>org-publish</code> before the main publishing step.
 </div>
 </div>
 </div>
-<div id="outline-container-orgf219e9c" class="outline-2">
-<h2 id="orgf219e9c"><span class="section-number-2">13.</span> <a href="#orgf219e9c">Filter: Insert Header</a></h2>
-<div class="outline-text-2" id="text-13">
+<div id="outline-container-Filter%3A%20Insert%20Header" class="outline-2">
+<h2 id="Filter%3A%20Insert%20Header"><span class="section-number-2">14.</span> <a href="#Filter%3A%20Insert%20Header">Filter: Insert Header</a></h2>
+<div class="outline-text-2" id="text-14">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">add-title-headline</span> (backend)
   <span class="org-comment-delimiter">; </span><span class="org-comment">insert after :PROPERTY: drawer</span>
@@ -769,7 +889,7 @@ Gets called by <code>org-publish</code> before the main publishing step.
               (insert <span class="org-string">"]&lt;/code&gt;&lt;/div&gt;"</span>))
         (insert <span class="org-string">"&lt;/div&gt;"</span>))
       (<span class="org-keyword">when</span> title (insert (format <span class="org-string">"&lt;h1&gt;%s&lt;/h1&gt;"</span> title)))
-      (<span class="org-keyword">when</span> description (insert (format <span class="org-string">"&lt;h2 class=\"subtitle\"&gt;%s&lt;/h1&gt;"</span> description)))
+      (<span class="org-keyword">when</span> description (insert (format <span class="org-string">"&lt;h1 class=\"subtitle\"&gt;%s&lt;/h2&gt;"</span> description)))
       (insert <span class="org-string">"\n#+end_export\n"</span>)
       )
     )
@@ -779,17 +899,17 @@ Gets called by <code>org-publish</code> before the main publishing step.
 </div>
 </div>
 </div>
-<div id="outline-container-org98d6768" class="outline-2">
-<h2 id="org98d6768"><span class="section-number-2">14.</span> <a href="#org98d6768">Org-publish Customization</a></h2>
-<div class="outline-text-2" id="text-14">
+<div id="outline-container-Org-publish%20Customization" class="outline-2">
+<h2 id="Org-publish%20Customization"><span class="section-number-2">15.</span> <a href="#Org-publish%20Customization">Org-publish Customization</a></h2>
+<div class="outline-text-2" id="text-15">
 <p>
 See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options.html">here</a> for exporter-specific properties and use <code>(describe-variable
 'org-publish-project-alist)</code> for documentation on general options.
 </p>
 </div>
-<div id="outline-container-org838da9c" class="outline-3">
-<h3 id="org838da9c"><span class="section-number-3">14.1.</span> <a href="#org838da9c">Project: <code>andersch.dev</code></a></h3>
-<div class="outline-text-3" id="text-14-1">
+<div id="outline-container-Project%3A%20~andersch.dev~" class="outline-3">
+<h3 id="Project%3A%20~andersch.dev~"><span class="section-number-3">15.1.</span> <a href="#Project%3A%20~andersch.dev~">Project: <code>andersch.dev</code></a></h3>
+<div class="outline-text-3" id="text-15-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> andersch-dev
       (list <span class="org-string">"andersch.dev"</span>
@@ -856,9 +976,9 @@ See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-
 </div>
 </div>
 </div>
-<div id="outline-container-org76101f0" class="outline-3">
-<h3 id="org76101f0"><span class="section-number-3">14.2.</span> <a href="#org76101f0">Project: <code>roam.andersch.dev</code></a></h3>
-<div class="outline-text-3" id="text-14-2">
+<div id="outline-container-Project%3A%20~roam.andersch.dev~" class="outline-3">
+<h3 id="Project%3A%20~roam.andersch.dev~"><span class="section-number-3">15.2.</span> <a href="#Project%3A%20~roam.andersch.dev~">Project: <code>roam.andersch.dev</code></a></h3>
+<div class="outline-text-3" id="text-15-2">
 <p>
 Wiki portion of the site as a separate project.
 </p>
@@ -916,9 +1036,9 @@ Wiki portion of the site as a separate project.
 </div>
 </div>
 </div>
-<div id="outline-container-orgfdfe220" class="outline-3">
-<h3 id="orgfdfe220"><span class="section-number-3">14.3.</span> <a href="#orgfdfe220">Add projects to <code>org-publish-project-alist</code></a></h3>
-<div class="outline-text-3" id="text-14-3">
+<div id="outline-container-Add%20projects%20to%20~org-publish-project-alist~" class="outline-3">
+<h3 id="Add%20projects%20to%20~org-publish-project-alist~"><span class="section-number-3">15.3.</span> <a href="#Add%20projects%20to%20~org-publish-project-alist~">Add projects to <code>org-publish-project-alist</code></a></h3>
+<div class="outline-text-3" id="text-15-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> org-publish-project-alist (list andersch-dev roam-andersch-dev-images roam-andersch-dev))
 </pre>
@@ -926,13 +1046,14 @@ Wiki portion of the site as a separate project.
 </div>
 </div>
 </div>
-<div id="outline-container-orge9c65e4" class="outline-2">
-<h2 id="orge9c65e4"><span class="section-number-2">15.</span> <a href="#orge9c65e4">org-publish</a></h2>
-<div class="outline-text-2" id="text-15">
+<div id="outline-container-org-publish" class="outline-2">
+<h2 id="org-publish"><span class="section-number-2">16.</span> <a href="#org-publish">org-publish</a></h2>
+<div class="outline-text-2" id="text-16">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">caching</span>
 (<span class="org-keyword">setq</span> org-publish-timestamp-directory <span class="org-string">"./.org-timestamps/"</span>)
-<span class="org-comment-delimiter">;</span><span class="org-comment">(org-publish-remove-all-timestamps) ; call to avoid caching</span>
+
+(org-publish-remove-all-timestamps) <span class="org-comment-delimiter">; </span><span class="org-comment">call to avoid caching, NOTE: required now because of our org-id replacement</span>
 
 (<span class="org-keyword">setq</span> org-id-locations-file <span class="org-string">"/home/da/org/.orgids"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">should fix broken links</span>
 (<span class="org-keyword">setq</span> org-export-with-broken-links nil) <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE might be needed for broken roam ID links...</span>
@@ -953,25 +1074,25 @@ Wiki portion of the site as a separate project.
 </div>
 </div>
 </div>
-<div id="outline-container-org765334d" class="outline-2">
-<h2 id="org765334d"><span class="section-number-2">16.</span> <a href="#org765334d">Code snippets</a></h2>
-<div class="outline-text-2" id="text-16">
+<div id="outline-container-Code%20snippets" class="outline-2">
+<h2 id="Code%20snippets"><span class="section-number-2">17.</span> <a href="#Code%20snippets">Code snippets</a></h2>
+<div class="outline-text-2" id="text-17">
 </div>
-<div id="outline-container-org64fbf9a" class="outline-3">
-<h3 id="org64fbf9a"><span class="section-number-3">16.1.</span> <a href="#org64fbf9a">Generate Article Image Preview</a></h3>
-<div class="outline-text-3" id="text-16-1">
+<div id="outline-container-Generate%20Article%20Image%20Preview" class="outline-3">
+<h3 id="Generate%20Article%20Image%20Preview"><span class="section-number-3">17.1.</span> <a href="#Generate%20Article%20Image%20Preview">Generate Article Image Preview</a></h3>
+<div class="outline-text-3" id="text-17-1">
 <p>
 TODO only used to generate preview image, move to filter function
 </p>
 </div>
 </div>
-<div id="outline-container-orgdda29e3" class="outline-3">
-<h3 id="orgdda29e3"><span class="section-number-3">16.2.</span> <a href="#orgdda29e3">Generate Article Snippets</a></h3>
+<div id="outline-container-Generate%20Article%20Snippets" class="outline-3">
+<h3 id="Generate%20Article%20Snippets"><span class="section-number-3">17.2.</span> <a href="#Generate%20Article%20Snippets">Generate Article Snippets</a></h3>
 </div>
 </div>
-<div id="outline-container-org316d4b5" class="outline-2">
-<h2 id="org316d4b5"><span class="section-number-2">17.</span> <a href="#org316d4b5">Resources</a></h2>
-<div class="outline-text-2" id="text-17">
+<div id="outline-container-Resources" class="outline-2">
+<h2 id="Resources"><span class="section-number-2">18.</span> <a href="#Resources">Resources</a></h2>
+<div class="outline-text-2" id="text-18">
 <ul class="org-ul">
 <li><a href="https://pank.eu/blog/blog-setup.html">Blogging with Org</a></li>
 <li><a href="https://ogbe.net/blog/blogging_with_org">Blogging using org-mode (and nothing else)</a></li>

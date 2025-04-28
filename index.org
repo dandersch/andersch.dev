@@ -38,14 +38,14 @@
 #+END_SRC
 
 
-* Latest [[./article/index.org][articles]]
+* [[./article/index.org][Latest articles]]
 :PROPERTIES:
 :CUSTOM_ID: latest-articles
 :END:
 #+CALL: latest-article[:eval yes](list=(get-article-keyword-list) folder="article")
 #+RESULTS: latest-article
 
-* Latest [[./project/index.org][projects]]
+* [[./project/index.org][Latest projects]]
 :PROPERTIES:
 :CUSTOM_ID: latest-projects
 :END:

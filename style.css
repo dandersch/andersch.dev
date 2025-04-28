@@ -103,10 +103,7 @@ li { margin-bottom: 5px; }
 #table-of-contents a:hover { color: #f1f1f1; }
 
 /* collapsible sections */
-.outline-2 {
-    display: block; /* Shown by default */
-}
-[id^="org"] {
+h2,h3,h4 {
     cursor: pointer;
     padding: 10px;
     background-color: #1e1e1e;

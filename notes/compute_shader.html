@@ -230,9 +230,9 @@ They are a form of compute kernel and enable <i>general-purpose computing on
 graphics processing units</i>, or <a href="gpgpu.html#ID-97928916-e2f2-421c-9cde-b3c678261d03">GPGPU</a> for short. In that vein, they serve a
 similar purpose as OpenCL or <a href="cuda.html#ID-4d7a3b62-13fe-4633-a99d-5b645c01b6f1">CUDA</a>.
 </p>
-<div id="outline-container-org8cda279" class="outline-2">
-<h2 id="org8cda279"><a href="#org8cda279"><a href="opengl.html#ID-394d1edc-3e93-4914-ae21-6ffd17a6b163">OpenGL</a> Compute Shaders</a></h2>
-<div class="outline-text-2" id="text-org8cda279">
+<div id="outline-container-%5B%5Bid%3A394d1edc-3e93-4914-ae21-6ffd17a6b163%5D%5BOpenGL%5D%5D%20Compute%20Shaders" class="outline-2">
+<h2 id="%5B%5Bid%3A394d1edc-3e93-4914-ae21-6ffd17a6b163%5D%5BOpenGL%5D%5D%20Compute%20Shaders"><a href="#%5B%5Bid%3A394d1edc-3e93-4914-ae21-6ffd17a6b163%5D%5BOpenGL%5D%5D%20Compute%20Shaders"><a href="opengl.html#ID-394d1edc-3e93-4914-ae21-6ffd17a6b163">OpenGL</a> Compute Shaders</a></h2>
+<div class="outline-text-2" id="text-%5B%5Bid%3A394d1edc-3e93-4914-ae21-6ffd17a6b163%5D%5BOpenGL%5D%5D%20Compute%20Shaders">
 <p>
 Compute shaders were introduced in OpenGL 4.3
 </p>
@@ -274,7 +274,7 @@ Usage code of a compute shader program:
 </div>
 <div id="outline-container-ID-edf8f343-5805-424e-9a07-058c5379fd9d" class="outline-2">
 <h2 id="ID-edf8f343-5805-424e-9a07-058c5379fd9d"><a href="#ID-edf8f343-5805-424e-9a07-058c5379fd9d">Warp/Wavefront (Work Group Sizes)</a></h2>
-<div class="outline-text-2" id="text-org2b28e66">
+<div class="outline-text-2" id="text-Warp%2FWavefront%20%28Work%20Group%20Sizes%29">
 <p>
 GPUs work in <b>warps</b> (or <b>wavefronts</b>), which are groups of threads and each GPU is
 optimized for a certain workgroup size. The workgroup size should be a multiple
@@ -320,9 +320,9 @@ printf(<span class="org-string">"Max invocations count per work group: %i\n"</sp
 </div>
 </div>
 </div>
-<div id="outline-container-orge8d1a72" class="outline-2">
-<h2 id="orge8d1a72"><a href="#orge8d1a72">SIMT - The Execution Model</a></h2>
-<div class="outline-text-2" id="text-orge8d1a72">
+<div id="outline-container-SIMT%20-%20The%20Execution%20Model" class="outline-2">
+<h2 id="SIMT%20-%20The%20Execution%20Model"><a href="#SIMT%20-%20The%20Execution%20Model">SIMT - The Execution Model</a></h2>
+<div class="outline-text-2" id="text-SIMT%20-%20The%20Execution%20Model">
 <p>
 The parallel execution model of (compute) shader is referred to as <i>Single
 instruction, multiple threads</i> (SIMT). It combines <a href="simd.html#ID-01c09cff-4fd0-4ec4-bd84-f69a234c5941">SIMD</a> with multithreading.
@@ -347,9 +347,9 @@ This means that&#x2026;
 </ul>
 </div>
 </div>
-<div id="outline-container-org123e238" class="outline-2">
-<h2 id="org123e238"><a href="#org123e238">Performance Impact of <code>if</code> Statements</a></h2>
-<div class="outline-text-2" id="text-org123e238">
+<div id="outline-container-Performance%20Impact%20of%20~if~%20Statements" class="outline-2">
+<h2 id="Performance%20Impact%20of%20~if~%20Statements"><a href="#Performance%20Impact%20of%20~if~%20Statements">Performance Impact of <code>if</code> Statements</a></h2>
+<div class="outline-text-2" id="text-Performance%20Impact%20of%20~if~%20Statements">
 <p>
 Three cases to distinguish:
 </p>
@@ -380,9 +380,9 @@ issued) can be considered constant for the duration of the drawcall</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org8a8c23c" class="outline-2">
-<h2 id="org8a8c23c"><a href="#org8a8c23c">Branchless Programming</a></h2>
-<div class="outline-text-2" id="text-org8a8c23c">
+<div id="outline-container-Branchless%20Programming" class="outline-2">
+<h2 id="Branchless%20Programming"><a href="#Branchless%20Programming">Branchless Programming</a></h2>
+<div class="outline-text-2" id="text-Branchless%20Programming">
 <p>
 Take an <code>if</code> statement that is used just to set a variable to A or B:
 </p>
@@ -401,9 +401,9 @@ This can be rewritten as:
 </div>
 </div>
 </div>
-<div id="outline-container-org63e6123" class="outline-2">
-<h2 id="org63e6123"><a href="#org63e6123">Resources</a></h2>
-<div class="outline-text-2" id="text-org63e6123">
+<div id="outline-container-Resources" class="outline-2">
+<h2 id="Resources"><a href="#Resources">Resources</a></h2>
+<div class="outline-text-2" id="text-Resources">
 <ul class="org-ul">
 <li><a href="https://www.khronos.org/opengl/wiki/Compute_Shader">OpenGL Wiki - Compute Shader</a></li>
 <li><a href="https://hero.handmade.network/episode/code/day236">Handmade Hero - GPU Conceptual Overview</a></li>

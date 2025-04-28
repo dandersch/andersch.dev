@@ -228,13 +228,13 @@ expansion and conditional compilation.
 It can be used to have a rudimentary form of <a href="metaprogramming.html#ID-6c88dda7-d440-48d0-ad7b-9910400eab90">metaprogramming</a> inside C, e.g. by
 using <a href="x_macro.html#ID-03fc9819-f8da-43b5-b91e-c3fd9d435e55">X-Macros</a>.
 </p>
-<div id="outline-container-org02f669a" class="outline-2">
-<h2 id="org02f669a"><a href="#org02f669a">Tips &amp; Tricks</a></h2>
-<div class="outline-text-2" id="text-org02f669a">
+<div id="outline-container-Tips%20%26%20Tricks" class="outline-2">
+<h2 id="Tips%20%26%20Tricks"><a href="#Tips%20%26%20Tricks">Tips &amp; Tricks</a></h2>
+<div class="outline-text-2" id="text-Tips%20%26%20Tricks">
 </div>
-<div id="outline-container-org53f14f2" class="outline-3">
-<h3 id="org53f14f2"><a href="#org53f14f2">For-loop-based scope macros</a></h3>
-<div class="outline-text-3" id="text-org53f14f2">
+<div id="outline-container-For-loop-based%20scope%20macros" class="outline-3">
+<h3 id="For-loop-based%20scope%20macros"><a href="#For-loop-based%20scope%20macros">For-loop-based scope macros</a></h3>
+<div class="outline-text-3" id="text-For-loop-based%20scope%20macros">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">helper macros</span><span class="org-comment-delimiter"> */</span>
 <span class="org-preprocessor">#define</span> <span class="org-function-name">TOKEN_PASTE</span>(<span class="org-variable-name">a</span>, <span class="org-variable-name">b</span>) a##b
@@ -260,18 +260,18 @@ using <a href="x_macro.html#ID-03fc9819-f8da-43b5-b91e-c3fd9d435e55">X-Macros</a
 </div>
 </div>
 </div>
-<div id="outline-container-orgeae363d" class="outline-3">
-<h3 id="orgeae363d"><a href="#orgeae363d">Check for equality</a></h3>
-<div class="outline-text-3" id="text-orgeae363d">
+<div id="outline-container-Check%20for%20equality" class="outline-3">
+<h3 id="Check%20for%20equality"><a href="#Check%20for%20equality">Check for equality</a></h3>
+<div class="outline-text-3" id="text-Check%20for%20equality">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-preprocessor">#if</span> RENDERER_BACKEND == RENDERER_OPENGL
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf541c13" class="outline-3">
-<h3 id="orgf541c13"><a href="#orgf541c13"><code>#line</code> directive</a></h3>
-<div class="outline-text-3" id="text-orgf541c13">
+<div id="outline-container-~%23line~%20directive" class="outline-3">
+<h3 id="~%23line~%20directive"><a href="#~%23line~%20directive"><code>#line</code> directive</a></h3>
+<div class="outline-text-3" id="text-~%23line~%20directive">
 <p>
 Use the <code>#line</code> directive to set the <code>__LINE__</code> macro to a positive integer of your choice.
 It can also set <code>__FILE__</code>.
@@ -300,9 +300,9 @@ This can be useful when <code>__LINE__</code> is used for setting bitfield value
 </div>
 </div>
 </div>
-<div id="outline-container-orga575165" class="outline-3">
-<h3 id="orga575165"><a href="#orga575165">Statement Expressions</a></h3>
-<div class="outline-text-3" id="text-orga575165">
+<div id="outline-container-Statement%20Expressions" class="outline-3">
+<h3 id="Statement%20Expressions"><a href="#Statement%20Expressions">Statement Expressions</a></h3>
+<div class="outline-text-3" id="text-Statement%20Expressions">
 <p>
 GNU C (and C++) has an <a href="gnu_c_ext.html#ID-8ab219e8-3a61-4f3c-836a-464c4ad8ba0c">extension</a> for having <a href="https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html">statements and declarations inside
 an expression</a>:
@@ -330,9 +330,9 @@ This extension is implemented on:
 </ul>
 </div>
 </div>
-<div id="outline-container-org4a72936" class="outline-3">
-<h3 id="org4a72936"><a href="#org4a72936">For-each construct</a></h3>
-<div class="outline-text-3" id="text-org4a72936">
+<div id="outline-container-For-each%20construct" class="outline-3">
+<h3 id="For-each%20construct"><a href="#For-each%20construct">For-each construct</a></h3>
+<div class="outline-text-3" id="text-For-each%20construct">
 <p>
 See <a href="https://codecraft.co/2014/11/25/variadic-macros-tricks/">Variadic macros tricks</a>:
 </p>
@@ -373,9 +373,9 @@ See <a href="https://codecraft.co/2014/11/25/variadic-macros-tricks/">Variadic m
 </div>
 </div>
 </div>
-<div id="outline-container-org3f57576" class="outline-3">
-<h3 id="org3f57576"><a href="#org3f57576">Unix Timestamp</a></h3>
-<div class="outline-text-3" id="text-org3f57576">
+<div id="outline-container-Unix%20Timestamp" class="outline-3">
+<h3 id="Unix%20Timestamp"><a href="#Unix%20Timestamp">Unix Timestamp</a></h3>
+<div class="outline-text-3" id="text-Unix%20Timestamp">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-comment-delimiter">/*</span>
 <span class="org-comment"> * compile_time.h</span>
@@ -464,9 +464,9 @@ See <a href="https://codecraft.co/2014/11/25/variadic-macros-tricks/">Variadic m
 </div>
 </div>
 </div>
-<div id="outline-container-orgd7c81fe" class="outline-3">
-<h3 id="orgd7c81fe"><a href="#orgd7c81fe">Time as Integers</a></h3>
-<div class="outline-text-3" id="text-orgd7c81fe">
+<div id="outline-container-Time%20as%20Integers" class="outline-3">
+<h3 id="Time%20as%20Integers"><a href="#Time%20as%20Integers">Time as Integers</a></h3>
+<div class="outline-text-3" id="text-Time%20as%20Integers">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-variable-name">DAY</span>    ((__DATE__[4] - <span class="org-string">'0'</span>) * 10 + (__DATE__[5] - <span class="org-string">'0'</span>))
 <span class="org-preprocessor">#define</span> <span class="org-variable-name">YEAR</span>   ((__DATE__[7] - <span class="org-string">'0'</span>) * 1000 + (__DATE__[8] - <span class="org-string">'0'</span>) * 100 + (__DATE__[9] - <span class="org-string">'0'</span>) * 10 + (__DATE__[10] - <span class="org-string">'0'</span>))
@@ -489,9 +489,9 @@ See <a href="https://codecraft.co/2014/11/25/variadic-macros-tricks/">Variadic m
 </div>
 </div>
 </div>
-<div id="outline-container-orge5d1a96" class="outline-3">
-<h3 id="orge5d1a96"><a href="#orge5d1a96">Running code after the user</a></h3>
-<div class="outline-text-3" id="text-orge5d1a96">
+<div id="outline-container-Running%20code%20after%20the%20user" class="outline-3">
+<h3 id="Running%20code%20after%20the%20user"><a href="#Running%20code%20after%20the%20user">Running code after the user</a></h3>
+<div class="outline-text-3" id="text-Running%20code%20after%20the%20user">
 <p>
 Using for loops, we can "sneak" expressions to run after the user's code has
 run. However, to run whole code snippets containing several statement (without
@@ -518,9 +518,9 @@ m({
 </div>
 </div>
 </div>
-<div id="outline-container-org7c26efc" class="outline-3">
-<h3 id="org7c26efc"><a href="#org7c26efc">Overriding Macros Based on Number of Arguments</a></h3>
-<div class="outline-text-3" id="text-org7c26efc">
+<div id="outline-container-Overriding%20Macros%20Based%20on%20Number%20of%20Arguments" class="outline-3">
+<h3 id="Overriding%20Macros%20Based%20on%20Number%20of%20Arguments"><a href="#Overriding%20Macros%20Based%20on%20Number%20of%20Arguments">Overriding Macros Based on Number of Arguments</a></h3>
+<div class="outline-text-3" id="text-Overriding%20Macros%20Based%20on%20Number%20of%20Arguments">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">CAT</span>( <span class="org-variable-name">A</span>, <span class="org-variable-name">B</span> ) A ## B
 <span class="org-preprocessor">#define</span> <span class="org-function-name">SELECT</span>( <span class="org-variable-name">NAME</span>, <span class="org-variable-name">NUM</span> ) CAT( NAME ## _, NUM )
@@ -538,9 +538,9 @@ m({
 </div>
 </div>
 </div>
-<div id="outline-container-orgacc10aa" class="outline-3">
-<h3 id="orgacc10aa"><a href="#orgacc10aa">Resetting <code>__COUNTER__</code></a></h3>
-<div class="outline-text-3" id="text-orgacc10aa">
+<div id="outline-container-Resetting%20~__COUNTER__~" class="outline-3">
+<h3 id="Resetting%20~__COUNTER__~"><a href="#Resetting%20~__COUNTER__~">Resetting <code>__COUNTER__</code></a></h3>
+<div class="outline-text-3" id="text-Resetting%20~__COUNTER__~">
 <div class="org-src-container">
 <pre class="src src-C">printf(<span class="org-string">"%i\n"</span>, __COUNTER__);
 printf(<span class="org-string">"%i\n"</span>, __COUNTER__);
@@ -556,13 +556,13 @@ printf (<span class="org-string">"%i\n"</span>, __COUNTER__ - __LINE__ - 1); <sp
 </div>
 </div>
 </div>
-<div id="outline-container-orged9ed72" class="outline-2">
-<h2 id="orged9ed72"><a href="#orged9ed72">Semi-useful Hacks</a></h2>
-<div class="outline-text-2" id="text-orged9ed72">
+<div id="outline-container-Semi-useful%20Hacks" class="outline-2">
+<h2 id="Semi-useful%20Hacks"><a href="#Semi-useful%20Hacks">Semi-useful Hacks</a></h2>
+<div class="outline-text-2" id="text-Semi-useful%20Hacks">
 </div>
-<div id="outline-container-org7635475" class="outline-3">
-<h3 id="org7635475"><a href="#org7635475">Keeping track of the callstack</a></h3>
-<div class="outline-text-3" id="text-org7635475">
+<div id="outline-container-Keeping%20track%20of%20the%20callstack" class="outline-3">
+<h3 id="Keeping%20track%20of%20the%20callstack"><a href="#Keeping%20track%20of%20the%20callstack">Keeping track of the callstack</a></h3>
+<div class="outline-text-3" id="text-Keeping%20track%20of%20the%20callstack">
 <p>
 Following macros and functions can keep a printable string of the current
 callstack at all times and run functions (e.g. a logger, profiler) when entering
@@ -689,9 +689,9 @@ function declaration/implementation needs to be wrapped in a macro:
 </div>
 </div>
 </div>
-<div id="outline-container-orgca3b68e" class="outline-3">
-<h3 id="orgca3b68e"><a href="#orgca3b68e">Compile-Time String Hashes</a></h3>
-<div class="outline-text-3" id="text-orgca3b68e">
+<div id="outline-container-Compile-Time%20String%20Hashes" class="outline-3">
+<h3 id="Compile-Time%20String%20Hashes"><a href="#Compile-Time%20String%20Hashes">Compile-Time String Hashes</a></h3>
+<div class="outline-text-3" id="text-Compile-Time%20String%20Hashes">
 <p>
 See
 </p>
@@ -710,9 +710,9 @@ as case/goto labels (works on clang and MSVC):
 </ul>
 </div>
 </div>
-<div id="outline-container-org50fa873" class="outline-3">
-<h3 id="org50fa873"><a href="#org50fa873">Recursive Macro Expansion</a></h3>
-<div class="outline-text-3" id="text-org50fa873">
+<div id="outline-container-Recursive%20Macro%20Expansion" class="outline-3">
+<h3 id="Recursive%20Macro%20Expansion"><a href="#Recursive%20Macro%20Expansion">Recursive Macro Expansion</a></h3>
+<div class="outline-text-3" id="text-Recursive%20Macro%20Expansion">
 <p>
 See <a href="https://jadlevesque.github.io/PPMP-Iceberg/explanations#macro-expansion-can-be-recursive-extension">macro expansion can be recursive (extension)</a>.
 </p>
@@ -734,9 +734,9 @@ See <a href="https://jadlevesque.github.io/PPMP-Iceberg/explanations#macro-expan
 </div>
 </div>
 </div>
-<div id="outline-container-org25dad06" class="outline-3">
-<h3 id="org25dad06"><a href="#org25dad06">Multiple Return Values</a></h3>
-<div class="outline-text-3" id="text-org25dad06">
+<div id="outline-container-Multiple%20Return%20Values" class="outline-3">
+<h3 id="Multiple%20Return%20Values"><a href="#Multiple%20Return%20Values">Multiple Return Values</a></h3>
+<div class="outline-text-3" id="text-Multiple%20Return%20Values">
 <p>
 See <a href="https://github.com/dandersch/multiple_return.h/tree/main">multiple<sub>return.h</sub>: Go-style multiple return in C using macros</a>.
 </p>
@@ -874,9 +874,9 @@ Usage code:
 </div>
 </div>
 </div>
-<div id="outline-container-org7ced44a" class="outline-2">
-<h2 id="org7ced44a"><a href="#org7ced44a">Resources</a></h2>
-<div class="outline-text-2" id="text-org7ced44a">
+<div id="outline-container-Resources" class="outline-2">
+<h2 id="Resources"><a href="#Resources">Resources</a></h2>
+<div class="outline-text-2" id="text-Resources">
 <ul class="org-ul">
 <li><a href="https://www.chiark.greenend.org.uk/~sgtatham/mp/">Metaprogramming custom control structures in C</a></li>
 <li><a href="https://github.com/pfultz2/Cloak/wiki/C-Preprocessor-tricks,-tips,-and-idioms">C Preprocessor tricks, tips, and idioms</a></li>

@@ -237,9 +237,9 @@ Usage:
 <li>Waiting thread awakens by signal (one thread) or broadcast (all threads)</li>
 <li>Upon waking, thread reacquires mutex before proceeding</li>
 </ul>
-<div id="outline-container-org1b297be" class="outline-2">
-<h2 id="org1b297be"><a href="#org1b297be">Basic Condition Variable API</a></h2>
-<div class="outline-text-2" id="text-org1b297be">
+<div id="outline-container-Basic%20Condition%20Variable%20API" class="outline-2">
+<h2 id="Basic%20Condition%20Variable%20API"><a href="#Basic%20Condition%20Variable%20API">Basic Condition Variable API</a></h2>
+<div class="outline-text-2" id="text-Basic%20Condition%20Variable%20API">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">int</span> <span class="org-function-name">cond_init</span>(<span class="org-type">cond_t</span> **<span class="org-variable-name">cond</span>);
 <span class="org-type">int</span> <span class="org-function-name">cond_wait</span>(<span class="org-type">cond_t</span> *<span class="org-variable-name">cond</span>, <span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);
