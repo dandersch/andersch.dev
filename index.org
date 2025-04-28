@@ -1,5 +1,5 @@
 #+NAME: latest-article
-#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='(get-article-keyword-list) folder="" :noweb yes
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='() folder="" :noweb yes
 (defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
   (format
    (concat
@@ -36,7 +36,6 @@
           folder
           (cadr (assoc "IMAGE" (cadr latest)))))
 #+END_SRC
-
 
 * [[./article/index.org][Latest articles]]
 :PROPERTIES:

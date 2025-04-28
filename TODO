@@ -1,20 +1,25 @@
 TODO -*- mode: org -*-
 
-- [ ] switch auto-generated org-id's to derived ones
-  + [ ] see [[https://zzamboni.org/post/how-to-easily-create-and-use-human-readable-ids-in-org-mode-and-doom-emacs/][zzamboni.org | How to easily create and use human-readable IDs in Org mode an...]]
-  + [ ] see [[https://github.com/alphapapa/unpackaged.el#export-to-html-with-useful-anchors][GitHub - alphapapa/unpackaged.el: Export to HTML with useful anchors]]
-  + [ ] need to stop using [id^="org"] selector in style.css & script.js
-  + [ ] fix css of roam headlines with own ID
-  + [ ] fix images being "collapsible"
+- [-] new home layout
+  + [X] collapsible latest _
+  + [ ] list with image+title+description
+  + [ ] alternate side image is on
+  + [ ] only play gifs when hovering over
+  + [ ] add latest other
+  + [ ] add latest notes
+  + [ ] preserve layout after collapsing
 
-- [ ] use :html-format-drawer-function for custom drawers
-  + [ ] parameters: NAME ("DRAWER") & CONTENTS of drawer
-  + [ ] return string to be exported
-  + [ ] Custom drawer: :TAG-DATE-BOX: from ~{{{tag-date-box}}}~
+- [1/2] css+js
+  + [X] don't collapse when clicking heading text
+  + [ ] collapse arrow on right side of headings
 
-- [ ] css+js
-  + [ ] don't collapse when clicking heading text
+- [-] switch auto-generated org-id's to derived ones
+  + [X] need to stop using [id^="org"] selector in style.css & script.js
+  + [X] fix css of roam headlines with own ID
+  + [X] fix images being "collapsible"
+  + [ ] stop using auto-generated id's for figures
 
+- [X] +use :html-format-drawer-function for custom drawers+
 
 - [ ] use [[https://orgmode.org/manual/Publishing-options.html][publishing options]]
   + [ ] :html-head-include-scripts (t/non-nil) & org-html-scripts
