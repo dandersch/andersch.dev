@@ -1,3 +1,1 @@
-#+TITLE: Projects
-
 #+CALL: ../code.org:generate-article-snippets[:eval yes](list=(get-project-keyword-list))

@@ -1,3 +1,1 @@
-#+TITLE: Articles
-
 #+CALL: ../code.org:generate-article-snippets[:eval yes](list=(get-article-keyword-list))

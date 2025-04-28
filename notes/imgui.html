@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Immediate mode GUI (IMGUI)</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/graphics.html">graphics</a> ]</code></div></div><h1>Immediate mode GUI (IMGUI)</h1>
 <p>
 An immediate mode graphic <a href="ui.html#ID-1aec063c-db9f-49f6-ba65-b1d0e7fe3bb4">user interface</a> (IMGUI) is a GUI design paradigm that
 stands opposed to the more common style of retained mode GUIs.
@@ -248,14 +248,14 @@ performance reasons.
 </div>
 <div id="outline-container-ID-92daeeb1-93c7-4dde-840d-82659f92402f" class="outline-2">
 <h2 id="ID-92daeeb1-93c7-4dde-840d-82659f92402f"><a href="#ID-92daeeb1-93c7-4dde-840d-82659f92402f">RectCut - Simple UI Layouts</a></h2>
-<div class="outline-text-2" id="text-org819c6da">
+<div class="outline-text-2" id="text-org9f6bfe1">
 <p>
 <a href="https://haltaire.substack.com/p/rectcut-for-dead-simple-ui-layouts?r=3lg47x&amp;utm_campaign=post&amp;utm_medium=web&amp;triedRedirect=true">RectCut for dead simple UI layouts</a> (<a href="https://web.archive.org/web/20230331132208/https://halt.software/dead-simple-layouts/">mirror</a>)
 </p>
 </div>
-<div id="outline-container-org8f54c19" class="outline-3">
-<h3 id="org8f54c19"><a href="#org8f54c19">Simple API</a></h3>
-<div class="outline-text-3" id="text-org8f54c19">
+<div id="outline-container-org5aa3bbc" class="outline-3">
+<h3 id="org5aa3bbc"><a href="#org5aa3bbc">Simple API</a></h3>
+<div class="outline-text-3" id="text-org5aa3bbc">
 <p>
 Define functions that cut a smaller rectangle of an input rectangle and return
 it. They also modify the input rectangle.
@@ -291,9 +291,9 @@ it. They also modify the input rectangle.
 </div>
 </div>
 </div>
-<div id="outline-container-org2907884" class="outline-3">
-<h3 id="org2907884"><a href="#org2907884">Example: Toolbar</a></h3>
-<div class="outline-text-3" id="text-org2907884">
+<div id="outline-container-orgbc534c5" class="outline-3">
+<h3 id="orgbc534c5"><a href="#orgbc534c5">Example: Toolbar</a></h3>
+<div class="outline-text-3" id="text-orgbc534c5">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">Rect</span> <span class="org-variable-name">layout</span> = { 0, 0, 180, 16 };
 
@@ -307,9 +307,9 @@ it. They also modify the input rectangle.
 </div>
 </div>
 </div>
-<div id="outline-container-org7e1be3b" class="outline-3">
-<h3 id="org7e1be3b"><a href="#org7e1be3b">Example: Two panel application</a></h3>
-<div class="outline-text-3" id="text-org7e1be3b">
+<div id="outline-container-org7b6c20e" class="outline-3">
+<h3 id="org7b6c20e"><a href="#org7b6c20e">Example: Two panel application</a></h3>
+<div class="outline-text-3" id="text-org7b6c20e">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">Top bar with icons and title</span>
 <span class="org-type">Rect</span> <span class="org-variable-name">top</span> = cut_top(&amp;layout, 16);
@@ -328,9 +328,9 @@ it. They also modify the input rectangle.
 </div>
 </div>
 </div>
-<div id="outline-container-orgbddb096" class="outline-3">
-<h3 id="orgbddb096"><a href="#orgbddb096">Example: Button sized by its label</a></h3>
-<div class="outline-text-3" id="text-orgbddb096">
+<div id="outline-container-org56c7bf7" class="outline-3">
+<h3 id="org56c7bf7"><a href="#org56c7bf7">Example: Button sized by its label</a></h3>
+<div class="outline-text-3" id="text-org56c7bf7">
 <ul class="org-ul">
 <li>If needed, first calculate the size and then cut.</li>
 <li>E.g., a button that sizes by the label</li>
@@ -349,9 +349,9 @@ it. They also modify the input rectangle.
 </div>
 </div>
 </div>
-<div id="outline-container-org81daab5" class="outline-3">
-<h3 id="org81daab5"><a href="#org81daab5">Extended API</a></h3>
-<div class="outline-text-3" id="text-org81daab5">
+<div id="outline-container-orgf4ca2bb" class="outline-3">
+<h3 id="orgf4ca2bb"><a href="#orgf4ca2bb">Extended API</a></h3>
+<div class="outline-text-3" id="text-orgf4ca2bb">
 <p>
 To enable control of the cut side from the caller for widgets, specify the side
 inside a new <code>RectCut</code> struct.
@@ -399,13 +399,13 @@ inside a new <code>RectCut</code> struct.
 </div>
 </div>
 </div>
-<div id="outline-container-org3bee40e" class="outline-2">
-<h2 id="org3bee40e"><a href="#org3bee40e">UI Code</a></h2>
-<div class="outline-text-2" id="text-org3bee40e">
+<div id="outline-container-org9912ff0" class="outline-2">
+<h2 id="org9912ff0"><a href="#org9912ff0">UI Code</a></h2>
+<div class="outline-text-2" id="text-org9912ff0">
 </div>
-<div id="outline-container-orgb6a27d1" class="outline-3">
-<h3 id="orgb6a27d1"><a href="#orgb6a27d1">Widgets API</a></h3>
-<div class="outline-text-3" id="text-orgb6a27d1">
+<div id="outline-container-org1b093d5" class="outline-3">
+<h3 id="org1b093d5"><a href="#org1b093d5">Widgets API</a></h3>
+<div class="outline-text-3" id="text-org1b093d5">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">basic widgets</span><span class="org-comment-delimiter"> */</span>
 <span class="org-type">UI_Signal</span> <span class="org-function-name">UI_Label</span>(<span class="org-type">String8</span> <span class="org-variable-name">string</span>);
@@ -441,9 +441,9 @@ inside a new <code>RectCut</code> struct.
 </div>
 </div>
 </div>
-<div id="outline-container-org7b5d441" class="outline-2">
-<h2 id="org7b5d441"><a href="#org7b5d441">UI Separation</a></h2>
-<div class="outline-text-2" id="text-org7b5d441">
+<div id="outline-container-org257d3de" class="outline-2">
+<h2 id="org257d3de"><a href="#org257d3de">UI Separation</a></h2>
+<div class="outline-text-2" id="text-org257d3de">
 <p>
 UI separation into two main parts:
 </p>
@@ -455,13 +455,13 @@ widgets using <i>"escape hatches".</i></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org26b842b" class="outline-2">
-<h2 id="org26b842b"><a href="#org26b842b">Build It Every Frame (Immediate Mode)</a></h2>
-<div class="outline-text-2" id="text-org26b842b">
+<div id="outline-container-orga654c83" class="outline-2">
+<h2 id="orga654c83"><a href="#orga654c83">Build It Every Frame (Immediate Mode)</a></h2>
+<div class="outline-text-2" id="text-orga654c83">
 </div>
-<div id="outline-container-org2c9cf62" class="outline-3">
-<h3 id="org2c9cf62"><a href="#org2c9cf62">Widget Hierarchy</a></h3>
-<div class="outline-text-3" id="text-org2c9cf62">
+<div id="outline-container-org8d49cfb" class="outline-3">
+<h3 id="org8d49cfb"><a href="#org8d49cfb">Widget Hierarchy</a></h3>
+<div class="outline-text-3" id="text-org8d49cfb">
 <p>
 In an IMGUI, the widget hierarchy is constructed every frame (instead of coming
 from state that must be managed).
@@ -496,9 +496,9 @@ all encoded in the same location</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org809167d" class="outline-3">
-<h3 id="org809167d"><a href="#org809167d">Manual Layout management</a></h3>
-<div class="outline-text-3" id="text-org809167d">
+<div id="outline-container-org9d269ef" class="outline-3">
+<h3 id="org9d269ef"><a href="#org9d269ef">Manual Layout management</a></h3>
+<div class="outline-text-3" id="text-org9d269ef">
 <ul class="org-ul">
 <li>Specify coordinates and size of every widget manually</li>
 <li>Adding new widgets in the middle now requires adjustments</li>
@@ -512,9 +512,9 @@ all encoded in the same location</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb1958ce" class="outline-3">
-<h3 id="orgb1958ce"><a href="#orgb1958ce">Encapsulate layout in a structure</a></h3>
-<div class="outline-text-3" id="text-orgb1958ce">
+<div id="outline-container-orgad5896d" class="outline-3">
+<h3 id="orgad5896d"><a href="#orgad5896d">Encapsulate layout in a structure</a></h3>
+<div class="outline-text-3" id="text-orgad5896d">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">UI_Layout</span> <span class="org-variable-name">layout</span> = UI_MakeLayout(...);
 <span class="org-keyword">if</span>(UI_Button(&amp;layout, <span class="org-string">"Foo"</span>)) { <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span> }
@@ -533,9 +533,9 @@ root layout at the top)
 </p>
 </div>
 </div>
-<div id="outline-container-orgbf84611" class="outline-3">
-<h3 id="orgbf84611"><a href="#orgbf84611">Pushing Layouts on to a Stack</a></h3>
-<div class="outline-text-3" id="text-orgbf84611">
+<div id="outline-container-orgdfc3668" class="outline-3">
+<h3 id="orgdfc3668"><a href="#orgdfc3668">Pushing Layouts on to a Stack</a></h3>
+<div class="outline-text-3" id="text-orgdfc3668">
 <p>
 A stack can be used to return to a parent layout after building a subtree of
 widgets.
@@ -561,9 +561,9 @@ The hierarchy is not just of layouts:
 </ul>
 </div>
 </div>
-<div id="outline-container-org40b3291" class="outline-3">
-<h3 id="org40b3291"><a href="#org40b3291">General Widget Hierarchy</a></h3>
-<div class="outline-text-3" id="text-org40b3291">
+<div id="outline-container-org33895be" class="outline-3">
+<h3 id="org33895be"><a href="#org33895be">General Widget Hierarchy</a></h3>
+<div class="outline-text-3" id="text-org33895be">
 <p>
 Reframe hierarchy to being of widgets (a parent of widgets is not different from
 a button widget).
@@ -603,9 +603,9 @@ The structure of a frame, then, is this:
 </ul>
 </div>
 </div>
-<div id="outline-container-org706632e" class="outline-3">
-<h3 id="org706632e"><a href="#org706632e">Offline Autolayout</a></h3>
-<div class="outline-text-3" id="text-org706632e">
+<div id="outline-container-orgfd6aa03" class="outline-3">
+<h3 id="orgfd6aa03"><a href="#orgfd6aa03">Offline Autolayout</a></h3>
+<div class="outline-text-3" id="text-orgfd6aa03">
 <ul class="org-ul">
 <li>We accept a single frame of delay for the rectangles that we use for consumption of events</li>
 <li>We preserve no-frame-delay for the final rendering of each frame.</li>
@@ -681,9 +681,9 @@ immediate-mode.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org617f09b" class="outline-3">
-<h3 id="org617f09b"><a href="#org617f09b">Offline Autolayout Algorithm</a></h3>
-<div class="outline-text-3" id="text-org617f09b">
+<div id="outline-container-orgd7888f2" class="outline-3">
+<h3 id="orgd7888f2"><a href="#orgd7888f2">Offline Autolayout Algorithm</a></h3>
+<div class="outline-text-3" id="text-orgd7888f2">
 <p>
 Each stage of the algorithm iterates over the widget hierarchy in a recursive,
 depth-first fashion. Pay careful attention to which stages require pre-order
@@ -722,9 +722,9 @@ screen-coordinates rectangle.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgdbe7fb3" class="outline-3">
-<h3 id="orgdbe7fb3"><a href="#orgdbe7fb3">The Tree hierarchy</a></h3>
-<div class="outline-text-3" id="text-orgdbe7fb3">
+<div id="outline-container-orgab8fd5a" class="outline-3">
+<h3 id="orgab8fd5a"><a href="#orgab8fd5a">The Tree hierarchy</a></h3>
+<div class="outline-text-3" id="text-orgab8fd5a">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-keyword">struct</span> <span class="org-type">UI_Widget</span>
 {
@@ -796,9 +796,9 @@ structure every frame.
 </p>
 </div>
 </div>
-<div id="outline-container-org2b97cb2" class="outline-3">
-<h3 id="org2b97cb2"><a href="#org2b97cb2">UI Keys or UI IDs</a></h3>
-<div class="outline-text-3" id="text-org2b97cb2">
+<div id="outline-container-orgbb0341c" class="outline-3">
+<h3 id="orgbb0341c"><a href="#orgbb0341c">UI Keys or UI IDs</a></h3>
+<div class="outline-text-3" id="text-orgbb0341c">
 <p>
 A keying strategy needs to solve one problem: correlating one frame's call-site
 with another frame's call-site.
@@ -834,9 +834,9 @@ only anything before it is displayed</li>
 </div>
 </div>
 </div>
-<div id="outline-container-org57ee77b" class="outline-2">
-<h2 id="org57ee77b"><a href="#org57ee77b">Resources</a></h2>
-<div class="outline-text-2" id="text-org57ee77b">
+<div id="outline-container-orgf4f6a5b" class="outline-2">
+<h2 id="orgf4f6a5b"><a href="#orgf4f6a5b">Resources</a></h2>
+<div class="outline-text-2" id="text-orgf4f6a5b">
 <ul class="org-ul">
 <li><a href="https://ryanfleury.substack.com/p/ui-part-2-build-it-every-frame-immediate?s=r">Build it Every Frame</a></li>
 <li><a href="https://ryanfleury.substack.com/p/ui-part-3-the-widget-building-language?s=r">The Widget Building Language</a></li>

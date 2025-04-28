@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Immediate Mode (API)</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/programming.html">programming</a> ]</code></div></div><h1>Immediate Mode (API)</h1>
 <p>
 Immediate mode is an API design approach, where the handling of state by the
 client is minimized. Instead, calls to the API encode both state changes and
@@ -233,9 +233,9 @@ initialized beforehand in another part of the codebase.
 <p>
 Immediate mode APIs most commonly come in the form of <a href="imgui.html#ID-bee7a125-cf0b-4fde-ba14-a1396af3e7d5">immediate mode GUIs</a>.
 </p>
-<div id="outline-container-org812c9fe" class="outline-2">
-<h2 id="org812c9fe"><a href="#org812c9fe">Immediate Mode vs Retained Mode (UI Example)</a></h2>
-<div class="outline-text-2" id="text-org812c9fe">
+<div id="outline-container-org0022702" class="outline-2">
+<h2 id="org0022702"><a href="#org0022702">Immediate Mode vs Retained Mode (UI Example)</a></h2>
+<div class="outline-text-2" id="text-org0022702">
 <p>
 A (mostly) pure immediate mode approach to a UI in C:
 </p>
@@ -320,9 +320,9 @@ What a retained mode approach could look like in C++:
 </div>
 </div>
 </div>
-<div id="outline-container-org9961b1f" class="outline-2">
-<h2 id="org9961b1f"><a href="#org9961b1f">Implicitly Building Data Structures</a></h2>
-<div class="outline-text-2" id="text-org9961b1f">
+<div id="outline-container-orgffbc877" class="outline-2">
+<h2 id="orgffbc877"><a href="#orgffbc877">Implicitly Building Data Structures</a></h2>
+<div class="outline-text-2" id="text-orgffbc877">
 <p>
 Following datastructures can be build implicitly in an immediate mode API:
 </p>
@@ -334,9 +334,9 @@ Following datastructures can be build implicitly in an immediate mode API:
 <li>Trees (via linked lists)</li>
 </ol>
 </div>
-<div id="outline-container-orgd9bcc41" class="outline-3">
-<h3 id="orgd9bcc41"><a href="#orgd9bcc41">Stack</a></h3>
-<div class="outline-text-3" id="text-orgd9bcc41">
+<div id="outline-container-org011ed51" class="outline-3">
+<h3 id="org011ed51"><a href="#org011ed51">Stack</a></h3>
+<div class="outline-text-3" id="text-org011ed51">
 <p>
 Using for-loops, one can push a structure onto a stack with every opening
 for-loop. The top of the stack is available under the same name in every scope.
@@ -400,9 +400,9 @@ scope_begin_thing(...) <span class="org-comment-delimiter">/* </span><span class
 </div>
 </div>
 </div>
-<div id="outline-container-orgf6ab085" class="outline-3">
-<h3 id="orgf6ab085"><a href="#orgf6ab085">Tree</a></h3>
-<div class="outline-text-3" id="text-orgf6ab085">
+<div id="outline-container-org0570120" class="outline-3">
+<h3 id="org0570120"><a href="#org0570120">Tree</a></h3>
+<div class="outline-text-3" id="text-org0570120">
 <p>
 An n-ary tree can be build in the form of a binary first-child-next-sibling tree:
 </p>
@@ -439,9 +439,9 @@ An n-ary tree can be build in the form of a binary first-child-next-sibling tree
 </div>
 </div>
 </div>
-<div id="outline-container-org5107bcf" class="outline-2">
-<h2 id="org5107bcf"><a href="#org5107bcf">Use Cases</a></h2>
-<div class="outline-text-2" id="text-org5107bcf">
+<div id="outline-container-orgeeba9a9" class="outline-2">
+<h2 id="orgeeba9a9"><a href="#orgeeba9a9">Use Cases</a></h2>
+<div class="outline-text-2" id="text-orgeeba9a9">
 <ul class="org-ul">
 <li>UI</li>
 <li>Rendering</li>
@@ -452,13 +452,13 @@ An n-ary tree can be build in the form of a binary first-child-next-sibling tree
 </ul>
 </div>
 </div>
-<div id="outline-container-org42528a6" class="outline-2">
-<h2 id="org42528a6"><a href="#org42528a6">Examples</a></h2>
-<div class="outline-text-2" id="text-org42528a6">
+<div id="outline-container-org831e58d" class="outline-2">
+<h2 id="org831e58d"><a href="#org831e58d">Examples</a></h2>
+<div class="outline-text-2" id="text-org831e58d">
 </div>
-<div id="outline-container-org31a13b1" class="outline-3">
-<h3 id="org31a13b1"><a href="#org31a13b1">Immediate-mode Dialogue System</a></h3>
-<div class="outline-text-3" id="text-org31a13b1">
+<div id="outline-container-orge8172f2" class="outline-3">
+<h3 id="orge8172f2"><a href="#orge8172f2">Immediate-mode Dialogue System</a></h3>
+<div class="outline-text-3" id="text-orge8172f2">
 <p>
 Design Idea:
 </p>
@@ -494,9 +494,9 @@ Design Idea:
 </div>
 </div>
 </div>
-<div id="outline-container-org969a558" class="outline-3">
-<h3 id="org969a558"><a href="#org969a558">Encapsulating Operations</a></h3>
-<div class="outline-text-3" id="text-org969a558">
+<div id="outline-container-org13b16bf" class="outline-3">
+<h3 id="org13b16bf"><a href="#org13b16bf">Encapsulating Operations</a></h3>
+<div class="outline-text-3" id="text-org13b16bf">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">TextureOp</span> <span class="org-variable-name">ops</span>[] =
 {

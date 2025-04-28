@@ -3,6 +3,7 @@
 #+DATE:        <2024-05-31>
 #+IMAGE:       preview.png
 #+TAGS[]:      cpp
+#+FILETAGS:    :cpp:c:
 #+COMMENTS:    t
 #+OPTIONS:     toc:nil num:1
 

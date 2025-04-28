@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Address Sanitization (ASan)</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/compiler.html">compiler</a> ]</code></div></div><h1>Address Sanitization (ASan)</h1>
 <p>
 Address Sanitization - as performed by a tool such as <a href="https://github.com/google/sanitizers/wiki/AddressSanitizer">AddressSanitizer (ASan)</a> -
 is a method for runtime memory error detection. It tries to detect invalid
@@ -243,9 +243,9 @@ Its scope of error detection includes:
 <li>Initialization order bugs</li>
 <li>Memory leaks</li>
 </ul>
-<div id="outline-container-orgc2f55cf" class="outline-2">
-<h2 id="orgc2f55cf"><a href="#orgc2f55cf">Integrating ASan</a></h2>
-<div class="outline-text-2" id="text-orgc2f55cf">
+<div id="outline-container-org0916d67" class="outline-2">
+<h2 id="org0916d67"><a href="#org0916d67">Integrating ASan</a></h2>
+<div class="outline-text-2" id="text-org0916d67">
 <p>
 ASan supports user-set poisoned memory addresses. To use
 <code>asan_poison_memory_region(addr, size)</code> only when compiling with enabled ASan, use
@@ -293,9 +293,9 @@ the following preprocessor code:
 </div>
 </div>
 </div>
-<div id="outline-container-org1e6280e" class="outline-2">
-<h2 id="org1e6280e"><a href="#org1e6280e">Resources</a></h2>
-<div class="outline-text-2" id="text-org1e6280e">
+<div id="outline-container-org784b704" class="outline-2">
+<h2 id="org784b704"><a href="#org784b704">Resources</a></h2>
+<div class="outline-text-2" id="text-org784b704">
 <ul class="org-ul">
 <li><a href="https://github.com/google/sanitizers/wiki/AddressSanitizerFlags">AddressSanitizerFlags</a></li>
 </ul>

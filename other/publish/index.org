@@ -3,6 +3,7 @@
 #+DATE:        <2024-06-02>
 #+IMAGE:       preview.png
 #+TAGS[]:      lisp org web
+#+FILETAGS:    :lisp:org:web:
 #+OPTIONS:     toc:nil num:2
 
 #+INCLUDE:     ../../code.org
@@ -18,7 +19,8 @@ see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][ta
 # endsnippet
 #+TOC: headlines
 
-* Disclaimer                                                       :noexport:
+* TODO Disclaimer                                                  :noexport:
+TODO: generate file as read-only
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../publish.el
 ;;
 ;; This file is auto-generated. Any changes here will not be reflected when building.
@@ -431,6 +433,33 @@ Gets called by ~org-publish~ before the main publishing step.
 
 #+end_src
 
+* Filter
+#+begin_src emacs-lisp :tangle yes :tangle ../../publish.el
+(defun add-title-headline (backend)
+  ; insert after :PROPERTY: drawer
+  (if (string-match-p ":PROPERTIES:" (thing-at-point 'line t))
+     (progn (search-forward ":END:" nil t) (forward-line 1)))
+  (when (eq backend 'html)
+    (let* ((tags (if org-file-tags org-file-tags nil))
+           (date (cadar (org-collect-keywords '("DATE"))))
+           (title (org-get-title)))
+      (insert "\n#+begin_export html\n")
+      (when (or tags date)
+        (insert "<div class=\"tags-date-box\">")
+          (if date (insert (format "<div class=\"date\"><span class=\"timestamp\">%s</span></div>" date)))
+          (when tags
+              (insert "<div class=\"tags\"><code>[ ")
+              (dolist (tag tags) (insert (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))
+              (insert "]</code></div>"))
+        (insert "</div>"))
+      (if title (insert (format "<h1>%s</h1>" title)))
+      (insert "\n#+end_export\n")
+      )
+    )
+  )
+(add-hook 'org-export-before-processing-functions #'add-title-headline)
+#+end_src
+
 * Org-publish Customization
 ** Introduction                                                      :ignore:
 See [[https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options.html][here]] for exporter-specific properties and use ~(describe-variable
@@ -448,7 +477,7 @@ See [[https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-options
            ; :completion-function                               ;; called afterwards
            ; :base-extension                                    ;; extension of source files
            ; :html-extension       ""                           ;; extension of generated html files (without dot)
-             :exclude  (regexp-opt '("code.org" "publish.org")) ;; regex of files to exclude
+             :exclude  (regexp-opt '("code.org" "README.org" "publish.org")) ;; regex of files to exclude
            ; :include                                           ;; list of files to include
 
            ; :html-doctype "html5"                              ;; default is "xhtml-strict"
@@ -543,7 +572,7 @@ Wiki portion of the site as a separate project.
              :html-postamble       nil                       ;; don't insert a footer with a date etc.
              :auto-sitemap         nil
              :makeindex            nil                       ;; https://orgmode.org/manual/Generating-an-index.html
-             :with-title           t
+             :with-title           nil
              :with-author          nil
              :with-creator         nil                       ;; don't include emacs and org versions in footer
              :with-toc             nil                       ;; no table of contents
@@ -684,21 +713,23 @@ Doesn't get "nowebbed" into the source codes after
 #+END_SRc
 
 ** Generate Article Header & Subtitle
+TODO only used to generate subtitle & image, move to filter function
+
 #+BEGIN_SRC emacs-lisp :tangle yes :tangle ../../code.org
 ,#+NAME: generate-article-header
 ,#+BEGIN_SRC emacs-lisp :eval no :exports results :results html
-(defun generate-tags ()
-  (setq tags-string '())
-      (setq tags-string (append tags-string (list "<div class=\"tags\">")))
-      (setq tags-string (append tags-string (list "<code>")))
-      (setq tags-string (append tags-string (list "[ ")))
-      (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
-      (dolist (tag tags)
-        (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))))
-      (setq tags-string (append tags-string (list "]")))
-      (setq tags-string (append tags-string (list "</code>")))
-      (setq tags-string (append tags-string (list "</div>\n")))
-      (mapconcat #'identity tags-string "")) ; flatten string list to a string
+;(defun generate-tags ()
+;  (setq tags-string '())
+;      (setq tags-string (append tags-string (list "<div class=\"tags\">")))
+;      (setq tags-string (append tags-string (list "<code>")))
+;      (setq tags-string (append tags-string (list "[ ")))
+;      (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
+;      (dolist (tag tags)
+;        (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))))
+;      (setq tags-string (append tags-string (list "]")))
+;      (setq tags-string (append tags-string (list "</code>")))
+;      (setq tags-string (append tags-string (list "</div>\n")))
+;      (mapconcat #'identity tags-string "")) ; flatten string list to a string
 
 (setq keywords (org-collect-keywords '("TITLE" "DESCRIPTION" "DATE" "IMAGE" "TAGS[]" "COMMENTS")))
 
@@ -723,14 +754,14 @@ Doesn't get "nowebbed" into the source codes after
 
 (format
   (concat
-    "<div class=\"tags-date-box\">\n"
-      (generate-tags)
-      "<div class=\"date\"><span class=\"timestamp\">%s</span></div>\n"
-    "</div>\n"
-    "<h1>%s</h1>"
+    ;"<div class=\"tags-date-box\">\n"
+    ;  (generate-tags)
+    ;  "<div class=\"date\"><span class=\"timestamp\">%s</span></div>\n"
+    ;"</div>\n"
+    ;"<h1>%s</h1>"
     "<h2 class=\"subtitle\">%s</h1>" image-fmt-string)
-   (cadr (assoc "DATE" keywords))
-   (cadr (assoc "TITLE" keywords))
+   ;(cadr (assoc "DATE" keywords))
+   ;(cadr (assoc "TITLE" keywords))
    (cadr (assoc "DESCRIPTION" keywords)) image-path (cadr (assoc "IMAGE" keywords)))
 ,#+END_SRC
 #+END_SRC

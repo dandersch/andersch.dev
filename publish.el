@@ -321,6 +321,30 @@ document.addEventListener('DOMContentLoaded', function() {
       (org-html-publish-to-html plist filename pub-dir)))
 )
 
+(defun add-title-headline (backend)
+  ; insert after :PROPERTY: drawer
+  (if (string-match-p ":PROPERTIES:" (thing-at-point 'line t))
+     (progn (search-forward ":END:" nil t) (forward-line 1)))
+  (when (eq backend 'html)
+    (let* ((tags (if org-file-tags org-file-tags nil))
+           (date (cadar (org-collect-keywords '("DATE"))))
+           (title (org-get-title)))
+      (insert "\n#+begin_export html\n")
+      (when (or tags date)
+        (insert "<div class=\"tags-date-box\">")
+          (if date (insert (format "<div class=\"date\"><span class=\"timestamp\">%s</span></div>" date)))
+          (when tags
+              (insert "<div class=\"tags\"><code>[ ")
+              (dolist (tag tags) (insert (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))
+              (insert "]</code></div>"))
+        (insert "</div>"))
+      (if title (insert (format "<h1>%s</h1>" title)))
+      (insert "\n#+end_export\n")
+      )
+    )
+  )
+(add-hook 'org-export-before-processing-functions #'add-title-headline)
+
 (setq andersch-dev
       (list "andersch.dev"
              :recursive            t
@@ -331,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
            ; :completion-function                               ;; called afterwards
            ; :base-extension                                    ;; extension of source files
            ; :html-extension       ""                           ;; extension of generated html files (without dot)
-             :exclude  (regexp-opt '("code.org" "publish.org")) ;; regex of files to exclude
+             :exclude  (regexp-opt '("code.org" "README.org" "publish.org")) ;; regex of files to exclude
            ; :include                                           ;; list of files to include
 
            ; :html-doctype "html5"                              ;; default is "xhtml-strict"
@@ -421,7 +445,7 @@ document.addEventListener('DOMContentLoaded', function() {
              :html-postamble       nil                       ;; don't insert a footer with a date etc.
              :auto-sitemap         nil
              :makeindex            nil                       ;; https://orgmode.org/manual/Generating-an-index.html
-             :with-title           t                         ;; we include our own header
+             :with-title           nil
              :with-author          nil
              :with-creator         nil                       ;; don't include emacs and org versions in footer
              :with-toc             nil                       ;; no table of contents

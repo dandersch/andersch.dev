@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Mutex</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/concurrency.html">concurrency</a> ]</code></div></div><h1>Mutex</h1>
 <p>
 In <a href="multithreading.html#ID-08c89846-0c43-460d-931a-9c824b3980ad">multithreading</a>, a mutex (mutual exclusion) is a <a href="synchronization_primitives.html#ID-075b2098-8a0a-4216-b121-05480b8c1280">synchronization primitive</a>
 that prevents multiple threads from simultaneously accessing shared resources.
@@ -233,9 +233,9 @@ until the mutex is released
 The use of mutexes can prevent race conditions, but may also introduce
 performance bottlenecks and deadlocks.
 </p>
-<div id="outline-container-org28dd3c7" class="outline-2">
-<h2 id="org28dd3c7"><a href="#org28dd3c7">Basic Mutex API</a></h2>
-<div class="outline-text-2" id="text-org28dd3c7">
+<div id="outline-container-org770ac10" class="outline-2">
+<h2 id="org770ac10"><a href="#org770ac10">Basic Mutex API</a></h2>
+<div class="outline-text-2" id="text-org770ac10">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">int</span> <span class="org-function-name">mutex_init</span>(<span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);
 <span class="org-type">int</span> <span class="org-function-name">mutex_lock</span>(<span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);    <span class="org-comment-delimiter">// </span><span class="org-comment">blocking, waits until mutex available</span>

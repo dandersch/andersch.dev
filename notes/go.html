@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Go (Golang)</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/programming.html">programming</a> ]</code></div></div><h1>Go (Golang)</h1>
 <p>
 Go (Golang) is a statically-typed, compiled <a href="programming_language.html#ID-f0f41ee0-9623-4704-a4b8-7e6ea6eb108a">programming language</a> by Google that
 has strong support for concurrent programming. Its standard library (with
@@ -229,13 +229,13 @@ features such as built-in HTTP server and JSON support) makes it a suitable
 Go's concurrency model (using Goroutines and Channels) can handle multiple tasks
 simultaneously with minimal complexity.
 </p>
-<div id="outline-container-orgb75e4ed" class="outline-2">
-<h2 id="orgb75e4ed"><a href="#orgb75e4ed">Keywords</a></h2>
-<div class="outline-text-2" id="text-orgb75e4ed">
+<div id="outline-container-orga35012c" class="outline-2">
+<h2 id="orga35012c"><a href="#orga35012c">Keywords</a></h2>
+<div class="outline-text-2" id="text-orga35012c">
 </div>
-<div id="outline-container-org65541a0" class="outline-3">
-<h3 id="org65541a0"><a href="#org65541a0"><code>package</code> / <code>import</code></a></h3>
-<div class="outline-text-3" id="text-org65541a0">
+<div id="outline-container-org7409f41" class="outline-3">
+<h3 id="org7409f41"><a href="#org7409f41"><code>package</code> / <code>import</code></a></h3>
+<div class="outline-text-3" id="text-org7409f41">
 <p>
 The first line of every <code>.go</code> file specifies the package name.
 </p>
@@ -260,9 +260,9 @@ func DoThing() { /* ... */ } // can be called outside package
 </div>
 </div>
 </div>
-<div id="outline-container-orgc2172dc" class="outline-3">
-<h3 id="orgc2172dc"><a href="#orgc2172dc"><code>for</code>, <code>switch</code>, <code>range</code> (Control flow)</a></h3>
-<div class="outline-text-3" id="text-orgc2172dc">
+<div id="outline-container-org7ff863a" class="outline-3">
+<h3 id="org7ff863a"><a href="#org7ff863a"><code>for</code>, <code>switch</code>, <code>range</code> (Control flow)</a></h3>
+<div class="outline-text-3" id="text-org7ff863a">
 <div class="org-src-container">
 <pre class="src src-go">/* switch */
 switch state {
@@ -296,9 +296,9 @@ for name, score := range scores {
 </div>
 </div>
 </div>
-<div id="outline-container-org2da54de" class="outline-3">
-<h3 id="org2da54de"><a href="#org2da54de">Types</a></h3>
-<div class="outline-text-3" id="text-org2da54de">
+<div id="outline-container-orgddb5480" class="outline-3">
+<h3 id="orgddb5480"><a href="#orgddb5480">Types</a></h3>
+<div class="outline-text-3" id="text-orgddb5480">
 <div class="org-src-container">
 <pre class="src src-go">/* types */
 var         // declare a variable
@@ -328,9 +328,9 @@ const (
 </div>
 </div>
 </div>
-<div id="outline-container-org93c28d1" class="outline-3">
-<h3 id="org93c28d1"><a href="#org93c28d1">Functions/Interfaces</a></h3>
-<div class="outline-text-3" id="text-org93c28d1">
+<div id="outline-container-org10ab766" class="outline-3">
+<h3 id="org10ab766"><a href="#org10ab766">Functions/Interfaces</a></h3>
+<div class="outline-text-3" id="text-org10ab766">
 <div class="org-src-container">
 <pre class="src src-go">// functions
 func example(var a int) (int, error) {
@@ -352,9 +352,9 @@ func (c Circle) Area() float64 { // implement interface for Circle
 </div>
 </div>
 </div>
-<div id="outline-container-org83469cc" class="outline-3">
-<h3 id="org83469cc"><a href="#org83469cc"><code>go</code>, <code>chan</code>, <code>select</code> (Concurrency)</a></h3>
-<div class="outline-text-3" id="text-org83469cc">
+<div id="outline-container-orgdfbb0b0" class="outline-3">
+<h3 id="orgdfbb0b0"><a href="#orgdfbb0b0"><code>go</code>, <code>chan</code>, <code>select</code> (Concurrency)</a></h3>
+<div class="outline-text-3" id="text-orgdfbb0b0">
 <div class="org-src-container">
 <pre class="src src-go">/* goroutines/channels */
 go      // start a goroutine
@@ -365,13 +365,13 @@ select  // wait on multiple channel operations
 </div>
 </div>
 </div>
-<div id="outline-container-org977df47" class="outline-2">
-<h2 id="org977df47"><a href="#org977df47">Concepts</a></h2>
-<div class="outline-text-2" id="text-org977df47">
+<div id="outline-container-org375268b" class="outline-2">
+<h2 id="org375268b"><a href="#org375268b">Concepts</a></h2>
+<div class="outline-text-2" id="text-org375268b">
 </div>
-<div id="outline-container-org985e7a5" class="outline-3">
-<h3 id="org985e7a5"><a href="#org985e7a5"><code>goroutine</code></a></h3>
-<div class="outline-text-3" id="text-org985e7a5">
+<div id="outline-container-org4381083" class="outline-3">
+<h3 id="org4381083"><a href="#org4381083"><code>goroutine</code></a></h3>
+<div class="outline-text-3" id="text-org4381083">
 <p>
 A <code>goroutine</code> is a lightweight thread managed by the Go runtime.
 </p>
@@ -431,9 +431,9 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-org4bd7396" class="outline-3">
-<h3 id="org4bd7396"><a href="#org4bd7396"><code>chan</code> (Channels)</a></h3>
-<div class="outline-text-3" id="text-org4bd7396">
+<div id="outline-container-org57d0649" class="outline-3">
+<h3 id="org57d0649"><a href="#org57d0649"><code>chan</code> (Channels)</a></h3>
+<div class="outline-text-3" id="text-org57d0649">
 <p>
 Channels enable communication between goroutines.
 </p>
@@ -514,9 +514,9 @@ if !ok {
 </div>
 </div>
 </div>
-<div id="outline-container-org4d3918f" class="outline-3">
-<h3 id="org4d3918f"><a href="#org4d3918f"><code>select</code></a></h3>
-<div class="outline-text-3" id="text-org4d3918f">
+<div id="outline-container-org9aac365" class="outline-3">
+<h3 id="org9aac365"><a href="#org9aac365"><code>select</code></a></h3>
+<div class="outline-text-3" id="text-org9aac365">
 <p>
 The <code>select</code> statement enables concurrent operations on channels.
 </p>
@@ -549,9 +549,9 @@ default:
 </div>
 </div>
 </div>
-<div id="outline-container-org66d77aa" class="outline-3">
-<h3 id="org66d77aa"><a href="#org66d77aa">Module System</a></h3>
-<div class="outline-text-3" id="text-org66d77aa">
+<div id="outline-container-org347408c" class="outline-3">
+<h3 id="org347408c"><a href="#org347408c">Module System</a></h3>
+<div class="outline-text-3" id="text-org347408c">
 <p>
 <code>go.mod</code>:
 The <code>go.mod</code> is the config file for a Go module.
@@ -575,13 +575,13 @@ The <code>go.mod</code> is the config file for a Go module.
 </div>
 </div>
 </div>
-<div id="outline-container-orgbbb035b" class="outline-2">
-<h2 id="orgbbb035b"><a href="#orgbbb035b">Libraries</a></h2>
-<div class="outline-text-2" id="text-orgbbb035b">
+<div id="outline-container-org2d381bf" class="outline-2">
+<h2 id="org2d381bf"><a href="#org2d381bf">Libraries</a></h2>
+<div class="outline-text-2" id="text-org2d381bf">
 </div>
-<div id="outline-container-org5358a08" class="outline-3">
-<h3 id="org5358a08"><a href="#org5358a08"><code>net/http</code></a></h3>
-<div class="outline-text-3" id="text-org5358a08">
+<div id="outline-container-org4244a29" class="outline-3">
+<h3 id="org4244a29"><a href="#org4244a29"><code>net/http</code></a></h3>
+<div class="outline-text-3" id="text-org4244a29">
 <p>
 The standard library <code>net/http</code> provides HTTP client/server implementations. It
 can be used to build web apps, APIs, and handling HTTP requests/responses.
@@ -615,9 +615,9 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-org76fca1e" class="outline-3">
-<h3 id="org76fca1e"><a href="#org76fca1e"><code>html/template</code></a></h3>
-<div class="outline-text-3" id="text-org76fca1e">
+<div id="outline-container-orgf2b35c9" class="outline-3">
+<h3 id="orgf2b35c9"><a href="#orgf2b35c9"><code>html/template</code></a></h3>
+<div class="outline-text-3" id="text-orgf2b35c9">
 <p>
 Go provides templating utilities for text with <code>text/template</code>. For templating
 HTML, <code>html/template</code> should be used to ensure special characters are rendered as
@@ -664,9 +664,9 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-orgf791fd8" class="outline-3">
-<h3 id="orgf791fd8"><a href="#orgf791fd8"><code>database/sql</code></a></h3>
-<div class="outline-text-3" id="text-orgf791fd8">
+<div id="outline-container-org7cda267" class="outline-3">
+<h3 id="org7cda267"><a href="#org7cda267"><code>database/sql</code></a></h3>
+<div class="outline-text-3" id="text-org7cda267">
 <div class="org-src-container">
 <pre class="src src-go">package main
 
@@ -744,13 +744,13 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-orgc3ba5ca" class="outline-2">
-<h2 id="orgc3ba5ca"><a href="#orgc3ba5ca">Idioms</a></h2>
-<div class="outline-text-2" id="text-orgc3ba5ca">
+<div id="outline-container-org387fcb7" class="outline-2">
+<h2 id="org387fcb7"><a href="#org387fcb7">Idioms</a></h2>
+<div class="outline-text-2" id="text-org387fcb7">
 </div>
-<div id="outline-container-orge6abc66" class="outline-3">
-<h3 id="orge6abc66"><a href="#orge6abc66">Struct Embedding</a></h3>
-<div class="outline-text-3" id="text-orge6abc66">
+<div id="outline-container-org1b8a402" class="outline-3">
+<h3 id="org1b8a402"><a href="#org1b8a402">Struct Embedding</a></h3>
+<div class="outline-text-3" id="text-org1b8a402">
 <p>
 Add types without a name to a struct to embed all of its members directly. The
 type can then call methods of that embedded type directly.
@@ -772,9 +772,9 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-org94a4d19" class="outline-3">
-<h3 id="org94a4d19"><a href="#org94a4d19">Shorthand for Error Handling</a></h3>
-<div class="outline-text-3" id="text-org94a4d19">
+<div id="outline-container-orgf07dc91" class="outline-3">
+<h3 id="orgf07dc91"><a href="#orgf07dc91">Shorthand for Error Handling</a></h3>
+<div class="outline-text-3" id="text-orgf07dc91">
 <div class="org-src-container">
 <pre class="src src-go">if err := writer.Close(); err != nil {
         panic(err)
@@ -783,9 +783,9 @@ func main() {
 </div>
 </div>
 </div>
-<div id="outline-container-org258a51d" class="outline-3">
-<h3 id="org258a51d"><a href="#org258a51d">Interface Satisfaction Check</a></h3>
-<div class="outline-text-3" id="text-org258a51d">
+<div id="outline-container-org2dea676" class="outline-3">
+<h3 id="org2dea676"><a href="#org2dea676">Interface Satisfaction Check</a></h3>
+<div class="outline-text-3" id="text-org2dea676">
 <p>
 Ensure a type implements interfaces at compile time:
 </p>

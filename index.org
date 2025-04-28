@@ -1,5 +1,3 @@
-#+TITLE: andersch.dev
-
 * Latest [[./article/index.org][articles]]
 :PROPERTIES:
 :CUSTOM_ID: latest-articles

@@ -3,6 +3,7 @@
 #+DESCRIPTION: A puzzle platformer written in C++ using SFML and Box2D
 #+IMAGE:       preview.gif
 #+TAGS[]:      gamedev cpp
+#+FILETAGS:    :gamedev:cpp:
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()

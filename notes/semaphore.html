@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Semaphore</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/concurrency.html">concurrency</a> ]</code></div></div><h1>Semaphore</h1>
 <p>
 Semaphores are synchronization primitives used to control access to shared
 resources in <a href="concurrency.html#ID-ae158974-7fdb-4d57-a098-3c00200a2320">concurrent programming</a>. They maintain a counter that represents the
@@ -239,9 +239,9 @@ Core operations:
 <li><code>wait/P/down</code>: Decrement counter if it's &gt; 0, otherwise blocks until it can</li>
 <li><code>signal/V/up</code>: Increment counter, potentially unblocking waiting processes</li>
 </ul>
-<div id="outline-container-org18097fd" class="outline-2">
-<h2 id="org18097fd"><a href="#org18097fd">Basic Semaphore API</a></h2>
-<div class="outline-text-2" id="text-org18097fd">
+<div id="outline-container-org2656d9e" class="outline-2">
+<h2 id="org2656d9e"><a href="#org2656d9e">Basic Semaphore API</a></h2>
+<div class="outline-text-2" id="text-org2656d9e">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> {
     <span class="org-type">int</span> <span class="org-variable-name">value</span>;

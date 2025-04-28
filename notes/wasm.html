@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">WebAssembly (wasm)</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/web.html">web</a> ]</code></div></div><h1>WebAssembly (wasm)</h1>
 <p>
 WebAssembly (wasm) is a way to compile programs written in any supported
 language to bytecode that can run in a virtual machine on a web browser.
@@ -234,9 +234,9 @@ It comes with a text format (<code>.wat</code>) and a binary format (<code>.wasm
 uses S-expressions and a very <a href="lisp.html#ID-d84f2d34-2342-436c-8bf5-f94ff342d074">lisp-like</a> syntax (lots of parentheses, <code>;;</code> denotes
 comments).
 </p>
-<div id="outline-container-org4bbc1b5" class="outline-2">
-<h2 id="org4bbc1b5"><a href="#org4bbc1b5">Components/Toolchain</a></h2>
-<div class="outline-text-2" id="text-org4bbc1b5">
+<div id="outline-container-orged3e716" class="outline-2">
+<h2 id="orged3e716"><a href="#orged3e716">Components/Toolchain</a></h2>
+<div class="outline-text-2" id="text-orged3e716">
 <p>
 <i>WASM module</i>: Compiled and linked image (like <a href="elf.html#ID-c336dde8-b842-4b6d-86ec-7490b96f19a0">ELF</a> or PE)
 </p>
@@ -280,9 +280,9 @@ comments).
 </ul>
 </div>
 </div>
-<div id="outline-container-org5d42221" class="outline-2">
-<h2 id="org5d42221"><a href="#org5d42221">Using WASM in JavaScript</a></h2>
-<div class="outline-text-2" id="text-org5d42221">
+<div id="outline-container-org3898ba1" class="outline-2">
+<h2 id="org3898ba1"><a href="#org3898ba1">Using WASM in JavaScript</a></h2>
+<div class="outline-text-2" id="text-org3898ba1">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">let</span> <span class="org-variable-name">imports</span> = {
     math : { callback : x =&gt; console.log(<span class="org-string">"result is"</span>, x) }
@@ -325,9 +325,9 @@ The corresponding wasm code (in the <code>.wat</code> text format):
 </div>
 </div>
 </div>
-<div id="outline-container-org21ba73d" class="outline-2">
-<h2 id="org21ba73d"><a href="#org21ba73d">Compiling C to <code>wasm</code> using Clang</a></h2>
-<div class="outline-text-2" id="text-org21ba73d">
+<div id="outline-container-org2266429" class="outline-2">
+<h2 id="org2266429"><a href="#org2266429">Compiling C to <code>wasm</code> using Clang</a></h2>
+<div class="outline-text-2" id="text-org2266429">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">add.c</span><span class="org-comment-delimiter"> */</span>
 <span class="org-type">int</span> <span class="org-function-name">add</span>(<span class="org-type">int</span> <span class="org-variable-name">a</span>, <span class="org-type">int</span> <span class="org-variable-name">b</span>) { <span class="org-keyword">return</span> a * a + b; }
@@ -358,9 +358,9 @@ No libc is available, meaning
 </ul>
 </div>
 </div>
-<div id="outline-container-orga1e4752" class="outline-2">
-<h2 id="orga1e4752"><a href="#orga1e4752">WebAssembly memory model</a></h2>
-<div class="outline-text-2" id="text-orga1e4752">
+<div id="outline-container-org7f71373" class="outline-2">
+<h2 id="org7f71373"><a href="#org7f71373">WebAssembly memory model</a></h2>
+<div class="outline-text-2" id="text-org7f71373">
 <p>
 WebAssembly memory can grow at runtime, which means means there is no fixed end
 to place the stack or the heap.
@@ -389,9 +389,9 @@ Stack size value can be configured using <code>-Wl,-z,stack-size=$[8 * 1024 * 10
 </p>
 </div>
 </div>
-<div id="outline-container-org47b46cf" class="outline-2">
-<h2 id="org47b46cf"><a href="#org47b46cf">Custom allocator using an arena</a></h2>
-<div class="outline-text-2" id="text-org47b46cf">
+<div id="outline-container-orge943ad3" class="outline-2">
+<h2 id="orge943ad3"><a href="#orge943ad3">Custom allocator using an arena</a></h2>
+<div class="outline-text-2" id="text-orge943ad3">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-keyword">extern</span> <span class="org-type">unsigned</span> <span class="org-type">char</span> <span class="org-variable-name">__heap_base</span>;
 
@@ -432,9 +432,9 @@ init();
 </div>
 </div>
 </div>
-<div id="outline-container-orgcf65837" class="outline-2">
-<h2 id="orgcf65837"><a href="#orgcf65837">Resources</a></h2>
-<div class="outline-text-2" id="text-orgcf65837">
+<div id="outline-container-orgb1c1a03" class="outline-2">
+<h2 id="orgb1c1a03"><a href="#orgb1c1a03">Resources</a></h2>
+<div class="outline-text-2" id="text-orgb1c1a03">
 <ul class="org-ul">
 <li><a href="https://schellcode.github.io/webassembly-without-emscripten">WebAssembly without Emscripten</a></li>
 <li><a href="https://surma.dev/things/c-to-webassembly/">Compiling C to WebAssembly without Emscripten</a></li>

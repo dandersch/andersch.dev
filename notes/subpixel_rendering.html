@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Subpixel Rendering</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/graphics.html">graphics</a> ]</code></div></div><h1>Subpixel Rendering</h1>
 <p>
 When rendering small textures and scaling them up (as done with assets in <a href="pixel_art.html#ID-8174b949-b9e4-437e-9f20-a28a8efd8f23">pixel
 art</a> games), a problem arises when using simple nearest neighbour sampling at
@@ -229,9 +229,9 @@ When this problem occurs, you can notice a shimmering effect when zooming in/out
 or moving the camera around. This happens because some texels in the fragment
 <a href="shader.html#ID-31485523-e4ee-4ba5-b255-2e94067b2569">shader</a> get oversampled while others get undersampled.
 </p>
-<div id="outline-container-orga68a8ac" class="outline-2">
-<h2 id="orga68a8ac"><a href="#orga68a8ac">Solution</a></h2>
-<div class="outline-text-2" id="text-orga68a8ac">
+<div id="outline-container-orgee789a4" class="outline-2">
+<h2 id="orgee789a4"><a href="#orgee789a4">Solution</a></h2>
+<div class="outline-text-2" id="text-orgee789a4">
 <p>
 <i>"The idea (courtesy d7) is to interpolate the texture position along the pixel
 to create subpixel motion, with the help of linear blending To get nice results,
@@ -288,9 +288,9 @@ PSEUDO-CODE
 </div>
 </div>
 </div>
-<div id="outline-container-org7a679e0" class="outline-2">
-<h2 id="org7a679e0"><a href="#org7a679e0">Resources</a></h2>
-<div class="outline-text-2" id="text-org7a679e0">
+<div id="outline-container-orgf0109ef" class="outline-2">
+<h2 id="orgf0109ef"><a href="#orgf0109ef">Resources</a></h2>
+<div class="outline-text-2" id="text-orgf0109ef">
 <ul class="org-ul">
 <li><a href="https://www.shadertoy.com/view/MlB3D3">https://www.shadertoy.com/view/MlB3D3</a></li>
 <li><a href="https://www.shadertoy.com/view/ltBGWc">https://www.shadertoy.com/view/ltBGWc</a></li>

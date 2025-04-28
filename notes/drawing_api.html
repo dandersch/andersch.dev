@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Drawing API</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/graphics.html">graphics</a> ]</code></div></div><h1>Drawing API</h1>
 <p>
 A drawing API in a graphical application is built on top of a <a href="rendering_api.html#ID-05af5aa0-5967-4dbf-bc9e-a31e4d2f45e4">renderer API</a> and
 distinguishes itself by being concerned with higher-level, cross-platform ways
@@ -225,13 +225,13 @@ of issuing draw commands of e.g. shapes, lines and text (as opposed to vertices,
 buffers etc.). The distinction may blur when such functions are part of the
 renderer API.
 </p>
-<div id="outline-container-org9e128af" class="outline-2">
-<h2 id="org9e128af"><a href="#org9e128af">Design</a></h2>
-<div class="outline-text-2" id="text-org9e128af">
+<div id="outline-container-org40a7349" class="outline-2">
+<h2 id="org40a7349"><a href="#org40a7349">Design</a></h2>
+<div class="outline-text-2" id="text-org40a7349">
 </div>
-<div id="outline-container-org6358169" class="outline-3">
-<h3 id="org6358169"><a href="#org6358169">Buckets</a></h3>
-<div class="outline-text-3" id="text-org6358169">
+<div id="outline-container-orgedc1088" class="outline-3">
+<h3 id="orgedc1088"><a href="#orgedc1088">Buckets</a></h3>
+<div class="outline-text-3" id="text-orgedc1088">
 <ul class="org-ul">
 <li>Idea: Encapsulate a command buffer in a data structure called bucket</li>
 <li>&#x2026;</li>
@@ -252,9 +252,9 @@ renderer API.
 </div>
 </div>
 </div>
-<div id="outline-container-orgbed989e" class="outline-3">
-<h3 id="orgbed989e"><a href="#orgbed989e">API</a></h3>
-<div class="outline-text-3" id="text-orgbed989e">
+<div id="outline-container-org77153f4" class="outline-3">
+<h3 id="org77153f4"><a href="#org77153f4">API</a></h3>
+<div class="outline-text-3" id="text-org77153f4">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">void</span> <span class="org-function-name">D_BeginFrame</span>();
 <span class="org-type">void</span> <span class="org-function-name">D_EndFrame</span>();

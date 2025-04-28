@@ -217,15 +217,15 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Model View Projection Matrix</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/math.html">math</a> <a href="/tag/graphics.html">graphics</a> ]</code></div></div><h1>Model View Projection Matrix</h1>
 <p>
 The Model-View-Projection (MVP) matrix encodes the transformation pipeline of
 every vertex in a 3D scene. More specifically, the MVP matrix consists of three
 separate 4x4 matrices that each perform their own specific transformation.
 </p>
-<div id="outline-container-org722fbfe" class="outline-2">
-<h2 id="org722fbfe"><a href="#org722fbfe">Model Matrix</a></h2>
-<div class="outline-text-2" id="text-org722fbfe">
+<div id="outline-container-org6212ac3" class="outline-2">
+<h2 id="org6212ac3"><a href="#org6212ac3">Model Matrix</a></h2>
+<div class="outline-text-2" id="text-org6212ac3">
 <p>
 This matrix transforms model-local object coordinates to world coordinates. It
 is used to place, rotate and scale e.g. a mesh in the 3D world.
@@ -248,9 +248,9 @@ C code to specify a model matrix:
 </div>
 </div>
 </div>
-<div id="outline-container-orgf8f43b9" class="outline-2">
-<h2 id="orgf8f43b9"><a href="#orgf8f43b9">View Matrix</a></h2>
-<div class="outline-text-2" id="text-orgf8f43b9">
+<div id="outline-container-org4b4f7f8" class="outline-2">
+<h2 id="org4b4f7f8"><a href="#org4b4f7f8">View Matrix</a></h2>
+<div class="outline-text-2" id="text-org4b4f7f8">
 <p>
 This matrix transforms world coordinates (output by the model matrix) to camera
 (or view) coordinates.
@@ -280,9 +280,9 @@ C code to specify a view matrix:
 </div>
 </div>
 </div>
-<div id="outline-container-orgf9b40e8" class="outline-2">
-<h2 id="orgf9b40e8"><a href="#orgf9b40e8">Projection Matrix</a></h2>
-<div class="outline-text-2" id="text-orgf9b40e8">
+<div id="outline-container-org98e5916" class="outline-2">
+<h2 id="org98e5916"><a href="#org98e5916">Projection Matrix</a></h2>
+<div class="outline-text-2" id="text-org98e5916">
 <p>
 This matrix defines how the scene is projected onto the 2D screen.
 </p>

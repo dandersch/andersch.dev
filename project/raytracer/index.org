@@ -3,6 +3,7 @@
 #+DESCRIPTION: A raytracer written in C using OpenGL compute shaders
 #+IMAGE:       preview.gif
 #+TAGS[]:      graphics cpp
+#+FILETAGS:    :graphics:cpp:
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()

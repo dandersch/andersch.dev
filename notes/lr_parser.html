@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">LR parser</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/compiler.html">compiler</a> ]</code></div></div><h1>LR parser</h1>
 <p>
 An LR <a href="parser.html#ID-0c3b7a72-e74f-4e3b-9c02-55a8fa6b386c">parser</a> reads the characters of a text from beginning to end, i.e. left to
 right (LR), without ever backtracking. During this process, it groups the
@@ -225,9 +225,9 @@ characters together to tokens using a lexer function. The tokens themselves are
 then grouped together to subtrees, which are stored on a stack. For every new
 token it decides what to do with the stack by consulting the <i>parse table</i>.
 </p>
-<div id="outline-container-orgbda5a9c" class="outline-2">
-<h2 id="orgbda5a9c"><a href="#orgbda5a9c">Example for LR-parsing a simple text</a></h2>
-<div class="outline-text-2" id="text-orgbda5a9c">
+<div id="outline-container-org9a7cf0c" class="outline-2">
+<h2 id="org9a7cf0c"><a href="#org9a7cf0c">Example for LR-parsing a simple text</a></h2>
+<div class="outline-text-2" id="text-org9a7cf0c">
 <ol class="org-ol">
 <li><p>
 Parser starts out at beginning of string. Stack is empty.
@@ -284,9 +284,9 @@ Stack: [(sum (product var * var) + var)]
 </ol>
 </div>
 </div>
-<div id="outline-container-orgf8dac7a" class="outline-2">
-<h2 id="orgf8dac7a"><a href="#orgf8dac7a">Problems with LR parsing</a></h2>
-<div class="outline-text-2" id="text-orgf8dac7a">
+<div id="outline-container-org2723bb3" class="outline-2">
+<h2 id="org2723bb3"><a href="#org2723bb3">Problems with LR parsing</a></h2>
+<div class="outline-text-2" id="text-org2723bb3">
 <p>
 Take the Javascript code <code>x = (y);</code>. Here x is assigned to y. On the other hand,
 take <code>x = (y) =&gt; z;</code>. Here x is assigned to a function that takes y as a
@@ -300,9 +300,9 @@ parsing - or GLR parsing.
 </p>
 </div>
 </div>
-<div id="outline-container-orgfe8f1cb" class="outline-2">
-<h2 id="orgfe8f1cb"><a href="#orgfe8f1cb">Resources</a></h2>
-<div class="outline-text-2" id="text-orgfe8f1cb">
+<div id="outline-container-org32e225f" class="outline-2">
+<h2 id="org32e225f"><a href="#org32e225f">Resources</a></h2>
+<div class="outline-text-2" id="text-org32e225f">
 <ul class="org-ul">
 <li><a href="https://en.wikipedia.org/wiki/LR_parser">https://en.wikipedia.org/wiki/LR_parser</a></li>
 </ul>

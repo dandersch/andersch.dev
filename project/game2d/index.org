@@ -3,6 +3,7 @@
 #+DATE:        <2022-01-01 Mon>
 #+IMAGE:       preview.gif
 #+TAGS[]:      cpp gamedev
+#+FILETAGS:    :cpp:gamedev:
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()

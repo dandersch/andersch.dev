@@ -3,6 +3,7 @@
 #+DESCRIPTION: Securing Peripherals in Embedded Systems using ARM TrustZone-M
 #+IMAGE:       hardware.png
 #+TAGS[]:      cpp embedded arm
+#+FILETAGS:    :cpp:embedded:arm:
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()

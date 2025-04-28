@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Platform API</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/programming.html">programming</a> <a href="/tag/os.html">os</a> ]</code></div></div><h1>Platform API</h1>
 <p>
 A platform API in software development serves as a boundary between
 platform-specific code (e.g. calls to the Windows API) and code that can run
@@ -246,9 +246,9 @@ There are two major styles of approaching this problem that basically boil down
 to <i>abstracting away the platform</i> <b>or</b> <i>abstracting away the application</i>. Both
 approaches can also be combined.
 </p>
-<div id="outline-container-orgba1dc40" class="outline-2">
-<h2 id="orgba1dc40"><a href="#orgba1dc40">Architecture 1: Virtualize the OS</a></h2>
-<div class="outline-text-2" id="text-orgba1dc40">
+<div id="outline-container-org2eaaf21" class="outline-2">
+<h2 id="org2eaaf21"><a href="#org2eaaf21">Architecture 1: Virtualize the OS</a></h2>
+<div class="outline-text-2" id="text-org2eaaf21">
 <p>
 In a simple case, the platform API can be a single struct that contains function
 pointers to all functions that need to be implemented. The application uses
@@ -281,9 +281,9 @@ to a specific API.
 </p>
 </div>
 </div>
-<div id="outline-container-org01c052e" class="outline-2">
-<h2 id="org01c052e"><a href="#org01c052e">Architecture 2: Application as a Service to the OS</a></h2>
-<div class="outline-text-2" id="text-org01c052e">
+<div id="outline-container-org8cc0542" class="outline-2">
+<h2 id="org8cc0542"><a href="#org8cc0542">Architecture 2: Application as a Service to the OS</a></h2>
+<div class="outline-text-2" id="text-org8cc0542">
 <p>
 A different way of looking at the problem of enabling code to be cross-platform
 is to consider the application to be the one that is supplying services to the
@@ -311,9 +311,9 @@ services are called).
 </p>
 </div>
 </div>
-<div id="outline-container-org98274c1" class="outline-2">
-<h2 id="org98274c1"><a href="#org98274c1">Resources</a></h2>
-<div class="outline-text-2" id="text-org98274c1">
+<div id="outline-container-orgf67775b" class="outline-2">
+<h2 id="orgf67775b"><a href="#orgf67775b">Resources</a></h2>
+<div class="outline-text-2" id="text-orgf67775b">
 <ul class="org-ul">
 <li><a href="https://hero.handmade.network/episode/code/day011/">The Basics of Platform API Design</a></li>
 </ul>

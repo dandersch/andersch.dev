@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Spinlock</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/concurrency.html">concurrency</a> ]</code></div></div><h1>Spinlock</h1>
 <p>
 A spinlock is a <a href="synchronization_primitives.html#ID-075b2098-8a0a-4216-b121-05480b8c1280">synchronization primitive</a> used in <a href="multithreading.html#ID-08c89846-0c43-460d-931a-9c824b3980ad">multithreading</a> where a thread
 repeatedly checks a condition until it becomes available ("spinning").
@@ -228,9 +228,9 @@ Spinlocks cause CPU load (unlike <a href="mutex.html#ID-2fcbf4a7-b7d9-4264-8959-
 spinning. However, they avoid the overhead of context switching, which makes
 them suitable for for brief waits or very short critical sections.
 </p>
-<div id="outline-container-orgea357ba" class="outline-2">
-<h2 id="orgea357ba"><a href="#orgea357ba">Code Example</a></h2>
-<div class="outline-text-2" id="text-orgea357ba">
+<div id="outline-container-orgab27f4d" class="outline-2">
+<h2 id="orgab27f4d"><a href="#orgab27f4d">Code Example</a></h2>
+<div class="outline-text-2" id="text-orgab27f4d">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">volatile</span> <span class="org-type">int</span> <span class="org-type">spinlock_t</span>;
 

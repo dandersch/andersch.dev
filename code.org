@@ -88,18 +88,18 @@
 
 #+NAME: generate-article-header
 #+BEGIN_SRC emacs-lisp :eval no :exports results :results html
-(defun generate-tags ()
-  (setq tags-string '())
-      (setq tags-string (append tags-string (list "<div class=\"tags\">")))
-      (setq tags-string (append tags-string (list "<code>")))
-      (setq tags-string (append tags-string (list "[ ")))
-      (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
-      (dolist (tag tags)
-        (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))))
-      (setq tags-string (append tags-string (list "]")))
-      (setq tags-string (append tags-string (list "</code>")))
-      (setq tags-string (append tags-string (list "</div>\n")))
-      (mapconcat #'identity tags-string "")) ; flatten string list to a string
+;(defun generate-tags ()
+;  (setq tags-string '())
+;      (setq tags-string (append tags-string (list "<div class=\"tags\">")))
+;      (setq tags-string (append tags-string (list "<code>")))
+;      (setq tags-string (append tags-string (list "[ ")))
+;      (setq tags (split-string (cadar (org-collect-keywords '("TAGS[]"))) " +"))
+;      (dolist (tag tags)
+;        (setq tags-string (append tags-string (list (format "<a href=\"/tag/%s.html\">%s</a> " tag tag)))))
+;      (setq tags-string (append tags-string (list "]")))
+;      (setq tags-string (append tags-string (list "</code>")))
+;      (setq tags-string (append tags-string (list "</div>\n")))
+;      (mapconcat #'identity tags-string "")) ; flatten string list to a string
 
 (setq keywords (org-collect-keywords '("TITLE" "DESCRIPTION" "DATE" "IMAGE" "TAGS[]" "COMMENTS")))
 
@@ -124,14 +124,14 @@
 
 (format
   (concat
-    "<div class=\"tags-date-box\">\n"
-      (generate-tags)
-      "<div class=\"date\"><span class=\"timestamp\">%s</span></div>\n"
-    "</div>\n"
-    "<h1>%s</h1>"
+    ;"<div class=\"tags-date-box\">\n"
+    ;  (generate-tags)
+    ;  "<div class=\"date\"><span class=\"timestamp\">%s</span></div>\n"
+    ;"</div>\n"
+    ;"<h1>%s</h1>"
     "<h2 class=\"subtitle\">%s</h1>" image-fmt-string)
-   (cadr (assoc "DATE" keywords))
-   (cadr (assoc "TITLE" keywords))
+   ;(cadr (assoc "DATE" keywords))
+   ;(cadr (assoc "TITLE" keywords))
    (cadr (assoc "DESCRIPTION" keywords)) image-path (cadr (assoc "IMAGE" keywords)))
 #+END_SRC
 

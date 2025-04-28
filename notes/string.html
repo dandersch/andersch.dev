@@ -217,14 +217,14 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Strings</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/programming.html">programming</a> ]</code></div></div><h1>Strings</h1>
 <p>
 In programming, a string describes the data type used to store sequences of
 characters, i.e. human-readable text.
 </p>
-<div id="outline-container-orgc506e36" class="outline-2">
-<h2 id="orgc506e36"><a href="#orgc506e36">String views (String slices)</a></h2>
-<div class="outline-text-2" id="text-orgc506e36">
+<div id="outline-container-org89a94d4" class="outline-2">
+<h2 id="org89a94d4"><a href="#org89a94d4">String views (String slices)</a></h2>
+<div class="outline-text-2" id="text-org89a94d4">
 <p>
 Conventional strings in <a href="c.html#ID-3a2b1a06-f048-460c-9944-04b11d4fdbcd">C</a> are null-terminated sequences of bytes. Several
 problems arise from this, such as buffer overflow vulnerabilities and
@@ -238,9 +238,9 @@ string is defined by a pointer and a size.
 </p>
 </div>
 </div>
-<div id="outline-container-org4a0382f" class="outline-2">
-<h2 id="org4a0382f"><a href="#org4a0382f">String API</a></h2>
-<div class="outline-text-2" id="text-org4a0382f">
+<div id="outline-container-org0055343" class="outline-2">
+<h2 id="org0055343"><a href="#org0055343">String API</a></h2>
+<div class="outline-text-2" id="text-org0055343">
 <div class="org-src-container">
 <pre class="src src-C" id="string_api"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">string_t</span>
 {
@@ -275,9 +275,9 @@ string is defined by a pointer and a size.
 </div>
 </div>
 </div>
-<div id="outline-container-org739bb56" class="outline-2">
-<h2 id="org739bb56"><a href="#org739bb56">String builder</a></h2>
-<div class="outline-text-2" id="text-org739bb56">
+<div id="outline-container-orgf0ac057" class="outline-2">
+<h2 id="orgf0ac057"><a href="#orgf0ac057">String builder</a></h2>
+<div class="outline-text-2" id="text-orgf0ac057">
 <p>
 A string builder is used to construct a string. To do this, it is equipped with
 an allocator (e.g. an <a href="arena.html#ID-7629c564-ec09-4a74-be59-32e6bf702e31">arena</a>) and an API that allows operations on the string.
@@ -331,9 +331,9 @@ an allocator (e.g. an <a href="arena.html#ID-7629c564-ec09-4a74-be59-32e6bf702e3
 </div>
 </div>
 </div>
-<div id="outline-container-orga182222" class="outline-2">
-<h2 id="orga182222"><a href="#orga182222">String API Usage Code</a></h2>
-<div class="outline-text-2" id="text-orga182222">
+<div id="outline-container-org6bf105c" class="outline-2">
+<h2 id="org6bf105c"><a href="#org6bf105c">String API Usage Code</a></h2>
+<div class="outline-text-2" id="text-org6bf105c">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> <span class="org-type">string_t</span>
 {
@@ -393,9 +393,9 @@ an allocator (e.g. an <a href="arena.html#ID-7629c564-ec09-4a74-be59-32e6bf702e3
 </div>
 </div>
 </div>
-<div id="outline-container-org0765ad0" class="outline-2">
-<h2 id="org0765ad0"><a href="#org0765ad0">Resources</a></h2>
-<div class="outline-text-2" id="text-org0765ad0">
+<div id="outline-container-org6700e1d" class="outline-2">
+<h2 id="org6700e1d"><a href="#org6700e1d">Resources</a></h2>
+<div class="outline-text-2" id="text-org6700e1d">
 <ul class="org-ul">
 <li><a href="https://www.youtube.com/watch?v=QpAhX-gsHMs">Modern C and What We Can Learn From It</a></li>
 <li><a href="https://www.rfleury.com/p/intro-to-the-codebase-part-v-strings">Intro To The Codebase, Part V: Strings</a></li>

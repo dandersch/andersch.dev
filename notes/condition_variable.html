@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Condition Variable</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/concurrency.html">concurrency</a> ]</code></div></div><h1>Condition Variable</h1>
 <p>
 Condition variables are <a href="synchronization_primitives.html#ID-075b2098-8a0a-4216-b121-05480b8c1280">synchronization primitives</a> used in <a href="multithreading.html#ID-08c89846-0c43-460d-931a-9c824b3980ad">multithreading</a> that
 allow threads to wait until a condition is met. During this time, threads are
@@ -237,9 +237,9 @@ Usage:
 <li>Waiting thread awakens by signal (one thread) or broadcast (all threads)</li>
 <li>Upon waking, thread reacquires mutex before proceeding</li>
 </ul>
-<div id="outline-container-org3a3eb87" class="outline-2">
-<h2 id="org3a3eb87"><a href="#org3a3eb87">Basic Condition Variable API</a></h2>
-<div class="outline-text-2" id="text-org3a3eb87">
+<div id="outline-container-orgd11ea5a" class="outline-2">
+<h2 id="orgd11ea5a"><a href="#orgd11ea5a">Basic Condition Variable API</a></h2>
+<div class="outline-text-2" id="text-orgd11ea5a">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-type">int</span> <span class="org-function-name">cond_init</span>(<span class="org-type">cond_t</span> **<span class="org-variable-name">cond</span>);
 <span class="org-type">int</span> <span class="org-function-name">cond_wait</span>(<span class="org-type">cond_t</span> *<span class="org-variable-name">cond</span>, <span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);

@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Memory Arena</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/programming.html">programming</a> ]</code></div></div><h1>Memory Arena</h1>
 <p>
 A memory arena (or linear allocator, or bump allocator, or region-based
 allocator) is a memory allocator that grows linearly.
@@ -246,13 +246,13 @@ Types of arenas:
 <li><b>Scratch arena</b>: Arena for intermediate computations that don't persist</li>
 <li><b>Frame arena</b>: Resets every frame, can be back-buffered to remember last frame</li>
 </ul>
-<div id="outline-container-org7ff28c7" class="outline-2">
-<h2 id="org7ff28c7"><a href="#org7ff28c7">API</a></h2>
-<div class="outline-text-2" id="text-org7ff28c7">
+<div id="outline-container-org282259d" class="outline-2">
+<h2 id="org282259d"><a href="#org282259d">API</a></h2>
+<div class="outline-text-2" id="text-org282259d">
 </div>
-<div id="outline-container-org868ff2e" class="outline-3">
-<h3 id="org868ff2e"><a href="#org868ff2e">nullprogram</a></h3>
-<div class="outline-text-3" id="text-org868ff2e">
+<div id="outline-container-org1a2ad8c" class="outline-3">
+<h3 id="org1a2ad8c"><a href="#org1a2ad8c">nullprogram</a></h3>
+<div class="outline-text-3" id="text-org1a2ad8c">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> {
     <span class="org-type">char</span> *<span class="org-variable-name">beg</span>;
@@ -283,9 +283,9 @@ Types of arenas:
 </div>
 </div>
 </div>
-<div id="outline-container-orgde2aa93" class="outline-3">
-<h3 id="orgde2aa93"><a href="#orgde2aa93">digital grove</a></h3>
-<div class="outline-text-3" id="text-orgde2aa93">
+<div id="outline-container-org00d838f" class="outline-3">
+<h3 id="org00d838f"><a href="#org00d838f">digital grove</a></h3>
+<div class="outline-text-3" id="text-org00d838f">
 <p>
 Characteristics:
 </p>
@@ -405,9 +405,9 @@ Implementation:
 </div>
 </div>
 </div>
-<div id="outline-container-org4d8c6e7" class="outline-3">
-<h3 id="org4d8c6e7"><a href="#org4d8c6e7">raddebugger</a></h3>
-<div class="outline-text-3" id="text-org4d8c6e7">
+<div id="outline-container-org9ceeef5" class="outline-3">
+<h3 id="org9ceeef5"><a href="#org9ceeef5">raddebugger</a></h3>
+<div class="outline-text-3" id="text-org9ceeef5">
 <ul class="org-ul">
 <li>Utilizes <a href="address_sanitization.html#ID-3013e026-c87a-4e6e-b5f0-e427eb8b92dd">ASan</a> for poisoned memory inside the arena</li>
 </ul>
@@ -541,13 +541,13 @@ Implementation:
 </div>
 </div>
 </div>
-<div id="outline-container-org8af552d" class="outline-2">
-<h2 id="org8af552d"><a href="#org8af552d">Scratch Arena (Temporary/Transient Arena)</a></h2>
-<div class="outline-text-2" id="text-org8af552d">
+<div id="outline-container-org0244ac6" class="outline-2">
+<h2 id="org0244ac6"><a href="#org0244ac6">Scratch Arena (Temporary/Transient Arena)</a></h2>
+<div class="outline-text-2" id="text-org0244ac6">
 </div>
-<div id="outline-container-orge02c750" class="outline-3">
-<h3 id="orge02c750"><a href="#orge02c750">API designs</a></h3>
-<div class="outline-text-3" id="text-orge02c750">
+<div id="outline-container-org5528169" class="outline-3">
+<h3 id="org5528169"><a href="#org5528169">API designs</a></h3>
+<div class="outline-text-3" id="text-org5528169">
 <p>
 Two options to design APIs using scratch arenas:
 </p>
@@ -596,9 +596,9 @@ b) Have fixed scratch arenas that get reused
 </p>
 </div>
 </div>
-<div id="outline-container-orgaaf7515" class="outline-3">
-<h3 id="orgaaf7515"><a href="#orgaaf7515">Passed-by-value Arenas</a></h3>
-<div class="outline-text-3" id="text-orgaaf7515">
+<div id="outline-container-orgebb833b" class="outline-3">
+<h3 id="orgebb833b"><a href="#orgebb833b">Passed-by-value Arenas</a></h3>
+<div class="outline-text-3" id="text-orgebb833b">
 <p>
 Take following arena with its implied memory layout:
 </p>
@@ -717,9 +717,9 @@ from a function using the arena as scratch.
 </div>
 </div>
 </div>
-<div id="outline-container-orgec6d821" class="outline-2">
-<h2 id="orgec6d821"><a href="#orgec6d821">Handling Cleanup of Resources</a></h2>
-<div class="outline-text-2" id="text-orgec6d821">
+<div id="outline-container-org3188671" class="outline-2">
+<h2 id="org3188671"><a href="#org3188671">Handling Cleanup of Resources</a></h2>
+<div class="outline-text-2" id="text-org3188671">
 <p>
 Problem arises when we need to clean up resources like file handles, network
 sockets, thread locks, etc. For this, we need a mechanism to keep track of these
@@ -764,9 +764,9 @@ See <a href="https://www.ea.com/frostbite/news/scope-stack-allocation">Scope Sta
 </p>
 </div>
 </div>
-<div id="outline-container-org842a989" class="outline-2">
-<h2 id="org842a989"><a href="#org842a989">Resources</a></h2>
-<div class="outline-text-2" id="text-org842a989">
+<div id="outline-container-orgeb27c10" class="outline-2">
+<h2 id="orgeb27c10"><a href="#orgeb27c10">Resources</a></h2>
+<div class="outline-text-2" id="text-orgeb27c10">
 <ul class="org-ul">
 <li><a href="https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator">Untangling Lifetimes - The Arena Allocator</a></li>
 <li><a href="https://nullprogram.com/blog/2023/09/27/">Arena allocator tips and tricks</a></li>

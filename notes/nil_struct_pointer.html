@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Nil Struct Pointer</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/programming.html">programming</a> ]</code></div></div><h1>Nil Struct Pointer</h1>
 <p>
 A nil struct is a pre-allocated struct that resides in read-only memory and
 represents a nil version of the type. A pointer to this struct can be returned
@@ -234,9 +234,9 @@ Returning a nil struct pointer indicates an error, but the receiving code cannot
 overwrite the empty defaults of the pointer. This way, the error will propagate
 through the same codepaths as valid data, and can be handled later on.
 </p>
-<div id="outline-container-org0961944" class="outline-2">
-<h2 id="org0961944"><a href="#org0961944">Example</a></h2>
-<div class="outline-text-2" id="text-org0961944">
+<div id="outline-container-org3d0b720" class="outline-2">
+<h2 id="org3d0b720"><a href="#org3d0b720">Example</a></h2>
+<div class="outline-text-2" id="text-org3d0b720">
 <div class="org-src-container">
 <pre class="src src-cpp"><span class="org-keyword">struct</span> <span class="org-type">Node</span>
 {
@@ -296,9 +296,9 @@ With the nil struct approach, the code shrinks in complexity:
 </div>
 </div>
 </div>
-<div id="outline-container-org93219b1" class="outline-2">
-<h2 id="org93219b1"><a href="#org93219b1">Motivation</a></h2>
-<div class="outline-text-2" id="text-org93219b1">
+<div id="outline-container-orgd9e0f31" class="outline-2">
+<h2 id="orgd9e0f31"><a href="#orgd9e0f31">Motivation</a></h2>
+<div class="outline-text-2" id="text-orgd9e0f31">
 <p>
 The conventional approach to avoid access violations is by catching invalid
 pointers with the help of <code>if</code> and <code>assert</code>:
@@ -329,9 +329,9 @@ allocation error, returning a nil struct pointer can reduce complexity.
 </p>
 </div>
 </div>
-<div id="outline-container-orgc6b3ebd" class="outline-2">
-<h2 id="orgc6b3ebd"><a href="#orgc6b3ebd">Resources</a></h2>
-<div class="outline-text-2" id="text-orgc6b3ebd">
+<div id="outline-container-org93b26c6" class="outline-2">
+<h2 id="org93b26c6"><a href="#org93b26c6">Resources</a></h2>
+<div class="outline-text-2" id="text-org93b26c6">
 <ul class="org-ul">
 <li><a href="https://www.rfleury.com/i/137840302/guarantee-valid-reads-nil-pointers">Guarantee Valid Reads (Nil Pointers)</a></li>
 </ul>

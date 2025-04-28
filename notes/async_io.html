@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Asynchronous IO (async<sub>io</sub>/asio)</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/concurrency.html">concurrency</a> ]</code></div></div><h1>Asynchronous IO (async_io/asio)</h1>
 <p>
 In programming, the conventional form of handling Input/Output (IO) operations
 is to issue synchronous (or blocking) IO calls where the program has to wait for
@@ -236,9 +236,9 @@ system.
 <p>
 Using asynchronous IO makes the most sense when the program is IO-bound.
 </p>
-<div id="outline-container-org5b32482" class="outline-2">
-<h2 id="org5b32482"><a href="#org5b32482">Example for synchronous IO</a></h2>
-<div class="outline-text-2" id="text-org5b32482">
+<div id="outline-container-org0b07a44" class="outline-2">
+<h2 id="org0b07a44"><a href="#org0b07a44">Example for synchronous IO</a></h2>
+<div class="outline-text-2" id="text-org0b07a44">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-variable-name">BUFFER_SIZE</span> 13
 <span class="org-type">char</span> <span class="org-variable-name">buf</span>[BUFFER_SIZE] = {0};
@@ -252,9 +252,9 @@ Using asynchronous IO makes the most sense when the program is IO-bound.
 </div>
 </div>
 </div>
-<div id="outline-container-org8e5ed93" class="outline-2">
-<h2 id="org8e5ed93"><a href="#org8e5ed93">Example for asynchronous IO using <code>aio.h</code> in <a href="c.html#ID-3a2b1a06-f048-460c-9944-04b11d4fdbcd">C</a></a></h2>
-<div class="outline-text-2" id="text-org8e5ed93">
+<div id="outline-container-org3a7b474" class="outline-2">
+<h2 id="org3a7b474"><a href="#org3a7b474">Example for asynchronous IO using <code>aio.h</code> in <a href="c.html#ID-3a2b1a06-f048-460c-9944-04b11d4fdbcd">C</a></a></h2>
+<div class="outline-text-2" id="text-org3a7b474">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-variable-name">BUFFER_SIZE</span> 13
 <span class="org-type">char</span> <span class="org-variable-name">buf</span>[BUFFER_SIZE];

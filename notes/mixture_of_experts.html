@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">Mixture of Experts (MoE)</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/ai.html">ai</a> ]</code></div></div><h1>Mixture of Experts (MoE)</h1>
 <p>
 Mixture of Experts (MoE) is a <a href="neural_network.html#ID-9bb8cbbf-7568-4838-9b4e-ae18b5cdfe94">neural network</a> architecture that aims to divide
 complex problems into specialized tasks handled by different expert models.
@@ -243,17 +243,17 @@ MoEs:
 <li>❌ Require more VRAM (since all experts are loaded in memory)</li>
 <li>❌ Face more challenges in fine-tuning</li>
 </ul>
-<div id="outline-container-org31ceb57" class="outline-2">
-<h2 id="org31ceb57"><a href="#org31ceb57">Examples</a></h2>
-<div class="outline-text-2" id="text-org31ceb57">
+<div id="outline-container-orga450eef" class="outline-2">
+<h2 id="orga450eef"><a href="#orga450eef">Examples</a></h2>
+<div class="outline-text-2" id="text-orga450eef">
 <ul class="org-ul">
 <li><a href="https://huggingface.co/mistralai/Mixtral-8x7B-v0.1">Mixtral 8x7B</a>: MoE model that has 47B parameters.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc08b290" class="outline-2">
-<h2 id="orgc08b290"><a href="#orgc08b290">The 2 Main Elements of an MoE</a></h2>
-<div class="outline-text-2" id="text-orgc08b290">
+<div id="outline-container-org14656f0" class="outline-2">
+<h2 id="org14656f0"><a href="#org14656f0">The 2 Main Elements of an MoE</a></h2>
+<div class="outline-text-2" id="text-org14656f0">
 <p>
 Sparse MoE layers
 </p>
@@ -276,7 +276,7 @@ A gate network or router
 </ul>
 
 
-<div id="org4d0171e" class="figure">
+<div id="orgd712c6c" class="figure">
 <p><img src=".attach/nn-moe-switch-transformer.png" alt="nn-moe-switch-transformer.png" />
 </p>
 </div>
@@ -290,9 +290,9 @@ the router gate value (dotted-line).
 </p>
 </div>
 </div>
-<div id="outline-container-org186ec07" class="outline-2">
-<h2 id="org186ec07"><a href="#org186ec07">Resources</a></h2>
-<div class="outline-text-2" id="text-org186ec07">
+<div id="outline-container-orgd646975" class="outline-2">
+<h2 id="orgd646975"><a href="#orgd646975">Resources</a></h2>
+<div class="outline-text-2" id="text-orgd646975">
 <ul class="org-ul">
 <li><a href="https://arxiv.org/abs/2101.03961">Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity</a></li>
 <li><a href="https://huggingface.co/blog/moe">HuggingFace - Mixture of Experts Explained</a></li>

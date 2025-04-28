@@ -4,7 +4,8 @@
 #+DATE:        <2024-05-29>
 #+IMAGE:       preview.jpg
 #+COMMENTS:    t
-#+TAGS[]:      opengl graphics cpp
+#+TAGS[]:      opengl graphics cpp c
+#+FILETAGS:    :opengl:graphics:cpp:c:
 #+OPTIONS:     toc:nil num:2 H:2
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()

@@ -3,6 +3,7 @@
 #+DATE:        <2020-11-20 Fri>
 #+IMAGE:       preview.gif
 #+TAGS[]:      opengl graphics cpp
+#+FILETAGS:    :opengl:graphics:cpp:
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()

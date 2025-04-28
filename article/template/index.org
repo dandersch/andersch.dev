@@ -3,7 +3,10 @@
 #+DATE:        <0000-01-01 Mon>
 #+IMAGE:       preview.png
 #+TAGS[]:      noexport opengl graphics cpp
+#+FILETAGS:    :noexport:opengl:graphics:cpp:
 #+OPTIONS:     toc:nil num:nil
+
+# generates subtitle & image
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
 
 * Introduction                                                       :ignore:

@@ -4,9 +4,11 @@
 #+IMAGE:       preview.png
 #+COMMENTS:    nil
 #+TAGS[]:      noexport lisp org web
+#+FILETAGS:    :noexport:lisp:org:web:
 #+OPTIONS:     toc:nil num:nil
-#+INCLUDE:     ../../code.org
+
 #+CALL: ../../code.org:generate-article-header[:eval yes]()
+
 * Publishing
 Both the ~.org~ and ~.html~ files are part of the same repository. This means that
 the directory structure is identical and all links to images, files, etc. are

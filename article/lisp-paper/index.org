@@ -3,6 +3,7 @@
 #+DATE:        <2020-11-20>
 #+IMAGE:       s-expression.png
 #+TAGS[]:      lisp
+#+FILETAGS:    :lisp:
 #+OPTIONS:     toc:nil num:nil
 
 #+CALL: ../../code.org:generate-article-header[:eval yes]()

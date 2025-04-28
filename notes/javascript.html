@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<h1 class="title">JavaScript</h1>
+<div class="tags-date-box"><div class="tags"><code>[ <a href="/tag/web.html">web</a> ]</code></div></div><h1>JavaScript</h1>
 <p>
 JavaScript (JS), is an interpreted, weakly typed <a href="programming_language.html#ID-f0f41ee0-9623-4704-a4b8-7e6ea6eb108a">programming language</a>, that grew
 to one of the core technologies of the <a href="world_wide_web.html#ID-ce772f45-e356-4d64-9207-4da2b4b392a5">World Wide Web</a>, even though it did not
@@ -235,9 +235,9 @@ For true parallelism, modern JS offers <i>Web Workers</i> (which operate in sepa
 threads). They communicate with the main thread through message passing (instead
 of shared memory).
 </p>
-<div id="outline-container-org1e9dde0" class="outline-2">
-<h2 id="org1e9dde0"><a href="#org1e9dde0">Package Manager</a></h2>
-<div class="outline-text-2" id="text-org1e9dde0">
+<div id="outline-container-org3a806b3" class="outline-2">
+<h2 id="org3a806b3"><a href="#org3a806b3">Package Manager</a></h2>
+<div class="outline-text-2" id="text-org3a806b3">
 <ul class="org-ul">
 <li>Examples: npm, yarn, <a href="bun.html#ID-68b078fd-c307-4804-9ee5-a5f0a8f68bf9">bun</a></li>
 <li>Keep track of dependencies in <code>package.json</code></li>
@@ -246,9 +246,9 @@ of shared memory).
 </ul>
 </div>
 </div>
-<div id="outline-container-org77660ac" class="outline-2">
-<h2 id="org77660ac"><a href="#org77660ac">Built-in functions</a></h2>
-<div class="outline-text-2" id="text-org77660ac">
+<div id="outline-container-orgd17c284" class="outline-2">
+<h2 id="orgd17c284"><a href="#orgd17c284">Built-in functions</a></h2>
+<div class="outline-text-2" id="text-orgd17c284">
 <div class="org-src-container">
 <pre class="src src-js">setTimeout(callback, delay)                     <span class="org-comment-delimiter">// </span><span class="org-comment">schedule a function to run after a specified delay</span>
 clearTimeout(timerId)                           <span class="org-comment-delimiter">// </span><span class="org-comment">clear a timer set with setTimeout.</span>
@@ -263,13 +263,13 @@ Object.keys(obj)                                <span class="org-comment-delimit
 </div>
 </div>
 </div>
-<div id="outline-container-orgb5dc438" class="outline-2">
-<h2 id="orgb5dc438"><a href="#orgb5dc438">Code Examples</a></h2>
-<div class="outline-text-2" id="text-orgb5dc438">
+<div id="outline-container-org8b2128b" class="outline-2">
+<h2 id="org8b2128b"><a href="#org8b2128b">Code Examples</a></h2>
+<div class="outline-text-2" id="text-org8b2128b">
 </div>
-<div id="outline-container-orga5cf24c" class="outline-3">
-<h3 id="orga5cf24c"><a href="#orga5cf24c">Declaring a variable</a></h3>
-<div class="outline-text-3" id="text-orga5cf24c">
+<div id="outline-container-org23d3edd" class="outline-3">
+<h3 id="org23d3edd"><a href="#org23d3edd">Declaring a variable</a></h3>
+<div class="outline-text-3" id="text-org23d3edd">
 <p>
 Keywords for declaring a variable:  <code>var</code>, <code>const</code>, <code>let</code>
 </p>
@@ -292,9 +292,9 @@ exampleVar()
 </div>
 </div>
 </div>
-<div id="outline-container-orga72d404" class="outline-3">
-<h3 id="orga72d404"><a href="#orga72d404">Destructuring (Pulling member variables out of an object)</a></h3>
-<div class="outline-text-3" id="text-orga72d404">
+<div id="outline-container-org5a75d2f" class="outline-3">
+<h3 id="org5a75d2f"><a href="#org5a75d2f">Destructuring (Pulling member variables out of an object)</a></h3>
+<div class="outline-text-3" id="text-org5a75d2f">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">defining an object literal</span>
 <span class="org-keyword">const</span> <span class="org-variable-name">person</span> = {
@@ -316,18 +316,18 @@ console.log(first_name) <span class="org-comment-delimiter">// </span><span clas
 </div>
 </div>
 </div>
-<div id="outline-container-org1bd8c55" class="outline-3">
-<h3 id="org1bd8c55"><a href="#org1bd8c55">JS object &lt;-&gt; JSON string</a></h3>
-<div class="outline-text-3" id="text-org1bd8c55">
+<div id="outline-container-org067a797" class="outline-3">
+<h3 id="org067a797"><a href="#org067a797">JS object &lt;-&gt; JSON string</a></h3>
+<div class="outline-text-3" id="text-org067a797">
 <ul class="org-ul">
 <li>Turn JS object into valid JSON string: <code>JSON.stringify(person)</code></li>
 <li>Turn JSON into JS object: <code>JSON.parse(json)</code></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org24fcb01" class="outline-3">
-<h3 id="org24fcb01"><a href="#org24fcb01">for-each</a></h3>
-<div class="outline-text-3" id="text-org24fcb01">
+<div id="outline-container-orgdae6398" class="outline-3">
+<h3 id="orgdae6398"><a href="#orgdae6398">for-each</a></h3>
+<div class="outline-text-3" id="text-orgdae6398">
 <p>
 for-each loop in JS:
 </p>
@@ -337,9 +337,9 @@ for-each loop in JS:
 </ul>
 </div>
 </div>
-<div id="outline-container-org72a7ecc" class="outline-3">
-<h3 id="org72a7ecc"><a href="#org72a7ecc"><code>==</code> vs <code>===</code></a></h3>
-<div class="outline-text-3" id="text-org72a7ecc">
+<div id="outline-container-orgc95fa4a" class="outline-3">
+<h3 id="orgc95fa4a"><a href="#orgc95fa4a"><code>==</code> vs <code>===</code></a></h3>
+<div class="outline-text-3" id="text-orgc95fa4a">
 <ul class="org-ul">
 <li><code>10 == '10'</code> equals true</li>
 <li><code>===</code> also matches datatypes</li>
@@ -347,9 +347,9 @@ for-each loop in JS:
 </div>
 </div>
 </div>
-<div id="outline-container-orgb611fc8" class="outline-2">
-<h2 id="orgb611fc8"><a href="#orgb611fc8">Promises, <code>async</code>, <code>await</code></a></h2>
-<div class="outline-text-2" id="text-orgb611fc8">
+<div id="outline-container-org0cf8698" class="outline-2">
+<h2 id="org0cf8698"><a href="#org0cf8698">Promises, <code>async</code>, <code>await</code></a></h2>
+<div class="outline-text-2" id="text-org0cf8698">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">Simulating an asynchronous task that resolves after a delay</span>
 <span class="org-keyword">function</span> <span class="org-function-name">asyncTask</span>() {
@@ -387,9 +387,9 @@ runAsyncTask();
 </div>
 </div>
 </div>
-<div id="outline-container-org48c3913" class="outline-2">
-<h2 id="org48c3913"><a href="#org48c3913"><code>fetch</code> example</a></h2>
-<div class="outline-text-2" id="text-org48c3913">
+<div id="outline-container-org16853ce" class="outline-2">
+<h2 id="org16853ce"><a href="#org16853ce"><code>fetch</code> example</a></h2>
+<div class="outline-text-2" id="text-org16853ce">
 <p>
 The <code>fetch</code> API is implemented using Javascript Promises.
 </p>
@@ -411,9 +411,9 @@ testFetch()
 </div>
 </div>
 </div>
-<div id="outline-container-org38c2eef" class="outline-2">
-<h2 id="org38c2eef"><a href="#org38c2eef">Concurrency using callbacks</a></h2>
-<div class="outline-text-2" id="text-org38c2eef">
+<div id="outline-container-org8aca6d3" class="outline-2">
+<h2 id="org8aca6d3"><a href="#org8aca6d3">Concurrency using callbacks</a></h2>
+<div class="outline-text-2" id="text-org8aca6d3">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">Asynchronous function simulating I/O operation</span>
 <span class="org-keyword">function</span> <span class="org-function-name">fetchData</span>(<span class="org-variable-name">callback</span>) {
