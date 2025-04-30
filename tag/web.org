@@ -16,6 +16,7 @@
 - [[../notes/tailwind.org][Tailwind CSS]]
 - [[../notes/svelte.org][Svelte]]
 - [[../notes/stripe.org][Stripe]]
+- [[../notes/static_site_generator.org][Static Site Generator]]
 - [[../notes/single_page_application.org][SPA (Single Page Application)]]
 - [[../notes/server_sent_events.org][Server-Sent Events (SSE)]]
 - [[../notes/sdp.org][SDP (Session Description Protocol)]]
@@ -41,4 +42,5 @@
 - [[../notes/css.org][CSS (Cascading Style Sheets)]]
 - [[../notes/bun.org][Bun]]
 - [[../notes/browser_ext_manifest.org][Manifest (Browser Extensions)]]
+- [[../notes/aria.org][ARIA (Accessible Rich Internet Applications)]]
 - [[../notes/ajax.org][Asynchronous JavaScript and XML (AJAX)]]

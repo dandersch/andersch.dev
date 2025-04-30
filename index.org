@@ -1,6 +1,5 @@
-# TODO fix title not appearing on startpage
+#+TITLE: andersch.dev
 #+OPTIONS: title:nil
-# #+HTML_HEAD: <title>andersch.dev</title>
 
 #+NAME: latest-article
 #+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='() folder="" :noweb yes

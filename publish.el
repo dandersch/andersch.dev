@@ -418,6 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
   ; insert after :PROPERTY: drawer
   (if (string-match-p ":PROPERTIES:" (thing-at-point 'line t))
      (progn (search-forward ":END:" nil t) (forward-line 1)))
+  (unless (string= (org-get-title) "andersch.dev") ; NOTE: hardcoded workaround
   (when (eq backend 'html)
     (let* ((tags (if org-file-tags org-file-tags nil))
            (date (cadar (org-collect-keywords '("DATE"))))
@@ -437,7 +438,7 @@ document.addEventListener('DOMContentLoaded', function() {
       (insert "\n#+end_export\n")
       )
     )
-  )
+  ))
 (add-hook 'org-export-before-processing-functions #'add-title-headline)
 
 (setq andersch-dev
@@ -459,8 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                      (postamble "footer" "postamble"))
              :html-html5-fancy     t
              ; TODO head defined else where and noweb it here
-             :html-head            (concat "<title>andersch.dev</title>\n"
-                                           "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
+             :html-head            (concat "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
                                            "<link rel=\"stylesheet\" href=\"/style.css\">\n"
                                            ; NOTE import ubuntu font for now TODO embed in repo
                                            "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin\">"

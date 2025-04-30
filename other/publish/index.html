@@ -192,7 +192,6 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
-<title>andersch.dev</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="stylesheet" href="/style.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
@@ -874,6 +873,7 @@ Gets called by <code>org-publish</code> before the main publishing step.
   <span class="org-comment-delimiter">; </span><span class="org-comment">insert after :PROPERTY: drawer</span>
   (<span class="org-keyword">if</span> (string-match-p <span class="org-string">":PROPERTIES:"</span> (thing-at-point 'line t))
      (<span class="org-keyword">progn</span> (search-forward <span class="org-string">":END:"</span> nil t) (forward-line 1)))
+  (<span class="org-keyword">unless</span> (string= (org-get-title) <span class="org-string">"andersch.dev"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE: hardcoded workaround</span>
   (<span class="org-keyword">when</span> (eq backend 'html)
     (<span class="org-keyword">let*</span> ((tags (<span class="org-keyword">if</span> org-file-tags org-file-tags nil))
            (date (cadar (org-collect-keywords '(<span class="org-string">"DATE"</span>))))
@@ -893,7 +893,7 @@ Gets called by <code>org-publish</code> before the main publishing step.
       (insert <span class="org-string">"\n#+end_export\n"</span>)
       )
     )
-  )
+  ))
 (add-hook 'org-export-before-processing-functions #'add-title-headline)
 </pre>
 </div>
@@ -930,8 +930,7 @@ See <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Publishing-
                                      (postamble <span class="org-string">"footer"</span> <span class="org-string">"postamble"</span>))
              <span class="org-builtin">:html-html5-fancy</span>     t
              <span class="org-comment-delimiter">; </span><span class="org-comment">TODO head defined else where and noweb it here</span>
-             <span class="org-builtin">:html-head</span>            (concat <span class="org-string">"&lt;title&gt;andersch.dev&lt;/title&gt;\n"</span>
-                                           <span class="org-string">"&lt;link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\"&gt;\n"</span>
+             <span class="org-builtin">:html-head</span>            (concat <span class="org-string">"&lt;link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\"&gt;\n"</span>
                                            <span class="org-string">"&lt;link rel=\"stylesheet\" href=\"/style.css\"&gt;\n"</span>
                                            <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE import ubuntu font for now TODO embed in repo</span>
                                            <span class="org-string">"&lt;link rel=\"stylesheet\" type=\"text/css\" href=\"https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&amp;subset=Latin\"&gt;"</span>
