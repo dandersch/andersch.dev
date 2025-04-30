@@ -76,6 +76,22 @@ h4 a:link, h4 a:visited { text-decoration: none; color: inherit; }
 h4 a:hover, h4 a:focus, h4 a:active { text-decoration: underline; }
 h5 { text-align: center; }
 
+/* collapsible sections */
+h2,h3,h4 {
+    cursor:  pointer;
+    padding: 10px;
+    background-color: #1e1e1e;
+    border-radius: 5px;
+    margin-block-start: 5px;
+    margin-block-end: 5px;
+}
+:is(h2, h3, h4):not(:has(+ div[style*="display: none"]))::after {
+    content: '▽'; text-align: right; float: right;
+}
+:is(h2, h3, h4):has(+ div[style*="display: none"])::after {
+    content: '◁'; text-align: right; float: right;
+}
+
 /* tables: centered, borders */
 table  { margin: auto; border: 1px solid white; margin-top: 20px; margin-bottom: 20px;}
 th, td { background-color: #1a1a1a; border: 1px solid white; padding: 8px; text-align: center; }
@@ -102,15 +118,6 @@ li { margin-bottom: 5px; }
 #table-of-contents a { color: #b3b3b3; text-decoration: none; transition: color 0.3s ease; }
 #table-of-contents a:hover { color: #f1f1f1; }
 
-/* collapsible sections */
-h2,h3,h4 {
-    cursor:  pointer;
-    padding: 10px;
-    background-color: #1e1e1e;
-    border-radius: 5px;
-    margin-block-start: 5px;
-    margin-block-end: 5px;
-}
 
 /* footnotes */
 #footnotes {
