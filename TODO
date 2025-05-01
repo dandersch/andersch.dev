@@ -1,51 +1,14 @@
 TODO -*- mode: org -*-
 
-- [-] new home layout
-  + [X] collapsible latest _
-  + [ ] list with image+title+description
-  + [ ] alternate side image is on
-  + [ ] only play gifs when hovering over
-  + [ ] add latest other
-  + [ ] add latest notes
-  + [ ] preserve layout after collapsing
-
 - [ ] fix warning: 'org-element-at-point' cannot be used in non-org buffer
-
-- [1/2] css+js
-  + [X] don't collapse when clicking heading text
-  + [ ] collapse arrow on right side of headings
-
-- [-] switch auto-generated org-id's to derived ones
-  + [X] need to stop using [id^="org"] selector in style.css & script.js
-  + [X] fix css of roam headlines with own ID
-  + [X] fix images being "collapsible"
-  + [ ] stop using auto-generated id's for figures
-
-- [X] +use :html-format-drawer-function for custom drawers+
-
-- [ ] use [[https://orgmode.org/manual/Publishing-options.html][publishing options]]
-  + [ ] :html-head-include-scripts (t/non-nil) & org-html-scripts
-
+- [ ] only play gifs when hovering over
+- [ ] stop using auto-generated id's for figures
+- [ ] use [[https://orgmode.org/manual/Publishing-options.html][publishing options]] (:html-head-include-scripts & org-html-scripts)
 - [ ] use #+filetags over #+tags[] or vice versa
-
-- [2/3] phase out code snippets
-  + [X] +use custom :DRAWERS: to replace #+calls+
-  + [X] use code snippets in publish.org
-  + [ ] stop using calls to code snippet to generate preview image
-
-- [6/7] add wiki
-  + [X] combine both publishing scripts
-  + [X] read in tags of org-roam
-  + [X] add noexport
-  + [X] fix broken ID links
-  + [X] fix broken image links
-  + [X] display tags above title
-  + [ ] allow missing #+filetags in roam notes
-
+- [ ] stop using calls to code snippet to generate preview image
+- [ ] allow missing #+filetags in roam notes
 - [ ] better html
   + [ ] check w/ https://validator.w3.org/nu/?doc=https%3A%2F%2Fandersch.dev%2F
   + [ ] generate ~og:description~, ~og:image~ meta properties from DESCRIPTION+IMAGE
   + [ ] DESCRIPTION to ~<meta name="description" >~
-
-- [ ] see similar projects
-  + [ ] https://github.com/bastibe/org-static-blog/
+- [ ] see https://github.com/bastibe/org-static-blog/

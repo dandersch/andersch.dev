@@ -1,5 +1,5 @@
 #+TITLE: Pages tagged algorithm
 * Notes tagged ~algorithm~
-- [[../notes/sorting_algorithms.org][Sorting algorithms]]
 - [[../notes/hashtable.org][Hashtable]]
 - [[../notes/algorithm.org][Algorithm]]
+- [[../notes/sorting_algorithms.org][Sorting algorithms]]

@@ -40,6 +40,43 @@
           (cadr (assoc "IMAGE" (cadr latest)))))
 #+END_SRC
 
+#+NAME: latest-notes
+#+BEGIN_SRC emacs-lisp :eval no :exports results :results raw drawer :var list='() folder="" :noweb yes
+(defun format-entry-as-image-link (entry type) ; of the form ("article.org" (("TITLE" "Article Title") ("TAGS" "tag1 tag2")))
+  (format
+   (concat
+     "<div class=\"image-container\">\n"
+        "<a href=\"./%s\">\n"
+            "<div class=\"overlay\">\n"
+                "<div class=\"title\">%s</div>\n"
+     ;           "<div class=\"description\">%s</div>\n"
+            "</div>\n"
+        "</a>\n"
+     "</div>\n")
+     (string-replace ".org" ".html" (string-replace "~/org/roam" "notes" (car entry)))
+     (cadr (assoc "TITLE" (cadr entry)))
+     ;(cadr (assoc "DESCRIPTION" (cadr entry)))
+     ))
+
+(setq latest (car list))
+
+;(setq articles-as-images "")
+;(dolist (article list)
+;  (setq articles-as-images (concat articles-as-images (format-entry-as-image-link article folder))))
+
+(setq articles-as-images "")
+(let ((count 0))
+  (dolist (article list)
+    (when (< count 5) ;; limit to 5 notes
+      (setq articles-as-images (concat articles-as-images (format-entry-as-image-link article folder)))
+      (setq count (1+ count)))))
+
+(when (eq org-export-current-backend 'html)
+  (concat "#+BEGIN_EXPORT html\n"
+          articles-as-images
+          "#+END_EXPORT\n"))
+#+END_SRC
+
 * [[./article/index.org][Latest articles]]
 :PROPERTIES:
 :CUSTOM_ID: latest-articles
@@ -53,3 +90,10 @@
 :END:
 #+CALL: latest-article[:eval yes](list=(get-project-keyword-list) folder="project")
 #+RESULTS: latest-project
+
+* [[./notes/index.html][Latest notes]]
+:PROPERTIES:
+:CUSTOM_ID: latest-wiki
+:END:
+#+CALL: latest-notes[:eval yes](list=(get-notes-keyword-list) folder="notes")
+#+RESULTS: latest-wiki

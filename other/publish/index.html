@@ -682,7 +682,7 @@ Fills the primary datastructure of this script of the form:
     (<span class="org-keyword">let</span> ((notes-keywords (get-org-file-keywords note)))
       (<span class="org-keyword">unless</span> (roam-note-marked-for-noexport-p notes-keywords)
         (<span class="org-keyword">push</span> (get-org-file-keywords note) notes-keyword-list))))
-  <span class="org-comment-delimiter">;</span><span class="org-comment">(setq notes-keyword-list (sort-keyword-list-by-date notes-keyword-list t)) ; NOTE: no date prop...</span>
+  (<span class="org-keyword">setq</span> notes-keyword-list (sort-keyword-list-by-date notes-keyword-list t)) <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE: no date prop...</span>
 
   <span class="org-comment-delimiter">; </span><span class="org-comment">article-keyword-list == (cdr (assoc "article" keyword-list))</span>
   (<span class="org-keyword">setq</span> keyword-list `(,(cons <span class="org-string">"notes"</span> notes-keyword-list)))
@@ -1052,7 +1052,7 @@ Wiki portion of the site as a separate project.
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">caching</span>
 (<span class="org-keyword">setq</span> org-publish-timestamp-directory <span class="org-string">"./.org-timestamps/"</span>)
 
-(org-publish-remove-all-timestamps) <span class="org-comment-delimiter">; </span><span class="org-comment">call to avoid caching, NOTE: required now because of our org-id replacement</span>
+<span class="org-comment-delimiter">;</span><span class="org-comment">(org-publish-remove-all-timestamps) ; call to avoid caching, NOTE: required now because of our org-id replacement</span>
 
 (<span class="org-keyword">setq</span> org-id-locations-file <span class="org-string">"/home/da/org/.orgids"</span>) <span class="org-comment-delimiter">; </span><span class="org-comment">should fix broken links</span>
 (<span class="org-keyword">setq</span> org-export-with-broken-links nil) <span class="org-comment-delimiter">; </span><span class="org-comment">NOTE might be needed for broken roam ID links...</span>

@@ -2,5 +2,5 @@
 * Projects tagged ~embedded~
 - [[../project/trusted-peripherals/index.org][Trusted Peripherals in TrustZone-M]]
 * Notes tagged ~embedded~
-- [[../notes/mcu.org][Microcontroller (MCU)]]
 - [[../notes/embedded_systems.org][Embedded Systems]]
+- [[../notes/mcu.org][Microcontroller (MCU)]]

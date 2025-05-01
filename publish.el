@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
     (let ((notes-keywords (get-org-file-keywords note)))
       (unless (roam-note-marked-for-noexport-p notes-keywords)
         (push (get-org-file-keywords note) notes-keyword-list))))
-  ;(setq notes-keyword-list (sort-keyword-list-by-date notes-keyword-list t)) ; NOTE: no date prop...
+  (setq notes-keyword-list (sort-keyword-list-by-date notes-keyword-list t)) ; NOTE: no date prop...
 
   ; article-keyword-list == (cdr (assoc "article" keyword-list))
   (setq keyword-list `(,(cons "notes" notes-keyword-list)))
@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ; caching
 (setq org-publish-timestamp-directory "./.org-timestamps/")
 
-(org-publish-remove-all-timestamps) ; call to avoid caching, NOTE: required now because of our org-id replacement
+;(org-publish-remove-all-timestamps) ; call to avoid caching, NOTE: required now because of our org-id replacement
 
 (setq org-id-locations-file "/home/da/org/.orgids") ; should fix broken links
 (setq org-export-with-broken-links nil) ; NOTE might be needed for broken roam ID links...

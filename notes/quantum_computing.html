@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Shader Cross-Compilation</title>
+<title>Quantum Computing</title>
 <meta name="generator" content="Org Mode" />
 <style type="text/css">
   #content { max-width: 60em; margin: auto; }
@@ -217,63 +217,18 @@
 </header>
 </header>
 <main id="content" class="content">
-<div class="tags-date-box"><div class="date"><span class="timestamp"><2025-03-07 Fri></span></div><div class="tags"><code>[ <a href="/tag/graphics.html">graphics</a> ]</code></div></div><h1>Shader Cross-Compilation</h1>
+<div class="tags-date-box"><div class="date"><span class="timestamp"><2025-05-01 Thu></span></div><div class="tags"><code>[ <a href="/tag/compsci.html">compsci</a> <a href="/tag/physics.html">physics</a> ]</code></div></div><h1>Quantum Computing</h1>
 <p>
-<a href="shader.html#ID-31485523-e4ee-4ba5-b255-2e94067b2569">Shaders</a> written in certain shading languages may be cross-compiled to target
-platform-specific shader languages (e.g. GLSL, HLSL, Metal). This can be
-achieved in various ways.
+Quantum computing is a field of computing that uses principles of quantum
+mechanics (e.g. superposition, entanglement) to perform calculations. Quantum
+computers use qubits (quantum bits) that can exist in multiple states (not just
+0 and 1).
 </p>
-<div id="outline-container-%5B%5Bhttps%3A%2F%2Fgithub.com%2Ffloooh%2Fsokol-tools%2Fblob%2Fmaster%2Fdocs%2Fsokol-shdc.md%5D%5Bsokol_shdc%5D%5D" class="outline-2">
-<h2 id="%5B%5Bhttps%3A%2F%2Fgithub.com%2Ffloooh%2Fsokol-tools%2Fblob%2Fmaster%2Fdocs%2Fsokol-shdc.md%5D%5Bsokol_shdc%5D%5D"><a href="#%5B%5Bhttps%3A%2F%2Fgithub.com%2Ffloooh%2Fsokol-tools%2Fblob%2Fmaster%2Fdocs%2Fsokol-shdc.md%5D%5Bsokol_shdc%5D%5D"><a href="https://github.com/floooh/sokol-tools/blob/master/docs/sokol-shdc.md">sokol<sub>shdc</sub></a></a></h2>
-<div class="outline-text-2" id="text-%5B%5Bhttps%3A%2F%2Fgithub.com%2Ffloooh%2Fsokol-tools%2Fblob%2Fmaster%2Fdocs%2Fsokol-shdc.md%5D%5Bsokol_shdc%5D%5D">
-<p>
-A shader-cross-compiler and code-generator command line tool.
-</p>
-
+<div id="outline-container-Resources" class="outline-2">
+<h2 id="Resources"><a href="#Resources">Resources</a></h2>
+<div class="outline-text-2" id="text-Resources">
 <ul class="org-ul">
-<li>Translates GLSL (vulkan-style, ver450 w/ separate texture/sampler uniforms) to
-<ul class="org-ul">
-<li>GLSL v300es - for GLES3 and WebGL2</li>
-<li>GLSL v410   - for desktop GL without storage buffer support</li>
-<li>GLSL v430   - for desktop GL with storage buffer support</li>
-<li>HLSL4/HLSL5 - for D3D11, optionally as bytecode</li>
-<li>Metal       - for macOS and iOS, optionally as bytecode</li>
-<li>WGSL        - for WebGPU</li>
-</ul></li>
-
-<li>Generates header files that can be <code>#included</code></li>
-
-<li>Uses <code>@annotations</code> in the shader source code to&#x2026;
-<ul class="org-ul">
-<li>pack vertex- and fragment-shaders into same source file</li>
-<li>wrap and include reusable code blocks</li>
-<li>provide additional information for C code-generation</li>
-</ul></li>
-
-<li>C header contains
-<ul class="org-ul">
-<li>reflection info in a comment block</li>
-<li>a C struct for each shader uniform block</li>
-<li><code>name_prog_shader_desc(sg_backend backend)</code> function returns <code>sg_shader_desc</code></li>
-<li>shader descriptions can be used directly with <code>sg_make_shader()</code></li>
-<li>constants for vertex attr. locations, uniform-block- and image-bind-slots</li>
-<li>optionally C functions for runtime inspection</li>
-</ul></li>
-</ul>
-</div>
-</div>
-<div id="outline-container-%5B%5Bhttps%3A%2F%2Fgithub.com%2Flibsdl-org%2FSDL_shadercross%5D%5BSDL_shadercross%5D%5D" class="outline-2">
-<h2 id="%5B%5Bhttps%3A%2F%2Fgithub.com%2Flibsdl-org%2FSDL_shadercross%5D%5BSDL_shadercross%5D%5D"><a href="#%5B%5Bhttps%3A%2F%2Fgithub.com%2Flibsdl-org%2FSDL_shadercross%5D%5BSDL_shadercross%5D%5D"><a href="https://github.com/libsdl-org/SDL_shadercross">SDL<sub>shadercross</sub></a></a></h2>
-<div class="outline-text-2" id="text-%5B%5Bhttps%3A%2F%2Fgithub.com%2Flibsdl-org%2FSDL_shadercross%5D%5BSDL_shadercross%5D%5D">
-<p>
-Library for translating shaders to different formats, intended for use with
-SDL's GPU API. It takes <a href="spir_v.html#ID-5019cd80-027f-404f-af16-efa72bef72a8">SPIRV</a> or HLSL as the source and outputs DXBC, DXIL,
-SPIRV, MSL, or HLSL. See <a href="https://moonside.games/posts/introducing-sdl-shadercross/">Introducing: SDL<sub>shadercross</sub></a>.
-</p>
-
-<ul class="org-ul">
-<li>Uses SPIRV-Cross to disassemble SPIR-V into high-level source languages.</li>
-<li>Uses DirectXShaderCompiler to compile HLSL into either SPIR-V or DXIL.</li>
+<li><a href="https://www.youtube.com/watch?v=RQWpF2Gb-gU">But what is quantum computing? (Grover's Algorithm) - YouTube</a></li>
 </ul>
 </div>
 </div>

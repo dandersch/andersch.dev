@@ -1,7 +1,8 @@
 #+TITLE: Pages tagged compsci
 * Notes tagged ~compsci~
-- [[../notes/tree.org][Tree]]
-- [[../notes/state_machine.org][Finite State Machines (FSM)]]
+- [[../notes/quantum_computing.org][Quantum Computing]]
 - [[../notes/nlp.org][Natural Language Processing (NLP)]]
-- [[../notes/compsci.org][Computer Science]]
 - [[../notes/call_stack.org][Call Stack]]
+- [[../notes/tree.org][Tree]]
+- [[../notes/compsci.org][Computer Science]]
+- [[../notes/state_machine.org][Finite State Machines (FSM)]]

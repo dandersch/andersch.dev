@@ -1,7 +1,7 @@
 #+TITLE: Pages tagged music
 * Notes tagged ~music~
-- [[../notes/tracker.org][Tracker]]
 - [[../notes/synth.org][Synthesizer]]
+- [[../notes/tracker.org][Tracker]]
 - [[../notes/scale_music.org][Scale (music)]]
-- [[../notes/daw.org][Digital Audio Workstation (DAW)]]
 - [[../notes/chords.org][Chords]]
+- [[../notes/daw.org][Digital Audio Workstation (DAW)]]
