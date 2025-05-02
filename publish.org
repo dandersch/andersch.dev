@@ -112,8 +112,22 @@ see on this page is [[https://orgmode.org/manual/Extracting-Source-Code.html][ta
 (defun article-marked-for-noexport-p (article)
   (string-match-p (regexp-quote "noexport") (cadr (assoc "TAGS[]" (cadr article)))))
 
+(setq tags-to-ignore '("noexport"
+                       "economics"
+                       "philosophy"
+                       "music"
+                       "law"
+                       "germany"
+                       "psychology"
+                       "modeling"
+                       "business"
+                       "engineering"
+                       "physics"))
 (defun roam-note-marked-for-noexport-p (article)
-  (string-match-p (regexp-quote "noexport") (cadr (assoc "FILETAGS" (cadr article)))))
+  "Return non-nil if the ARTICLE has one of the tags in `tags-to-ignore` in its FILETAGS."
+  (let* ((filetags (cadr (assoc "FILETAGS" (cadr article))))
+         (re (regexp-opt tags-to-ignore)))
+    (when filetags (string-match-p re filetags))))
 #+END_SRC
 
 * Filter out links to ~index.html~
@@ -378,7 +392,7 @@ Fills the primary datastructure of this script of the form:
     (let ((notes-keywords (get-org-file-keywords note)))
       (unless (roam-note-marked-for-noexport-p notes-keywords)
         (push (get-org-file-keywords note) notes-keyword-list))))
-  (setq notes-keyword-list (sort-keyword-list-by-date notes-keyword-list t)) ; NOTE: no date prop...
+  (setq notes-keyword-list (sort-keyword-list-by-date notes-keyword-list t))
 
   ; article-keyword-list == (cdr (assoc "article" keyword-list))
   (setq keyword-list `(,(cons "notes" notes-keyword-list)))
@@ -700,8 +714,9 @@ Wiki portion of the site as a separate project.
 ; caching
 (setq org-publish-timestamp-directory "./.org-timestamps/")
 
-;(org-publish-remove-all-timestamps) ; call to avoid caching, NOTE: required now because of our org-id replacement
+(org-publish-remove-all-timestamps) ; call to avoid caching, NOTE: required now because of our org-id replacement
 
+; NOTE: if broken links, try to run (org-roam-update-org-id-locations)
 (setq org-id-locations-file "/home/da/org/.orgids") ; should fix broken links
 (setq org-export-with-broken-links nil) ; NOTE might be needed for broken roam ID links...
 
@@ -771,11 +786,15 @@ TODO only used to generate preview image, move to filter function
     (setq org-export-show-temporary-export-buffer nil)
     (org-html-export-as-html nil nil nil t nil)
     (switch-to-buffer "*Org HTML Export*")
-    (setq article-snippets (append article-snippets (list (buffer-string))))
 
-    ;; read more link
-    (setq read-more-html (format "<div class=\"read-more\"><a href=\"/%s\">READ MORE</a></div>" (string-replace "/index.org" "" (car article))))
-    (setq article-snippets (append article-snippets (list read-more-html)))
+    (setq article-snippets (append article-snippets (list "<div class=\"article-snippet\">")))
+      (setq article-snippets (append article-snippets (list (buffer-string))))
+
+      ;; read more link
+      (setq read-more-html (format "<div class=\"read-more\"><a href=\"/%s\">READ MORE</a></div>" (string-replace "/index.org" "" (car article))))
+      (setq article-snippets (append article-snippets (list read-more-html)))
+
+    (setq article-snippets (append article-snippets (list "</div>")))
 
     ;; dividing line between snippets
     (setq article-snippets (append article-snippets (list "<hr>\n")))))

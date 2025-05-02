@@ -14,7 +14,6 @@
 - [[../notes/vps.org][Virtual Private Server (VPS)]]
 - [[../notes/wireguard.org][WireGuard]]
 - [[../notes/usenet.org][Usenet]]
-- [[../notes/bittorrent.org][BitTorrent]]
 - [[../notes/selfhosting.org][Self-hosting]]
 - [[../notes/networking.org][Networking]]
 - [[../notes/email.org][Email]]

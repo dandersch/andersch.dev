@@ -96,4 +96,4 @@
 :CUSTOM_ID: latest-wiki
 :END:
 #+CALL: latest-notes[:eval yes](list=(get-notes-keyword-list) folder="notes")
-#+RESULTS: latest-wiki
+#+RESULTS: latest-notes

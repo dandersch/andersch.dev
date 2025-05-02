@@ -1,6 +1,5 @@
 #+TITLE: Pages tagged compsci
 * Notes tagged ~compsci~
-- [[../notes/quantum_computing.org][Quantum Computing]]
 - [[../notes/nlp.org][Natural Language Processing (NLP)]]
 - [[../notes/call_stack.org][Call Stack]]
 - [[../notes/tree.org][Tree]]

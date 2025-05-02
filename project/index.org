@@ -1,1 +1,3 @@
+#+TITLE:   Projects
+#+OPTIONS: title:nil
 #+CALL: ../publish.org:generate-article-snippets[:eval yes](list=(get-project-keyword-list))

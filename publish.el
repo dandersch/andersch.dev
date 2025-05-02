@@ -71,8 +71,22 @@
 (defun article-marked-for-noexport-p (article)
   (string-match-p (regexp-quote "noexport") (cadr (assoc "TAGS[]" (cadr article)))))
 
+(setq tags-to-ignore '("noexport"
+                       "economics"
+                       "philosophy"
+                       "music"
+                       "law"
+                       "germany"
+                       "psychology"
+                       "modeling"
+                       "business"
+                       "engineering"
+                       "physics"))
 (defun roam-note-marked-for-noexport-p (article)
-  (string-match-p (regexp-quote "noexport") (cadr (assoc "FILETAGS" (cadr article)))))
+  "Return non-nil if the ARTICLE has one of the tags in `tags-to-ignore` in its FILETAGS."
+  (let* ((filetags (cadr (assoc "FILETAGS" (cadr article))))
+         (re (regexp-opt tags-to-ignore)))
+    (when filetags (string-match-p re filetags))))
 
 (defun filter-out-index-html (transcoded-data-string backend communication-channel-plist)
   (when (org-export-derived-backend-p backend 'html)
@@ -275,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
     (let ((notes-keywords (get-org-file-keywords note)))
       (unless (roam-note-marked-for-noexport-p notes-keywords)
         (push (get-org-file-keywords note) notes-keyword-list))))
-  (setq notes-keyword-list (sort-keyword-list-by-date notes-keyword-list t)) ; NOTE: no date prop...
+  (setq notes-keyword-list (sort-keyword-list-by-date notes-keyword-list t))
 
   ; article-keyword-list == (cdr (assoc "article" keyword-list))
   (setq keyword-list `(,(cons "notes" notes-keyword-list)))
@@ -556,8 +570,9 @@ document.addEventListener('DOMContentLoaded', function() {
 ; caching
 (setq org-publish-timestamp-directory "./.org-timestamps/")
 
-;(org-publish-remove-all-timestamps) ; call to avoid caching, NOTE: required now because of our org-id replacement
+(org-publish-remove-all-timestamps) ; call to avoid caching, NOTE: required now because of our org-id replacement
 
+; NOTE: if broken links, try to run (org-roam-update-org-id-locations)
 (setq org-id-locations-file "/home/da/org/.orgids") ; should fix broken links
 (setq org-export-with-broken-links nil) ; NOTE might be needed for broken roam ID links...
 

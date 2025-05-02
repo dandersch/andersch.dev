@@ -5,6 +5,7 @@
 - [[../project/planetarium/index.org][Planetarium]]
 - [[../project/raytracer/index.org][Compute Raytracer]]
 * Notes tagged ~graphics~
+- [[../notes/brdf.org][BRDF (Bidirectional Reflectance Distribution Function)]]
 - [[../notes/webgpu.org][WebGPU]]
 - [[../notes/shader_cross_compilation.org][Shader Cross-Compilation]]
 - [[../notes/text_rendering_font_rasterization.org][Text Rendering (Font Rasterization)]]
@@ -29,7 +30,6 @@
 - [[../notes/raymarching.org][Raymarching]]
 - [[../notes/deferred_rendering.org][Deferred Rendering]]
 - [[../notes/texture_maps.org][Texture maps]]
-- [[../notes/3d_sculpting.org][3D Sculpting]]
 - [[../notes/sprite.org][Sprite]]
 - [[../notes/raytracing.org][Raytracing]]
 - [[../notes/rasterization.org][Rasterization]]

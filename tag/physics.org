@@ -1,4 +1,0 @@
-#+TITLE: Pages tagged physics
-* Notes tagged ~physics~
-- [[../notes/quantum_computing.org][Quantum Computing]]
-- [[../notes/energy.org][Energy]]

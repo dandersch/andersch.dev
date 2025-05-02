@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Executive Function</title>
+<title>build.sh</title>
 <meta name="generator" content="Org Mode" />
 <style type="text/css">
   #content { max-width: 60em; margin: auto; }
@@ -217,75 +217,103 @@
 </header>
 </header>
 <main id="content" class="content">
-<div class="tags-date-box"><div class="date"><span class="timestamp"><2025-03-26 Wed></span></div><div class="tags"><code>[ <a href="/tag/psychology.html">psychology</a> ]</code></div></div><h1>Executive Function</h1>
+<div class="tags-date-box"><div class="date"><span class="timestamp"><2025-05-01 Thu></span></div><div class="tags"><code>[ <a href="/tag/programming.html">programming</a> ]</code></div></div><h1>build.sh</h1>
 <p>
-Executive function refers to mental skills that help people plan, organize,
-focus attention, control impulses, solve problems, and manage time effectively.
+Build scripts like <code>build.sh</code> on Linux and <code>build.bat</code> on Windows are alternatives
+to fully-fledged build systems to automate the process of building software.
 </p>
+<div id="outline-container-~build.sh~%20Template" class="outline-2">
+<h2 id="~build.sh~%20Template"><a href="#~build.sh~%20Template"><code>build.sh</code> Template</a></h2>
+<div class="outline-text-2" id="text-~build.sh~%20Template">
+<ul class="org-ul">
+<li><code>[0/3]</code> TODO: things to add
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> use <a href="address_sanitization.html#ID-3013e026-c87a-4e6e-b5f0-e427eb8b92dd">Asan</a> flags</li>
+<li class="off"><code>[&#xa0;]</code> better warnings</li>
+<li class="off"><code>[&#xa0;]</code> integrated file watching when run with dev</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">bash</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">default values for envars</span>
+: <span class="org-string">"${CC:=clang++}"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">compiler to use</span>
+: <span class="org-string">"${STD:=c++14}"</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">standard to use</span>
+
+<span class="org-builtin">set</span> -e <span class="org-comment-delimiter"># </span><span class="org-comment">stop execution on first fail</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">create needed directories</span>
+mkdir -p build
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">if available, bear is used to (re)generate compile_commands.json</span>
+<span class="org-keyword">if</span> [ <span class="org-string">"build.sh"</span> -nt <span class="org-string">"compile_commands.json"</span> ] &amp;&amp; command -v bear &gt;/dev/null; <span class="org-keyword">then</span>
+    rm --force compile_commands.json
+    <span class="org-builtin">echo</span> <span class="org-string">"Regenerating compile_commands.json"</span>
+    <span class="org-variable-name">DB</span>=<span class="org-string">"bear --append --"</span>
+<span class="org-keyword">fi</span>
+
+<span class="org-variable-name">CmnCompilerFlags</span>=<span class="org-string">"-I./src/ -g -DENABLE_ASSERTS -fPIC -fno-rtti -fno-exceptions -std=${STD} "</span>
+<span class="org-variable-name">CmnCompilerFlags</span>+=<span class="org-string">"-Wall -Wfatal-errors -Wno-unused-function -Wno-unused-variable "</span>
+<span class="org-variable-name">CmnLinkerFlags</span>=<span class="org-string">"-L. -Wl,-rpath=."</span> <span class="org-comment-delimiter"># </span><span class="org-comment">look for dynamic libraries in the current working dir</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">build dll</span>
+${<span class="org-variable-name">DB</span>} ${<span class="org-variable-name">CC</span>} --shared ${<span class="org-variable-name">CmnCompilerFlags</span>} ${<span class="org-variable-name">CmnLinkerFlags</span>} main.cpp -o dylib.so
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">add platform specific flags</span>
+<span class="org-variable-name">CmnCompilerFlags</span>+=<span class="org-string">" $(sdl2-config --cflags)"</span>
+<span class="org-variable-name">CmnLinkerFlags</span>+=<span class="org-string">" $(sdl2-config --libs) -ldl"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">precompiled header</span>
+<span class="org-variable-name">HEADER_FILE</span>=<span class="org-string">"common.h"</span>
+<span class="org-variable-name">PCH_FILE</span>=<span class="org-string">"common.pch"</span>
+<span class="org-keyword">if</span> [ <span class="org-string">"$HEADER_FILE"</span> -nt <span class="org-string">"$PCH_FILE"</span> ]; <span class="org-keyword">then</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Check if pch needs to be rebuilt</span>
+  ${<span class="org-variable-name">DB</span>} ${<span class="org-variable-name">CC</span>} -c ${<span class="org-variable-name">CmnCompilerFlags</span>} -x c++-header ${<span class="org-variable-name">HEADER_FILE</span>} -o ${<span class="org-variable-name">PCH_FILE</span>}
+<span class="org-keyword">fi</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">use pch when using clang</span>
+<span class="org-keyword">if</span> [ $<span class="org-variable-name">CC</span> == <span class="org-string">"clang++"</span> ]; <span class="org-keyword">then</span>
+  <span class="org-variable-name">CmnCompilerFlags</span>+=<span class="org-string">" -include-pch ${PCH_FILE} "</span>
+<span class="org-keyword">fi</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">build executable</span>
+${<span class="org-variable-name">DB</span>} ${<span class="org-variable-name">CC</span>} ${<span class="org-variable-name">CmnCompilerFlags</span>} ${<span class="org-variable-name">CmnLinkerFlags</span>} -lGL ./src/platform.cpp -o ./build/main
+</pre>
+</div>
 
 <p>
-Strong executive function is linked to success in many areas of life, while weak
-executive function is associated with ADHD, autism and other conditions.
+Usage:
 </p>
-<div id="outline-container-Key%20Components" class="outline-2">
-<h2 id="Key%20Components"><a href="#Key%20Components">Key Components</a></h2>
-<div class="outline-text-2" id="text-Key%20Components">
-<ul class="org-ul">
-<li><i>Self-Control</i>:    Resisting distractions &amp; impulses, delaying gratification</li>
-<li><i>Working Memory</i>:  E.g., following multi-step instructions</li>
-<li><i>Flexibility</i>:     Adapting to new rules and switching tasks</li>
-<li><i>Planning</i>:        Breaking tasks into steps and prioritizing actions</li>
-<li><i>Self-Monitoring</i>: Evaluating one's own performance and adjusting behavior</li>
-</ul>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-variable-name">CC</span>=g++ <span class="org-variable-name">STD</span>=c++26 ./build.sh
+</pre>
 </div>
 </div>
-<div id="outline-container-Training%20Strategies" class="outline-2">
-<h2 id="Training%20Strategies"><a href="#Training%20Strategies">Training Strategies</a></h2>
-<div class="outline-text-2" id="text-Training%20Strategies">
+</div>
+<div id="outline-container-Combining%20~build.sh~%20and%20~build.bat~%20into%20one" class="outline-2">
+<h2 id="Combining%20~build.sh~%20and%20~build.bat~%20into%20one"><a href="#Combining%20~build.sh~%20and%20~build.bat~%20into%20one">Combining <code>build.sh</code> and <code>build.bat</code> into one</a></h2>
+<div class="outline-text-2" id="text-Combining%20~build.sh~%20and%20~build.bat~%20into%20one">
 <p>
-Working Memory
+Using the hack below, the same file can contain both a valid Windows batch
+script and Linux shell script. For best ergonomics, the file can be saved as a
+<code>build.bat</code> (enables Windows users to double-click it), and a <code>build.sh</code> symlinked
+to it.
 </p>
-<ul class="org-ul">
-<li><b>Chunking</b>:      Break information into smaller parts</li>
-<li><b>Visualization</b>: Mental images to remember details</li>
-<li><b>Mnemonics</b>:     Acronyms or rhymes to remember</li>
-<li><b>Brain Games</b>:   Chess, Sudoku, or apps</li>
-</ul>
 
-<p>
-Self-Control
-</p>
-<ul class="org-ul">
-<li><b>10-Second Rule</b>:        Pause before acting and ask yourself <i>"Do I need this?"</i></li>
-<li><b>Remove Temptations</b>:    Keep distractions out of sight.</li>
-<li><b>Delayed Gratification</b>: Use timers ("I'll check my phone after 1 hour of work")</li>
-</ul>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">echo</span> &gt;/dev/null <span class="org-comment-delimiter"># </span><span class="org-comment">&gt;nul &amp; GOTO WINDOWS &amp; rem ^</span>
 
-<p>
-Flexibility
-</p>
-<ul class="org-ul">
-<li><b>Switch Tasks</b>:     Alternate activities (25 minutes of work, 5-minute break)</li>
-<li><b>New Routines</b>:     E.g. new route to work or use other hand for simple tasks</li>
-<li><b>Reframe Problems</b>: Ask <i>"What's another way to solve this?"</i></li>
-</ul>
+<span class="org-comment-delimiter"># </span><span class="org-comment">linux compile command</span>
+cc -Wall main.c -o main -lGL
 
-<p>
-Planning
-</p>
-<ul class="org-ul">
-<li><b>TODO</b>:           A (urgent), B, C, D, E (unimportant)</li>
-<li><b>Time Blocking</b>:  Assign specific times for tasks</li>
-<li><b>External Tools</b>: Planners, sticky notes, or apps</li>
-</ul>
+<span class="org-keyword">exit</span> 0
+:WINDOWS
+@echo off
 
-<p>
-Self-Monitoring
-</p>
-<ul class="org-ul">
-<li><b>Reflection Questions</b>: End the day with <i>"What worked? What could I improve?"</i></li>
-<li><b>Checklists</b>:           Use for routines (e.g., morning/evening habits).</li>
-</ul>
+REM windows compile command
+clang.exe -Wall main.c -o main.exe -lopengl32
+</pre>
+</div>
 </div>
 </div>
 </main>

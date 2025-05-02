@@ -1,5 +1,0 @@
-#+TITLE: Pages tagged modeling
-* Notes tagged ~modeling~
-- [[../notes/openscad.org][OpenSCAD]]
-- [[../notes/zbrush.org][ZBrush]]
-- [[../notes/3d_sculpting.org][3D Sculpting]]

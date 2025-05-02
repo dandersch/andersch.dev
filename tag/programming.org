@@ -1,6 +1,8 @@
 #+TITLE: Pages tagged programming
 * Notes tagged ~programming~
-- [[../notes/openscad.org][OpenSCAD]]
+- [[../notes/unity_build.org][Unity Build]]
+- [[../notes/build_system.org][Build System]]
+- [[../notes/build_sh.org][build.sh]]
 - [[../notes/monad.org][Monad]]
 - [[../notes/zero_is_initialization.org][Zero-Is-Initialization (ZII)]]
 - [[../notes/nil_struct_pointer.org][Nil Struct Pointer]]
@@ -15,11 +17,13 @@
 - [[../notes/thread.org][Thread]]
 - [[../notes/crud.org][CRUD]]
 - [[../notes/async.org][Asynchronous Programming]]
+- [[../notes/sil4.org][Safety Integrity Level 4 (SIL4)]]
 - [[../notes/go.org][Go (Golang)]]
 - [[../notes/cpp.org][C++]]
 - [[../notes/python.org][Python]]
 - [[../notes/code_assistant.org][Code Assistant]]
 - [[../notes/call_stack.org][Call Stack]]
+- [[../notes/uml.org][Unified Modeling Language (UML)]]
 - [[../notes/vcs.org][Version Control System (VCS)]]
 - [[../notes/programming.org][Programming]]
 - [[../notes/platform_api.org][Platform API]]

@@ -1,6 +1,5 @@
 #+TITLE: Pages tagged electronics
 * Notes tagged ~electronics~
-- [[../notes/wind_power.org][Wind Power]]
 - [[../notes/vhdl.org][VHDL (VHSIC Hardware Description Language)]]
 - [[../notes/verilog.org][Verilog]]
 - [[../notes/ic.org][Integrated Circuits (ICs)]]

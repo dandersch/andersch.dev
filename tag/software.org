@@ -13,6 +13,7 @@
 - [[../notes/roam_research.org][Roam (Roam Research)]]
 - [[../notes/org_roam.org][Org-roam]]
 - [[../notes/jupyter.org][Jupyter]]
+- [[../notes/text_editor.org][Text Editor]]
 - [[../notes/neovim.org][Neovim]]
 - [[../notes/software_list.org][List of software applications]]
 - [[../notes/emacs.org][Emacs]]

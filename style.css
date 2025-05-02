@@ -257,12 +257,15 @@ li { margin-bottom: 5px; }
 .date { float: left; display: inline-block; }
 .tags { display: inline-block; float: right; }
 
+/* article snippets */
+.article-snippet { color: inherit; padding: 15px; border-radius: 5px; background-color: #1e1e1e; border: 1px dashed;}
+
 /* read more button */
 .read-more {
   text-align: center; align-content: center;
   margin-left: auto; margin-right: auto; margin-top: 5px; margin-bottom: 10px;
 }
-.read-more a { color: inherit; padding: 5px; border-radius: 5px; background-color: #1e1e1e;}
+.read-more a { color: inherit; padding: 5px; border-radius: 5px; background-color: #101010; border: 1px solid;}
 .read-more a::before { content: '▽ '; }
 
 /* CODE SYNTAX HIGHLIGHTING */
