@@ -316,6 +316,65 @@ clang.exe -Wall main.c -o main.exe -lopengl32
 </div>
 </div>
 </div>
+<div id="outline-container-~build.bat~%20on%20Linux%20using%20WINE" class="outline-2">
+<h2 id="~build.bat~%20on%20Linux%20using%20WINE"><a href="#~build.bat~%20on%20Linux%20using%20WINE"><code>build.bat</code> on Linux using WINE</a></h2>
+<div class="outline-text-2" id="text-~build.bat~%20on%20Linux%20using%20WINE">
+<p>
+Download <a href="https://github.com/Data-Oriented-House/PortableBuildTools">PortableBuildTools</a> and run using:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">wine ./PortableBuildTools.exe gui
+</pre>
+</div>
+
+<p>
+<code>cl.exe</code> should now be in the PATH when using wine:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">wine cmd /c cl.exe 2&gt;/dev/null
+</pre>
+</div>
+
+<p>
+Add following script called wine-batch (or similar):
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">bash</span>
+<span class="org-builtin">export</span> <span class="org-variable-name">WINEDEBUG</span>=-all
+<span class="org-keyword">exec</span> wine cmd /c <span class="org-string">"$(winepath -w "$1")"</span>
+</pre>
+</div>
+
+<p>
+Add <code>binfmt_misc</code> handler to be able to run <code>./build.bat</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-builtin">echo</span> <span class="org-string">':DOSBatch:E::bat::/path/to/wine-batch:'</span> | sudo tee /proc/sys/fs/binfmt_misc/register
+</pre>
+</div>
+
+<p>
+If it works, make it persistent by adding <code>/etc/binfmt.d/bat.conf</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">Associate .bat files with Wine CMD (wine-batch is a wrapper script)</span>
+:DOSBatch:E::bat::/home/da/bin/wine-batch:
+</pre>
+</div>
+
+<p>
+Now <code>./build.bat</code> should work after calling <code>sudo systemctl restart systemd-binfmt</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-Resources" class="outline-2">
+<h2 id="Resources"><a href="#Resources">Resources</a></h2>
+<div class="outline-text-2" id="text-Resources">
+<ul class="org-ul">
+<li><a href="https://tek256.com/posts/code-hardening/">code hardening | tek256</a>: Using ASAN &amp; Valgrind</li>
+</ul>
+</div>
+</div>
 </main>
 </body>
 </html>

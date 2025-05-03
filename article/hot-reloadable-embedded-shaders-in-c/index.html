@@ -344,13 +344,15 @@ invoke the C preprocessor:
 
 <div class="org-src-container">
 <pre class="src src-glsl"><span class="org-type">SHADER_VERSION_STRING</span>
-<span class="org-function-name">S</span>(
 <span class="org-preprocessor">#if</span> <span class="org-preprocessor">defined</span>(VERT_SHADER)
+<span class="org-function-name">S</span>(
     <span class="org-comment-delimiter">// </span><span class="org-comment">vertex shader code</span>
-<span class="org-preprocessor">#elif</span> <span class="org-preprocessor">defined</span>(FRAG_SHADER)
-    <span class="org-comment-delimiter">// </span><span class="org-comment">fragment shader code</span>
-<span class="org-preprocessor">#endif</span>
 )
+<span class="org-preprocessor">#elif</span> <span class="org-preprocessor">defined</span>(FRAG_SHADER)
+S(
+    <span class="org-comment-delimiter">// </span><span class="org-comment">fragment shader code</span>
+)
+<span class="org-preprocessor">#endif</span>
 <span class="org-preprocessor">#undef</span> VERT_SHADER
 <span class="org-preprocessor">#undef</span> FRAG_SHADER
 </pre>
@@ -374,7 +376,7 @@ To include the shaders in C:
 
 <p>
 We can also use this approach to have variations of the same shader where we
-enable/disable certain parts of the code:
+enable/disable certain parts of the code<sup><a id="fnr.directives-within-macro" class="footref" href="#fn.directives-within-macro" role="doc-backlink">2</a></sup>:
 </p>
 
 <div class="org-src-container">
@@ -396,7 +398,6 @@ enable/disable certain parts of the code:
 
     FragColor  = <span class="org-type">vec4</span>(color, 1.0);
 }
-<span class="org-preprocessor">#endif</span>
 )
 <span class="org-preprocessor">#undef</span> SHADER_FEATURE
 </pre>
@@ -518,7 +519,7 @@ the host application. For example:
 
 <p>
 We can even keep <code>struct</code> definitions in sync between both parts of the program
-(e.g. for uniforms)<sup><a id="fnr.std430" class="footref" href="#fn.std430" role="doc-backlink">2</a></sup>:
+(e.g. for uniforms)<sup><a id="fnr.std430" class="footref" href="#fn.std430" role="doc-backlink">3</a></sup>:
 </p>
 
 <div class="org-src-container">
@@ -558,7 +559,7 @@ We can even keep <code>struct</code> definitions in sync between both parts of t
 <p>
 Usually, you wouldn't be able to hot-reload shaders that are included in your
 source code. After all, they are now baked into the executable. But what if we
-reload the entirety of our code using DLL-based <sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup> hot
+reload the entirety of our code using DLL-based <sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup> hot
 reloading? This way, we get a buffer to the string of a new shader anytime we
 recompile.
 </p>
@@ -628,7 +629,13 @@ semicolon at the end lets us use initializers:
 </pre>
 </div></div></div>
 
-<div class="footdef"><sup><a id="fn.std430" class="footnum" href="#fnr.std430" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+<div class="footdef"><sup><a id="fn.directives-within-macro" class="footnum" href="#fnr.directives-within-macro" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+This does not compile with MSVC, since it seems
+that only GCC and Clang allow <a href="https://gcc.gnu.org/onlinedocs/gcc-7.5.0/cpp/Directives-Within-Macro-Arguments.html">directives within macro invocations</a>. It can work
+with <code>cl.exe</code> if every directive appears outside an <code>S(...)</code> like before, however.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.std430" class="footnum" href="#fnr.std430" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
 Keep in mind that the layout of both structs need to match. This means
 the C code needs to comply with the shader's memory layout qualifiers (usually
 <code>std430</code>). We can do this by specifying padding bytes manually (always aligned to
@@ -636,7 +643,7 @@ the size of a <code>vec4</code>), or by making use of <code>_Pragma("pack(push,n
 <code>_Pragma("pack(pop)")</code> when expanding the macro on the C-side. YMMV.
 </p></div></div>
 
-<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara"><a href="https://slembcke.net/blog/HotLoadC">Easy Hot-Loading for C</a></p></div></div>
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara"><a href="https://slembcke.net/blog/HotLoadC">Easy Hot-Loading for C</a></p></div></div>
 
 
 </div>

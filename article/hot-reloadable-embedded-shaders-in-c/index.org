@@ -98,13 +98,15 @@ invoke the C preprocessor:
 
 #+BEGIN_SRC glsl
 SHADER_VERSION_STRING
-S(
 #if defined(VERT_SHADER)
+S(
     // vertex shader code
-#elif defined(FRAG_SHADER)
-    // fragment shader code
-#endif
 )
+#elif defined(FRAG_SHADER)
+S(
+    // fragment shader code
+)
+#endif
 #undef VERT_SHADER
 #undef FRAG_SHADER
 #+END_SRC
@@ -123,7 +125,7 @@ const char* fragment_shader_src =
 #+END_SRC
 
 We can also use this approach to have variations of the same shader where we
-enable/disable certain parts of the code:
+enable/disable certain parts of the code[fn:directives-within-macro]:
 
 #+begin_src glsl
 SHADER_VERSION_STRING
@@ -144,7 +146,6 @@ void main()
 
     FragColor  = vec4(color, 1.0);
 }
-#endif
 )
 #undef SHADER_FEATURE
 #+end_src
@@ -334,3 +335,7 @@ the C code needs to comply with the shader's memory layout qualifiers (usually
 ~std430~). We can do this by specifying padding bytes manually (always aligned to
 the size of a ~vec4~), or by making use of ~_Pragma("pack(push,n)")~ and
 ~_Pragma("pack(pop)")~ when expanding the macro on the C-side. YMMV.
+
+[fn:directives-within-macro] This does not compile with MSVC, since it seems
+that only GCC and Clang allow [[https://gcc.gnu.org/onlinedocs/gcc-7.5.0/cpp/Directives-Within-Macro-Arguments.html][directives within macro invocations]]. It can work
+with ~cl.exe~ if every directive appears outside an ~S(...)~ like before, however.

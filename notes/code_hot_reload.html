@@ -223,13 +223,17 @@ Hot-reloading in the context of software refers to a program's ability to
 load-in modified versions of its resources mid-execution. This concept can
 extend to the programs own machine code when it supports code hot-reloading.
 </p>
-<div id="outline-container-Hot-Reloading%20in%20%5B%5Bid%3A3a2b1a06-f048-460c-9944-04b11d4fdbcd%5D%5BC%5D%5D" class="outline-2">
-<h2 id="Hot-Reloading%20in%20%5B%5Bid%3A3a2b1a06-f048-460c-9944-04b11d4fdbcd%5D%5BC%5D%5D"><a href="#Hot-Reloading%20in%20%5B%5Bid%3A3a2b1a06-f048-460c-9944-04b11d4fdbcd%5D%5BC%5D%5D">Hot-Reloading in <a href="c.html#ID-3a2b1a06-f048-460c-9944-04b11d4fdbcd">C</a></a></h2>
-<div class="outline-text-2" id="text-Hot-Reloading%20in%20%5B%5Bid%3A3a2b1a06-f048-460c-9944-04b11d4fdbcd%5D%5BC%5D%5D">
+<div id="outline-container-DLL-based%20Hot-Reloading" class="outline-2">
+<h2 id="DLL-based%20Hot-Reloading"><a href="#DLL-based%20Hot-Reloading">DLL-based Hot-Reloading</a></h2>
+<div class="outline-text-2" id="text-DLL-based%20Hot-Reloading">
 <p>
-Hot-Reloading of C programs can be achieved by loading in code from a
-<a href="dll.html#ID-0a01d924-407a-4294-b0a2-ae88d60a41ee">dynamically linked library (DLL)</a>. When this DLL changes on disk, the current DLL
-can be unloaded and the new DLL loaded.
+Hot-reloading of programs written in compiled languages like C or C++ can be
+achieved by loading in code from a <a href="dll.html#ID-0a01d924-407a-4294-b0a2-ae88d60a41ee">dynamically linked library (DLL)</a>.
+</p>
+
+<p>
+When this DLL changes on disk, the current DLL can be unloaded and the new DLL
+loaded.
 </p>
 </div>
 </div>
@@ -240,6 +244,7 @@ can be unloaded and the new DLL loaded.
 <li><a href="https://zylinski.se/posts/hot-reload-gameplay-code/">Hot Reload Gameplay Code: What, why, limitations and examples!</a></li>
 <li><a href="https://github.com/fungos/cr">cr.h: A Simple C Hot Reload Header-only Library</a></li>
 <li><a href="https://slembcke.github.io/HotLoadC">Easy Hot-Loading for C</a></li>
+<li><a href="https://nullprogram.com/blog/2014/12/23/">Interactive Programming in C</a></li>
 </ul>
 </div>
 </div>
