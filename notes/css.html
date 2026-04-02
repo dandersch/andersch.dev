@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -267,6 +267,39 @@ element can only have up to one id. They are accessed in the <code>.css</code> w
 <div class="org-src-container">
 <pre class="src src-css">#id-name <span class="org-comment-delimiter">/* </span><span class="org-comment">stylize an HTML element with id="id-name"</span><span class="org-comment-delimiter"> */</span>
 {
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-Minimal%20CSS" class="outline-2">
+<h2 id="Minimal%20CSS"><a href="#Minimal%20CSS">Minimal CSS</a></h2>
+<div class="outline-text-2" id="text-Minimal%20CSS">
+<p>
+See <a href="https://thecascade.dev/article/least-amount-of-css/">The least amount of CSS for a decent looking site</a>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-css"><span class="org-css-selector">html</span> {
+  <span class="org-css-property">color-scheme</span>: light dark;
+}
+
+<span class="org-css-selector">body</span> {
+  <span class="org-css-property">font-family</span>: system-ui;
+  <span class="org-css-property">font-size</span>: 1.25rem;
+  <span class="org-css-property">line-height</span>: 1.5;
+}
+
+<span class="org-css-selector">img,</span>
+<span class="org-css-selector">svg,</span>
+<span class="org-css-selector">video</span> {
+  <span class="org-css-property">max-width</span>: 100%;
+  <span class="org-css-property">display</span>: block;
+}
+
+<span class="org-css-selector">main</span> {
+  <span class="org-css-property">max-width</span>: min(70ch, 100% - 4rem);
+  <span class="org-css-property">margin-inline</span>: auto;
 }
 </pre>
 </div>

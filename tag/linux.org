@@ -2,5 +2,5 @@
 * Notes tagged ~linux~
 - [[../notes/epoll.org][epoll]]
 - [[../notes/linux.org][Linux]]
-- [[../notes/pkgbuild.org][PKGBUILD]]
+- [[../notes/arch_linux.org][Arch Linux]]
 - [[../notes/wine.org][WINE]]

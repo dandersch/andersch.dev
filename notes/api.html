@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>API (Application Programming Interface)</title>
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<title>andersch.dev</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"><script type="text/javascript" src="/script.js" defer></script>
+</head>
+<body>
+<header id="top" class="status">
+<header>
+<h1 class="title" id="title"><a href="/">andersch.dev</a></h1>
+
+<div class="icons">
+  	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
+  	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
+</div>
+<div>
+	<nav class="nav">
+		<a class="nav-link" href="/article">article</a>
+		<a class="nav-link" href="/project">project</a>
+		<a class="nav-link" href="/other">other</a>
+		<a class="nav-link" href="/notes">wiki</a>
+	</nav>
+</div>
+</header>
+</header>
+<main id="content" class="content">
+<div class="tags-date-box"><div class="date"><span class="timestamp"><2025-10-09 Thu></span></div><div class="tags"><code>[ <a href="/tag/programming.html">programming</a> ]</code></div></div><h1>API (Application Programming Interface)</h1>
+<p>
+An Application Programming Interface (API) defines functions, data types, and
+conventions to let software components communicate with each other at the source
+code level.
+</p>
+<div id="outline-container-API%20Characteristics" class="outline-2">
+<h2 id="API%20Characteristics"><a href="#API%20Characteristics">API Characteristics</a></h2>
+<div class="outline-text-2" id="text-API%20Characteristics">
+</div>
+<div id="outline-container-Granularity%20%28A%20or%20BC%29" class="outline-3">
+<h3 id="Granularity%20%28A%20or%20BC%29"><a href="#Granularity%20%28A%20or%20BC%29">Granularity (A or BC)</a></h3>
+<div class="outline-text-3" id="text-Granularity%20%28A%20or%20BC%29">
+<ul class="org-ul">
+<li>At what granularity does the API operate?</li>
+<li>Can it work on a smaller one by breaking down steps?</li>
+<li>Useful for e.g. letting user insert own steps in between</li>
+<li>Trade-off: Flexibility vs Simplicity</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">A</span>
+<span class="org-function-name">UpdateOrientation</span>(object);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">BC</span>
+orientation = GetOrientation(object);
+change = GetOrientationChange(object);
+<span class="org-function-name">SetOrientation</span>(object, orientation + change);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-Redundancy%20%28A%20or%20B%29" class="outline-3">
+<h3 id="Redundancy%20%28A%20or%20B%29"><a href="#Redundancy%20%28A%20or%20B%29">Redundancy (A or B)</a></h3>
+<div class="outline-text-3" id="text-Redundancy%20%28A%20or%20B%29">
+<ul class="org-ul">
+<li>Enable doing the same thing different ways</li>
+<li>Important to not force something on the user</li>
+<li>More redundancy means more ways of doing the same thing</li>
+<li>Trade-off: Convenience vs Orthogonality</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-function-name">SetOrientation3x3</span>(object, matrix);   <span class="org-comment-delimiter">// </span><span class="org-comment">A</span>
+<span class="org-function-name">SetOrientationQ</span>(object, quaternion); <span class="org-comment-delimiter">// </span><span class="org-comment">B</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-Coupling%20%28A%20implies%20B%29" class="outline-3">
+<h3 id="Coupling%20%28A%20implies%20B%29"><a href="#Coupling%20%28A%20implies%20B%29">Coupling (A implies B)</a></h3>
+<div class="outline-text-3" id="text-Coupling%20%28A%20implies%20B%29">
+<ul class="org-ul">
+<li>Bundling things together without being able to separate them</li>
+<li>No trade-off, but can be unavoidable</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">hidden coupling</span>
+<span class="org-function-name">SetTime</span>(globalTime);
+<span class="org-function-name">UpdateObject</span>(object);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">implicit lock</span>
+<span class="org-function-name">glBegin_</span>()
+<span class="org-function-name">glEnd_</span>();
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">coupling allocation and initialization</span>
+object = ConstructObject();
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">coupling to a type</span>
+matrix = MakeMatrix(floatptr);
+<span class="org-function-name">SetOrientationM</span>(object, matrix);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-Retention%20%28A%20mirrors%20B%29" class="outline-3">
+<h3 id="Retention%20%28A%20mirrors%20B%29"><a href="#Retention%20%28A%20mirrors%20B%29">Retention (A mirrors B)</a></h3>
+<div class="outline-text-3" id="text-Retention%20%28A%20mirrors%20B%29">
+<ul class="org-ul">
+<li>API keeps copy of data that user is in charge of</li>
+<li>Trade-off: Synchronization vs Automation</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">// </span><span class="org-comment">api retains time</span>
+<span class="org-function-name">SetTime</span>(globalTime);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">api retains hierarchy</span>
+<span class="org-function-name">SetParent</span>(child, parent);
+<span class="org-function-name">UpdateOrientation</span>(child);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">api retains function calls</span>
+<span class="org-function-name">SetFileCallbacks</span>(Open, Read, Close);
+file = OpenFile(filename);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-Flow%20Control%20%28A%20invokes%20B%29" class="outline-3">
+<h3 id="Flow%20Control%20%28A%20invokes%20B%29"><a href="#Flow%20Control%20%28A%20invokes%20B%29">Flow Control (A invokes B)</a></h3>
+<div class="outline-text-3" id="text-Flow%20Control%20%28A%20invokes%20B%29">
+<ul class="org-ul">
+<li>Who is calling who?</li>
+<li>No trade-off, simple is better</li>
+<li>A: App calls Lib</li>
+<li>B: App calls Lib calls App</li>
+<li>C: App calls Lib calls App calls Lib&#x2026;</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-comment-delimiter">/* </span><span class="org-comment">stack traces</span><span class="org-comment-delimiter"> */</span>
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">A</span>
+LibTestWidget
+LibProcessWidget
+GameProcessWidgets
+GameUpdate
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">B</span>
+GameHandleLibWidget
+LibTestWidget
+LibProcessWidget
+GameProcessWidgets
+GameUpdate
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">C</span>
+LibWidgetChangeHeight
+GameHandleLibWidget
+LibTestWidget
+LibProcessWidget
+GameProcessWidgets
+GameUpdate
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-API%20Design" class="outline-2">
+<h2 id="API%20Design"><a href="#API%20Design">API Design</a></h2>
+<div class="outline-text-2" id="text-API%20Design">
+<p>
+Initially, users want low granularity and high retention.
+Later, users want high granularity and low retention.
+</p>
+
+<blockquote>
+<p>
+In the beginning, all you want is results.
+In the end, all you want is control.
+</p>
+</blockquote>
+
+<p>
+Checklist:
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> Write the API usage code first</li>
+<li class="off"><code>[&#xa0;]</code> Retained mode constructs have immediate-mode equivalents</li>
+<li class="off"><code>[&#xa0;]</code> Provide alternative API calls that do not use callbacks/inheritance</li>
+<li class="off"><code>[&#xa0;]</code> Do not require a datatype that the user already has</li>
+<li class="off"><code>[&#xa0;]</code> Non-atomic API calls can be broken down using atomic ones</li>
+<li class="off"><code>[&#xa0;]</code> All data should be transparent unless it is required to be opaque</li>
+<li class="off"><code>[&#xa0;]</code> API resource management (memory, file, string, etc.) is not forced on user</li>
+<li class="off"><code>[&#xa0;]</code> Library's file formats are optional</li>
+<li class="off"><code>[&#xa0;]</code> Full run-time source code is available</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-Resources%20for%20API%20Design" class="outline-2">
+<h2 id="Resources%20for%20API%20Design"><a href="#Resources%20for%20API%20Design">Resources for API Design</a></h2>
+<div class="outline-text-2" id="text-Resources%20for%20API%20Design">
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=ZQ5_u8Lgvyk">Casey Muratori - Designing and Evaluating Reusable Components (2004)</a></li>
+<li><a href="https://www.youtube.com/watch?v=443UNeGrFoM">Eskil Steenberg- How I program C</a></li>
+</ul>
+</div>
+</div>
+</main>
+</body>
+</html>

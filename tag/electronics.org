@@ -1,9 +1,5 @@
 #+TITLE: Pages tagged electronics
 * Notes tagged ~electronics~
-- [[../notes/vhdl.org][VHDL (VHSIC Hardware Description Language)]]
-- [[../notes/verilog.org][Verilog]]
 - [[../notes/ic.org][Integrated Circuits (ICs)]]
 - [[../notes/hdl.org][Hardware Description Language (HDL)]]
-- [[../notes/fpga.org][FPGA (Field-Programmable Gate Array)]]
-- [[../notes/asic.org][ASIC (Application-Specific Integrated Circuit)]]
 - [[../notes/rfid.org][Radio-frequency identification (RFID)]]

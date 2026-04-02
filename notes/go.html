@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -220,28 +220,28 @@
 <div class="tags-date-box"><div class="date"><span class="timestamp"><2024-11-01 Fri></span></div><div class="tags"><code>[ <a href="/tag/programming.html">programming</a> ]</code></div></div><h1>Go (Golang)</h1>
 <p>
 Go (Golang) is a statically-typed, compiled <a href="programming_language.html#ID-f0f41ee0-9623-4704-a4b8-7e6ea6eb108a">programming language</a> by Google that
-has strong support for concurrent programming. Its standard library (with
-features such as built-in HTTP server and JSON support) makes it a suitable
-<a href="frontend_backend.html#ID-424d54cd-71b1-4a5a-9a4e-5facc9b8c692">backend</a> language for scalable and high-performance applications.
+has strong support for concurrent programming. Its standard library (with a
+built-in HTTP server, JSON support, etc.) makes it a suitable <a href="frontend_backend.html#ID-424d54cd-71b1-4a5a-9a4e-5facc9b8c692">backend</a> language
+for scalable and high-performance web applications.
 </p>
 
 <p>
 Go's concurrency model (using Goroutines and Channels) can handle multiple tasks
 simultaneously with minimal complexity.
 </p>
-<div id="outline-container-Keywords" class="outline-2">
-<h2 id="Keywords"><a href="#Keywords">Keywords</a></h2>
-<div class="outline-text-2" id="text-Keywords">
+<div id="outline-container-Concepts" class="outline-2">
+<h2 id="Concepts"><a href="#Concepts">Concepts</a></h2>
+<div class="outline-text-2" id="text-Concepts">
 </div>
-<div id="outline-container-~package~%20%2F%20~import~" class="outline-3">
-<h3 id="~package~%20%2F%20~import~"><a href="#~package~%20%2F%20~import~"><code>package</code> / <code>import</code></a></h3>
-<div class="outline-text-3" id="text-~package~%20%2F%20~import~">
+<div id="outline-container-Keywords" class="outline-3">
+<h3 id="Keywords"><a href="#Keywords">Keywords</a></h3>
+<div class="outline-text-3" id="text-Keywords">
 <p>
-The first line of every <code>.go</code> file specifies the package name.
+<code>package</code> / <code>import</code>
 </p>
-
 <div class="org-src-container">
-<pre class="src src-go">package main // declare main package (must contain main() function)
+<pre class="src src-go">/* The first line of every ~.go~ file specifies the package name. */
+package main // declare main package (must contain main() function)
 
 /* packages can be imported */
 import "package"
@@ -258,24 +258,19 @@ var Bar := 3 // will be exported
 func DoThing() { /* ... */ } // can be called outside package
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-~for~%2C%20~switch~%2C%20~range~%20%28Control%20flow%29" class="outline-3">
-<h3 id="~for~%2C%20~switch~%2C%20~range~%20%28Control%20flow%29"><a href="#~for~%2C%20~switch~%2C%20~range~%20%28Control%20flow%29"><code>for</code>, <code>switch</code>, <code>range</code> (Control flow)</a></h3>
-<div class="outline-text-3" id="text-~for~%2C%20~switch~%2C%20~range~%20%28Control%20flow%29">
+
+<p>
+<code>for</code>, <code>switch</code>, <code>range</code> (Control flow)
+</p>
 <div class="org-src-container">
-<pre class="src src-go">/* switch */
-switch state {
+<pre class="src src-go">switch state {
     case 1:
-        /* ... */
-        goto label;// jump to label
+        goto label;
     case 2:
-        /* ... */
         fallthrough
     case 3:
         label:  // goto label declaration
-        /* ... */
-        break // always implicitly there
+        break   // always implicitly there
     default:
 }
 
@@ -294,11 +289,10 @@ for name, score := range scores {
 }
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-Types" class="outline-3">
-<h3 id="Types"><a href="#Types">Types</a></h3>
-<div class="outline-text-3" id="text-Types">
+
+<p>
+Types
+</p>
 <div class="org-src-container">
 <pre class="src src-go">/* types */
 var         // declare a variable
@@ -326,11 +320,10 @@ const (
 )
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-Functions%2FInterfaces" class="outline-3">
-<h3 id="Functions%2FInterfaces"><a href="#Functions%2FInterfaces">Functions/Interfaces</a></h3>
-<div class="outline-text-3" id="text-Functions%2FInterfaces">
+
+<p>
+Functions/Interfaces
+</p>
 <div class="org-src-container">
 <pre class="src src-go">// functions
 func example(var a int) (int, error) {
@@ -350,11 +343,10 @@ func (c Circle) Area() float64 { // implement interface for Circle
 }
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-~go~%2C%20~chan~%2C%20~select~%20%28Concurrency%29" class="outline-3">
-<h3 id="~go~%2C%20~chan~%2C%20~select~%20%28Concurrency%29"><a href="#~go~%2C%20~chan~%2C%20~select~%20%28Concurrency%29"><code>go</code>, <code>chan</code>, <code>select</code> (Concurrency)</a></h3>
-<div class="outline-text-3" id="text-~go~%2C%20~chan~%2C%20~select~%20%28Concurrency%29">
+
+<p>
+<code>go</code>, <code>chan</code>, <code>select</code> (Concurrency)
+</p>
 <div class="org-src-container">
 <pre class="src src-go">/* goroutines/channels */
 go      // start a goroutine
@@ -363,11 +355,6 @@ select  // wait on multiple channel operations
 </pre>
 </div>
 </div>
-</div>
-</div>
-<div id="outline-container-Concepts" class="outline-2">
-<h2 id="Concepts"><a href="#Concepts">Concepts</a></h2>
-<div class="outline-text-2" id="text-Concepts">
 </div>
 <div id="outline-container-~goroutine~" class="outline-3">
 <h3 id="~goroutine~"><a href="#~goroutine~"><code>goroutine</code></a></h3>
@@ -583,13 +570,10 @@ The <code>go.mod</code> is the config file for a Go module.
 <h3 id="~net%2Fhttp~"><a href="#~net%2Fhttp~"><code>net/http</code></a></h3>
 <div class="outline-text-3" id="text-~net%2Fhttp~">
 <p>
-The standard library <code>net/http</code> provides HTTP client/server implementations. It
+Standard library <code>net/http</code> provides HTTP client/server implementations. It
 can be used to build web apps, APIs, and handling HTTP requests/responses.
 </p>
 
-<p>
-Hello World Server example
-</p>
 <div class="org-src-container">
 <pre class="src src-go">package main
 
@@ -765,8 +749,8 @@ type Message struct {
 }
 
 func main() {
-        msg := Message{}
-        msg.Lock(); defer msg.Unlock();
+    msg := Message{}
+    msg.Lock(); defer msg.Unlock();
 }
 </pre>
 </div>
@@ -777,7 +761,7 @@ func main() {
 <div class="outline-text-3" id="text-Shorthand%20for%20Error%20Handling">
 <div class="org-src-container">
 <pre class="src src-go">if err := writer.Close(); err != nil {
-        panic(err)
+    panic(err)
 }
 </pre>
 </div>
@@ -800,6 +784,15 @@ If MyType doesn't implement <code>Read(p []byte) (n int, err error)</code>, the 
 throw an error.
 </p>
 </div>
+</div>
+</div>
+<div id="outline-container-Resources" class="outline-2">
+<h2 id="Resources"><a href="#Resources">Resources</a></h2>
+<div class="outline-text-2" id="text-Resources">
+<ul class="org-ul">
+<li><a href="https://blog.habets.se/2025/07/Go-is-still-not-good.html">Go is still not good</a></li>
+<li><a href="https://blog.cloudflare.com/using-go-as-a-scripting-language-in-linux/">Using Go as a scripting language in Linux</a></li>
+</ul>
 </div>
 </div>
 </main>

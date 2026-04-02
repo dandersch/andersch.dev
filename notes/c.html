@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -384,6 +384,56 @@ expand to an expression:
 <pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">GET_FIRST_ELEM</span>(<span class="org-variable-name">a</span>) (assert(a-&gt;length &gt; 0), a-&gt;array[0])
 </pre>
 </div>
+</div>
+</div>
+<div id="outline-container-Macros%3A%20Use%20the%20Preprocessor%20for%20Repeated%20Comments%20about%20Constraints%20%26%20Assumptions" class="outline-3">
+<h3 id="Macros%3A%20Use%20the%20Preprocessor%20for%20Repeated%20Comments%20about%20Constraints%20%26%20Assumptions"><a href="#Macros%3A%20Use%20the%20Preprocessor%20for%20Repeated%20Comments%20about%20Constraints%20%26%20Assumptions">Macros: Use the Preprocessor for Repeated Comments about Constraints &amp; Assumptions</a></h3>
+<div class="outline-text-3" id="text-Macros%3A%20Use%20the%20Preprocessor%20for%20Repeated%20Comments%20about%20Constraints%20%26%20Assumptions">
+<p>
+From <a href="https://youtu.be/i-h95QIGchY?si=kznWxwdj6OTnbKMW&amp;t=5999">Andrew Reece – Assuming as Much as Possible – BSC 2025</a>:
+</p>
+
+<p>
+Instead of copy-pasting comments about a constraint everywhere it is relevant:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">int</span> <span class="org-function-name">foo</span>() {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">NOTE: we assume float is 32 bit</span>
+    <span class="org-type">float</span> <span class="org-variable-name">b</span> = ...;
+}
+
+<span class="org-type">int</span> <span class="org-function-name">bar</span>() {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">NOTE: we assume float is 32 bit</span>
+    <span class="org-type">float</span> <span class="org-variable-name">a</span> = ...;
+}
+
+</pre>
+</div>
+
+<p>
+Try <code>#defining</code> the comment as a macro, then use it in all places that would
+require code changes when the constraint is removed or changed:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-variable-name">ASSUME_FLOAT_IS_32BIT</span> <span class="org-comment-delimiter">// </span><span class="org-comment">we assume floats are 32bits right now</span>
+
+<span class="org-type">int</span> <span class="org-function-name">foo</span>() {
+    ASSUME_FLOAT_IS_32BIT
+    <span class="org-type">float</span> <span class="org-variable-name">b</span> = ...;
+}
+
+<span class="org-type">int</span> <span class="org-function-name">bar</span>() {
+    ASSUME_FLOAT_IS_32BIT
+    <span class="org-type">float</span> <span class="org-variable-name">a</span> = ...;
+}
+
+</pre>
+</div>
+
+<p>
+If it changes, deleting the <code>#define</code> will make the compiler tell you every place
+that needs fixing.
+</p>
 </div>
 </div>
 <div id="outline-container-How%20to%20switch%20between%20game%20modes" class="outline-3">
@@ -598,9 +648,9 @@ Writing a glsl shader string or similar comfortably with a macro
 </div>
 </div>
 </div>
-<div id="outline-container-Struct%3A%20Default%20%26%20named%20parameters" class="outline-3">
-<h3 id="Struct%3A%20Default%20%26%20named%20parameters"><a href="#Struct%3A%20Default%20%26%20named%20parameters">Struct: Default &amp; named parameters</a></h3>
-<div class="outline-text-3" id="text-Struct%3A%20Default%20%26%20named%20parameters">
+<div id="outline-container-Struct%3A%20Default%20%26%20Named%20parameters" class="outline-3">
+<h3 id="Struct%3A%20Default%20%26%20Named%20parameters"><a href="#Struct%3A%20Default%20%26%20Named%20parameters">Struct: Default &amp; Named parameters</a></h3>
+<div class="outline-text-3" id="text-Struct%3A%20Default%20%26%20Named%20parameters">
 <div class="org-src-container">
 <pre class="src src-C"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
 
@@ -801,6 +851,60 @@ ogl_renderer.common.active_request = ...;
 </div>
 </div>
 </div>
+<div id="outline-container-Using%20~static_assert~%20as%20a%20reminder" class="outline-3">
+<h3 id="Using%20~static_assert~%20as%20a%20reminder"><a href="#Using%20~static_assert~%20as%20a%20reminder">Using <code>static_assert</code> as a reminder</a></h3>
+<div class="outline-text-3" id="text-Using%20~static_assert~%20as%20a%20reminder">
+<p>
+Statically assert values of constants (e.g. enum members) to throw compile-time
+errors as a reminder to perform a code change that is related to those
+constants. Afterwards, change the static assert to not throw an error.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">enum</span> <span class="org-type">thing</span> {
+  <span class="org-variable-name">THING_ONE</span> = 0,
+  <span class="org-variable-name">THING_TWO</span>,
+  <span class="org-variable-name">THING_THREE</span>,
+  <span class="org-comment-delimiter">// </span><span class="org-comment">THING_FOUR, /* causes an error */</span>
+  <span class="org-variable-name">THING_COUNT</span>,
+};
+<span class="org-function-name">static_assert</span>(THING_COUNT == 3, <span class="org-string">"Remember to handle all enums"</span>);
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>() {
+    printf(<span class="org-string">"Hello\n"</span>);
+
+    <span class="org-keyword">enum</span> <span class="org-type">thing</span> <span class="org-variable-name">val</span> = THING_TWO;
+    <span class="org-keyword">switch</span>(val) {
+        <span class="org-keyword">case</span> THING_ONE:
+        <span class="org-keyword">case</span> THING_TWO:
+        <span class="org-keyword">case</span> THING_THREE:
+            <span class="org-keyword">break</span>;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-Commenting%20code%20out%20vs.%20~%23if%200~%20vs.%20~if%20%280%29~" class="outline-3">
+<h3 id="Commenting%20code%20out%20vs.%20~%23if%200~%20vs.%20~if%20%280%29~"><a href="#Commenting%20code%20out%20vs.%20~%23if%200~%20vs.%20~if%20%280%29~">Commenting code out vs. <code>#if 0</code> vs. <code>if (0)</code></a></h3>
+<div class="outline-text-3" id="text-Commenting%20code%20out%20vs.%20~%23if%200~%20vs.%20~if%20%280%29~">
+<p>
+When temporarily disabling pieces of code, commenting it out means that it will
+no longer be type checked. Re-enabling it later then might mean that it no
+longer compiles. Enclosing it in an <code>#if 0 ...#endif</code> block has the same problem
+(but might preserve syntax highlighting in the editor).
+</p>
+
+<p>
+Instead, consider enclosing the code in an <code>if (0) { ... }</code> block: The compiler
+is very likely to optimize it out, but it will still be type-checked.
+</p>
+
+<p>
+Plan 9's source code also makes use of <code>if(0)</code> for <a href="https://github.com/9front/9front/blob/front/sys/src/libdraw/init.c#L196">gated resource cleanup</a>.
+</p>
+</div>
+</div>
 </div>
 <div id="outline-container-Shortcomings%20of%20C" class="outline-2">
 <h2 id="Shortcomings%20of%20C"><a href="#Shortcomings%20of%20C">Shortcomings of C</a></h2>
@@ -900,6 +1004,41 @@ X-macros can be used in combination with <code>_Generic</code>:
 </div>
 </div>
 </div>
+<div id="outline-container-C%20Source%20Files%20as%20Scripts" class="outline-2">
+<h2 id="C%20Source%20Files%20as%20Scripts"><a href="#C%20Source%20Files%20as%20Scripts">C Source Files as Scripts</a></h2>
+<div class="outline-text-2" id="text-C%20Source%20Files%20as%20Scripts">
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#if</span> 0
+cc <span class="org-string">"$0"</span> -o <span class="org-string">"${0%.c}"</span>.out &amp;&amp; exec ./<span class="org-string">"${0%.c}"</span>.out || exit $?
+<span class="org-preprocessor">#endif</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+<span class="org-type">int</span> main () {
+    printf (<span class="org-string">"hello, world\n"</span>);
+    <span class="org-keyword">return</span> 0;
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-C">#<span class="org-negation-char">!</span>/bin/bash
+sed -n -e <span class="org-warning">'</span>7,$p<span class="org-warning">'</span> &lt; <span class="org-string">"$0"</span> | /usr/bin/gcc -x c -o <span class="org-string">"$0.$$.out"</span> -
+$0.$$.out <span class="org-string">"$0"</span> <span class="org-string">"$@"</span>
+STATUS=$?
+rm $0.$$.out
+exit $STATUS
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+
+<span class="org-type">int</span> main(<span class="org-type">int</span> <span class="org-variable-name">argc</span>, <span class="org-type">char</span> **<span class="org-variable-name">argv</span>)
+{
+  <span class="org-type">int</span> i;
+  <span class="org-keyword">for</span> (i = 0; i &lt; argc; i++)
+    printf(<span class="org-string">"argv[%d] -&gt; %s\n"</span>, i, argv[i]);
+  <span class="org-keyword">return</span> 0;
+}
+</pre>
+</div>
+</div>
+</div>
 <div id="outline-container-Resources" class="outline-2">
 <h2 id="Resources"><a href="#Resources">Resources</a></h2>
 <div class="outline-text-2" id="text-Resources">
@@ -908,6 +1047,7 @@ X-macros can be used in combination with <code>_Generic</code>:
 <li><a href="https://nullprogram.com/blog/2023/10/08/">My personal C coding style as of late 2023</a></li>
 <li><a href="https://nullprogram.com/blog/2025/01/19/">Examples of quick hash tables and dynamic arrays in C</a></li>
 <li><a href="https://sentido-labs.com/en/library/cedro/202106171400/#binary-include">Binary inclusion in C</a></li>
+<li><a href="https://raphgl.github.io/blog/generics-in-c.html">RaphGL | How to write generics in C</a></li>
 </ul>
 </div>
 </div>

@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -220,19 +220,16 @@
 <div class="tags-date-box"><div class="date"><span class="timestamp"><2025-03-26 Wed></span></div><div class="tags"><code>[ <a href="/tag/web.html">web</a> ]</code></div></div><h1>Server-Sent Events (SSE)</h1>
 <p>
 Server-Sent Events (SSE) allows a web server to push real-time updates to a
-client (i.e. a web browser) over a single, long-lived HTTP connection. Unlike
-bidirectional <a href="websocket.html#ID-3423e762-7b02-4196-9f8a-a431c777baf6">WebSockets</a>, SSE is unidirectional, meaning communication only
-flows from the server to the client.
+client (i.e. a web browser) over a single, long-lived HTTP connection.
 </p>
 
 <p>
-This makes SSE suitable for news feeds, stock tickers, and any other application
-where the server needs to constantly push information to the client without the
-overhead of two-way communication.
+Unlike bidirectional <a href="websocket.html#ID-3423e762-7b02-4196-9f8a-a431c777baf6">WebSockets</a>, SSE is unidirectional, meaning communication
+only flows from the server to the client.
 </p>
-<div id="outline-container-Example%20using%20%5B%5Bid%3A80271fb3-7b1f-4cff-8576-0b7940b75a34%5D%5BGo%20%28Golang%29%5D%5D" class="outline-2">
-<h2 id="Example%20using%20%5B%5Bid%3A80271fb3-7b1f-4cff-8576-0b7940b75a34%5D%5BGo%20%28Golang%29%5D%5D"><a href="#Example%20using%20%5B%5Bid%3A80271fb3-7b1f-4cff-8576-0b7940b75a34%5D%5BGo%20%28Golang%29%5D%5D">Example using <a href="go.html#ID-80271fb3-7b1f-4cff-8576-0b7940b75a34">Go (Golang)</a></a></h2>
-<div class="outline-text-2" id="text-Example%20using%20%5B%5Bid%3A80271fb3-7b1f-4cff-8576-0b7940b75a34%5D%5BGo%20%28Golang%29%5D%5D">
+<div id="outline-container-Example%20using%20%5B%5Bid%3A80271fb3-7b1f-4cff-8576-0b7940b75a34%5D%5BGo%5D%5D" class="outline-2">
+<h2 id="Example%20using%20%5B%5Bid%3A80271fb3-7b1f-4cff-8576-0b7940b75a34%5D%5BGo%5D%5D"><a href="#Example%20using%20%5B%5Bid%3A80271fb3-7b1f-4cff-8576-0b7940b75a34%5D%5BGo%5D%5D">Example using <a href="go.html#ID-80271fb3-7b1f-4cff-8576-0b7940b75a34">Go</a></a></h2>
+<div class="outline-text-2" id="text-Example%20using%20%5B%5Bid%3A80271fb3-7b1f-4cff-8576-0b7940b75a34%5D%5BGo%5D%5D">
 <div class="org-src-container">
 <pre class="src src-go">package main
 

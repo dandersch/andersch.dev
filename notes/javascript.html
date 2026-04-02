@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -226,8 +226,8 @@ exist as one of its original cornerstones.
 
 <p>
 JS has no support for (conventional) <a href="multithreading.html#ID-08c89846-0c43-460d-931a-9c824b3980ad">multithreading</a>. <a href="concurrency.html#ID-ae158974-7fdb-4d57-a098-3c00200a2320">Concurrency</a> is instead
-achieved using Promises, <code>async/await</code> and callbacks, which are used for blocking
-tasks such as network requests, file I/O and timeouts.
+achieved using Promises, <code>async/await</code> and callbacks, which are used for
+blocking tasks such as network requests, file I/O and timeouts.
 </p>
 
 <p>
@@ -239,11 +239,40 @@ of shared memory).
 <h2 id="Package%20Manager"><a href="#Package%20Manager">Package Manager</a></h2>
 <div class="outline-text-2" id="text-Package%20Manager">
 <ul class="org-ul">
-<li>Examples: npm, yarn, <a href="bun.html#ID-68b078fd-c307-4804-9ee5-a5f0a8f68bf9">bun</a></li>
+<li>Examples: npm, yarn, <a href="#ID-68b078fd-c307-4804-9ee5-a5f0a8f68bf9">bun</a></li>
 <li>Keep track of dependencies in <code>package.json</code></li>
 <li>Differentiate between user and dev dependencies (<code>npm install --save-dev pkg</code>)</li>
 <li><code>node_modules</code> folder contains direct and indirect dependencies</li>
 </ul>
+</div>
+</div>
+<div id="outline-container-ID-68b078fd-c307-4804-9ee5-a5f0a8f68bf9" class="outline-2">
+<h2 id="ID-68b078fd-c307-4804-9ee5-a5f0a8f68bf9"><a href="#ID-68b078fd-c307-4804-9ee5-a5f0a8f68bf9">Bun</a></h2>
+<div class="outline-text-2" id="text-Bun">
+<p>
+Bun is an all-in-one JavaScript development toolkit, containing a package
+manager, <a href="module_bundler.html#ID-036f6ae2-a48c-49dc-95d2-ee2d99a37068">bundler</a>, and test runner. It aims to be a drop-in replacement for
+Node.js and has native TypeScript support.
+</p>
+
+<p>
+It's built in Zig as one executable and uses JavaScriptCore instead of V8.
+</p>
+</div>
+</div>
+<div id="outline-container-ID-ab164c58-00fe-416f-aad1-e2b41367edb8" class="outline-2">
+<h2 id="ID-ab164c58-00fe-416f-aad1-e2b41367edb8"><a href="#ID-ab164c58-00fe-416f-aad1-e2b41367edb8">AJAX (Asynchronous JavaScript and XML)</a></h2>
+<div class="outline-text-2" id="text-AJAX%20%28Asynchronous%20JavaScript%20and%20XML%29">
+<p>
+Asynchronous <a href="javascript.html#ID-a0222a34-b3ec-4ed1-906c-195c89bf9b4c">JavaScript</a> and XML (AJAX) is a web development technique that
+allows web applications to send and receive data asynchronously without
+requiring a full page reload.
+</p>
+
+<p>
+AJAX uses the <code>XMLHttpRequest</code> object or the <code>fetch</code> API to communicate with a
+server to retrieve data in JSON or XML.
+</p>
 </div>
 </div>
 <div id="outline-container-Built-in%20functions" class="outline-2">

@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -1096,6 +1096,17 @@ strings or performing a bitwise-or on a bunch of bitfields to compute a mask:
 <div id="outline-container-Compute%20number%20of%20rows" class="outline-3">
 <h3 id="Compute%20number%20of%20rows"><a href="#Compute%20number%20of%20rows">Compute number of rows</a></h3>
 <div class="outline-text-3" id="text-Compute%20number%20of%20rows">
+<p>
+Simple way:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-preprocessor">#define</span> <span class="org-function-name">X</span>(...) +1
+<span class="org-type">float</span> <span class="org-variable-name">things</span>[TABLE(X)];
+<span class="org-preprocessor">#undef</span> X
+</pre>
+</div>
+
 <p>
 For a table with an unknown number of rows (i.e. the entry count), define a
 struct with just 1-byte sized members:

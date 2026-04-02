@@ -268,6 +268,12 @@ li { margin-bottom: 5px; }
 .read-more a { color: inherit; padding: 5px; border-radius: 5px; background-color: #101010; border: 1px solid;}
 .read-more a::before { content: '▽ '; }
 
+/* email */
+span.email.hidden { display: none; }
+span.email b:nth-child(2) { display: none; }
+span.email b { font-weight: normal; }
+span.email { color: #FFFFFF; }
+
 /* CODE SYNTAX HIGHLIGHTING */
 .org-src-container pre { font-size: 16px; }
 .org-src-container pre { color: #FFFFFF !important; background-color: #18191b !important; margin: 16px 20px 16px 20px;}

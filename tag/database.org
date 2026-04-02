@@ -2,7 +2,5 @@
 * Notes tagged ~database~
 - [[../notes/rdbms.org][Relational Database Management System (RDBMS)]]
 - [[../notes/postgresql.org][PostgreSQL]]
-- [[../notes/dbms.org][Database Management System (DBMS)]]
-- [[../notes/acid.org][Atomicity, Consistency, Isolation, Durability (ACID)]]
 - [[../notes/sql.org][SQL]]
 - [[../notes/pkm.org][Personal knowledge management (PKM)]]

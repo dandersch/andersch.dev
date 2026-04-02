@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -219,8 +219,8 @@
 <main id="content" class="content">
 <div class="tags-date-box"><div class="date"><span class="timestamp"><2025-01-17 Fri></span></div><div class="tags"><code>[ <a href="/tag/database.html">database</a> ]</code></div></div><h1>Relational Database Management System (RDBMS)</h1>
 <p>
-An RDBMS (Relational <a href="dbms.html#ID-535a9d7a-d6f5-4311-870c-f7a2f081966f">Database Management System</a>) stores data in a structured
-format using tables.
+A Relational Database Management System stores data in a structured format using
+tables.
 </p>
 
 <ul class="org-ul">
@@ -242,6 +242,46 @@ Examples of popular RDBMS systems:
 <li>Microsoft SQL Server</li>
 <li><a href="postgresql.html#ID-4195bfc7-9837-4f0c-9530-c8bad757c869">PostgreSQL</a></li>
 </ul>
+<div id="outline-container-ID-821c0f77-520c-4381-a524-ce179e7cb85c" class="outline-2">
+<h2 id="ID-821c0f77-520c-4381-a524-ce179e7cb85c"><a href="#ID-821c0f77-520c-4381-a524-ce179e7cb85c">ACID</a></h2>
+<div class="outline-text-2" id="text-ACID">
+<p>
+ACID are the properties of reliable database systems:
+</p>
+
+<p>
+<b>Atomicity</b>: Ensure DB transactions are treated as a single, indivisible unit.
+</p>
+<ul class="org-ul">
+<li>Either all operations are completed successfully, or none of them are</li>
+<li>If a transaction fails, the DB is left in same state as before</li>
+</ul>
+
+<p>
+<b>Consistency</b>: Ensure DB remains in valid state before and after a transaction.
+</p>
+<ul class="org-ul">
+<li>DB disallows a transaction if it violates any integrity constraints</li>
+<li>E.g. a transaction inserting a duplicate record should be rejected</li>
+</ul>
+
+<p>
+<b>Isolation</b>: Ensure concurrent transactions do not interfere with each other.
+</p>
+<ul class="org-ul">
+<li>Each transaction is executed as if it were the only transaction occurring</li>
+<li>Prevents inconsistent results due to race conditions</li>
+</ul>
+
+<p>
+<b>Durability</b>: Ensure committed transactions remain committed
+</p>
+<ul class="org-ul">
+<li>Changes are permanently stored in the DB</li>
+<li>System failures can be recovered from</li>
+</ul>
+</div>
+</div>
 <div id="outline-container-Resources" class="outline-2">
 <h2 id="Resources"><a href="#Resources">Resources</a></h2>
 <div class="outline-text-2" id="text-Resources">

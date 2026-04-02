@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -221,7 +221,7 @@
 <p>
 Executable images are files that contain machine code, metadata, and other
 information necessary for the operating system to load and run a program.
-Examples include <a href="elf.html#ID-c336dde8-b842-4b6d-86ec-7490b96f19a0">ELF</a> for Unix-based systems and PE for Windows.
+Examples include <a href="#ID-c336dde8-b842-4b6d-86ec-7490b96f19a0">ELF</a> for Unix-based systems and PE for Windows.
 </p>
 
 <p>
@@ -234,6 +234,57 @@ existing process.
 <p>
 The loaded equivalent of an executable image is a module.
 </p>
+<div id="outline-container-ID-c336dde8-b842-4b6d-86ec-7490b96f19a0" class="outline-2">
+<h2 id="ID-c336dde8-b842-4b6d-86ec-7490b96f19a0"><a href="#ID-c336dde8-b842-4b6d-86ec-7490b96f19a0">The Executable &amp; Linkable Format (ELF)</a></h2>
+<div class="outline-text-2" id="text-The%20Executable%20%26%20Linkable%20Format%20%28ELF%29">
+<p>
+The Executable &amp; Linkable Format (ELF) is a <a href="file_format.html#ID-622818d3-e17c-4d48-910a-4338d70a476a">file format</a> for <a href="executable_image.html#ID-e75c5304-7ad8-4e5b-b8ba-69f875eedd75">executable images</a>.
+Files of this format are called ELF executables, and can include executables,
+object code and <a href="dll.html#ID-0a01d924-407a-4294-b0a2-ae88d60a41ee">shared libraries</a>. It is the standard binary file format for
+Unix-like systems on x86 processors.
+</p>
+</div>
+<div id="outline-container-How%20to%20manually%20edit%20executables" class="outline-3">
+<h3 id="How%20to%20manually%20edit%20executables"><a href="#How%20to%20manually%20edit%20executables">How to manually edit executables</a></h3>
+<div class="outline-text-3" id="text-How%20to%20manually%20edit%20executables">
+<ol class="org-ol">
+<li>Get a plaintext hexdump of the executable, i.e. the hex values that make up
+the executable represented in ascii:
+<code>xxd -plain /path/to/elf_file &gt; elf_file.dump</code></li>
+
+<li>Edit hex values in a normal text editor
+<code>vim elf_file.dump</code></li>
+
+<li>Write changes back to an executable file, i.e. revert an ascii hexdump into binary data
+<code>xxd -plain -revert elf_file.dump &gt; /path/to/elf_file</code></li>
+</ol>
+
+<p>
+Script to turn hexdump-files (.dump) that contain comments (lines starting with
+'#') into executable files:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">bash</span>
+<span class="org-keyword">for</span> f<span class="org-keyword"> in</span> *.dump
+<span class="org-keyword">do</span>
+    <span class="org-variable-name">a</span>=<span class="org-sh-quoted-exec">`basename $f .dump`</span>
+    cut -d<span class="org-string">'#'</span> -f1 &lt;$<span class="org-variable-name">f</span> | xxd -plain -revert &gt; $<span class="org-variable-name">a</span>
+    chmod +x $<span class="org-variable-name">a</span>
+<span class="org-keyword">done</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-Resources" class="outline-3">
+<h3 id="Resources"><a href="#Resources">Resources</a></h3>
+<div class="outline-text-3" id="text-Resources">
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=nC1U1LJQL8o">In-depth: ELF - The Extensible &amp; Linkable Format</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLZCIHSjpQ12woLj0sjsnqDH8yVuXwTy3p">Handmade Linux x86 executables</a></li>
+</ul>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>

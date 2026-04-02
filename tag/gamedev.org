@@ -3,7 +3,8 @@
 - [[../project/game2d/index.org][game2d]]
 - [[../project/checkbox/index.org][CHECKBOX]]
 * Notes tagged ~gamedev~
-- [[../notes/unity.org][Unity]]
+- [[../notes/netcode.org][Netcode]]
+- [[../notes/steamworks.org][Steamworks API]]
 - [[../notes/unreal_engine.org][Unreal Engine]]
 - [[../notes/game_engine.org][Game Engine]]
 - [[../notes/nanite.org][Nanite]]

@@ -9,7 +9,7 @@
 - [[../notes/cost_function.org][Loss/Cost Function]]
 - [[../notes/sdf.org][Signed Distance Function]]
 - [[../notes/interpolation.org][Interpolation]]
-- [[../notes/model_view_projection.org][Model View Projection Matrix]]
+- [[../notes/model_view_projection.org][MVP (Model View Projection) Matrix]]
 - [[../notes/taylor_series.org][Taylor Series]]
 - [[../notes/calculus.org][Calculus]]
 - [[../notes/math.org][Mathematics]]

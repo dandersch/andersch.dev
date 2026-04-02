@@ -1,3 +1,4 @@
 #+TITLE: Pages tagged art
 * Notes tagged ~art~
+- [[../notes/3_point_lighting.org][Three-point Lighting]]
 - [[../notes/pixel_art.org][Pixel Art]]

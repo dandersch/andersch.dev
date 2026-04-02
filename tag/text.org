@@ -1,0 +1,4 @@
+#+TITLE: Pages tagged text
+* Notes tagged ~text~
+- [[../notes/utf_8.org][UTF-8]]
+- [[../notes/ascii.org][ASCII]]

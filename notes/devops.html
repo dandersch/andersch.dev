@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -219,29 +219,124 @@
 <main id="content" class="content">
 <div class="tags-date-box"><div class="date"><span class="timestamp"><2025-03-26 Wed></span></div><div class="tags"><code>[ <a href="/tag/devops.html">devops</a> <a href="/tag/networking.html">networking</a> ]</code></div></div><h1>DevOps</h1>
 <p>
-DevOps describes the collaboration and communication between software
-development (Dev) and IT operations (Ops). It is a field that concerns itself
-with an efficient approach to software deployment and infrastructure management.
+DevOps describes the link between software development (Dev) and IT operations
+(Ops) that takes care of software deployment and infrastructure management.
 </p>
-
-<p>
-DevOps aims to
-</p>
-<ul class="org-ul">
-<li>shorten development cycles</li>
-<li>improve deployment frequency</li>
-<li>ensure higher software quality</li>
-</ul>
 
 <p>
 It integrates practices such as
 </p>
 <ul class="org-ul">
-<li><a href="ci_cd.html#ID-dbfe5daa-31e3-4848-8145-ff4869debf68">Continuous Integration, Continuous Delivery</a> (CI/CD)</li>
-<li><a href="infrastructure_as_code.html#ID-05ee3cd8-bc0f-4ca1-b249-ada7c7e854f6">Infrastructure as Code</a> (IaC)</li>
+<li><a href="#ID-dbfe5daa-31e3-4848-8145-ff4869debf68">Continuous Integration, Continuous Delivery</a> (CI/CD)</li>
+<li><a href="#ID-05ee3cd8-bc0f-4ca1-b249-ada7c7e854f6">Infrastructure as Code</a> (IaC)</li>
 <li>Containerization and Orchestration</li>
 <li>Automation and monitoring</li>
 </ul>
+<div id="outline-container-ID-dbfe5daa-31e3-4848-8145-ff4869debf68" class="outline-2">
+<h2 id="ID-dbfe5daa-31e3-4848-8145-ff4869debf68"><a href="#ID-dbfe5daa-31e3-4848-8145-ff4869debf68">CI/CD (Continuous Integration, Continuous Delivery)</a></h2>
+<div class="outline-text-2" id="text-CI%2FCD%20%28Continuous%20Integration%2C%20Continuous%20Delivery%29">
+<p>
+Continuous Integration, Continuous Delivery (CI/CD) is a software development
+practice that automates building, testing, and deploying applications.
+</p>
+
+<p>
+Continuous Integration (CI) entails automated builds and tests for every commit,
+while Continuous Delivery (CD) means automatic preparation for release to
+production, in order to ensure deployable code at any time.
+</p>
+
+<p>
+CI/CD may include continuous deployment, which automatically releases to
+production.
+</p>
+
+<p>
+Key Components
+</p>
+<ul class="org-ul">
+<li>Version control (<a href="git.html#ID-f875c107-d907-4885-8be3-849543549598">Git</a>)</li>
+<li>Build automation</li>
+<li>Automated testing</li>
+<li>Deployment automation</li>
+<li>Monitoring</li>
+</ul>
+
+<p>
+Tools for CI/CD include Jenkins, GitHub Actions and GitLab CI.
+</p>
+</div>
+</div>
+<div id="outline-container-ID-05ee3cd8-bc0f-4ca1-b249-ada7c7e854f6" class="outline-2">
+<h2 id="ID-05ee3cd8-bc0f-4ca1-b249-ada7c7e854f6"><a href="#ID-05ee3cd8-bc0f-4ca1-b249-ada7c7e854f6">Infrastructure-as-Code (IaC)</a></h2>
+<div class="outline-text-2" id="text-Infrastructure-as-Code%20%28IaC%29">
+<p>
+Infrastructure-as-Code (IaC) is the approach of provisioning IT infrastructure
+through machine-readable config files, as opposed to using interactive tools
+(e.g. shell commands or GUIs). It allows for automated deployment using code,
+which enables more scalability.
+</p>
+
+<p>
+Examples include <a href="#ID-d731f298-4b08-467d-afe9-707d9475d52a">Ansible</a>, Terraform and AWS CloudFormation.
+</p>
+</div>
+</div>
+<div id="outline-container-ID-d731f298-4b08-467d-afe9-707d9475d52a" class="outline-2">
+<h2 id="ID-d731f298-4b08-467d-afe9-707d9475d52a"><a href="#ID-d731f298-4b08-467d-afe9-707d9475d52a">Ansible&#xa0;&#xa0;&#xa0;<span class="tag"><span class="software">software</span></span></a></h2>
+<div class="outline-text-2" id="text-Ansible">
+<p>
+Ansible is an open-source <a href="#ID-05ee3cd8-bc0f-4ca1-b249-ada7c7e854f6">Infrastructure-as-Code</a> (IaC) tool that uses YAML files
+(so-called <i>playbooks</i>) to define configuration and deployment of applications.
+</p>
+
+<p>
+Its architecture is based on a push model, where commands are executed from a
+central control node to target machines, making it easy to manage both small and
+large-scale environments.
+</p>
+
+<p>
+It does need special software to be preinstalled and can just use SSH for
+communication instead.
+</p>
+</div>
+<div id="outline-container-%22Hello%20World%22%20Example" class="outline-3">
+<h3 id="%22Hello%20World%22%20Example"><a href="#%22Hello%20World%22%20Example">"Hello World" Example</a></h3>
+<div class="outline-text-3" id="text-%22Hello%20World%22%20Example">
+<p>
+The inventory file <code>hosts.ini</code> defines the target hosts:
+</p>
+<div class="org-src-container">
+<pre class="src src-ini">[local]
+localhost ansible_connection=local
+</pre>
+</div>
+
+<p>
+The playbook <code>hello_world.yml</code> contains all instructions:
+</p>
+<div class="org-src-container">
+<pre class="src src-yaml">---
+- name: Hello World Playbook
+  hosts: local
+  tasks:
+    - name: Print Hello World
+      debug:
+        msg: "Hello, World!"
+</pre>
+</div>
+
+<p>
+Running the playbook:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">ansible-playbook -i hosts.ini hello_world.yml
+</pre>
+</div>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>

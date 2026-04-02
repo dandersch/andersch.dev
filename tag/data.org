@@ -1,0 +1,9 @@
+#+TITLE: Pages tagged data
+* Notes tagged ~data~
+- [[../notes/utf_8.org][UTF-8]]
+- [[../notes/serialization.org][Serialization]]
+- [[../notes/qr_code.org][QR code]]
+- [[../notes/markup_language.org][Markup Languages]]
+- [[../notes/org_mode.org][Org-mode]]
+- [[../notes/wave.org][WAVE (File format)]]
+- [[../notes/file_format.org][File format]]

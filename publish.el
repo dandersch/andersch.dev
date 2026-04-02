@@ -521,7 +521,7 @@ document.addEventListener('DOMContentLoaded', function() {
 (setq roam-andersch-dev-images
       (list "roam.andersch.dev-images"
              :base-directory org-roam-directory
-             :base-extension "jpg\\|gif\\|png\\|svg"
+             :base-extension "jpg\\|gif\\|png\\|svg\\|wasm\\|js"
              :publishing-directory "./notes/"
              :publishing-function 'org-publish-attachment))
 

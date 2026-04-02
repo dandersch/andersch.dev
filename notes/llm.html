@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -230,19 +230,20 @@ understand patterns, grammar, context, and semantics.
 A model consists of its <i>parameters</i> (or weights) and an executable that runs on
 those parameters.
 </p>
-
-<p>
-Notable examples:
-</p>
+<div id="outline-container-Notable%20LLMs" class="outline-2">
+<h2 id="Notable%20LLMs"><a href="#Notable%20LLMs">Notable LLMs</a></h2>
+<div class="outline-text-2" id="text-Notable%20LLMs">
 <ul class="org-ul">
-<li>GPT-4    (<a href="openai.html#ID-072eda3d-bd77-423f-9a1a-dff23adf13e9">OpenAI</a>)</li>
-<li><a href="claude.html#ID-13caad8a-757f-4eea-be1e-9ed2e67c19f7">Claude</a>   (Anthropic)</li>
-<li><a href="llama.html#ID-2d3229b2-eec6-4946-a11c-22aee38254d3">LLaMA</a>    (Meta)</li>
-<li><a href="deepseek.html#ID-62df6959-a341-4c49-9069-e9dcfb7c013e">DeepSeek</a> (DeepSeek)</li>
+<li>ChatGPT  (OpenAI)</li>
+<li>Claude   (Anthropic)</li>
+<li>LLaMA    (Meta)</li>
+<li>DeepSeek (DeepSeek)</li>
 <li>Grok     (xAI)</li>
 <li>Gemini   (Google)</li>
 <li>Mistral  (Mistral AI)</li>
 </ul>
+</div>
+</div>
 <div id="outline-container-Model%20Training" class="outline-2">
 <h2 id="Model%20Training"><a href="#Model%20Training">Model Training</a></h2>
 <div class="outline-text-2" id="text-Model%20Training">
@@ -413,6 +414,438 @@ Example: <a href="https://huggingface.co/ibm-granite/granite-3.1-8b-instruct">ib
 </table>
 </div>
 </div>
+<div id="outline-container-ID-d8620aee-f368-4f18-880c-e0360174d9c6" class="outline-2">
+<h2 id="ID-d8620aee-f368-4f18-880c-e0360174d9c6"><a href="#ID-d8620aee-f368-4f18-880c-e0360174d9c6">AI/LLM Agents</a></h2>
+<div class="outline-text-2" id="text-AI%2FLLM%20Agents">
+<p>
+AI agents are autonomous systems where <a href="llm.html#ID-b7c95b8a-cf51-4996-8d0a-4cff64ec83d1">LLMs</a> direct themselves independently over
+extended periods, in order to accomplish complex tasks.
+</p>
+
+<p>
+Or: <a href="https://simonwillison.net/2025/Sep/18/agents/">Agents run tools in a loop to achieve a goal</a>
+</p>
+
+<p>
+Examples
+</p>
+<ul class="org-ul">
+<li><a href="https://github.com/browser-use/browser-use">Browser Use</a> - Browser controlling tool for AI agents</li>
+<li><a href="https://manus.im/">Manus</a>       - General AI agent</li>
+<li><a href="https://github.com/mannaandpoem/OpenManus">OpenManus</a>   - Open-source implementation of Manus</li>
+<li><a href="https://gptme.org/docs/getting-started.html">gptme</a>       - AI agent in the terminal</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-API%20Price%20Comparison" class="outline-2">
+<h2 id="API%20Price%20Comparison"><a href="#API%20Price%20Comparison">API Price Comparison</a></h2>
+<div class="outline-text-2" id="text-API%20Price%20Comparison">
+<p>
+See <a href="https://www.llm-prices.com/">LLM pricing calculator</a>
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">model</th>
+<th scope="col" class="org-left">provider</th>
+<th scope="col" class="org-left">1m/in</th>
+<th scope="col" class="org-left">1m/out</th>
+<th scope="col" class="org-left">month</th>
+<th scope="col" class="org-left">context</th>
+<th scope="col" class="org-left">output</th>
+<th scope="col" class="org-right">rpm</th>
+<th scope="col" class="org-left">tpm</th>
+<th scope="col" class="org-right">rpd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Claude 3.7 Sonnet</td>
+<td class="org-left">Anthropic</td>
+<td class="org-left">$3</td>
+<td class="org-left">$15</td>
+<td class="org-left">$0</td>
+<td class="org-left">200k</td>
+<td class="org-left">64k</td>
+<td class="org-right">50</td>
+<td class="org-left">20k</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Claude 3.5 Sonnet</td>
+<td class="org-left">Anthropic</td>
+<td class="org-left">$3</td>
+<td class="org-left">$15</td>
+<td class="org-left">$0</td>
+<td class="org-left">200k</td>
+<td class="org-left">8k</td>
+<td class="org-right">50</td>
+<td class="org-left">40k</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">DeepSeek-R1</td>
+<td class="org-left">DeepSeek</td>
+<td class="org-left">$0.55</td>
+<td class="org-left">$2.19</td>
+<td class="org-left">$0</td>
+<td class="org-left">64k</td>
+<td class="org-left">8k</td>
+<td class="org-right">∞</td>
+<td class="org-left">∞</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">GPT-4.5</td>
+<td class="org-left">OpenAI</td>
+<td class="org-left">$75</td>
+<td class="org-left">$150</td>
+<td class="org-left">$0</td>
+<td class="org-left">128k</td>
+<td class="org-left">16k</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Gemini 2.5 Flash</td>
+<td class="org-left">Google</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">1m</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">10</td>
+<td class="org-left">250k</td>
+<td class="org-right">500</td>
+</tr>
+
+<tr>
+<td class="org-left">Gemini 2.5 Pro</td>
+<td class="org-left">Google</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">1m</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">N/A</td>
+<td class="org-left">N/A</td>
+<td class="org-right">N/A</td>
+</tr>
+
+<tr>
+<td class="org-left">Gemini 2.5 Flash</td>
+<td class="org-left">Google</td>
+<td class="org-left">$0.15</td>
+<td class="org-left">$3.5</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">1m</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1000</td>
+<td class="org-left">1m</td>
+<td class="org-right">10k</td>
+</tr>
+
+<tr>
+<td class="org-left">Gemini 2.5 Pro</td>
+<td class="org-left">Google</td>
+<td class="org-left">$2.5</td>
+<td class="org-left">$15</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">1m</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1500</td>
+<td class="org-left">2m</td>
+<td class="org-right">1000</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><a href="https://openrouter.ai/">OpenRouter</a></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><a href="https://groq.com/">groq</a></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><a href="https://glhf.chat">glhf.chat</a></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><a href="https://cerebras.ai/">Cerebras</a></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><a href="https://deepinfra.com/">DeepInfra</a></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><a href="https://www.together.ai/">together.ai</a></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><a href="https://replicate.com/">Replicate</a></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><a href="https://nebius.com/">Nebius</a></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-Benchmarks" class="outline-2">
+<h2 id="Benchmarks"><a href="#Benchmarks">Benchmarks</a></h2>
+<div class="outline-text-2" id="text-Benchmarks">
+<p>
+Benchmarks aims to evaluate the performance of <a href="llm.html#ID-b7c95b8a-cf51-4996-8d0a-4cff64ec83d1">LLMs</a> to measure their
+capabilities in areas such as reasoning, understanding, and generation.
+</p>
+
+<p>
+Prominent Examples:
+</p>
+<ul class="org-ul">
+<li><i>Chatbot Arena</i>: users rate LLM responses in conversations (crowdsourced)</li>
+<li><i>MMLU (Massive Multitask Language Understanding)</i>: Broad knowledge tests</li>
+<li><i>HumanEval</i>: Coding ability benchmark, checked against test cases</li>
+</ul>
+
+<p>
+Resources:
+</p>
+<ul class="org-ul">
+<li><a href="https://aider.chat/docs/leaderboards/">Aider LLM Leaderboards</a>: LLM Coding Benchmark</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-Security" class="outline-2">
+<h2 id="Security"><a href="#Security">Security</a></h2>
+<div class="outline-text-2" id="text-Security">
+<p>
+Types of attacks:
+</p>
+<ul class="org-ul">
+<li><b>Jailbreaks</b>: Circumventing alignment, e.g. sending a harmful prompt in base64</li>
+<li><b>Prompt injection</b>: Embedding harmful prompt in unexpected places</li>
+<li><b>Data poisoning/Backdoor</b>: Poisoning (finetuning) dataset, e.g. with a code
+word</li>
+<li>Adversarial inputs</li>
+<li>Insecure output handling</li>
+<li>Data extraction &amp; privacy</li>
+<li>Data reconstruction</li>
+<li>Denial of service</li>
+<li>Escalation</li>
+<li>Watermarking &amp; evasion</li>
+<li>Model theft</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-ID-50c92aae-7a9f-4a5f-b8d9-820e127a331b" class="outline-2">
+<h2 id="ID-50c92aae-7a9f-4a5f-b8d9-820e127a331b"><a href="#ID-50c92aae-7a9f-4a5f-b8d9-820e127a331b">Model Context Protocol (MCP)</a></h2>
+<div class="outline-text-2" id="text-Model%20Context%20Protocol%20%28MCP%29">
+<p>
+Model Context Protocol (MCP) is an open protocol that specifies how an <a href="llm.html#ID-b7c95b8a-cf51-4996-8d0a-4cff64ec83d1">LLM</a> can
+retrieve data from different sources into its context window and can be used to
+provide custom tool usage to a model. It was introduced by Anthropic in 2024.
+</p>
+
+<p>
+Similar to Retrieval Augmented Generation (RAG), MCP is concerned with giving
+LLMs access to data that was not part of their original training data set.
+</p>
+
+<p>
+Components
+</p>
+<ul class="org-ul">
+<li><b>MCP Host</b>: Program that wants to access resources (e.g. Claude Desktop)</li>
+<li><b>MCP Client</b>: On the host; maintains connections with servers</li>
+<li><b>MCP Servers</b>: Provides resources, prompts and tools</li>
+<li><b>Resources</b>: Local (filesystem, databases), or remote (behind API)</li>
+</ul>
+
+<p>
+Resources
+</p>
+<ul class="org-ul">
+<li><a href="https://modelcontextprotocol.io/introduction">https://modelcontextprotocol.io/introduction</a></li>
+<li><a href="https://www.zbeegnew.dev/tech/build_your_own_ai_coding_assistant_a_cost-effective_alternative_to_cursor/">Build Your Own AI Coding Assistant</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-LLM%20Inference%20Software" class="outline-2">
+<h2 id="LLM%20Inference%20Software"><a href="#LLM%20Inference%20Software">LLM Inference Software</a></h2>
+<div class="outline-text-2" id="text-LLM%20Inference%20Software">
+<ul class="org-ul">
+<li><a href="https://github.com/ggerganov/llama.cpp">llama.cpp</a> - LLM inference in C/C++</li>
+<li><a href="https://github.com/vllm-project/vllm">vLLM</a>      - Inference and serving engine for LLMs</li>
+<li><a href="https://github.com/turboderp/exllamav2">ExLlamaV2</a> - Library for local inference on modern consumer-class GPUs</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-Claude%20Prompting%20Guide" class="outline-2">
+<h2 id="Claude%20Prompting%20Guide"><a href="#Claude%20Prompting%20Guide">Claude Prompting Guide</a></h2>
+<div class="outline-text-2" id="text-Claude%20Prompting%20Guide">
+<p>
+General tips
+</p>
+<ul class="org-ul">
+<li>Be clear, specific, provide context and break complex tasks down</li>
+<li>Provide examples of the kind of output you're looking for</li>
+<li>Encourage thinking (ask to "think step-by-step" or "explain your reasoning.)</li>
+<li>Iterative refinement (ask for clarifications/modifications)</li>
+<li>Leverage Claude's knowledge (ask for explanations or background information)</li>
+<li>Use role-playing (ask to adopt a specific role or perspective)</li>
+</ul>
+
+<p>
+Content Creation
+</p>
+<ul class="org-ul">
+<li>Specify your audience</li>
+<li>Define the tone and style</li>
+<li>Define output structure (Provide basic outline of points you want covered)</li>
+<li>Specify the desired output format</li>
+</ul>
+
+<p>
+Document summary and Q&amp;A
+</p>
+<ul class="org-ul">
+<li>Refer to attached documents by name.</li>
+<li>Ask for citations from the document in its answers</li>
+</ul>
+
+<p>
+Brainstorming
+</p>
+<ul class="org-ul">
+<li>Use Claude to generate ideas by asking for a list of possibilities</li>
+<li>Request responses in specific formats (bullet points, lists, or tables)</li>
+</ul>
+
+<p>
+Troubleshooting, minimizing hallucinations, and maximizing performance
+</p>
+<ul class="org-ul">
+<li>Allow Claude to acknowledge uncertainty ("If unsure, say you don't know")</li>
+<li>Break down complex tasks into smaller steps</li>
+<li>Include all contextual information for new conversations</li>
+</ul>
+</div>
+</div>
 <div id="outline-container-Resources" class="outline-2">
 <h2 id="Resources"><a href="#Resources">Resources</a></h2>
 <div class="outline-text-2" id="text-Resources">
@@ -422,6 +855,17 @@ Example: <a href="https://huggingface.co/ibm-granite/granite-3.1-8b-instruct">ib
 <li><a href="https://nicholas.carlini.com/writing/2023/chat-gpt-2-in-c.html">A ChatGPT clone, in 3000 bytes of C, backed by GPT-2</a></li>
 <li><a href="https://github.com/karpathy/llm.c">Andrej Karpathy - LLM training in simple, raw C/CUDA</a></li>
 <li><a href="https://www.youtube.com/watch?v=7xTGNNLPyMI">Andrej Karpathy - Deep Dive into LLMs Like ChatGPT</a></li>
+<li><a href="https://newsletter.languagemodels.co/p/the-illustrated-deepseek-r1">The Illustrated DeepSeek-R1</a></li>
+<li><a href="https://www.pyspur.dev/blog/deepseek_open_source_week">DeepSeek's open-source week and why it's a big deal</a></li>
+<li><a href="https://nullprogram.com/blog/2024/11/10/">Everything I've learned so far about running local LLMs</a></li>
+<li><a href="https://steelph0enix.github.io/posts/llama-cpp-guide/">llama.cpp guide - Running LLMs locally, on any hardware, from scratch</a></li>
+<li><a href="https://github.com/adalkiran/llama-nuts-and-bolts">Llama 3.1 Nuts and Bolts</a>: Understanding how Llama works (code + documentation)</li>
+<li><a href="https://blog.sshh.io/p/how-i-use-every-claude-code-feature">How I Use Every Claude Code Feature</a></li>
+<li id="[[<a href="https://www.gilesthomas.com/2024/12/llm-from-scratch-1">https://www.gilesthomas.com/2024/12/llm-from-scratch-1</a>][Writing an LLM from scratch, part 1">Giles' blog]]</li>
+<li><a href="https://x.com/ProfTomYeh/status/1985376111782711560">llm.c by hand ✍️ C meets Transformer</a></li>
+<li><a href="https://www.anthropic.com/research/building-effective-agents">Antrophic - Building effective agents</a></li>
+<li><a href="https://simonwillison.net/2025/Oct/7/vibe-engineering/#atom-everything">Vibe engineering</a></li>
+<li><a href="https://www.youtube.com/watch?v=X8M6U3QiC8Q">Agentic Coding Questions and Current Workflow - YouTube</a></li>
 </ul>
 </div>
 </div>

@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -230,15 +230,15 @@ the <a href="dom.html#ID-37c8079d-ecc0-48ab-bdd3-b9f06252808f">DOM</a>) so JS fu
 </p>
 
 <p>
-It comes with a text format (<code>.wat</code>) and a binary format (<code>.wasm</code>). The <code>.wat</code> format
-uses S-expressions and a very <a href="lisp.html#ID-d84f2d34-2342-436c-8bf5-f94ff342d074">lisp-like</a> syntax (lots of parentheses, <code>;;</code> denotes
-comments).
+It comes with a text format (<code>.wat</code>) and a binary format (<code>.wasm</code>). The <code>.wat</code>
+format uses S-expressions and a very lisp-like syntax (lots of parentheses, <code>;;</code>
+denotes comments).
 </p>
 <div id="outline-container-Components%2FToolchain" class="outline-2">
 <h2 id="Components%2FToolchain"><a href="#Components%2FToolchain">Components/Toolchain</a></h2>
 <div class="outline-text-2" id="text-Components%2FToolchain">
 <p>
-<i>WASM module</i>: Compiled and linked image (like <a href="elf.html#ID-c336dde8-b842-4b6d-86ec-7490b96f19a0">ELF</a> or PE)
+<i>WASM module</i>: Compiled and linked image (like <a href="executable_image.html#ID-c336dde8-b842-4b6d-86ec-7490b96f19a0">ELF</a> or PE)
 </p>
 <ul class="org-ul">
 <li>contains sections for code, types, globals, import table, export table, etc.</li>
@@ -441,6 +441,7 @@ init();
 <li><a href="https://nullprogram.com/blog/2025/04/04/">Lessons learned from my first dive into WebAssembly</a></li>
 <li><a href="https://nullprogram.com/blog/2025/04/19/">WebAssembly: How to allocate your allocator</a></li>
 <li><a href="https://wasi.dev/">wasi.dev</a>: WebAssembly System Interface (WASI)</li>
+<li><a href="https://danielmangum.com/posts/wasm-wasi-clang-17/">Zero to WASI with Clang 17 · Daniel Mangum</a></li>
 </ul>
 </div>
 </div>

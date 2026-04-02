@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -253,9 +253,10 @@ incompatible interfaces. There are Class Adapters &amp; Object Adapters.</li>
 <li><b>Composite</b>: Compose objects into tree structures to represent part-whole
 hierarchies. Composite lets clients treat individual objects and compositions
 of objects uniformly.</li>
-<li><b>Decorator</b>: Attach additional responsibilities to an object dynamically.
-Decorators provide a flexible alternative to subclassing for extending
-functionality.</li>
+<li><b>Decorator</b>: Wrap an object with another that adds behavior while keeping the
+same interface. Go's middleware idiom is an example of this pattern applied to
+HTTP handlers. In OOP, they provide a flexible alternative to subclassing for
+extending functionality.</li>
 <li><b>Facade</b>: Provides a unified interface to a set of interfaces in a subsystem.
 Facade defines a higher-level interface that makes the subsystem easier to
 use.</li>

@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -259,16 +259,20 @@ shopt -s nullglob
 
 <li>Get Device IDs with <code>$ lspci -nn</code>
 <ul class="org-ul">
-<li>GPU: [1002:67df]</li>
-<li>AUD: [1002:aaf0]</li>
+<li>GPU: [10de:1c03]</li>
+<li>AUD: [10de:10f1]</li>
 </ul></li>
 
 <li>Edit <code>/etc/modprobe.d/vfio.conf</code>:
-<code>options vfio-pci ids=1002:67df,1002:aaf0</code></li>
+<code>options vfio-pci ids=10de:1c03,10de:10f1</code></li>
 
 <li>Or specify kernel parameters in <code>/etc/default/grub:</code>
-<code>vfio-pci.ids=10de:13c2,10de:0fbb</code>
+<code>intel_iommu=on iommu=pt</code>
+<code>vfio-pci.ids=10de:1c03,10de:10f1</code>
 Update grub with <code>grub-mkconfig -o /boot/grub/grub.cfg</code></li>
+
+<li>Copy OVMF<sub>CODE.fd</sub> to bios.bin somewhere. Must be renamed.
+<code>cp /usr/share/ovmf/x64/OVMF_CODE.fd bios.bin</code></li>
 
 <li>Edit <code>/etc/mkinitcpio.conf</code>
 <ul class="org-ul">

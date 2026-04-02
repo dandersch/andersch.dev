@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Model View Projection Matrix</title>
+<title>MVP (Model View Projection) Matrix</title>
 <meta name="generator" content="Org Mode" />
 <style type="text/css">
   #content { max-width: 60em; margin: auto; }
@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -217,7 +217,7 @@
 </header>
 </header>
 <main id="content" class="content">
-<div class="tags-date-box"><div class="date"><span class="timestamp"><2024-05-30 Thu></span></div><div class="tags"><code>[ <a href="/tag/math.html">math</a> <a href="/tag/graphics.html">graphics</a> ]</code></div></div><h1>Model View Projection Matrix</h1>
+<div class="tags-date-box"><div class="date"><span class="timestamp"><2024-05-30 Thu></span></div><div class="tags"><code>[ <a href="/tag/math.html">math</a> <a href="/tag/graphics.html">graphics</a> ]</code></div></div><h1>MVP (Model View Projection) Matrix</h1>
 <p>
 The Model-View-Projection (MVP) matrix encodes the transformation pipeline of
 every vertex in a 3D scene. More specifically, the MVP matrix consists of three
@@ -340,6 +340,29 @@ C code to specify a perspective projection matrix:
 <span class="org-type">float</span> <span class="org-variable-name">perspective_projection_matrix</span>[16] =
 {
 };
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-Dominoes%20Convention" class="outline-2">
+<h2 id="Dominoes%20Convention"><a href="#Dominoes%20Convention">Dominoes Convention</a></h2>
+<div class="outline-text-2" id="text-Dominoes%20Convention">
+<p>
+Dominoes convention for MVP to make transformations from one space to another
+easy and obvious:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">mat4</span> <span class="org-variable-name">projection_from_view</span>;
+<span class="org-type">mat4</span> <span class="org-variable-name">view_from_world</span>;
+<span class="org-type">mat4</span> <span class="org-variable-name">world_from_model</span>;
+
+<span class="org-type">vec4</span> <span class="org-variable-name">model_position</span>;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">stick dominoes together:</span>
+<span class="org-type">vec4</span> <span class="org-variable-name">model_projection</span> = projection_from_view * view_from_world * world_from_model * model_position;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">inverting flips word order:</span>
+<span class="org-type">mat4</span> <span class="org-variable-name">model_from_view</span> = mat4_invert(view_from_model);
 </pre>
 </div>
 </div>

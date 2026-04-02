@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -229,133 +229,6 @@ There are various types of neural networks, such as feedforward neural networks
 (FNN), convolutional neural networks (CNN), deep neural networks (DNN) and
 recurrent neural networks (RNN).
 </p>
-<div id="outline-container-The%20Spelled-out%20Intro%20to%20Neural%20Networks%20and%20Backpropagation" class="outline-2">
-<h2 id="The%20Spelled-out%20Intro%20to%20Neural%20Networks%20and%20Backpropagation"><a href="#The%20Spelled-out%20Intro%20to%20Neural%20Networks%20and%20Backpropagation">The Spelled-out Intro to Neural Networks and Backpropagation</a></h2>
-<div class="outline-text-2" id="text-The%20Spelled-out%20Intro%20to%20Neural%20Networks%20and%20Backpropagation">
-<p>
-<a href="https://github.com/karpathy/nn-zero-to-hero/blob/master/lectures/micrograd/micrograd_lecture_first_half_roughly.ipynb">https://github.com/karpathy/nn-zero-to-hero/blob/master/lectures/micrograd/micrograd_lecture_first_half_roughly.ipynb</a>
-</p>
-
-<div class="org-src-container">
-<pre class="src src-jupyter-python">class Value:
-
-  def __init__(self, data, _children=(), _op='', label=''):
-    self.data = data
-    self.grad = 0.0
-    self._backward = lambda: None
-    self._prev = set(_children)
-    self._op = _op
-    self.label = label
-
-  def __repr__(self):
-    return f"Value(data={self.data})"
-
-  def __add__(self, other):
-    out = Value(self.data + other.data, (self, other), '+')
-
-    def _backward():
-      self.grad += 1.0 * out.grad
-      other.grad += 1.0 * out.grad
-    out._backward = _backward
-
-    return out
-
-  def __mul__(self, other):
-    out = Value(self.data * other.data, (self, other), '*')
-
-    def _backward():
-      self.grad += other.data * out.grad
-      other.grad += self.data * out.grad
-    out._backward = _backward
-
-    return out
-
-  def tanh(self):
-    x = self.data
-    t = (math.exp(2*x) - 1)/(math.exp(2*x) + 1)
-    out = Value(t, (self, ), 'tanh')
-
-    def _backward():
-      self.grad += (1 - t**2) * out.grad
-    out._backward = _backward
-
-    return out
-
-  def backward(self):
-
-    topo = []
-    visited = set()
-    def build_topo(v):
-      if v not in visited:
-        visited.add(v)
-        for child in v._prev:
-          build_topo(child)
-        topo.append(v)
-    build_topo(self)
-
-    self.grad = 1.0
-    for node in reversed(topo):
-      node._backward()
-
-
-a = Value(2.0, label='a')
-b = Value(-3.0, label='b')
-c = Value(10.0, label='c')
-e = a*b; e.label = 'e'
-d = e + c; d.label = 'd'
-f = Value(-2.0, label='f')
-L = d * f; L.label = 'L'
-L
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-jupyter-python">from graphviz import Digraph
-
-def trace(root):
-  # builds a set of all nodes and edges in a graph
-  nodes, edges = set(), set()
-  def build(v):
-    if v not in nodes:
-      nodes.add(v)
-      for child in v._prev:
-        edges.add((child, v))
-        build(child)
-  build(root)
-  return nodes, edges
-
-def draw_dot(root):
-  dot = Digraph(format='svg', graph_attr={'rankdir': 'LR'}) # LR = left to right
-
-  nodes, edges = trace(root)
-  for n in nodes:
-    uid = str(id(n))
-    # for any value in the graph, create a rectangular ('record') node for it
-    dot.node(name = uid, label = "{ %s | data %.4f | grad %.4f }" % (n.label, n.data, n.grad), shape='record')
-    if n._op:
-      # if this value is a result of some operation, create an op node for it
-      dot.node(name = uid + n._op, label = n._op)
-      # and connect this node to it
-      dot.edge(uid + n._op, uid)
-
-  for n1, n2 in edges:
-    # connect n1 to the op node of n2
-    dot.edge(str(id(n1)), str(id(n2)) + n2._op)
-
-  return dot
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-jupyter-python">draw_dot(L)
-</pre>
-</div>
-
-<p>
-<a href="https://youtu.be/VMj-3S1tku0?feature=shared&amp;t=1925">https://youtu.be/VMj-3S1tku0?feature=shared&amp;t=1925</a>
-</p>
-</div>
-</div>
 <div id="outline-container-Types%20of%20Neural%20Networks" class="outline-2">
 <h2 id="Types%20of%20Neural%20Networks"><a href="#Types%20of%20Neural%20Networks">Types of Neural Networks</a></h2>
 <div class="outline-text-2" id="text-Types%20of%20Neural%20Networks">
@@ -404,27 +277,16 @@ Recurrent Neural Network (RNN):
 <div class="outline-text-2" id="text-Terminology">
 <ul class="org-ul">
 <li><b>MLP</b>: Multi-Layer Perceptron, the classic type of neural networks</li>
-
 <li><b>Layer</b>: A group of neurons</li>
-
 <li><b>Weights</b>: Strengths of connections between neurons</li>
-
-<li><b>Bias</b>: Inputs multiplied by weights and summed up with an output neuron's bias</li>
-
+<li><b>Bias</b>: Inputs multiplied by weights &amp; summed up with an output neuron's bias</li>
 <li><b>Epoch</b>: Going once through the entire training data</li>
-
 <li><b>Activation Function</b>: A nonlinear function that the output goes through</li>
-
 <li><b>Binary Classifiers</b>: Take a float vector in and give an integer out</li>
-
 <li><b>Supervised Learning</b>: Training by giving input and expected output</li>
-
 <li><b>Mini-Batching</b>: Updating weights and biases several times during an epoch</li>
-
 <li><b>Learning Rate</b>: How much to update the weights during training</li>
-
 <li><a href="gradient_descent.html#ID-17216e76-b020-47db-b5d2-bce1349b653d">Gradient Descent</a>: How neural networks are trained.</li>
-
 <li><a href="cost_function.html#ID-7ae09725-e178-4a36-988a-e9e52ee4eca7">Cost Function</a>: Says how wrong the output is for that input.</li>
 </ul>
 </div>

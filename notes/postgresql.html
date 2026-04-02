@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -219,14 +219,41 @@
 <main id="content" class="content">
 <div class="tags-date-box"><div class="date"><span class="timestamp"><2025-01-17 Fri></span></div><div class="tags"><code>[ <a href="/tag/database.html">database</a> ]</code></div></div><h1>PostgreSQL</h1>
 <p>
-PostgreSQL is an open-source <a href="rdbms.html#ID-b8d76554-1dbc-4648-866f-9ae2f846d82e">RDBMS</a> that uses and extends <a href="sql.html#ID-06246449-6996-43bc-ad78-10ec126d9f32">SQL</a>. It is <a href="acid.html#ID-821c0f77-520c-4381-a524-ce179e7cb85c">ACID</a>
+PostgreSQL is an open-source <a href="rdbms.html#ID-b8d76554-1dbc-4648-866f-9ae2f846d82e">RDBMS</a> that uses and extends <a href="sql.html#ID-06246449-6996-43bc-ad78-10ec126d9f32">SQL</a>. It is <a href="rdbms.html#ID-821c0f77-520c-4381-a524-ce179e7cb85c">ACID</a>
 compliant, scalable and extensible.
 </p>
+<div id="outline-container-Tools%20%26%20Config" class="outline-2">
+<h2 id="Tools%20%26%20Config"><a href="#Tools%20%26%20Config">Tools &amp; Config</a></h2>
+<div class="outline-text-2" id="text-Tools%20%26%20Config">
+<p>
+CLI Tools:
+</p>
+<ul class="org-ul">
+<li><code>psql</code>: interactive SQL shell for connecting to databases, run queries, etc.</li>
+<li><code>pg_ctl</code>: Starts &amp; stops the PostgreSQL server</li>
+<li><code>createdb</code> / <code>dropdb</code>: Create or remove databases</li>
+<li><code>createuser</code> / <code>dropuser</code>: Create or remove users</li>
+<li><code>pg_dump</code> / <code>pg_restore</code>: Backup or restore a database</li>
+</ul>
+
+<p>
+Data and config files:
+</p>
+<ul class="org-ul">
+<li><code>$PGDATA</code>: data directory for storing databases, WAL logs, and config files.</li>
+<li><code>postgresql.conf</code>: Main server configuration (ports, logging, memory settings)</li>
+<li><code>pg_hba.conf</code>: Controls client authentication</li>
+</ul>
+</div>
+</div>
 <div id="outline-container-Resources" class="outline-2">
 <h2 id="Resources"><a href="#Resources">Resources</a></h2>
 <div class="outline-text-2" id="text-Resources">
 <ul class="org-ul">
 <li><a href="https://github.com/Olshansk/postgres_for_everything">Postgres for Everything</a></li>
+<li><a href="https://wiki.archlinux.org/title/PostgreSQL">PostgreSQL - ArchWiki</a></li>
+<li><a href="https://pglite.dev/">PGlite - Embeddable Postgres</a></li>
+<li><a href="https://github.com/fergusstrange/embedded-postgres">fergusstrange/embedded-postgres</a>: Run Postgres locally in a Go application</li>
 </ul>
 </div>
 </div>

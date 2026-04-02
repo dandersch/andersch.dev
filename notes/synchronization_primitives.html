@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -220,20 +220,166 @@
 <div class="tags-date-box"><div class="date"><span class="timestamp"><2025-04-20 Sun></span></div><div class="tags"><code>[ <a href="/tag/concurrency.html">concurrency</a> ]</code></div></div><h1>Synchronization Primitives</h1>
 <p>
 Synchronization primitives are mechanisms that coordinate <a href="concurrency.html#ID-ae158974-7fdb-4d57-a098-3c00200a2320">concurrent execution</a>
-between <a href="multithreading.html#ID-08c89846-0c43-460d-931a-9c824b3980ad">multiple threads</a> to avoid <a href="race_condition.html#ID-e183ef2b-cfb8-4c43-bcd4-fbc3a618ebd1">race conditions</a> and ensure data consistency.
+between <a href="multithreading.html#ID-08c89846-0c43-460d-931a-9c824b3980ad">multiple threads</a> to avoid <a href="multithreading.html#ID-e183ef2b-cfb8-4c43-bcd4-fbc3a618ebd1">race conditions</a> and ensure data consistency.
 </p>
 
 <p>
 Examples:
 </p>
 <ul class="org-ul">
-<li><a href="mutex.html#ID-2fcbf4a7-b7d9-4264-8959-eadf8ce1b5f6">Mutex</a></li>
-<li><a href="spinlock.html#ID-e61ddcaa-3ea5-40e1-8b5b-e0767fc7641a">Spinlock</a></li>
-<li><a href="semaphore.html#ID-ac3b04df-a9df-400a-b9f6-3761d6f2bbc7">Semaphore</a></li>
-<li><a href="condition_variable.html#ID-c4cdb8eb-682a-4ac0-ae1e-4821a7b2aa6f">Condition Variable</a></li>
+<li><a href="#ID-2fcbf4a7-b7d9-4264-8959-eadf8ce1b5f6">Mutex</a></li>
+<li><a href="#ID-e61ddcaa-3ea5-40e1-8b5b-e0767fc7641a">Spinlock</a></li>
+<li><a href="#ID-ac3b04df-a9df-400a-b9f6-3761d6f2bbc7">Semaphore</a></li>
+<li><a href="#ID-c4cdb8eb-682a-4ac0-ae1e-4821a7b2aa6f">Condition Variable</a></li>
 <li>Futex</li>
 <li>Memory Barrier/Fence</li>
 </ul>
+<div id="outline-container-ID-2fcbf4a7-b7d9-4264-8959-eadf8ce1b5f6" class="outline-2">
+<h2 id="ID-2fcbf4a7-b7d9-4264-8959-eadf8ce1b5f6"><a href="#ID-2fcbf4a7-b7d9-4264-8959-eadf8ce1b5f6">Mutex</a></h2>
+<div class="outline-text-2" id="text-Mutex">
+<p>
+In <a href="multithreading.html#ID-08c89846-0c43-460d-931a-9c824b3980ad">multithreading</a>, a mutex (mutual exclusion) is a <a href="synchronization_primitives.html#ID-075b2098-8a0a-4216-b121-05480b8c1280">synchronization primitive</a>
+that prevents multiple threads from simultaneously accessing shared resources.
+</p>
+
+<p>
+It acts as a lock that only one thread can hold at a time - when a thread
+acquires the mutex, others attempting to access the same resource must wait
+until the mutex is released
+</p>
+
+<p>
+The use of mutexes can prevent race conditions, but may also introduce
+performance bottlenecks and deadlocks.
+</p>
+
+<p>
+Basic Mutex API:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">int</span> <span class="org-function-name">mutex_init</span>(<span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);
+<span class="org-type">int</span> <span class="org-function-name">mutex_lock</span>(<span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);    <span class="org-comment-delimiter">// </span><span class="org-comment">blocking, waits until mutex available</span>
+<span class="org-type">int</span> <span class="org-function-name">mutex_trylock</span>(<span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">non-blocking, returns with success or failure</span>
+<span class="org-type">int</span> <span class="org-function-name">mutex_unlock</span>(<span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);  <span class="org-comment-delimiter">// </span><span class="org-comment">unlock a mutex</span>
+<span class="org-type">int</span> <span class="org-function-name">mutex_destroy</span>(<span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-ID-e61ddcaa-3ea5-40e1-8b5b-e0767fc7641a" class="outline-2">
+<h2 id="ID-e61ddcaa-3ea5-40e1-8b5b-e0767fc7641a"><a href="#ID-e61ddcaa-3ea5-40e1-8b5b-e0767fc7641a">Spinlock</a></h2>
+<div class="outline-text-2" id="text-Spinlock">
+<p>
+A spinlock is a <a href="synchronization_primitives.html#ID-075b2098-8a0a-4216-b121-05480b8c1280">synchronization primitive</a> used in <a href="multithreading.html#ID-08c89846-0c43-460d-931a-9c824b3980ad">multithreading</a> where a thread
+repeatedly checks a condition until it becomes available ("spinning").
+</p>
+
+<p>
+Spinlocks cause CPU load (unlike <a href="#ID-2fcbf4a7-b7d9-4264-8959-eadf8ce1b5f6">mutexes</a>) and block execution by actively
+spinning. However, they avoid the overhead of context switching, which makes
+them suitable for for brief waits or very short critical sections.
+</p>
+
+<p>
+Code Example
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">volatile</span> <span class="org-type">int</span> <span class="org-type">spinlock_t</span>;
+
+<span class="org-type">void</span> <span class="org-function-name">spin_lock</span>(<span class="org-type">spinlock_t</span> *<span class="org-variable-name">lock</span>) {
+    <span class="org-keyword">while</span> (__sync_lock_test_and_set(lock, 1)) {
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Spin until lock is acquired</span>
+    }
+}
+
+<span class="org-type">void</span> <span class="org-function-name">spin_unlock</span>(<span class="org-type">spinlock_t</span> *<span class="org-variable-name">lock</span>) {
+    __sync_lock_release(lock);
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-ID-ac3b04df-a9df-400a-b9f6-3761d6f2bbc7" class="outline-2">
+<h2 id="ID-ac3b04df-a9df-400a-b9f6-3761d6f2bbc7"><a href="#ID-ac3b04df-a9df-400a-b9f6-3761d6f2bbc7">Semaphore</a></h2>
+<div class="outline-text-2" id="text-Semaphore">
+<p>
+Semaphores are synchronization primitives used to control access to shared
+resources in <a href="concurrency.html#ID-ae158974-7fdb-4d57-a098-3c00200a2320">concurrent programming</a>. They maintain a counter that represents the
+number of available resources.
+</p>
+
+<p>
+Main types:
+</p>
+<ul class="org-ul">
+<li>Binary semaphores: Counter values are 0 or 1 (functioning like <a href="#ID-2fcbf4a7-b7d9-4264-8959-eadf8ce1b5f6">mutexes</a>)</li>
+<li>Counting semaphores: Counter can have arbitrary non-negative values</li>
+</ul>
+
+<p>
+Core operations:
+</p>
+<ul class="org-ul">
+<li><code>wait/P/down</code>: Decrement counter if it's &gt; 0, otherwise blocks until it can</li>
+<li><code>signal/V/up</code>: Increment counter, potentially unblocking waiting processes</li>
+</ul>
+
+<p>
+Basic Semaphore API:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">typedef</span> <span class="org-keyword">struct</span> {
+    <span class="org-type">int</span> <span class="org-variable-name">value</span>;
+    <span class="org-comment-delimiter">/* </span><span class="org-comment">...</span><span class="org-comment-delimiter"> */</span>
+} <span class="org-type">semaphore</span>;
+
+<span class="org-type">void</span> <span class="org-function-name">sem_init</span>(<span class="org-type">semaphore</span> *<span class="org-variable-name">sem</span>, <span class="org-type">int</span> <span class="org-variable-name">value</span>);
+<span class="org-type">void</span> <span class="org-function-name">sem_wait</span>(<span class="org-type">semaphore</span> *<span class="org-variable-name">sem</span>);
+<span class="org-type">int</span>  <span class="org-function-name">sem_trywait</span>(<span class="org-type">semaphore</span> *<span class="org-variable-name">sem</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">non-blocking</span>
+<span class="org-type">void</span> <span class="org-function-name">sem_post</span>(<span class="org-type">semaphore</span> *<span class="org-variable-name">sem</span>);
+<span class="org-type">int</span>  <span class="org-function-name">sem_value</span>(<span class="org-type">semaphore</span> *<span class="org-variable-name">sem</span>, <span class="org-type">int</span> *<span class="org-variable-name">sval</span>);
+<span class="org-type">void</span> <span class="org-function-name">sem_destroy</span>(<span class="org-type">semaphore</span> *<span class="org-variable-name">sem</span>);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-ID-c4cdb8eb-682a-4ac0-ae1e-4821a7b2aa6f" class="outline-2">
+<h2 id="ID-c4cdb8eb-682a-4ac0-ae1e-4821a7b2aa6f"><a href="#ID-c4cdb8eb-682a-4ac0-ae1e-4821a7b2aa6f">Condition Variable</a></h2>
+<div class="outline-text-2" id="text-Condition%20Variable">
+<p>
+Condition variables are <a href="synchronization_primitives.html#ID-075b2098-8a0a-4216-b121-05480b8c1280">synchronization primitives</a> used in <a href="multithreading.html#ID-08c89846-0c43-460d-931a-9c824b3980ad">multithreading</a> that
+allow threads to wait until a condition is met. During this time, threads are
+suspended (sleeping), which avoids busy waiting (spinning).
+</p>
+
+<p>
+They are typically used alongside <a href="#ID-2fcbf4a7-b7d9-4264-8959-eadf8ce1b5f6">mutexes</a> to solve the <a href="producer_consumer_problem.html#ID-96b9e335-38fe-479b-9b74-2ee5af05eee4">producer-consumer problem</a>
+and similar synchronization scenarios.
+</p>
+
+<p>
+Usage:
+</p>
+<ul class="org-ul">
+<li>Thread atomically releases a mutex and enters wait state</li>
+<li>Waiting thread awakens by signal (one thread) or broadcast (all threads)</li>
+<li>Upon waking, thread reacquires mutex before proceeding</li>
+</ul>
+
+<p>
+Basic Condition Variable API
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-type">int</span> <span class="org-function-name">cond_init</span>(<span class="org-type">cond_t</span> **<span class="org-variable-name">cond</span>);
+<span class="org-type">int</span> <span class="org-function-name">cond_wait</span>(<span class="org-type">cond_t</span> *<span class="org-variable-name">cond</span>, <span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>);
+<span class="org-type">int</span> <span class="org-function-name">cond_timedwait</span>(<span class="org-type">cond_t</span> *<span class="org-variable-name">cond</span>, <span class="org-type">mutex_t</span> *<span class="org-variable-name">mutex</span>, <span class="org-type">uint64_t</span> <span class="org-variable-name">timeout_ms</span>);
+<span class="org-type">int</span> <span class="org-function-name">cond_signal</span>(<span class="org-type">cond_t</span> *<span class="org-variable-name">cond</span>);    <span class="org-comment-delimiter">// </span><span class="org-comment">awaken single waiting thread</span>
+<span class="org-type">int</span> <span class="org-function-name">cond_broadcast</span>(<span class="org-type">cond_t</span> *<span class="org-variable-name">cond</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">awaken all waiting threads</span>
+<span class="org-type">int</span> <span class="org-function-name">cond_destroy</span>(<span class="org-type">cond_t</span> *<span class="org-variable-name">cond</span>);
+</pre>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>

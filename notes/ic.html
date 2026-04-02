@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -231,14 +231,134 @@ semiconductor chip to perform specific functions in electronic devices.
 <li>Digital Integrated Circuits
 <ul class="org-ul">
 <li>Logic Gates</li>
-<li><a href="mcu.html#ID-5c2577ac-fa3d-4425-96f8-3c343a721228">Microcontrollers</a></li>
+<li><a href="#ID-5c2577ac-fa3d-4425-96f8-3c343a721228">Microcontrollers</a></li>
 <li>Microprocessors (CPUs)</li>
 <li>Memory Chips (RAM and ROM)</li>
 </ul></li>
-<li><a href="asic.html#ID-f00432d4-3a9e-46b7-a148-35efe8727489">ASICs</a></li>
-<li><a href="fpga.html#ID-88fe9178-9fef-4540-be9c-fb7750068317">FPGAs</a></li>
+<li><a href="#ID-f00432d4-3a9e-46b7-a148-35efe8727489">ASICs</a></li>
+<li><a href="#ID-88fe9178-9fef-4540-be9c-fb7750068317">FPGAs</a></li>
 <li>Radio-Frequency Integrated Circuits (RFICs)</li>
 </ul>
+</div>
+</div>
+<div id="outline-container-ID-5c2577ac-fa3d-4425-96f8-3c343a721228" class="outline-2">
+<h2 id="ID-5c2577ac-fa3d-4425-96f8-3c343a721228"><a href="#ID-5c2577ac-fa3d-4425-96f8-3c343a721228">Microcontroller (MCU)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="embedded">embedded</span></span></a></h2>
+<div class="outline-text-2" id="text-Microcontroller%20%28MCU%29">
+<p>
+An MCU (microcontroller unit) is an integrated circuit (IC) chip that contains a
+<a href="cpu.html#ID-49d8e35e-8a64-4b1c-b14a-07260863d4ba">CPU</a> (or several cores) along with flash memory and RAM, making it a
+system-on-a-chip (SoC). They are used in embedded systems.
+</p>
+
+<p>
+Communications between a microcontroller and attached peripherals or other
+components can occur in the form of direct memory addressing or parallel or
+<a href="serial_communication.html#ID-a4e9db53-f845-4181-a65d-87e3b4ba7c1d">serial communication</a> using protocols such as include I²C, SPI, Ethernet, or USB.
+</p>
+
+<p>
+Parts of an MCU:
+</p>
+<ul class="org-ul">
+<li>Core computing
+<ul class="org-ul">
+<li>CPU</li>
+<li>RAM</li>
+<li>Flash</li>
+</ul></li>
+<li>Bus</li>
+<li>Peripherals</li>
+<li>Pin mux (multiplexer)</li>
+<li>Pin electrical configuration</li>
+<li>Interrupt Controller</li>
+<li>Clocks</li>
+<li>Debug interface</li>
+</ul>
+
+<p>
+Resources:
+</p>
+<ul class="org-ul">
+<li><a href="https://github.com/lmarzen/esp32-weather-epd">ESP32 E-Paper Weather Display</a></li>
+<li><a href="https://kaipereira.com/journal/build-a-devboard">How a devboard works (and how to make your own)</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-ID-f00432d4-3a9e-46b7-a148-35efe8727489" class="outline-2">
+<h2 id="ID-f00432d4-3a9e-46b7-a148-35efe8727489"><a href="#ID-f00432d4-3a9e-46b7-a148-35efe8727489">ASIC</a></h2>
+<div class="outline-text-2" id="text-ASIC">
+<p>
+An Application-Specific Integrated Circuit (ASIC), is a type of integrated
+circuit designed for a specific application or purpose, rather than for
+general-purpose use. Unlike CPUs or GPUs, ASICs are optimized for particular
+functions.
+</p>
+
+<p>
+An ASIC can be thought of as a fixed-function version of an <a href="#ID-88fe9178-9fef-4540-be9c-fb7750068317">FPGA</a>.
+</p>
+</div>
+</div>
+<div id="outline-container-ID-88fe9178-9fef-4540-be9c-fb7750068317" class="outline-2">
+<h2 id="ID-88fe9178-9fef-4540-be9c-fb7750068317"><a href="#ID-88fe9178-9fef-4540-be9c-fb7750068317">FPGA</a></h2>
+<div class="outline-text-2" id="text-FPGA">
+<p>
+An <b>FPGA (Field-Programmable Gate Array)</b> is a type of IC that can be
+reprogrammed after manufacturing. FPGAs consist of an array of programmable
+logic blocks and interconnects, enabling parallel processing of multiple tasks.
+</p>
+
+<p>
+Modern FPGAs can include embedded processors, memory blocks, and high-speed
+transceivers. They are often used for prototyping before committing to <a href="#ID-f00432d4-3a9e-46b7-a148-35efe8727489">ASIC</a>
+fabrication.
+</p>
+</div>
+<div id="outline-container-Types%20of%20Gates%20and%20Components" class="outline-3">
+<h3 id="Types%20of%20Gates%20and%20Components"><a href="#Types%20of%20Gates%20and%20Components">Types of Gates and Components</a></h3>
+<div class="outline-text-3" id="text-Types%20of%20Gates%20and%20Components">
+<p>
+The gates of an FPGA are the basic building blocks. They are built using logic
+gates. The main types of gates are:
+</p>
+
+<ul class="org-ul">
+<li><i>Look-Up Tables (LUTs)</i>: Implement any combinational logic function by storing
+the truth table of the function. A typical LUT can have 4 to 6 inputs,
+allowing it to represent a wide range of logic functions.</li>
+
+<li><i>Flip-Flops</i>: Store state information and implement sequential logic. Flip-flops
+can be configured to create registers, counters, and state machines.</li>
+</ul>
+
+<p>
+The main components found in an FPGA include:
+</p>
+
+<ul class="org-ul">
+<li><i>Multiplexers (MUXes)</i>: Select one of several input signals and forward the
+selected input to a single output line. Used for routing and data selection.</li>
+
+<li><i>Digital Signal Processing (DSP) Blocks</i>: Dedicated DSP blocks optimized for
+performing arithmetic operations, such as multiplication and addition.</li>
+
+<li><i>Block RAM (BRAM)</i>: Used for data storage, allowing for efficient memory access</li>
+
+<li><i>I/O Blocks</i>: Interface with external devices</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-Applications" class="outline-3">
+<h3 id="Applications"><a href="#Applications">Applications</a></h3>
+<div class="outline-text-3" id="text-Applications">
+<ul class="org-ul">
+<li><a href="digital_signal_processing.html#ID-b65a1617-b9a0-4bae-b035-5fb4b2da435c">Digital Signal Processing (DSP)</a></li>
+<li>Embedded Systems</li>
+<li>Prototyping and Development</li>
+<li>Networking Devices</li>
+<li><a href="machine_learning.html#ID-1842c07d-7dc6-437a-833f-0d2779acaca2">Machine Learning</a></li>
+</ul>
+</div>
 </div>
 </div>
 </main>

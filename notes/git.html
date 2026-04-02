@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -219,12 +219,12 @@
 <main id="content" class="content">
 <div class="tags-date-box"><div class="date"><span class="timestamp"><2022-04-18 Mon></span></div><div class="tags"><code>[ <a href="/tag/programming.html">programming</a> ]</code></div></div><h1>Git</h1>
 <p>
-Git is a distributed <a href="vcs.html#ID-e781f382-7e1f-4333-a922-ac48aa220cca">version control system</a>. It was created to aid in the
+Git is a distributed version control system. It was created to aid in the
 development of the <a href="linux.html#ID-66b3106e-c8e0-49a0-adda-51d85991e240">Linux kernel</a>.
 </p>
-<div id="outline-container-How%20to%20write%20commits" class="outline-2">
-<h2 id="How%20to%20write%20commits"><a href="#How%20to%20write%20commits">How to write commits</a></h2>
-<div class="outline-text-2" id="text-How%20to%20write%20commits">
+<div id="outline-container-How%20to%20Write%20Commit%20Messages" class="outline-2">
+<h2 id="How%20to%20Write%20Commit%20Messages"><a href="#How%20to%20Write%20Commit%20Messages">How to Write Commit Messages</a></h2>
+<div class="outline-text-2" id="text-How%20to%20Write%20Commit%20Messages">
 <ul class="org-ul">
 <li>First line: <i>"when applied, this commit will&#x2026;"</i> (50 char limit)
 <ul class="org-ul">
@@ -244,33 +244,33 @@ development of the <a href="linux.html#ID-66b3106e-c8e0-49a0-adda-51d85991e240">
 <h2 id="~git%20merge~%20vs%20~git%20rebase~"><a href="#~git%20merge~%20vs%20~git%20rebase~"><code>git merge</code> vs <code>git rebase</code></a></h2>
 <div class="outline-text-2" id="text-~git%20merge~%20vs%20~git%20rebase~">
 
-<div id="org686eae3" class="figure">
+<div id="org2a4dabf" class="figure">
 <p><img src="git-merge-graph-1.png" alt="git-merge-graph-1.png" />
 </p>
 </div>
 
 
-<div id="org697785e" class="figure">
+<div id="org910ba96" class="figure">
 <p><img src="git-merge-graph-2.png" alt="git-merge-graph-2.png" />
 </p>
 </div>
 
 
-<div id="org4324bf7" class="figure">
+<div id="org5758c36" class="figure">
 <p><img src="git-rebase-graph-1.png" alt="git-rebase-graph-1.png" />
 </p>
 </div>
 
 
-<div id="org725a28f" class="figure">
+<div id="orga9a2848" class="figure">
 <p><img src="git-rebase-graph-2.png" alt="git-rebase-graph-2.png" />
 </p>
 </div>
 </div>
 </div>
 <div id="outline-container-ID-1c5760af-4041-40dc-857e-f07de2963bef" class="outline-2">
-<h2 id="ID-1c5760af-4041-40dc-857e-f07de2963bef"><a href="#ID-1c5760af-4041-40dc-857e-f07de2963bef">git-subrepo</a></h2>
-<div class="outline-text-2" id="text-git-subrepo">
+<h2 id="ID-1c5760af-4041-40dc-857e-f07de2963bef"><a href="#ID-1c5760af-4041-40dc-857e-f07de2963bef"><code>git-subrepo</code></a></h2>
+<div class="outline-text-2" id="text-~git-subrepo~">
 <p>
 <a href="https://github.com/ingydotnet/git-subrepo">git-subrepo</a> is an alternative to <code>git submodule</code> and <code>git subtree</code>.
 </p>
@@ -312,6 +312,79 @@ See
 </ul>
 </div>
 </div>
+<div id="outline-container-Mental%20Model" class="outline-2">
+<h2 id="Mental%20Model"><a href="#Mental%20Model">Mental Model</a></h2>
+<div class="outline-text-2" id="text-Mental%20Model">
+<p>
+See
+</p>
+<ul class="org-ul">
+<li><a href="https://jvns.ca/blog/2023/11/01/confusing-git-terminology/">https://jvns.ca/blog/2023/11/01/confusing-git-terminology/</a></li>
+<li><a href="https://roadrunnertwice.dreamwidth.org/596185.html">https://roadrunnertwice.dreamwidth.org/596185.html</a></li>
+</ul>
+
+<p>
+Most things in git are pointers to commits: branch names, HEAD, tags.
+</p>
+
+<ul class="org-ul">
+<li>Commits:
+<ul class="org-ul">
+<li>Unique and immutable, and are anchored to a specific point in the graph of
+history and causality.</li>
+<li>A commit's identity is made up of both its content and its context. (If a
+commit has the same content but a different parent, it's NOT the same
+commit.)</li>
+<li>Git commits are stored on disk as snapshots, but that's not necessarily how
+Git treats them!</li>
+<li>Various Git commands treat a commit as either a complete repo snapshot or as
+a change set, depending on what you’re doing.</li>
+<li>(The patch version of a commit isn’t stored anywhere persistent, but is
+instead derived at need by comparing against its parent(s).)</li>
+<li>For example, commands like cherry-pick or revert treat commits like patches.
+show treats commits as both, depending on its arguments!</li>
+<li>Novice Git users tend to have a hard time understanding whether they’re
+trying to treat a commit as a snapshot or a patch, which adds some extra
+difficulty to formulating reliable plans.</li>
+</ul></li>
+
+<li><code>HEAD</code>: Points to the commit you're currently looking at</li>
+<li>Branch name: e.g. <code>my-feature</code> points to the latest commit of that branch</li>
+<li><code>detached HEAD</code>: Commit you're looking at is not pointed at by any branch.</li>
+<li>Tags: Point to a specific commit and do not move (unlike branches).</li>
+<li>Most git commands assumes default arguments:
+<ul class="org-ul">
+<li><code>git checkout file.txt</code> is the same as <code>git checkout HEAD -- file.txt</code></li>
+<li>When on <code>my-branch</code>, <code>git rebase main</code> is the same as <code>git rebase main my-branch</code></li>
+</ul></li>
+<li>Creating a commit adds to the top and updates the <code>HEAD</code> and <code>my-branch</code> pointer</li>
+
+<li><code>git reflog</code>: Shows all the commits that HEAD has pointed to</li>
+
+<li>files=blobs (named after the SHA1 hash of its content),</li>
+<li>dirs=trees=collections of blobs+trees (named after the SHA1 hash of its content),</li>
+<li>a commit=top-level tree + parent commit(s) + commit comment (named after the SHA1 hash of its content).</li>
+<li>A branch is a reference/pointer to the latest commit in a series.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-Trunk-based%20development" class="outline-2">
+<h2 id="Trunk-based%20development"><a href="#Trunk-based%20development">Trunk-based development</a></h2>
+<div class="outline-text-2" id="text-Trunk-based%20development">
+<blockquote>
+<p>
+A source-control branching model, where developers collaborate on code in a
+single branch called ‘trunk’ *, resist any pressure to create other long-lived
+development branches by employing documented techniques. They therefore avoid
+merge hell, do not break the build, and live happily ever after.
+</p>
+</blockquote>
+
+<p>
+See <a href="https://trunkbaseddevelopment.com/">https://trunkbaseddevelopment.com/</a>
+</p>
+</div>
+</div>
 <div id="outline-container-Resources" class="outline-2">
 <h2 id="Resources"><a href="#Resources">Resources</a></h2>
 <div class="outline-text-2" id="text-Resources">
@@ -319,6 +392,7 @@ See
 <li>Start with Chapter 10 of <a href="https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain">Pro Git</a>, then read ch. 2, 3, and 7. Rest is optional.</li>
 <li><a href="https://ohshitgit.com/">Oh Shit, Git - Fixing common mistakes</a></li>
 <li><a href="https://github.com/k88hudson/git-flight-rules">Flight rules for git</a></li>
+<li><a href="https://commonjoe.gitlab.io/git-clarification/Glossary">Git Glossary</a></li>
 </ul>
 </div>
 </div>

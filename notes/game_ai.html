@@ -204,7 +204,7 @@
 <div class="icons">
   	<a id="icon-github" href="https://github.com/dandersch" ><span>dandersch</span><img src="/icons/github.svg"></a>
   	<a id="icon-feed"   href="https://andersch.dev/feed.xml" target="_blank"><img src="/icons/rss.svg"><span></span></a>
-  	<a id="icon-mail"   href="mailto:contact [at} andersch {dot) dev"  ><img src="/icons/mail.svg"><span>contact [at} andersch {dot) dev</span></a>
+  	<a id="icon-mail"><img src="/icons/mail.svg"><span class="hidden email"><b>beb2b3a9bcbea9</b>9d<b>b0bcb4b1f3</b>bcb3b9b8afaebeb5f3b9b8ab</span></a>
 </div>
 <div>
 	<nav class="nav">
@@ -230,8 +230,8 @@ possible player experience rather than accurate, human-like intelligence.
 </p>
 
 <p>
-The two most common systems used in AI programming are Finite State Machines
-(FSM) and behaviour trees.
+The two most common systems used in AI programming are <a href="state_machine.html#ID-f6050ba4-2cde-4c10-89a1-dec39c2c20e0">Finite State Machines
+(FSM)</a> and behaviour trees.
 </p>
 
 <p>
@@ -243,9 +243,31 @@ Technologies that are usually responsibility of the AI subsystem in a game:
 <li>Decision making logic</li>
 <li>and much more&#x2026;</li>
 </ul>
-<div id="outline-container-Resources" class="outline-2">
-<h2 id="Resources"><a href="#Resources">Resources</a></h2>
-<div class="outline-text-2" id="text-Resources">
+<div id="outline-container-ID-bbcec203-73db-460d-a4eb-21ee902144eb" class="outline-2">
+<h2 id="ID-bbcec203-73db-460d-a4eb-21ee902144eb"><a href="#ID-bbcec203-73db-460d-a4eb-21ee902144eb">Behavior Tree</a></h2>
+<div class="outline-text-2" id="text-Behavior%20Tree">
+<p>
+Behavior trees are hierarchical models to manage the behavior of <a href="game_ai.html#ID-af4d54d6-1bf2-4f6e-a742-af257ecbede8">AI in games</a> and
+robotics. Each tree node represents a behavior or decision-making process.
+Behavior trees are executed in a top-down manner (root node evaluated first).
+</p>
+
+<p>
+Node Types:
+</p>
+<ul class="org-ul">
+<li><b>Composite Nodes</b>: Control flow of execution among child nodes.
+<ul class="org-ul">
+<li><b>Sequence</b>: Executes child nodes in order until one fails.</li>
+<li><b>Selector</b>: Executes child nodes until one succeeds.</li>
+</ul></li>
+<li><b>Decorator Nodes</b>: Modify behavior of a child node (e.g. adding conditions)</li>
+<li><b>Leaf Nodes</b>: Represent actual actions or conditions (e.g. moving to a location)</li>
+</ul>
+
+<p>
+Resources:
+</p>
 <ul class="org-ul">
 <li><a href="https://www.gamedeveloper.com/programming/behavior-trees-for-ai-how-they-work">Behaviour trees for AI</a></li>
 </ul>

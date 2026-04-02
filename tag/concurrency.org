@@ -1,13 +1,8 @@
 #+TITLE: Pages tagged concurrency
 * Notes tagged ~concurrency~
 - [[../notes/synchronization_primitives.org][Synchronization Primitives]]
-- [[../notes/spinlock.org][Spinlock]]
-- [[../notes/semaphore.org][Semaphore]]
-- [[../notes/race_condition.org][Race Condition]]
 - [[../notes/producer_consumer_problem.org][Producer-Consumer Problem]]
-- [[../notes/mutex.org][Mutex]]
 - [[../notes/deadlock.org][Deadlock]]
-- [[../notes/condition_variable.org][Condition Variable]]
 - [[../notes/simt.org][SIMT (Single Instruction, Multiple Threads)]]
 - [[../notes/concurrency.org][Concurrency]]
 - [[../notes/multithreading.org][Multithreading]]
